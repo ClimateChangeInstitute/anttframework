@@ -1,7 +1,7 @@
 
 # Welcome To The Antarctic Tephra (AntT) Project!
 
-AntT is an *NSF* funded project:
+AntT is an **NSF** funded project:
 	[ANT-1142007](http://nsf.gov/awardsearch/showAward.do?AwardNumber=1142007)
 
 ## Collaborative Research
