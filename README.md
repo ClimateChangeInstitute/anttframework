@@ -11,6 +11,14 @@ interdisciplinary paleoclimate research.  This repository contains the
 source code for the framework.  The tephra data is hosted at the
 following URL: <http://www.tephrochronology.org/AntT/index.html>.
 
+## Setup
+
+Developers may find detailed instructions to build the project in the
+[README.md](https://github.com/ClimateChangeInstitute/anttframework/blob/master/AntT/README.md)
+file located in the
+[AntT](https://github.com/ClimateChangeInstitute/anttframework/tree/master/AntT)
+directory.
+
 ## Participating Institutions
 
 * [Climate Change Institute](http://climatechange.umaine.edu/)
@@ -46,7 +54,9 @@ following URL: <http://www.tephrochronology.org/AntT/index.html>.
 [Undergraduate student Willie Stevenson, Fall 2016](https://williestevenson.me/)
 
 
-<!--  LocalWords:  AntT Nelia Gerbi Nels Iverson
+<!--  LocalWords:  AntT Nelia Gerbi Nels Iverson md Dunbar Natasha
  -->
 <!--  LocalWords:  Kalteyer Koehler Segerson McWalters Wheatley
+ -->
+<!--  LocalWords:  McIntosh
  -->
