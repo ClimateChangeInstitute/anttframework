@@ -3,9 +3,10 @@
 
 This directory contains the main AntT project web resources.  Building
 this project results in the generation of a war file that can be
-served by Apache Tomcat 8.
+served by Apache Tomcat >=8.
 
-Static pages are served in the `WebContent` directory.
+Static pages are served in the `WebContent` directory.  Examples of
+such content are images, JavaScript, and CSS.
 
 ## Requirements
 
