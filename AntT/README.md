@@ -18,7 +18,7 @@ project. Maven version >=3.3.9 is required to build the project.
 
 ## Building
 
-The project can be built by running maven from this directory. Typing
+The project can be built by running maven from this (AntT) directory. Typing
 
 ```bash
 mvn clean verify
