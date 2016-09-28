@@ -1,8 +1,0 @@
-#Data set complied for AntT data base in June 2013,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-#Bulk Snow Nunataks,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-Units,,,,,Wt%,Wt%,Wt%,Wt%,Wt%,Wt%,Wt%,Wt%,Wt%,Wt%,Wt%,Wt%,Wt%,Wt%,,ppm,ppm,ppm,ppm,ppm,ppm,ppm,ppm,ppm,ppm,ppm,ppm,ppm,ppm,ppm,ppm,ppm
-Sample ID,index,type,Location,Analyses Type,SiO2,TiO2,Al2O3,Fe2O3,FeO,MnO,MgO,CaO,Na2O,K2O,P2O5,H2O+,H2O-,Total,Element,Ba,Ce,Cr,Eu,La,Nb,Nd,Ni,Rb,Sr,Ta,Th,Ti,V,Y,Yb,Zr
-DL.21A,1,Basalt dike,Mount Benkert,XRF,44,2.3,15.7,3.9,6.12,0.15,4.92,10.2,3.66,1.13,0.53,3.45,3.53,99.59,Tephra ppm,170,39,92,2,24,-99,26,36,-99,640,-99,-99,-99,210,20,2,-99
-L.105D,2,Basalt lava flow,Mount Benkert,XRF,46.3,1.84,15.6,2.75,8.05,0.16,7.77,9.36,3.46,0.9,0.4,1.79,1.23,99.61,Tephra ppm,120,27,210,-99,18,22,22,160,10,475,-99,-99,-99,180,20,2,152
-ON.3B,3,Hawaiite lava flow,Mount Thornton,XRF,48.2,2.36,16.3,3.1,7.02,0.15,5.58,10.2,3.67,1.44,0.49,0.74,0.66,99.91,Tephra ppm,120,32,140,2,21,24,26,44,-99,590,-99,-99,-99,220,20,3,188
-ON.2C,4,Hawaiite pillow lava flow,Mount McCann,XRF,48.7,2.09,16.1,2.73,7.71,0.16,6.72,9.63,3.73,1.38,0.47,0.6,0.3,100.32,Tephra ppm,170,32,190,2,21,28,24,110,14,590,-99,-99,-99,200,22,2,180
