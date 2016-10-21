@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<team>
+	<member>
+		<name>Member 1</name>
+		<email>member1@maine.edu</email>
+		<other>Some other text</other>
+		<image>
+		  <url>http://site/team/images/member1.png</url>
+		  <title>member1</title>
+		  <alt>Member1</alt>
+		  <link>http://site/team/images/member1.png</link>
+		</image>
+	</member>
+	<member>
+		<name>Member 2</name>
+		<email>member2@maine.edu</email>
+		<other>Some other text</other>
+		<image>
+		  <url>http://site/team/images/member2.png</url>
+		  <title>member2</title>
+		  <alt>Member2</alt>
+		  <link>http://site/team/images/member2.png</link>
+		</image>
+	</member>
+</team>

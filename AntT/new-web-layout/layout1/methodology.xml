@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<methodology>
+	<paper>
+		<title>Paper 1</title>
+		<description>Description of paper 1</description>
+		<doc>
+		  <url>http://site/methodology/papers/paper1.pdf</url>
+		  <title>Paper 1</title>
+		  <alt>Paper 2</alt>
+		  <link>http://site/methodology/papers/paper1.pdf</link>
+		</doc>
+	</paper>
+	<paper>
+		<title>Paper 2</title>
+		<description>Description of paper 2</description>
+		<doc>
+		  <url>http://site/methodology/papers/paper2.pdf</url>
+		  <title>Paper 2</title>
+		  <alt>Paper 2</alt>
+		  <link>http://site/methodology/papers/paper2.pdf</link>
+		</doc>
+	</paper>
+</methodology>
