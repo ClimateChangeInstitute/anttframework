@@ -1,7 +1,9 @@
 -- This file contains the necessary SQL to create the database schema.
 -- Use the SQL 2011 standard but conform to the PostgeSQL standard if different.
 -- PostgreSQL 9.4 https://www.postgresql.org/docs/9.4/static/features.html
- 
+--
+-- This file should be passed an administrator user as
+-- psql -f setup-schema.sql -v ADMIN=YOURADMIN 
 
 BEGIN;
 
@@ -83,6 +85,14 @@ CREATE TABLE volcanoes(
 -------------------------- Start Priveleges section --------------------------
 ------------------------------------------------------------------------------
 ------------------------------------------------------------------------------
+
+GRANT ALL PRIVILEGES ON countries TO :ADMIN;
+GRANT ALL PRIVILEGES ON subregions TO :ADMIN;
+GRANT ALL PRIVILEGES ON regions TO :ADMIN;
+GRANT ALL PRIVILEGES ON volcano_types TO :ADMIN;
+GRANT ALL PRIVILEGES ON rock_types TO :ADMIN;
+GRANT ALL PRIVILEGES ON tectonic_settings TO :ADMIN;
+GRANT ALL PRIVILEGES ON volcanoes TO :ADMIN;
 
 
 ------------------------------------------------------------------------------

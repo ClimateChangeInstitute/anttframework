@@ -50,8 +50,8 @@ def main() :
         check_call(["psql", "-c", "CREATE USER %s WITH CREATEDB password '%s'" % (ADMIN, ADMIN_PASS)])
 
         if progOption == CREATE:
-            check_call(["psql", DATABASE, "-f", SQL_SCHEMA])    
-            check_call(["psql", DATABASE, "-f", SQL_DATA])  # Default user and data
+            check_call(["psql", DATABASE, "-f", SQL_SCHEMA, "-v", "ADMIN=%s" % (ADMIN)])
+            check_call(["psql", DATABASE, "-f", SQL_DATA])  # Default users and data
         else :
             check_call(["psql", DATABASE, "-f", SQL_BACKUP_FILE])
             
