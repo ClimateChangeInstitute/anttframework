@@ -534,4 +534,53 @@ INSERT INTO tectonic_settings (tectonic_setting) VALUES ('Tensional Oceanic');
 INSERT INTO tectonic_settings (tectonic_setting) VALUES ('Unknown');
 
 
+--
+-- Data for volcano_types
+--
+
+INSERT INTO volcano_types (volcano_type) VALUES ('Caldera');
+INSERT INTO volcano_types (volcano_type) VALUES ('Caldera(s)');
+INSERT INTO volcano_types (volcano_type) VALUES ('Cinder cone');
+INSERT INTO volcano_types (volcano_type) VALUES ('Cinder cone(s)');
+INSERT INTO volcano_types (volcano_type) VALUES ('Complex');
+INSERT INTO volcano_types (volcano_type) VALUES ('Complex(es)');
+INSERT INTO volcano_types (volcano_type) VALUES ('Compound');
+INSERT INTO volcano_types (volcano_type) VALUES ('Cone');
+INSERT INTO volcano_types (volcano_type) VALUES ('Cone(s)');
+INSERT INTO volcano_types (volcano_type) VALUES ('Crater rows');
+INSERT INTO volcano_types (volcano_type) VALUES ('Explosion crater(s)');
+INSERT INTO volcano_types (volcano_type) VALUES ('Fissure vent');
+INSERT INTO volcano_types (volcano_type) VALUES ('Fissure vent(s)');
+INSERT INTO volcano_types (volcano_type) VALUES ('Hydrothermal field');
+INSERT INTO volcano_types (volcano_type) VALUES ('Hydrothermal field(fumarolic)');
+INSERT INTO volcano_types (volcano_type) VALUES ('Lava cone');
+INSERT INTO volcano_types (volcano_type) VALUES ('Lava cone(s)');
+INSERT INTO volcano_types (volcano_type) VALUES ('Lava dome');
+INSERT INTO volcano_types (volcano_type) VALUES ('Lava dome(s)');
+INSERT INTO volcano_types (volcano_type) VALUES ('Maar');
+INSERT INTO volcano_types (volcano_type) VALUES ('Maar(s)');
+INSERT INTO volcano_types (volcano_type) VALUES ('Pumice cone');
+INSERT INTO volcano_types (volcano_type) VALUES ('Pumice cone(s)');
+INSERT INTO volcano_types (volcano_type) VALUES ('Pyroclastic cone');
+INSERT INTO volcano_types (volcano_type) VALUES ('Pyroclastic cone(s)');
+INSERT INTO volcano_types (volcano_type) VALUES ('Pyroclastic shield');
+INSERT INTO volcano_types (volcano_type) VALUES ('Scoria cone(s)');
+INSERT INTO volcano_types (volcano_type) VALUES ('Shield');
+INSERT INTO volcano_types (volcano_type) VALUES ('Shield(s)');
+INSERT INTO volcano_types (volcano_type) VALUES ('Somma');
+INSERT INTO volcano_types (volcano_type) VALUES ('Somma(es)');
+INSERT INTO volcano_types (volcano_type) VALUES ('Stratovolcano');
+INSERT INTO volcano_types (volcano_type) VALUES ('Stratovolcano?');
+INSERT INTO volcano_types (volcano_type) VALUES ('Stratovolcano(es)');
+INSERT INTO volcano_types (volcano_type) VALUES ('Subglacial');
+INSERT INTO volcano_types (volcano_type) VALUES ('Submarine');
+INSERT INTO volcano_types (volcano_type) VALUES ('Submarine?');
+INSERT INTO volcano_types (volcano_type) VALUES ('Submarine(es)');
+INSERT INTO volcano_types (volcano_type) VALUES ('Tuff cone');
+INSERT INTO volcano_types (volcano_type) VALUES ('Tuff cone(s)');
+INSERT INTO volcano_types (volcano_type) VALUES ('Tuff ring(s)');
+INSERT INTO volcano_types (volcano_type) VALUES ('Unknown');
+INSERT INTO volcano_types (volcano_type) VALUES ('Volcanic field');
+
+
 COMMIT;
