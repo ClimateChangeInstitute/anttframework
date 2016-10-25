@@ -502,7 +502,7 @@ INSERT INTO regions (region, subregion, country) VALUES ('West Indies', 'West In
 INSERT INTO regions (region, subregion, country) VALUES ('West Indies', 'West Indies', 'United Kingdom');
 
 --
--- Data for Name: rock_types; Type: TABLE DATA; Schema: public; Owner: mroyer
+-- Data for rock_types
 --
 
 INSERT INTO rock_types (rock_type) VALUES ('Andesite / Basaltic Andesite');
@@ -516,6 +516,22 @@ INSERT INTO rock_types (rock_type) VALUES ('Rhyolite');
 INSERT INTO rock_types (rock_type) VALUES ('Trachyandesite / Basaltic trachy-andesite');
 INSERT INTO rock_types (rock_type) VALUES ('Trachybasalt / Tephrite Basanite');
 INSERT INTO rock_types (rock_type) VALUES ('Trachyte / Trachyandesite');
+
+--
+-- Data for tectonic_settings
+--
+
+INSERT INTO tectonic_settings (tectonic_setting) VALUES ('Compressional (?)');
+INSERT INTO tectonic_settings (tectonic_setting) VALUES ('Compressional Continental');
+INSERT INTO tectonic_settings (tectonic_setting) VALUES ('Compressional Intermediate');
+INSERT INTO tectonic_settings (tectonic_setting) VALUES ('Compressional Oceanic');
+INSERT INTO tectonic_settings (tectonic_setting) VALUES ('Intermediate Continental');
+INSERT INTO tectonic_settings (tectonic_setting) VALUES ('Intermediate Intermediate');
+INSERT INTO tectonic_settings (tectonic_setting) VALUES ('Intermediate Oceanic');
+INSERT INTO tectonic_settings (tectonic_setting) VALUES ('Tensional Continental');
+INSERT INTO tectonic_settings (tectonic_setting) VALUES ('Tensional Intermediate');
+INSERT INTO tectonic_settings (tectonic_setting) VALUES ('Tensional Oceanic');
+INSERT INTO tectonic_settings (tectonic_setting) VALUES ('Unknown');
 
 
 COMMIT;
