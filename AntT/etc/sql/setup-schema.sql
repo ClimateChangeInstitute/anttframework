@@ -48,7 +48,7 @@ CREATE TABLE volcanoes(
 	longitude REAL NOT NULL CONSTRAINT valid_longitude_range CHECK (-180 <= longitude AND longitude <= 180),
 	elevation_m REAL NOT NULL,
 	dominant_rock_type TEXT REFERENCES rock_types(rock_type),
-	tectonic_setting TEXT REFERENCES tectonic_settings(tectonic_setting) NOT NULL,
+	tectonic_setting TEXT REFERENCES tectonic_settings(tectonic_setting),
 	FOREIGN KEY (subregion, country) REFERENCES subregions(subregion, country),
 	FOREIGN KEY (region, subregion, country) REFERENCES regions(region, subregion, country));
 	
