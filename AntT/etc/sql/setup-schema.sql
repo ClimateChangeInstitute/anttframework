@@ -12,45 +12,45 @@ BEGIN;
 ------------------------------------------------------------------------------
 
 CREATE TABLE countries(
-	id SERIAL PRIMARY KEY,
-	country TEXT);
+	country TEXT PRIMARY KEY);
+
+CREATE TABLE subregions(
+	subregion TEXT NOT NULL,
+	country TEXT REFERENCES countries(country),
+	PRIMARY KEY(subregion, country));
 	
 CREATE TABLE regions(
-	id SERIAL PRIMARY KEY,
-	region TEXT,
-	country_id INTEGER REFERENCES countries(id));
-
-CREATE TABLE sub_regions(
-	id SERIAL PRIMARY KEY,
+	region TEXT NOT NULL,
 	subregion TEXT,
-	region_id INTEGER REFERENCES regions(id));
+	country TEXT,
+	FOREIGN KEY (subregion, country) REFERENCES subregions(subregion, country),
+	PRIMARY KEY(region, subregion, country));
 	
 CREATE TABLE volcano_types(
-	id SERIAL PRIMARY KEY,
-	vtype TEXT);
+	volcano_type TEXT PRIMARY KEY);
 	
 CREATE TABLE rock_types(
-	id SERIAL PRIMARY KEY,
-	rtype TEXT);
+	rock_type TEXT PRIMARY KEY);
 
 CREATE TABLE tectonic_settings(
-	id SERIAL PRIMARY KEY,
-	setting TEXT);
+	tectonic_setting TEXT PRIMARY KEY);
 
 CREATE TABLE volcanoes(
-	volcano_number INT PRIMARY KEY,
+	volcano_number INTEGER PRIMARY KEY,
 	old_volcano_number TEXT,
-	volcano_name TEXT,
-	country_id INTEGER REFERENCES countries(id),
-	primary_volcano_type_id INTEGER REFERENCES volcano_types(id),
+	volcano_name TEXT NOT NULL,
+	country TEXT REFERENCES countries(country) NOT NULL,
+	primary_volcano_type TEXT REFERENCES volcano_types(volcano_type) NOT NULL,
 	last_known_eruption TEXT,
-	region_id INTEGER REFERENCES regions(id),
-	subregion_id INTEGER REFERENCES sub_regions(id),
-	latitude REAL CONSTRAINT valid_latitude_range CHECK (-90 <= latitude AND latitude <= 90),
-	longitude REAL CONSTRAINT valid_longitude_range CHECK (-180 <= longitude AND longitude <= 180),
-	elevation_m REAL,
-	dominant_rock_type_id INTEGER REFERENCES rock_types(id),
-	tectonic_setting_id INTEGER REFERENCES tectonic_settings(id));
+	region TEXT NOT NULL,
+	subregion TEXT NOT NULL,
+	latitude REAL NOT NULL CONSTRAINT valid_latitude_range CHECK (-90 <= latitude AND latitude <= 90),
+	longitude REAL NOT NULL CONSTRAINT valid_longitude_range CHECK (-180 <= longitude AND longitude <= 180),
+	elevation_m REAL NOT NULL,
+	dominant_rock_type TEXT REFERENCES rock_types(rock_type) NOT NULL,
+	tectonic_setting TEXT REFERENCES tectonic_settings(tectonic_setting) NOT NULL,
+	FOREIGN KEY (subregion, country) REFERENCES regions(subregion, country),
+	FOREIGN KEY (region, subregion, country) REFERENCES regions(region, subregion, country));
 	
 
 
@@ -68,27 +68,6 @@ CREATE TABLE volcanoes(
 ------------------------------------------------------------------------------
 ------------------------------------------------------------------------------
 
-CREATE VIEW v_www AS
-	SELECT volcano_number,
-		   old_volcano_number,
-		   volcano_name,
-		   country,
-		   vtype AS primary_volcano_type,
-		   last_known_eruption,
-		   region,
-		   subregion,
-		   latitude,
-		   longitude,
-		   elevation_m,
-		   rtype AS dominant_rock_type,
-		   setting AS tectonic_setting
-	FROM volcanoes, countries, regions, sub_regions, volcano_types, rock_types, tectonic_settings
-	WHERE volcanoes.country_id = countries.id AND
-		  volcanoes.primary_volcano_type_id = volcano_types.id AND
-		  volcanoes.region_id = regions.id AND
-		  volcanoes.subregion_id = sub_regions.id AND
-		  volcanoes.dominant_rock_type_id = rock_types.id AND
-		  volcanoes.tectonic_setting_id = tectonic_settings.id;
 		  
 		  
 ------------------------------------------------------------------------------
