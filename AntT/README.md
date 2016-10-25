@@ -16,9 +16,15 @@ installed.  A JDK of >=8 is required.
 The project uses Maven to manage dependencies and build the
 project. Maven version >=3.3.9 is required to build the project.
 
+The project requires that a PostgreSQL is installed.  PostgreSQL
+version >= 9.4 is required by the project.
+
 ## Building
 
-The project can be built by running maven from this (AntT) directory. Typing
+First, ensure that the database has been installed.  The `README.md`
+file in the `./etc/sql` directory describes the process.
+
+The project can be built by running Maven from this (AntT) directory. Typing
 
 ```bash
 mvn clean verify
@@ -37,5 +43,7 @@ To deploy the site contained by the war file to Tomcat, copy the war file into t
 `webapps` directory.
 
 
-<!--  LocalWords:  mvn
+<!--  LocalWords:  mvn AntT WebContent CSS JDK PostgreSQL README md
+ -->
+<!--  LocalWords:  webapps
  -->
