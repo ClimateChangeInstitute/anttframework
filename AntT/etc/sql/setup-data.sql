@@ -501,6 +501,21 @@ INSERT INTO regions (region, subregion, country) VALUES ('West Indies', 'West In
 INSERT INTO regions (region, subregion, country) VALUES ('West Indies', 'West Indies', 'Saint Vincent and the Grenadines');
 INSERT INTO regions (region, subregion, country) VALUES ('West Indies', 'West Indies', 'United Kingdom');
 
+--
+-- Data for Name: rock_types; Type: TABLE DATA; Schema: public; Owner: mroyer
+--
+
+INSERT INTO rock_types (rock_type) VALUES ('Andesite / Basaltic Andesite');
+INSERT INTO rock_types (rock_type) VALUES ('Basalt / Picro-Basalt');
+INSERT INTO rock_types (rock_type) VALUES ('Dacite');
+INSERT INTO rock_types (rock_type) VALUES ('Foidite');
+INSERT INTO rock_types (rock_type) VALUES ('No Data (checked)');
+INSERT INTO rock_types (rock_type) VALUES ('Phonolite');
+INSERT INTO rock_types (rock_type) VALUES ('Phono-tephrite /  Tephri-phonolite');
+INSERT INTO rock_types (rock_type) VALUES ('Rhyolite');
+INSERT INTO rock_types (rock_type) VALUES ('Trachyandesite / Basaltic trachy-andesite');
+INSERT INTO rock_types (rock_type) VALUES ('Trachybasalt / Tephrite Basanite');
+INSERT INTO rock_types (rock_type) VALUES ('Trachyte / Trachyandesite');
 
 
 COMMIT;
