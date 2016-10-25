@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 import getpass
-from subprocess import check_call
+from subprocess import check_call, CalledProcessError
 from sys import stderr
 
 from properties import DATABASE, ADMIN
@@ -33,7 +33,7 @@ Deleting the %s database and removing the %s user account.
     try :
         check_call(["dropdb", DATABASE])
         check_call(["dropuser", ADMIN])
-    except ProcessError :
+    except CalledProcessError :
         stderr.write("Something went wrong.  Are you sure you have the proper permissions?\n")
         exit(1)
 
