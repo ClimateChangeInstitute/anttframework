@@ -2143,5 +2143,15 @@ INSERT INTO volcanoes (volcano_number, old_volcano_number, volcano_name, country
 INSERT INTO volcanoes (volcano_number, old_volcano_number, volcano_name, country, primary_volcano_type, last_known_eruption, region, subregion, latitude, longitude, elevation_m, dominant_rock_type, tectonic_setting) VALUES (390140, '1900-14-', 'Protector Shoal', 'United Kingdom', 'Submarine', '1962 CE', 'Antarctica', 'Antarctica and South Sandwich Islands', -55.9199982, -28.0799999, -27, 'Rhyolite', 'Compressional Oceanic');
 
 
+--
+-- Data for site_types
+--
+
+INSERT INTO site_types (site_type) VALUES ('BIA');  
+INSERT INTO site_types (site_type) VALUES ('ICE');
+INSERT INTO site_types (site_type) VALUES ('LAKE');
+INSERT INTO site_types (site_type) VALUES ('OUTCROP');
+INSERT INTO site_types (site_type) VALUES ('SEA');
+
 
 COMMIT;
