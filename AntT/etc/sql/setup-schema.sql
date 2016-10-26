@@ -73,7 +73,7 @@ CREATE TABLE sites(
 	id TEXT PRIMARY KEY,
 	site_type TEXT REFERENCES site_types(site_type) NOT NULL,
 	latitude REAL NOT NULL CONSTRAINT valid_latitude_range CHECK (-90 <= latitude AND latitude <= 90),
-	longitude REAL NOT NULL CONSTRAINT valid_longitude_range CHECK (-180 <= longitude AND longitude <= 180)
+	longitude REAL NOT NULL CONSTRAINT valid_longitude_range CHECK (-180 <= longitude AND longitude <= 180),
 	elevation_m REAL NOT NULL,
 	comment TEXT);
 
