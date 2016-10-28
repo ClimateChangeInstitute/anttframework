@@ -29,6 +29,24 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script type="text/javascript">
+      function loadXMLDoc()
+      {
+        var xmlhttpcall = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            func_get(this);
+          }
+        };
+        xmlhttp.open("GET", "team.xml", true);
+        xmlhttp.send();
+      }
+      func_get(xml)
+      {
+        var xmldoc = xml.responseXML;
+        document.getElementById("insert-xml-here").innerHTML;
+      }
+    </script>
   </head>
 
   <body>
@@ -121,6 +139,9 @@
 
       <hr class="featurette-divider">
     </div>
+    <div id="insert-xml-here">
+      
+    </div>
 
     <footer class="footer">
       <div class="container">
@@ -137,6 +158,8 @@
     <script src="index_files/bootstrap.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="index_files/ie10-viewport-bug-workaround.js"></script>
-  
+    <script type="text/javascript">
+      loadXMLDoc();
+    </script>
 
 </body></html>
