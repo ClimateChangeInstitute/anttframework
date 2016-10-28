@@ -77,7 +77,11 @@ CREATE TABLE sites(
 	elevation_m REAL NOT NULL,
 	comment TEXT);
 
-
+-- Can't name the table references because it's a reserved word!
+CREATE TABLE refs(
+	doi TEXT PRIMARY KEY);
+	
+	
 ------------------------------------------------------------------------------
 -- End Sample Related Tables
 ------------------------------------------------------------------------------
