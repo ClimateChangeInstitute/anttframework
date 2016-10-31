@@ -146,7 +146,11 @@ GRANT ALL PRIVILEGES ON rock_types TO :ADMIN;
 GRANT ALL PRIVILEGES ON tectonic_settings TO :ADMIN;
 GRANT ALL PRIVILEGES ON volcanoes TO :ADMIN;
 
-
+GRANT ALL PRIVILEGES ON site_types TO :ADMIN;
+GRANT ALL PRIVILEGES ON sites TO :ADMIN;
+GRANT ALL PRIVILEGES ON refs TO :ADMIN;
+GRANT ALL PRIVILEGES ON icecore_samples TO :ADMIN;
+	
 ------------------------------------------------------------------------------
 ------------------------------------------------------------------------------
 ----------------------------- End priveleges section --------------------------
