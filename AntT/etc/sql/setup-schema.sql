@@ -172,6 +172,21 @@ CREATE TABLE marine_samples(
 	-- end inherited from aquatic samples
 	);
 	
+CREATE TABLE outcrop_samples(
+	-- start inherited from samples
+	sample_id TEXT PRIMARY KEY,
+	long_name TEXT,
+	sampled_by TEXT,
+	collection_dates TEXT,
+	comments TEXT,
+	site_id TEXT REFERENCES sites(site_id),
+	site_type TEXT REFERENCES site_types(site_type),
+	doi TEXT REFERENCES refs(doi), 
+	volcano_number INTEGER REFERENCES volcanoes(volcano_number) NOT NULL -- Required by outcrop
+	-- end inherited from samples
+	);
+		
+	
 ------------------------------------------------------------------------------
 -- End Sample Related Tables
 ------------------------------------------------------------------------------
@@ -222,6 +237,7 @@ GRANT ALL PRIVILEGES ON icecore_samples TO :ADMIN;
 GRANT ALL PRIVILEGES ON bia_samples TO :ADMIN;
 GRANT ALL PRIVILEGES ON lake_samples TO :ADMIN;
 GRANT ALL PRIVILEGES ON marine_samples TO :ADMIN;
+GRANT ALL PRIVILEGES ON outcrop_samples TO :ADMIN;
 
 ------------------------------------------------------------------------------
 ------------------------------------------------------------------------------
