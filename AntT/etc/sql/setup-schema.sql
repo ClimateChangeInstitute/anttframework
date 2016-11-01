@@ -85,7 +85,7 @@ CREATE TABLE instruments(
 	
 -- Can't name the table references because it's a reserved word!
 CREATE TABLE refs(
-	doi TEXT PRIMARY KEY);
+	doi TEXT PRIMARY KEY); -- TODO this table will need additional info columns 
 	
 CREATE TABLE icecore_samples(
 	-- start inherited from samples
@@ -110,6 +110,10 @@ CREATE TABLE icecore_samples(
 	bottomdepth_m REAL,
 	topyear_bp REAL,
 	bottomyear_bp REAL);
+	
+CREATE TABLE icecore_sample_refs(
+	sample_id TEXT REFERENCES icecore_samples(sample_id) NOT NULL,
+	doi TEXT REFERENCES refs(doi) NOT NULL);
 	
 
 CREATE TABLE bia_samples(
@@ -243,8 +247,12 @@ GRANT ALL PRIVILEGES ON volcanoes TO :ADMIN;
 GRANT ALL PRIVILEGES ON site_types TO :ADMIN;
 GRANT ALL PRIVILEGES ON sites TO :ADMIN;
 GRANT ALL PRIVILEGES ON instruments TO :ADMIN;
+
 GRANT ALL PRIVILEGES ON refs TO :ADMIN;
+
 GRANT ALL PRIVILEGES ON icecore_samples TO :ADMIN;
+GRANT ALL PRIVILEGES ON icecore_sample_refs TO :ADMIN;
+
 GRANT ALL PRIVILEGES ON bia_samples TO :ADMIN;
 GRANT ALL PRIVILEGES ON lake_samples TO :ADMIN;
 GRANT ALL PRIVILEGES ON marine_samples TO :ADMIN;
