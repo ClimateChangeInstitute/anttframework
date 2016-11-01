@@ -86,9 +86,9 @@ CREATE TABLE instruments(
 -- Can't name the table references because it's a reserved word!
 CREATE TABLE refs(
 	doi TEXT PRIMARY KEY); -- TODO this table will need additional info columns 
-	
-CREATE TABLE icecore_samples(
-	-- start inherited from samples
+
+-- Represents all samples
+CREATE TABLE samples(
 	sample_id TEXT PRIMARY KEY,
 	long_name TEXT,
 	sampled_by TEXT,
@@ -96,9 +96,17 @@ CREATE TABLE icecore_samples(
 	comments TEXT,
 	site_id TEXT REFERENCES sites(site_id) NOT NULL,
 	site_type TEXT REFERENCES site_types(site_type) NOT NULL,
+	iid TEXT REFERENCES instruments(iid) NOT NULL);
+
+CREATE TABLE samples_refs(
+	sample_id TEXT REFERENCES samples(sample_id) NOT NULL,
+	doi TEXT REFERENCES refs(doi) NOT NULL);
+	
+	
+-- Icecore samples
+CREATE TABLE icecore_samples(
+	sample_id TEXT PRIMARY KEY REFERENCES samples(sample_id),
 	volcano_number INTEGER REFERENCES volcanoes(volcano_number),
-	iid TEXT REFERENCES instruments(iid) NOT NULL,
-	-- end inherited from samples
 	drilled_by TEXT,
 	drilling_dates TEXT,
 	core_diameter REAL,
@@ -110,23 +118,11 @@ CREATE TABLE icecore_samples(
 	topyear_bp REAL,
 	bottomyear_bp REAL);
 	
-CREATE TABLE icecore_samples_refs(
-	sample_id TEXT REFERENCES icecore_samples(sample_id) NOT NULL,
-	doi TEXT REFERENCES refs(doi) NOT NULL);
 	
 
 CREATE TABLE bia_samples(
-	-- start inherited from samples
-	sample_id TEXT PRIMARY KEY,
-	long_name TEXT,
-	sampled_by TEXT,
-	collection_dates TEXT,
-	comments TEXT,
-	site_id TEXT REFERENCES sites(site_id) NOT NULL,
-	site_type TEXT REFERENCES site_types(site_type) NOT NULL,
+	sample_id TEXT PRIMARY KEY REFERENCES samples(sample_id),
 	volcano_number INTEGER REFERENCES volcanoes(volcano_number),
-	iid TEXT REFERENCES instruments(iid) NOT NULL,
-	-- end inherited from samples
 	deep TEXT,
 	sample_description TEXT,
 	sample_media TEXT,
@@ -137,20 +133,12 @@ CREATE TABLE bia_samples(
 CREATE TABLE bia_samples_refs(
 	sample_id TEXT REFERENCES bia_samples(sample_id) NOT NULL,
 	doi TEXT REFERENCES refs(doi) NOT NULL);
-	
+
+-- Lake and Marine could be combined into aquatic table?
 	
 CREATE TABLE lake_samples(
-	-- start inherited from samples
-	sample_id TEXT PRIMARY KEY,
-	long_name TEXT,
-	sampled_by TEXT,
-	collection_dates TEXT,
-	comments TEXT,
-	site_id TEXT REFERENCES sites(site_id) NOT NULL,
-	site_type TEXT REFERENCES site_types(site_type) NOT NULL, 
+	sample_id TEXT PRIMARY KEY REFERENCES samples(sample_id),
 	volcano_number INTEGER REFERENCES volcanoes(volcano_number),
-	iid TEXT REFERENCES instruments(iid) NOT NULL,
-	-- end inherited from samples
 	-- start inherited from aquatic samples
 	core_type TEXT, -- TODO Is this really needed?
 	age TEXT,
@@ -169,17 +157,8 @@ CREATE TABLE lake_samples_refs(
 	
 -- Mostly the same (actually is for now!) as lake_samples
 CREATE TABLE marine_samples(
-	-- start inherited from samples
-	sample_id TEXT PRIMARY KEY,
-	long_name TEXT,
-	sampled_by TEXT,
-	collection_dates TEXT,
-	comments TEXT,
-	site_id TEXT REFERENCES sites(site_id) NOT NULL,
-	site_type TEXT REFERENCES site_types(site_type) NOT NULL,
+	sample_id TEXT PRIMARY KEY REFERENCES samples(sample_id),
 	volcano_number INTEGER REFERENCES volcanoes(volcano_number),
-	iid TEXT REFERENCES instruments(iid) NOT NULL,
-	-- end inherited from samples
 	-- start inherited from aquatic samples
 	core_type TEXT, -- TODO Is this really needed?
 	age TEXT,
@@ -197,16 +176,8 @@ CREATE TABLE marine_samples_refs(
 
 	
 CREATE TABLE outcrop_samples(
-	-- start inherited from samples
-	sample_id TEXT PRIMARY KEY,
-	long_name TEXT,
-	sampled_by TEXT,
-	collection_dates TEXT,
-	comments TEXT,
-	site_id TEXT REFERENCES sites(site_id) NOT NULL,
-	site_type TEXT REFERENCES site_types(site_type) NOT NULL,
+	sample_id TEXT PRIMARY KEY REFERENCES samples(sample_id),
 	volcano_number INTEGER REFERENCES volcanoes(volcano_number) NOT NULL -- Required by outcrop
-	-- end inherited from samples
 	);
 
 CREATE TABLE outcrop_samples_refs(
@@ -262,8 +233,10 @@ GRANT ALL PRIVILEGES ON instruments TO :ADMIN;
 
 GRANT ALL PRIVILEGES ON refs TO :ADMIN;
 
+GRANT ALL PRIVILEGES ON samples TO :ADMIN;
+GRANT ALL PRIVILEGES ON samples_refs TO :ADMIN;
+
 GRANT ALL PRIVILEGES ON icecore_samples TO :ADMIN;
-GRANT ALL PRIVILEGES ON icecore_samples_refs TO :ADMIN;
 
 GRANT ALL PRIVILEGES ON bia_samples TO :ADMIN;
 GRANT ALL PRIVILEGES ON bia_samples_refs TO :ADMIN;
