@@ -82,6 +82,7 @@ CREATE TABLE refs(
 	doi TEXT PRIMARY KEY);
 	
 CREATE TABLE icecore_samples(
+	-- start inherited from samples
 	sample_id TEXT PRIMARY KEY,
 	long_name TEXT,
 	sampled_by TEXT,
@@ -91,6 +92,7 @@ CREATE TABLE icecore_samples(
 	site_type TEXT REFERENCES site_types(site_type),
 	doi TEXT REFERENCES refs(doi), 
 	volcano_number INTEGER REFERENCES volcanoes(volcano_number),
+	-- end inherited from samples
 	drilled_by TEXT,
 	drilling_dates TEXT,
 	core_diameter REAL,
@@ -102,6 +104,25 @@ CREATE TABLE icecore_samples(
 	topyear_bp REAL,
 	bottomyear_bp REAL);
 	
+
+CREATE TABLE BIA_samples(
+	-- start inherited from samples
+	sample_id TEXT PRIMARY KEY,
+	long_name TEXT,
+	sampled_by TEXT,
+	collection_dates TEXT,
+	comments TEXT,
+	site_id TEXT REFERENCES sites(site_id),
+	site_type TEXT REFERENCES site_types(site_type),
+	doi TEXT REFERENCES refs(doi), 
+	volcano_number INTEGER REFERENCES volcanoes(volcano_number),
+	-- end inherited from samples
+	deep TEXT,
+	sample_description TEXT,
+	sample_media TEXT,
+	unit_name TEXT,
+	thickness_cm TEXT,
+	trend TEXT);	
 	
 ------------------------------------------------------------------------------
 -- End Sample Related Tables
@@ -150,7 +171,8 @@ GRANT ALL PRIVILEGES ON site_types TO :ADMIN;
 GRANT ALL PRIVILEGES ON sites TO :ADMIN;
 GRANT ALL PRIVILEGES ON refs TO :ADMIN;
 GRANT ALL PRIVILEGES ON icecore_samples TO :ADMIN;
-	
+GRANT ALL PRIVILEGES ON BIA_samples TO :ADMIN;
+
 ------------------------------------------------------------------------------
 ------------------------------------------------------------------------------
 ----------------------------- End priveleges section --------------------------
