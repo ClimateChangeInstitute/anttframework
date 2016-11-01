@@ -1,28 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- This is an example xml template - it is a way to define your members -->
-<team>
-	<member>
-		<name>Member 1</name>
-		<url>http://somememberssite.com</url>
-		<email>member1@maine.edu</email>
-		<other>Some other text</other>
-		<image>
-		  <url>http://site/team/images/member1.png</url>
-		  <title>member1</title>
-		  <alt>Member1</alt>
-		  <link>http://site/team/images/member1.png</link>
-		</image>
-	</member>
-	<member>
-		<name>Member 2</name>
-		<url>http://somememberssite.com</url>
-		<email>member2@maine.edu</email>
-		<other>Some other text</other>
-		<image>
-		  <url>http://site/team/images/member2.png</url>
-		  <title>member2</title>
-		  <alt>Member2</alt>
-		  <link>http://site/team/images/member2.png</link>
-		</image>
-	</member>
-</team>
+<Team>
+	<Member>
+		<Name>Member 1</Name>
+		<Url>http://somememberssite.com</Url>
+		<Email>member1@maine.edu</Email>
+		<Other>Some other text</Other>
+		<Image>
+		  <Url>http://site/team/images/member1.png</Url>
+		  <Title>member1</Title>
+		  <Alt>Member1</Alt>
+		</Image>
+	</Member>
+	<Member>
+		<Name>Member 2</Name>
+		<Url>http://somememberssite.com</Url>
+		<Email>member2@maine.edu</Email>
+		<Other>Some other text</Other>
+		<Image>
+		  <Url>http://site/team/images/member2.png</Url>
+		  <Title>member2</Title>
+		  <Alt>Member2</Alt>
+		</Image>
+	</Member>
+	<Member>
+		<Name>Member 3</Name>
+		<Url>http://somememberssite.com</Url>
+		<Email>member3@maine.edu</Email>
+		<Other>Some more text</Other>
+		<Image>
+		  <Url>http://site/team/images/member3.png</Url>
+		  <Title>Member 3</Title>
+		  <Alt>Member 3</Alt>
+		</Image>
+	</Member>
+</Team>
