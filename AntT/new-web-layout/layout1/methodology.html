@@ -62,32 +62,11 @@
         <h1>Recent papers</h1>
       </div>
 
-      <div class="page-header">
-        <h2>Paper Title</h2>
-      </div>
-      <p>Donec id elit non mi porta gravida at eget metus. Fusce 
-dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut 
-fermentum massa justo sit amet risus.</p>
-      <p>Read full paper <a href="#">PDF</a> (get icon).</p>
+      <div id="insert-xml-here">
 
-      <div class="page-header">
-        <h2>Paper Title</h2>
       </div>
-      <p>Donec id elit non mi porta gravida at eget metus. Fusce 
-dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut 
-fermentum massa justo sit amet risus.</p>
-      <p>Read full paper <a href="#">PDF</a> (get icon).</p>
-
-      <div class="page-header">
-        <h2>Paper Title</h2>
-      </div>
-      <p>Donec id elit non mi porta gravida at eget metus. Fusce 
-dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut 
-fermentum massa justo sit amet risus.</p>
-      <p>Read full paper <a href="#">PDF</a> (get icon).</p>
     </div>
       
-    </div>
 
     <footer class="footer">
       <div class="container">
@@ -104,6 +83,35 @@ fermentum massa justo sit amet risus.</p>
     <script src="index_files/bootstrap.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="index_files/ie10-viewport-bug-workaround.js"></script>
-  
+    <script>
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
 
-</body></html>
+          var i;
+          var xmlDoc = this.responseXML;
+          var doc = xmlDoc.getElementsByTagName("Paper");
+          var holder = "";
+          for (i = 0; i < doc.length; i++) {
+            holder += '<div class="page-header"><h2>' + doc[i].getElementsByTagName("Title")[0].childNodes[0].nodeValue + '</h2></div>';
+
+            if (doc[i].getElementsByTagName("Description")[0] != "") {
+              holder += '<p>' + doc[i].getElementsByTagName("Description")[0].childNodes[0].nodeValue + '</p>';
+            }
+
+            if (doc[i].getElementsByTagName("Url")[0] != "") {
+              holder += '<p>Read full paper <a href="' + doc[i].getElementsByTagName("Url")[0].childNodes[0].nodeValue + '">PDF</a>.</p>';
+            }
+
+            holder += "</div>";
+          }
+
+          document.getElementById("insert-xml-here").innerHTML =
+          holder;
+        }
+      };
+      xhttp.open("GET", "methodology.xml", true);
+      xhttp.send();
+    </script>
+  </body>
+</html>

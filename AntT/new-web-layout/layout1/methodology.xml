@@ -1,23 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<methodology>
-	<paper>
-		<title>Paper 1</title>
-		<description>Description of paper 1</description>
-		<doc>
-		  <url>http://site/methodology/papers/paper1.pdf</url>
-		  <title>Paper 1</title>
-		  <alt>Paper 2</alt>
-		  <link>http://site/methodology/papers/paper1.pdf</link>
-		</doc>
-	</paper>
-	<paper>
-		<title>Paper 2</title>
-		<description>Description of paper 2</description>
-		<doc>
-		  <url>http://site/methodology/papers/paper2.pdf</url>
-		  <title>Paper 2</title>
-		  <alt>Paper 2</alt>
-		  <link>http://site/methodology/papers/paper2.pdf</link>
-		</doc>
-	</paper>
-</methodology>
+<!-- This is an example xml template - it is a way to define your papers -->
+<!-- You may leave out the tags that you don't have information for or that you don't want to include. -->
+<Methodology>
+	<Paper>
+		<Title>Paper 1</Title>
+		<Description>Description of paper 1. Donec id elit non mi porta gravida at eget metus. Fusce  dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</Description>
+		<Doc>
+		  <Url>http://site/methodology/papers/paper1.pdf</Url>
+		</Doc>
+	</Paper>
+	<Paper>
+		<Title>Paper 2</Title>
+		<Description>Description of paper 2. Donec id elit non mi porta gravida at eget metus. Fusce  dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</Description>
+		<Doc>
+		  <Url>http://site/methodology/papers/paper2.pdf</Url>
+		</Doc>
+	</Paper>
+	<Paper>
+		<Title>Paper 3</Title>
+		<Description>Description of paper 3. Donec id elit non mi porta gravida at eget metus. Fusce  dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</Description>
+		<Doc>
+		  <Url>http://site/methodology/papers/paper3.pdf</Url>
+		</Doc>
+	</Paper>
+	<Paper>
+		<Title>Paper 4</Title>
+		<Description>Description of paper 4. Donec id elit non mi porta gravida at eget metus. Fusce  dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</Description>
+		<Doc>
+		  <Url>http://site/methodology/papers/paper4.pdf</Url>
+		</Doc>
+	</Paper>
+	<Paper>
+		<Title>Paper 5</Title>
+		<Description>Description of paper 5. Donec id elit non mi porta gravida at eget metus. Fusce  dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</Description>
+		<Doc>
+		  <Url>http://site/methodology/papers/paper5.pdf</Url>
+		</Doc>
+	</Paper>
+	<Paper>
+		<Title>Paper 6</Title>
+		<Description>Description of paper 6. Donec id elit non mi porta gravida at eget metus. Fusce  dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</Description>
+		<Doc>
+		  <Url>http://site/methodology/papers/paper6.pdf</Url>
+		</Doc>
+	</Paper>
+</Methodology>

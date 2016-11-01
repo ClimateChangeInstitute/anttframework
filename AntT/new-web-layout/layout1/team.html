@@ -78,11 +78,11 @@
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="index_files/ie10-viewport-bug-workaround.js"></script>
     <script>
-    function get_row(name, doc, i) {
-      if (doc[i].getElementsByTagName(name)[0] != "") {
-        return '<p class="lead"><strong>' + name + ':</strong> ' + doc[i].getElementsByTagName(name)[0].childNodes[0].nodeValue + '</p>'
+      function get_row(name, doc, i) {
+        if (doc[i].getElementsByTagName(name)[0] != "") {
+          return '<p class="lead"><strong>' + name + ':</strong> ' + doc[i].getElementsByTagName(name)[0].childNodes[0].nodeValue + '</p>'
+        }
       }
-    }
 
       var xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function() {
@@ -115,4 +115,5 @@
       xhttp.send();
     </script>
 
-</body></html>
+  </body>
+</html>
