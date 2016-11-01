@@ -106,7 +106,7 @@ CREATE TABLE samples_refs(
 -- Icecore samples
 CREATE TABLE icecore_samples(
 	sample_id TEXT PRIMARY KEY REFERENCES samples(sample_id),
-	volcano_number INTEGER REFERENCES volcanoes(volcano_number),
+	volcano_number INTEGER REFERENCES volcanoes(volcano_number), -- Volcano not require
 	drilled_by TEXT,
 	drilling_dates TEXT,
 	core_diameter REAL,
@@ -119,10 +119,10 @@ CREATE TABLE icecore_samples(
 	bottomyear_bp REAL);
 	
 	
-
+-- Blue Ice Area samples
 CREATE TABLE bia_samples(
 	sample_id TEXT PRIMARY KEY REFERENCES samples(sample_id),
-	volcano_number INTEGER REFERENCES volcanoes(volcano_number),
+	volcano_number INTEGER REFERENCES volcanoes(volcano_number), -- Volcano not require
 	deep TEXT,
 	sample_description TEXT,
 	sample_media TEXT,
@@ -130,15 +130,11 @@ CREATE TABLE bia_samples(
 	thickness_cm TEXT,
 	trend TEXT);	
 
-CREATE TABLE bia_samples_refs(
-	sample_id TEXT REFERENCES bia_samples(sample_id) NOT NULL,
-	doi TEXT REFERENCES refs(doi) NOT NULL);
-
 -- Lake and Marine could be combined into aquatic table?
 	
 CREATE TABLE lake_samples(
 	sample_id TEXT PRIMARY KEY REFERENCES samples(sample_id),
-	volcano_number INTEGER REFERENCES volcanoes(volcano_number),
+	volcano_number INTEGER REFERENCES volcanoes(volcano_number), -- Volcano not require
 	-- start inherited from aquatic samples
 	core_type TEXT, -- TODO Is this really needed?
 	age TEXT,
@@ -149,16 +145,12 @@ CREATE TABLE lake_samples(
 	thickness REAL
 	-- end inherited from aquatic samples
 	);
-	
-CREATE TABLE lake_samples_refs(
-	sample_id TEXT REFERENCES lake_samples(sample_id) NOT NULL,
-	doi TEXT REFERENCES refs(doi) NOT NULL);
 	
 	
 -- Mostly the same (actually is for now!) as lake_samples
 CREATE TABLE marine_samples(
 	sample_id TEXT PRIMARY KEY REFERENCES samples(sample_id),
-	volcano_number INTEGER REFERENCES volcanoes(volcano_number),
+	volcano_number INTEGER REFERENCES volcanoes(volcano_number), -- Volcano not require
 	-- start inherited from aquatic samples
 	core_type TEXT, -- TODO Is this really needed?
 	age TEXT,
@@ -169,20 +161,12 @@ CREATE TABLE marine_samples(
 	thickness REAL
 	-- end inherited from aquatic samples
 	);
-
-CREATE TABLE marine_samples_refs(
-	sample_id TEXT REFERENCES marine_samples(sample_id) NOT NULL,
-	doi TEXT REFERENCES refs(doi) NOT NULL);
 
 	
 CREATE TABLE outcrop_samples(
 	sample_id TEXT PRIMARY KEY REFERENCES samples(sample_id),
 	volcano_number INTEGER REFERENCES volcanoes(volcano_number) NOT NULL -- Required by outcrop
 	);
-
-CREATE TABLE outcrop_samples_refs(
-	sample_id TEXT REFERENCES outcrop_samples(sample_id) NOT NULL,
-	doi TEXT REFERENCES refs(doi) NOT NULL);
 	
 ------------------------------------------------------------------------------
 -- End Sample Related Tables
@@ -237,18 +221,10 @@ GRANT ALL PRIVILEGES ON samples TO :ADMIN;
 GRANT ALL PRIVILEGES ON samples_refs TO :ADMIN;
 
 GRANT ALL PRIVILEGES ON icecore_samples TO :ADMIN;
-
 GRANT ALL PRIVILEGES ON bia_samples TO :ADMIN;
-GRANT ALL PRIVILEGES ON bia_samples_refs TO :ADMIN;
-
 GRANT ALL PRIVILEGES ON lake_samples TO :ADMIN;
-GRANT ALL PRIVILEGES ON lake_samples_refs TO :ADMIN;
-
 GRANT ALL PRIVILEGES ON marine_samples TO :ADMIN;
-GRANT ALL PRIVILEGES ON marine_samples_refs TO :ADMIN;
-
 GRANT ALL PRIVILEGES ON outcrop_samples TO :ADMIN;
-GRANT ALL PRIVILEGES ON outcrop_samples_refs TO :ADMIN;
 
 ------------------------------------------------------------------------------
 ------------------------------------------------------------------------------
