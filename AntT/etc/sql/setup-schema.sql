@@ -82,6 +82,7 @@ CREATE TABLE refs(
 	doi TEXT PRIMARY KEY);
 	
 CREATE TABLE icecore_samples(
+	-- start inherited from samples
 	sample_id TEXT PRIMARY KEY,
 	long_name TEXT,
 	sampled_by TEXT,
@@ -91,6 +92,7 @@ CREATE TABLE icecore_samples(
 	site_type TEXT REFERENCES site_types(site_type),
 	doi TEXT REFERENCES refs(doi), 
 	volcano_number INTEGER REFERENCES volcanoes(volcano_number),
+	-- end inherited from samples
 	drilled_by TEXT,
 	drilling_dates TEXT,
 	core_diameter REAL,
@@ -102,6 +104,73 @@ CREATE TABLE icecore_samples(
 	topyear_bp REAL,
 	bottomyear_bp REAL);
 	
+
+CREATE TABLE bia_samples(
+	-- start inherited from samples
+	sample_id TEXT PRIMARY KEY,
+	long_name TEXT,
+	sampled_by TEXT,
+	collection_dates TEXT,
+	comments TEXT,
+	site_id TEXT REFERENCES sites(site_id),
+	site_type TEXT REFERENCES site_types(site_type),
+	doi TEXT REFERENCES refs(doi), 
+	volcano_number INTEGER REFERENCES volcanoes(volcano_number),
+	-- end inherited from samples
+	deep TEXT,
+	sample_description TEXT,
+	sample_media TEXT,
+	unit_name TEXT,
+	thickness_cm TEXT,
+	trend TEXT);	
+
+	
+CREATE TABLE lake_samples(
+	-- start inherited from samples
+	sample_id TEXT PRIMARY KEY,
+	long_name TEXT,
+	sampled_by TEXT,
+	collection_dates TEXT,
+	comments TEXT,
+	site_id TEXT REFERENCES sites(site_id),
+	site_type TEXT REFERENCES site_types(site_type),
+	doi TEXT REFERENCES refs(doi), 
+	volcano_number INTEGER REFERENCES volcanoes(volcano_number),
+	-- end inherited from samples
+	-- start inherited from aquatic samples
+	core_type TEXT, -- TODO Is this really needed?
+	age TEXT,
+	core_length_m REAL,
+	sampling_dates TEXT,
+	depth_m REAL,
+	top_m REAL,
+	thickness REAL
+	-- end inherited from aquatic samples
+	);
+	
+-- Mostly the same (actually is for now!) as lake_samples
+CREATE TABLE marine_samples(
+	-- start inherited from samples
+	sample_id TEXT PRIMARY KEY,
+	long_name TEXT,
+	sampled_by TEXT,
+	collection_dates TEXT,
+	comments TEXT,
+	site_id TEXT REFERENCES sites(site_id),
+	site_type TEXT REFERENCES site_types(site_type),
+	doi TEXT REFERENCES refs(doi), 
+	volcano_number INTEGER REFERENCES volcanoes(volcano_number),
+	-- end inherited from samples
+	-- start inherited from aquatic samples
+	core_type TEXT, -- TODO Is this really needed?
+	age TEXT,
+	core_length_m REAL,
+	sampling_dates TEXT,
+	depth_m REAL,
+	top_m REAL,
+	thickness REAL
+	-- end inherited from aquatic samples
+	);
 	
 ------------------------------------------------------------------------------
 -- End Sample Related Tables
@@ -146,6 +215,13 @@ GRANT ALL PRIVILEGES ON rock_types TO :ADMIN;
 GRANT ALL PRIVILEGES ON tectonic_settings TO :ADMIN;
 GRANT ALL PRIVILEGES ON volcanoes TO :ADMIN;
 
+GRANT ALL PRIVILEGES ON site_types TO :ADMIN;
+GRANT ALL PRIVILEGES ON sites TO :ADMIN;
+GRANT ALL PRIVILEGES ON refs TO :ADMIN;
+GRANT ALL PRIVILEGES ON icecore_samples TO :ADMIN;
+GRANT ALL PRIVILEGES ON bia_samples TO :ADMIN;
+GRANT ALL PRIVILEGES ON lake_samples TO :ADMIN;
+GRANT ALL PRIVILEGES ON marine_samples TO :ADMIN;
 
 ------------------------------------------------------------------------------
 ------------------------------------------------------------------------------
