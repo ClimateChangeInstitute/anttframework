@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- This is an example xml template - it is a way to define your members -->
 <team>
 	<member>
 		<name>Member 1</name>
+		<url>http://somememberssite.com</url>
 		<email>member1@maine.edu</email>
 		<other>Some other text</other>
 		<image>
@@ -13,6 +15,7 @@
 	</member>
 	<member>
 		<name>Member 2</name>
+		<url>http://somememberssite.com</url>
 		<email>member2@maine.edu</email>
 		<other>Some other text</other>
 		<image>
