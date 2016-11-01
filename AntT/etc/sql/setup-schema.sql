@@ -203,13 +203,15 @@ CREATE TABLE outcrop_samples(
 	sampled_by TEXT,
 	collection_dates TEXT,
 	comments TEXT,
-	site_id TEXT REFERENCES sites(site_id),
-	site_type TEXT REFERENCES site_types(site_type),
-	doi TEXT REFERENCES refs(doi), 
+	site_id TEXT REFERENCES sites(site_id) NOT NULL,
+	site_type TEXT REFERENCES site_types(site_type) NOT NULL,
 	volcano_number INTEGER REFERENCES volcanoes(volcano_number) NOT NULL -- Required by outcrop
 	-- end inherited from samples
 	);
-		
+
+CREATE TABLE outcrop_samples_refs(
+	sample_id TEXT REFERENCES outcrop_samples(sample_id) NOT NULL,
+	doi TEXT REFERENCES refs(doi) NOT NULL);
 	
 ------------------------------------------------------------------------------
 -- End Sample Related Tables
@@ -273,6 +275,7 @@ GRANT ALL PRIVILEGES ON marine_samples TO :ADMIN;
 GRANT ALL PRIVILEGES ON marine_samples_refs TO :ADMIN;
 
 GRANT ALL PRIVILEGES ON outcrop_samples TO :ADMIN;
+GRANT ALL PRIVILEGES ON outcrop_samples_refs TO :ADMIN;
 
 ------------------------------------------------------------------------------
 ------------------------------------------------------------------------------
