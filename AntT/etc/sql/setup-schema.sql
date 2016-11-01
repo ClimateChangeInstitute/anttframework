@@ -111,6 +111,13 @@ CREATE TABLE grain_sizes(
 	grain_date DATE NOT NULL,
 	PRIMARY KEY (sample_id, iid));
 	
+-- A grain size may have many refs, and a ref may be used by many grain sizes.
+CREATE TABLE grain_sizes_refs(
+	sample_id TEXT NOT NULL,
+	iid TEXT NOT NULL,
+	doi TEXT REFERENCES refs(doi) NOT NULL,
+	FOREIGN KEY (sample_id, iid) REFERENCES grain_sizes(sample_id, iid));
+	
 -- Icecore samples
 CREATE TABLE icecore_samples(
 	sample_id TEXT PRIMARY KEY REFERENCES samples(sample_id),
@@ -231,6 +238,7 @@ GRANT ALL PRIVILEGES ON samples TO :ADMIN;
 GRANT ALL PRIVILEGES ON samples_refs TO :ADMIN;
 
 GRANT ALL PRIVILEGES ON grain_sizes TO :ADMIN;
+GRANT ALL PRIVILEGES ON grain_sizes_refs TO :ADMIN;
 
 GRANT ALL PRIVILEGES ON icecore_samples TO :ADMIN;
 GRANT ALL PRIVILEGES ON bia_samples TO :ADMIN;
