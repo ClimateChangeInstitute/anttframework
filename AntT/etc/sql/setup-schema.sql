@@ -135,7 +135,7 @@ CREATE TABLE bia_samples(
 	trend TEXT);	
 
 CREATE TABLE bia_samples_refs(
-	sample_id TEXT REFERENCES icecore_samples(sample_id) NOT NULL,
+	sample_id TEXT REFERENCES bia_samples(sample_id) NOT NULL,
 	doi TEXT REFERENCES refs(doi) NOT NULL);
 	
 	
@@ -147,8 +147,7 @@ CREATE TABLE lake_samples(
 	collection_dates TEXT,
 	comments TEXT,
 	site_id TEXT REFERENCES sites(site_id) NOT NULL,
-	site_type TEXT REFERENCES site_types(site_type) NOT NULL,
-	doi TEXT REFERENCES refs(doi), 
+	site_type TEXT REFERENCES site_types(site_type) NOT NULL, 
 	volcano_number INTEGER REFERENCES volcanoes(volcano_number),
 	iid TEXT REFERENCES instruments(iid) NOT NULL,
 	-- end inherited from samples
@@ -162,6 +161,11 @@ CREATE TABLE lake_samples(
 	thickness REAL
 	-- end inherited from aquatic samples
 	);
+	
+CREATE TABLE lake_samples_refs(
+	sample_id TEXT REFERENCES lake_samples(sample_id) NOT NULL,
+	doi TEXT REFERENCES refs(doi) NOT NULL);
+	
 	
 -- Mostly the same (actually is for now!) as lake_samples
 CREATE TABLE marine_samples(
@@ -259,6 +263,8 @@ GRANT ALL PRIVILEGES ON bia_samples TO :ADMIN;
 GRANT ALL PRIVILEGES ON bia_samples_refs TO :ADMIN;
 
 GRANT ALL PRIVILEGES ON lake_samples TO :ADMIN;
+GRANT ALL PRIVILEGES ON lake_samples_refs TO :ADMIN;
+
 GRANT ALL PRIVILEGES ON marine_samples TO :ADMIN;
 GRANT ALL PRIVILEGES ON outcrop_samples TO :ADMIN;
 
