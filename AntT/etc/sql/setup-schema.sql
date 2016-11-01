@@ -96,7 +96,6 @@ CREATE TABLE icecore_samples(
 	comments TEXT,
 	site_id TEXT REFERENCES sites(site_id) NOT NULL,
 	site_type TEXT REFERENCES site_types(site_type) NOT NULL,
-	doi TEXT REFERENCES refs(doi), 
 	volcano_number INTEGER REFERENCES volcanoes(volcano_number),
 	iid TEXT REFERENCES instruments(iid) NOT NULL,
 	-- end inherited from samples
@@ -111,7 +110,7 @@ CREATE TABLE icecore_samples(
 	topyear_bp REAL,
 	bottomyear_bp REAL);
 	
-CREATE TABLE icecore_sample_refs(
+CREATE TABLE icecore_samples_refs(
 	sample_id TEXT REFERENCES icecore_samples(sample_id) NOT NULL,
 	doi TEXT REFERENCES refs(doi) NOT NULL);
 	
@@ -125,7 +124,6 @@ CREATE TABLE bia_samples(
 	comments TEXT,
 	site_id TEXT REFERENCES sites(site_id) NOT NULL,
 	site_type TEXT REFERENCES site_types(site_type) NOT NULL,
-	doi TEXT REFERENCES refs(doi), 
 	volcano_number INTEGER REFERENCES volcanoes(volcano_number),
 	iid TEXT REFERENCES instruments(iid) NOT NULL,
 	-- end inherited from samples
@@ -136,6 +134,10 @@ CREATE TABLE bia_samples(
 	thickness_cm TEXT,
 	trend TEXT);	
 
+CREATE TABLE bia_samples_refs(
+	sample_id TEXT REFERENCES icecore_samples(sample_id) NOT NULL,
+	doi TEXT REFERENCES refs(doi) NOT NULL);
+	
 	
 CREATE TABLE lake_samples(
 	-- start inherited from samples
@@ -251,9 +253,11 @@ GRANT ALL PRIVILEGES ON instruments TO :ADMIN;
 GRANT ALL PRIVILEGES ON refs TO :ADMIN;
 
 GRANT ALL PRIVILEGES ON icecore_samples TO :ADMIN;
-GRANT ALL PRIVILEGES ON icecore_sample_refs TO :ADMIN;
+GRANT ALL PRIVILEGES ON icecore_samples_refs TO :ADMIN;
 
 GRANT ALL PRIVILEGES ON bia_samples TO :ADMIN;
+GRANT ALL PRIVILEGES ON bia_samples_refs TO :ADMIN;
+
 GRANT ALL PRIVILEGES ON lake_samples TO :ADMIN;
 GRANT ALL PRIVILEGES ON marine_samples TO :ADMIN;
 GRANT ALL PRIVILEGES ON outcrop_samples TO :ADMIN;
