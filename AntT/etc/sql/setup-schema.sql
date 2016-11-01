@@ -77,6 +77,12 @@ CREATE TABLE sites(
 	elevation_m REAL NOT NULL,
 	comment TEXT);
 
+CREATE TABLE instruments(
+	iid TEXT PRIMARY KEY, -- instrument id
+	long_name TEXT,
+	location TEXT,
+	comments TEXT);
+	
 -- Can't name the table references because it's a reserved word!
 CREATE TABLE refs(
 	doi TEXT PRIMARY KEY);
@@ -232,6 +238,7 @@ GRANT ALL PRIVILEGES ON volcanoes TO :ADMIN;
 
 GRANT ALL PRIVILEGES ON site_types TO :ADMIN;
 GRANT ALL PRIVILEGES ON sites TO :ADMIN;
+GRANT ALL PRIVILEGES ON instruments TO :ADMIN;
 GRANT ALL PRIVILEGES ON refs TO :ADMIN;
 GRANT ALL PRIVILEGES ON icecore_samples TO :ADMIN;
 GRANT ALL PRIVILEGES ON bia_samples TO :ADMIN;
