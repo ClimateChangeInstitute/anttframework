@@ -94,10 +94,11 @@ CREATE TABLE icecore_samples(
 	sampled_by TEXT,
 	collection_dates TEXT,
 	comments TEXT,
-	site_id TEXT REFERENCES sites(site_id),
-	site_type TEXT REFERENCES site_types(site_type),
+	site_id TEXT REFERENCES sites(site_id) NOT NULL,
+	site_type TEXT REFERENCES site_types(site_type) NOT NULL,
 	doi TEXT REFERENCES refs(doi), 
 	volcano_number INTEGER REFERENCES volcanoes(volcano_number),
+	iid TEXT REFERENCES instruments(iid) NOT NULL,
 	-- end inherited from samples
 	drilled_by TEXT,
 	drilling_dates TEXT,
@@ -118,10 +119,11 @@ CREATE TABLE bia_samples(
 	sampled_by TEXT,
 	collection_dates TEXT,
 	comments TEXT,
-	site_id TEXT REFERENCES sites(site_id),
-	site_type TEXT REFERENCES site_types(site_type),
+	site_id TEXT REFERENCES sites(site_id) NOT NULL,
+	site_type TEXT REFERENCES site_types(site_type) NOT NULL,
 	doi TEXT REFERENCES refs(doi), 
 	volcano_number INTEGER REFERENCES volcanoes(volcano_number),
+	iid TEXT REFERENCES instruments(iid) NOT NULL,
 	-- end inherited from samples
 	deep TEXT,
 	sample_description TEXT,
@@ -138,10 +140,11 @@ CREATE TABLE lake_samples(
 	sampled_by TEXT,
 	collection_dates TEXT,
 	comments TEXT,
-	site_id TEXT REFERENCES sites(site_id),
-	site_type TEXT REFERENCES site_types(site_type),
+	site_id TEXT REFERENCES sites(site_id) NOT NULL,
+	site_type TEXT REFERENCES site_types(site_type) NOT NULL,
 	doi TEXT REFERENCES refs(doi), 
 	volcano_number INTEGER REFERENCES volcanoes(volcano_number),
+	iid TEXT REFERENCES instruments(iid) NOT NULL,
 	-- end inherited from samples
 	-- start inherited from aquatic samples
 	core_type TEXT, -- TODO Is this really needed?
@@ -162,10 +165,11 @@ CREATE TABLE marine_samples(
 	sampled_by TEXT,
 	collection_dates TEXT,
 	comments TEXT,
-	site_id TEXT REFERENCES sites(site_id),
-	site_type TEXT REFERENCES site_types(site_type),
+	site_id TEXT REFERENCES sites(site_id) NOT NULL,
+	site_type TEXT REFERENCES site_types(site_type) NOT NULL,
 	doi TEXT REFERENCES refs(doi), 
 	volcano_number INTEGER REFERENCES volcanoes(volcano_number),
+	iid TEXT REFERENCES instruments(iid) NOT NULL,
 	-- end inherited from samples
 	-- start inherited from aquatic samples
 	core_type TEXT, -- TODO Is this really needed?
