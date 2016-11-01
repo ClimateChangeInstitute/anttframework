@@ -138,6 +138,7 @@ CREATE TABLE lake_samples(
 	volcano_number INTEGER REFERENCES volcanoes(volcano_number),
 	-- end inherited from samples
 	-- start inherited from aquatic samples
+	core_type TEXT, -- TODO Is this really needed?
 	age TEXT,
 	core_length_m REAL,
 	sampling_dates TEXT,
@@ -146,6 +147,8 @@ CREATE TABLE lake_samples(
 	thickness REAL
 	-- end inherited from aquatic samples
 	);
+	
+
 	
 ------------------------------------------------------------------------------
 -- End Sample Related Tables
