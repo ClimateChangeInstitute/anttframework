@@ -196,6 +196,105 @@ CREATE TABLE outcrop_samples(
 	volcano_number INTEGER REFERENCES volcanoes(volcano_number) NOT NULL -- Required by outcrop
 	);
 
+	
+CREATE TABLE mm_elements(
+	longsample_id TEXT PRIMARY KEY,
+	sample_id TEXT REFERENCES samples(sample_id) NOT NULL,
+	comments TEXT,	
+	method TEXT NOT NULL, -- TODO maybe it should have a separate table?
+	iid TEXT REFERENCES instruments(iid) NOT NULL,
+	date_measured DATE,
+	measured_by TEXT,
+	-- 1. sio2 -------------------
+	sio2 REAL,
+	std_sio2 REAL,
+	measured_sio2 REAL,
+	sio2_units TEXT,
+	-- 2. tio2 -------------------
+	tio2 REAL,
+	std_tio2 REAL,
+	measured_tio2 REAL,
+	tio2_units TEXT,
+	-- 3. so2 -------------------
+	so2 REAL,
+	std_so2 REAL,
+	me_so2 REAL,
+	so2_units TEXT,
+	-- 4. al2o3 -------------------
+	al2o3 REAL,
+	std_al2o3 REAL,
+	me_al2o3 REAL,
+	al2o3_units TEXT,
+	-- 5. cr2o3 -------------------	
+	cr2o3 REAL,
+	std_cr2o3 REAL,
+	me_cr2o3 REAL,
+	cr2o3_units TEXT,
+	-- 6. fe2o3 -------------------	
+	fe2o3 REAL,
+	std_fe2o3 REAL,
+	me_fe2o3 REAL,
+	fe2o3_units TEXT,
+	-- 7. feo -------------------	
+	feo REAL,
+	std_feo REAL,
+	me_feo REAL,
+	feo_units TEXT,
+	-- 8. mno -------------------	
+	mno REAL,
+	std_mno REAL,
+	me_mno REAL,
+	mno_units TEXT,
+	-- 9. mgo -------------------	
+	mgo REAL,
+	std_mgo REAL,
+	me_mgo REAL,
+	mgo_units TEXT,
+	-- 10. cao -------------------	
+	cao REAL,
+	std_cao REAL,
+	me_cao REAL,
+	cao_units TEXT,
+	-- 11. na2o -------------------	
+	na2o REAL,
+	std_na2o REAL,
+	me_na2o REAL,
+	na2o_units TEXT,
+	-- 12. k2o -------------------	
+	k2o REAL,
+	std_k2o REAL,
+	me_k2o REAL,
+	k2o_units TEXT,
+	-- 13. p2o5 -------------------	
+	p2o5 REAL,
+	std_p2o5 REAL,
+	me_p2o5 REAL,
+	p2o5_units TEXT,
+	-- 14. p2o5 -------------------
+	f REAL,
+	std_f REAL,
+	me_f REAL,
+	f_units TEXT,
+	-- 15. cl -------------------
+	cl REAL,
+	std_cl REAL,
+	me_cl REAL,
+	cl_units TEXT,
+	-- 16. co2 -------------------
+	co2 REAL,
+	std_co2 REAL,
+	me_co2 REAL,
+	co2_units TEXT,
+	------------------------------
+	h2o_plus REAL,
+	h2o_minus REAL,
+	loi REAL,
+	number_of_measurements INTEGER,
+	original_total INTEGER,
+	calculated_total REAL,
+	instrument_settings TEXT);
+	
+
 
 	
 ------------------------------------------------------------------------------
@@ -261,6 +360,8 @@ GRANT ALL PRIVILEGES ON bia_samples TO :ADMIN;
 GRANT ALL PRIVILEGES ON lake_samples TO :ADMIN;
 GRANT ALL PRIVILEGES ON marine_samples TO :ADMIN;
 GRANT ALL PRIVILEGES ON outcrop_samples TO :ADMIN;
+
+GRANT ALL PRIVILEGES ON mm_elements TO :ADMIN;
 
 ------------------------------------------------------------------------------
 ------------------------------------------------------------------------------
