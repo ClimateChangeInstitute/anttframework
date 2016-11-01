@@ -116,7 +116,8 @@ CREATE TABLE grain_sizes_refs(
 	sample_id TEXT NOT NULL,
 	iid TEXT NOT NULL,
 	doi TEXT REFERENCES refs(doi) NOT NULL,
-	FOREIGN KEY (sample_id, iid) REFERENCES grain_sizes(sample_id, iid));
+	FOREIGN KEY (sample_id, iid) REFERENCES grain_sizes(sample_id, iid),
+	PRIMARY KEY (sample_id, iid, doi));
 	
 CREATE TABLE images(
 	image_id SERIAL PRIMARY KEY,
