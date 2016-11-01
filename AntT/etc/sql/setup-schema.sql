@@ -101,7 +101,8 @@ CREATE TABLE samples(
 -- A sample may have many refs, and a ref may be used by many samples.
 CREATE TABLE samples_refs(
 	sample_id TEXT REFERENCES samples(sample_id) NOT NULL,
-	doi TEXT REFERENCES refs(doi) NOT NULL);
+	doi TEXT REFERENCES refs(doi) NOT NULL,
+	PRIMARY KEY (sample_id, doi));
 
 CREATE TABLE grain_sizes(
 	sample_id TEXT REFERENCES samples(sample_id) NOT NULL,
