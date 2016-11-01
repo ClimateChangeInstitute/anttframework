@@ -105,7 +105,7 @@ CREATE TABLE icecore_samples(
 	bottomyear_bp REAL);
 	
 
-CREATE TABLE BIA_samples(
+CREATE TABLE bia_samples(
 	-- start inherited from samples
 	sample_id TEXT PRIMARY KEY,
 	long_name TEXT,
@@ -123,6 +123,29 @@ CREATE TABLE BIA_samples(
 	unit_name TEXT,
 	thickness_cm TEXT,
 	trend TEXT);	
+
+	
+CREATE TABLE lake_samples(
+	-- start inherited from samples
+	sample_id TEXT PRIMARY KEY,
+	long_name TEXT,
+	sampled_by TEXT,
+	collection_dates TEXT,
+	comments TEXT,
+	site_id TEXT REFERENCES sites(site_id),
+	site_type TEXT REFERENCES site_types(site_type),
+	doi TEXT REFERENCES refs(doi), 
+	volcano_number INTEGER REFERENCES volcanoes(volcano_number),
+	-- end inherited from samples
+	-- start inherited from aquatic samples
+	age TEXT,
+	core_length_m REAL,
+	sampling_dates TEXT,
+	depth_m REAL,
+	top_m REAL,
+	thickness REAL
+	-- end inherited from aquatic samples
+	);
 	
 ------------------------------------------------------------------------------
 -- End Sample Related Tables
@@ -171,7 +194,9 @@ GRANT ALL PRIVILEGES ON site_types TO :ADMIN;
 GRANT ALL PRIVILEGES ON sites TO :ADMIN;
 GRANT ALL PRIVILEGES ON refs TO :ADMIN;
 GRANT ALL PRIVILEGES ON icecore_samples TO :ADMIN;
-GRANT ALL PRIVILEGES ON BIA_samples TO :ADMIN;
+GRANT ALL PRIVILEGES ON bia_samples TO :ADMIN;
+GRANT ALL PRIVILEGES ON lake_samples TO :ADMIN;
+
 
 ------------------------------------------------------------------------------
 ------------------------------------------------------------------------------
