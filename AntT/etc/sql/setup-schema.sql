@@ -86,7 +86,7 @@ CREATE TABLE instruments(
 -- Can't name the table references because it's a reserved word!
 CREATE TABLE refs(
 	doi TEXT PRIMARY KEY); -- TODO this table will need additional info columns 
-
+	
 -- Represents all samples
 CREATE TABLE samples(
 	sample_id TEXT PRIMARY KEY,
@@ -98,10 +98,18 @@ CREATE TABLE samples(
 	site_type TEXT REFERENCES site_types(site_type) NOT NULL,
 	iid TEXT REFERENCES instruments(iid) NOT NULL);
 
+-- A sample may have many refs, and a ref may be used by many samples.
 CREATE TABLE samples_refs(
 	sample_id TEXT REFERENCES samples(sample_id) NOT NULL,
 	doi TEXT REFERENCES refs(doi) NOT NULL);
-	
+
+CREATE TABLE grain_sizes(
+	sample_id TEXT REFERENCES samples(sample_id) NOT NULL,
+	iid TEXT REFERENCES instruments(iid) NOT NULL,
+	name TEXT NOT NULL,
+	range TEXT NOT NULL,
+	grain_date DATE NOT NULL,
+	PRIMARY KEY (sample_id, iid));
 	
 -- Icecore samples
 CREATE TABLE icecore_samples(
@@ -167,6 +175,8 @@ CREATE TABLE outcrop_samples(
 	sample_id TEXT PRIMARY KEY REFERENCES samples(sample_id),
 	volcano_number INTEGER REFERENCES volcanoes(volcano_number) NOT NULL -- Required by outcrop
 	);
+
+
 	
 ------------------------------------------------------------------------------
 -- End Sample Related Tables
@@ -219,6 +229,8 @@ GRANT ALL PRIVILEGES ON refs TO :ADMIN;
 
 GRANT ALL PRIVILEGES ON samples TO :ADMIN;
 GRANT ALL PRIVILEGES ON samples_refs TO :ADMIN;
+
+GRANT ALL PRIVILEGES ON grain_sizes TO :ADMIN;
 
 GRANT ALL PRIVILEGES ON icecore_samples TO :ADMIN;
 GRANT ALL PRIVILEGES ON bia_samples TO :ADMIN;
