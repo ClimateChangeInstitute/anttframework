@@ -148,7 +148,29 @@ CREATE TABLE lake_samples(
 	-- end inherited from aquatic samples
 	);
 	
-
+-- Mostly the same (actually is for now!) as lake_samples
+CREATE TABLE marine_samples(
+	-- start inherited from samples
+	sample_id TEXT PRIMARY KEY,
+	long_name TEXT,
+	sampled_by TEXT,
+	collection_dates TEXT,
+	comments TEXT,
+	site_id TEXT REFERENCES sites(site_id),
+	site_type TEXT REFERENCES site_types(site_type),
+	doi TEXT REFERENCES refs(doi), 
+	volcano_number INTEGER REFERENCES volcanoes(volcano_number),
+	-- end inherited from samples
+	-- start inherited from aquatic samples
+	core_type TEXT, -- TODO Is this really needed?
+	age TEXT,
+	core_length_m REAL,
+	sampling_dates TEXT,
+	depth_m REAL,
+	top_m REAL,
+	thickness REAL
+	-- end inherited from aquatic samples
+	);
 	
 ------------------------------------------------------------------------------
 -- End Sample Related Tables
@@ -199,7 +221,7 @@ GRANT ALL PRIVILEGES ON refs TO :ADMIN;
 GRANT ALL PRIVILEGES ON icecore_samples TO :ADMIN;
 GRANT ALL PRIVILEGES ON bia_samples TO :ADMIN;
 GRANT ALL PRIVILEGES ON lake_samples TO :ADMIN;
-
+GRANT ALL PRIVILEGES ON marine_samples TO :ADMIN;
 
 ------------------------------------------------------------------------------
 ------------------------------------------------------------------------------
