@@ -177,7 +177,6 @@ CREATE TABLE marine_samples(
 	comments TEXT,
 	site_id TEXT REFERENCES sites(site_id) NOT NULL,
 	site_type TEXT REFERENCES site_types(site_type) NOT NULL,
-	doi TEXT REFERENCES refs(doi), 
 	volcano_number INTEGER REFERENCES volcanoes(volcano_number),
 	iid TEXT REFERENCES instruments(iid) NOT NULL,
 	-- end inherited from samples
@@ -191,6 +190,11 @@ CREATE TABLE marine_samples(
 	thickness REAL
 	-- end inherited from aquatic samples
 	);
+
+CREATE TABLE marine_samples_refs(
+	sample_id TEXT REFERENCES marine_samples(sample_id) NOT NULL,
+	doi TEXT REFERENCES refs(doi) NOT NULL);
+
 	
 CREATE TABLE outcrop_samples(
 	-- start inherited from samples
@@ -266,6 +270,8 @@ GRANT ALL PRIVILEGES ON lake_samples TO :ADMIN;
 GRANT ALL PRIVILEGES ON lake_samples_refs TO :ADMIN;
 
 GRANT ALL PRIVILEGES ON marine_samples TO :ADMIN;
+GRANT ALL PRIVILEGES ON marine_samples_refs TO :ADMIN;
+
 GRANT ALL PRIVILEGES ON outcrop_samples TO :ADMIN;
 
 ------------------------------------------------------------------------------
