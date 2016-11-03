@@ -22,4 +22,9 @@ public class Statistics {
 			List<Double> stda, List<Double> xb, List<Double> stdb) {
 		return 0;
 	}
+
+	public static double weightingCoefficient(double xai, double stdai,
+			double xbi, double stdbi) {
+		return 0;
+	}
 }

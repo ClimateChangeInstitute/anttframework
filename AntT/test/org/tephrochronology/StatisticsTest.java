@@ -31,4 +31,13 @@ public class StatisticsTest {
 		fail("Not yet implemented");
 	}
 
+	/**
+	 * Test method for
+	 * {@link org.tephrochronology.Statistics#weightingCoefficient(double, double, double, double)}.
+	 */
+	@Test
+	public void testWeightingCoefficient() {
+		fail("Not yet implemented");
+	}
+
 }
