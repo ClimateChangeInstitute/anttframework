@@ -37,7 +37,10 @@ public class StatisticsTest {
 	 */
 	@Test
 	public void testWeightingCoefficient() {
-		fail("Not yet implemented");
+
+		assertEquals(1.0, Statistics.weightingCoefficient(3, 0, 2, 0, 0.33),
+				0.001);
+
 	}
 
 }

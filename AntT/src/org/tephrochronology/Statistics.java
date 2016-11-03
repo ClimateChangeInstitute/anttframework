@@ -23,8 +23,24 @@ public class Statistics {
 		return 0;
 	}
 
+	/**
+	 * Weighting coefficient between 1 and 0 which reflects precision
+	 * 
+	 * @param xai
+	 *            Concentration of element i in A
+	 * @param stdai
+	 *            One standard deviation for xai
+	 * @param xbi
+	 *            Concentration of element i in B
+	 * @param stdbi
+	 *            One standard deviation for xbi
+	 * @param detectionLimit
+	 *            Typically 0.33
+	 * @return
+	 */
 	public static double weightingCoefficient(double xai, double stdai,
-			double xbi, double stdbi) {
-		return 0;
+			double xbi, double stdbi, double detectionLimit) {
+		return 1 - Math.sqrt((Math.pow(stdai / xai, 2) + Math.pow(stdbi / xbi, 2))
+				/ detectionLimit);
 	}
 }
