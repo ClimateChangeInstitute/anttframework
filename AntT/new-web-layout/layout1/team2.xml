@@ -18,7 +18,7 @@
 		<email>member2@maine.edu</email>
 		<other>Some other text</other>
 		<image>
-			<url>http://localhost:8080/index_files/images/team_member_375.png</url>
+			<url>./index_files/images/team_member_375.png</url>
 			<Title>member2</Title>
 			<alt>Member2</alt>
 		</image>
