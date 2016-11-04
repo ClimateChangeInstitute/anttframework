@@ -28,20 +28,29 @@ public class Statistics {
 	 *            Concentration of B elements
 	 * @param stdb
 	 *            Standard deviations for B elements
+	 * @param detectionLimit
+	 *            Typically 0.33
 	 * @return Similarity coefficient for comparison between sample A and sample
 	 *         B
 	 */
 	public static double similarityCoefficient(List<Double> xa,
-			List<Double> stda, List<Double> xb, List<Double> stdb) {
+			List<Double> stda, List<Double> xb, List<Double> stdb,
+			double detectionLimit) {
 
 		// Calculate weighting coefficients
 		List<Double> g = new ArrayList<>();
 		for (int i = 0; i < xa.size(); i++) {
 			g.add(weightingCoefficient(xa.get(i), stda.get(i), xb.get(i),
-					stdb.get(i), 0.33));
+					stdb.get(i), detectionLimit));
 		}
 
-		return 0;
+		double n = 0;
+		for (int i = 0; i < xa.size(); i++) {
+			n += R(xa.get(i), xb.get(i)) * g.get(i);
+		}
+		double d = g.stream().mapToDouble(Double::doubleValue).sum();
+
+		return n / d;
 	}
 
 	/**
