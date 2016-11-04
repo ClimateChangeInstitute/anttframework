@@ -5,6 +5,7 @@ package org.tephrochronology;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * A collection of statistical routines for the project.
@@ -14,9 +15,25 @@ import java.util.List;
  */
 public class Statistics {
 
+	/**
+	 * @param xa
+	 *            Concentration of A elements
+	 * @param stda
+	 *            Standard deviations for A elements
+	 * @param xb
+	 *            Concentration of B elements
+	 * @param stdb
+	 *            Standard deviations for B elements
+	 * @return Similarity coefficient for comparison between sample A and sample
+	 *         B
+	 */
 	public static double similarityCoefficient(List<Double> xa,
 			List<Double> xb) {
-		return 0;
+		List<Double> std = xa.stream().map(f -> 0.0)
+				.collect(Collectors.toList());
+		// By making each value standard deviation 0 each element is 
+		// considered equally.  Detection limit is ignored.
+		return similarityCoefficient(xa, std, xb, std, 1 /* Doesn't matter */);
 	}
 
 	/**
