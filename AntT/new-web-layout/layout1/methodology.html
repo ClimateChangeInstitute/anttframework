@@ -62,8 +62,16 @@
         <h1>Recent papers</h1>
       </div>
 
-      <div id="insert-xml-here">
-
+      <div id="insert-xml-here" ng-app="exampleApp">
+        <div ng-controller="methodology">
+          <div ng-repeat="paper in dataSet">
+            <div class="page-header" >
+              <h2> {{paper.title}} </h2>
+            </div>
+            <p>{{paper.description}}</p>
+            <p>Read full paper <a href="{{paper.url}}">PDF</a>.</p>
+          </div>
+        </div>
       </div>
     </div>
       
@@ -76,42 +84,23 @@
 
 
     <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="index_files/jquery.js"></script>
-    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-    <script src="index_files/bootstrap.js"></script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="index_files/ie10-viewport-bug-workaround.js"></script>
-    <script>
-      var xhttp = new XMLHttpRequest();
-      xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
+        ================================================== -->
+      <!-- Placed at the end of the document so the pages load faster -->
+      <script src="index_files/jquery.js"></script>
+      <script>
+        window.jQuery
+            || document
+                .write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')
+      </script>
+      <script src="index_files/bootstrap.js"></script>
+      <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+      <script src="index_files/ie10-viewport-bug-workaround.js"></script>
 
-          var i;
-          var xmlDoc = this.responseXML;
-          var doc = xmlDoc.getElementsByTagName("Paper");
-          var holder = "";
-          for (i = 0; i < doc.length; i++) {
-            holder += '<div class="page-header"><h2>' + doc[i].getElementsByTagName("Title")[0].childNodes[0].nodeValue + '</h2></div>';
 
-            if (doc[i].getElementsByTagName("Description")[0] != "") {
-              holder += '<p>' + doc[i].getElementsByTagName("Description")[0].childNodes[0].nodeValue + '</p>';
-            }
+      <script src="./lib/angular.min.js"></script>
 
-            if (doc[i].getElementsByTagName("Url")[0] != "") {
-              holder += '<p>Read full paper <a href="' + doc[i].getElementsByTagName("Url")[0].childNodes[0].nodeValue + '">PDF</a>.</p>';
-            }
+      <script src="./lib/xml2json.js"></script>
 
-            holder += "</div>";
-          }
-
-          document.getElementById("insert-xml-here").innerHTML =
-          holder;
-        }
-      };
-      xhttp.open("GET", "methodology.xml", true);
-      xhttp.send();
-    </script>
+      <script src="./js/module.js"></script>
   </body>
 </html>
