@@ -43,4 +43,29 @@ public class StatisticsTest {
 
 	}
 
+	/**
+	 * Test method for
+	 * {@link org.tephrochronology.Statistics#R(double, double)}.
+	 */
+	@Test
+	public void testR() {
+
+		assertEquals(0.5, Statistics.R(1, 2), 0.001);
+		assertEquals(0.5, Statistics.R(2, 1), 0.001);
+
+	}
+	
+	/**
+	 * Test method for
+	 * {@link org.tephrochronology.Statistics#R(double, double)}.
+	 */
+	@Test(expected=IllegalArgumentException.class)
+	public void testRIllegalException() {
+
+		// Invalid a value
+		Statistics.R(-1, 2);
+		
+		Statistics.R(2, -1);
+
+	}
 }
