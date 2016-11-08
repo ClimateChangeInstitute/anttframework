@@ -18,47 +18,47 @@ public class Statistics {
 	/**
 	 * @param xa
 	 *            Concentration of A elements
-	 * @param stda
-	 *            Standard deviations for A elements
 	 * @param xb
 	 *            Concentration of B elements
-	 * @param stdb
-	 *            Standard deviations for B elements
 	 * @return Similarity coefficient for comparison between sample A and sample
 	 *         B
 	 */
 	public static double similarityCoefficient(List<Double> xa,
 			List<Double> xb) {
-		List<Double> std = xa.stream().map(f -> 0.0)
+		List<Double> stderr = xa.stream().map(f -> 0.0)
 				.collect(Collectors.toList());
-		// By making each value standard deviation 0 each element is 
-		// considered equally.  Detection limit is ignored.
-		return similarityCoefficient(xa, std, xb, std, 1 /* Doesn't matter */);
+		// Setting standard error to 0 for each element makes them be
+		// considered equally. Detection limit is ignored.
+		return similarityCoefficient(xa, stderr, xb, stderr,
+				1 /* Doesn't matter */);
 	}
 
 	/**
+	 * Assumes errors are symmetrical and positive with 95% confidence.
+	 * 
 	 * @param xa
 	 *            Concentration of A elements
-	 * @param stda
-	 *            Standard deviations for A elements
+	 * @param stderra
+	 *            Standard error for A elements
 	 * @param xb
 	 *            Concentration of B elements
-	 * @param stdb
-	 *            Standard deviations for B elements
+	 * @param stderrb
+	 *            Standard error for B elements
 	 * @param detectionLimit
 	 *            Typically 0.33
 	 * @return Similarity coefficient for comparison between sample A and sample
 	 *         B
 	 */
 	public static double similarityCoefficient(List<Double> xa,
-			List<Double> stda, List<Double> xb, List<Double> stdb,
+			List<Double> stderra, List<Double> xb, List<Double> stderrb,
 			double detectionLimit) {
 
 		// Calculate weighting coefficients
 		List<Double> g = new ArrayList<>();
 		for (int i = 0; i < xa.size(); i++) {
-			g.add(weightingCoefficient(xa.get(i), stda.get(i), xb.get(i),
-					stdb.get(i), detectionLimit));
+			g.add(weightingCoefficient(xa.get(i),
+					calcStdDev(stderra.get(i), xa.size()), xb.get(i),
+					calcStdDev(stderrb.get(i), xb.size()), detectionLimit));
 		}
 
 		double n = 0;
@@ -71,31 +71,44 @@ public class Statistics {
 	}
 
 	/**
-	 * Weighting coefficient between 0 and 1 which reflects precision
+	 * Assumes confidence level of 99%
+	 * 
+	 * @param stderror
+	 *            Assume positive symmetrical
+	 * @param N
+	 *            sample size
+	 * @return Standard deviation
+	 */
+	public static double calcStdDev(double stderror, int N) {
+		return stderror * Math.sqrt(N) / 2.819;
+	}
+
+
+	/**
+	 * Weighting coefficient between 0 and 1 which reflects precision.
 	 * 
 	 * @param xai
 	 *            Concentration of element i in A
-	 * @param stdai
-	 *            One standard deviation for xai
+	 * @param stderrai
+	 *            Standard error for xai
 	 * @param xbi
 	 *            Concentration of element i in B
-	 * @param stdbi
-	 *            One standard deviation for xbi
+	 * @param stderrbi
+	 *            Standard error for xbi
 	 * @param detectionLimit
 	 *            Typically 0.33
 	 * @return Weighting coefficient between 0 and 1
 	 */
-	public static double weightingCoefficient(double xai, double stdai,
-			double xbi, double stdbi, double detectionLimit) {
-		double result = 1 - Math
-				.sqrt((Math.pow(stdai / xai, 2) + Math.pow(stdbi / xbi, 2))
+	public static double weightingCoefficient(double xai, double stderrai,
+			double xbi, double stderrbi, double detectionLimit) {
+		double result = 1 - Math.sqrt(
+				(Math.pow(stderrai / xai, 2) + Math.pow(stderrbi / xbi, 2))
 						/ detectionLimit);
-		
+
 		if (result < 0) {
-//			System.out.printf("negative (%f,%f) and (%f,%f)\n", xai, stdai, xbi, stdbi);
-			result = 0;			
-		}	
-		
+			result = 0;
+		}
+
 		return result;
 	}
 
