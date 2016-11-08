@@ -26,24 +26,28 @@ public class StatisticsTest {
 	@Before
 	public void setUp() throws Exception {
 		ICsvListReader reader = new CsvListReader(
-				new FileReader(new File("./etc/data/borchardtINAA.csv")),
+				new FileReader(new File("./etc/data/borchardtINAAnoNaK.csv")),
 				CsvPreference.STANDARD_PREFERENCE);
 
 		String[] header = reader.getHeader(true);
 		List<String> line = reader.read();
 		List<List<Double>> samples = new ArrayList<>();
 		List<List<Double>> sampleStds = new ArrayList<>();
+		List<String> locales = new ArrayList<>();
 		while (line != null) {
 			List<Double> newSamples = new ArrayList<>();
 			List<Double> newSampleStds = new ArrayList<>();
+			locales.add(line.get(0));
 			for (int i = 1; i < line.size() - 1; i += 2) {
 				newSamples.add(Double.valueOf(line.get(i)));
 				newSampleStds.add(line.get(i + 1) != null
-						? Double.valueOf(line.get(i + 1)) : null);
+						? Double.valueOf(line.get(i + 1)) : 0);
 			}
+
 			samples.add(newSamples);
 			sampleStds.add(newSampleStds);
 			line = reader.read();
+
 		}
 
 	}
@@ -76,6 +80,16 @@ public class StatisticsTest {
 		assertEquals(1.0, Statistics.weightingCoefficient(3, 0, 2, 0, 0.33),
 				0.001);
 
+		assertEquals(0.0,
+				Statistics.weightingCoefficient(0.02,
+						Statistics.calcStdDev(0.03, 23), 0.23,
+						Statistics.calcStdDev(0.03, 23), 0.33),
+				0.001);
+		assertEquals(0.0,
+				Statistics.weightingCoefficient(54,
+						Statistics.calcStdDev(20, 23), 0.23,
+						Statistics.calcStdDev(0.03, 23), 0.33),
+				0.001);
 	}
 
 	/**

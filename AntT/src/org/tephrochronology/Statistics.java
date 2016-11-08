@@ -83,6 +83,13 @@ public class Statistics {
 		return stderror * Math.sqrt(N) / 2.819;
 	}
 
+	public static List<List<Double>> similarityCoefficientMatrix(
+			List<Double> xa, List<Double> stda, List<Double> xb,
+			List<Double> stdb, double detectionLimit) {
+		List<List<Double>> result = new ArrayList<>();
+
+		return result;
+	}
 
 	/**
 	 * Weighting coefficient between 0 and 1 which reflects precision.
