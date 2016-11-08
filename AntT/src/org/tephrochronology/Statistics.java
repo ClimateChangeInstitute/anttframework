@@ -87,9 +87,16 @@ public class Statistics {
 	 */
 	public static double weightingCoefficient(double xai, double stdai,
 			double xbi, double stdbi, double detectionLimit) {
-		return 1 - Math
+		double result = 1 - Math
 				.sqrt((Math.pow(stdai / xai, 2) + Math.pow(stdbi / xbi, 2))
 						/ detectionLimit);
+		
+		if (result < 0) {
+//			System.out.printf("negative (%f,%f) and (%f,%f)\n", xai, stdai, xbi, stdbi);
+			result = 0;			
+		}	
+		
+		return result;
 	}
 
 	/**
