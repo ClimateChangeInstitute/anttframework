@@ -32,24 +32,26 @@ public class StatisticsTest {
 		String[] header = reader.getHeader(true);
 		List<String> line = reader.read();
 		List<List<Double>> samples = new ArrayList<>();
-		List<List<Double>> sampleStds = new ArrayList<>();
+		List<List<Double>> stderr = new ArrayList<>();
 		List<String> locales = new ArrayList<>();
 		while (line != null) {
 			List<Double> newSamples = new ArrayList<>();
-			List<Double> newSampleStds = new ArrayList<>();
+			List<Double> newStderr = new ArrayList<>();
 			locales.add(line.get(0));
 			for (int i = 1; i < line.size() - 1; i += 2) {
 				newSamples.add(Double.valueOf(line.get(i)));
-				newSampleStds.add(line.get(i + 1) != null
+				newStderr.add(line.get(i + 1) != null
 						? Double.valueOf(line.get(i + 1)) : 0);
 			}
 
 			samples.add(newSamples);
-			sampleStds.add(newSampleStds);
+			stderr.add(newStderr);
 			line = reader.read();
 
 		}
 
+		Statistics.similarityCoefficientMatrix(samples, stderr, 0.33);
+		
 	}
 
 	/**

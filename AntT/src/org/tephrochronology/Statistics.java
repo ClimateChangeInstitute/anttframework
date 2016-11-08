@@ -84,9 +84,24 @@ public class Statistics {
 	}
 
 	public static List<List<Double>> similarityCoefficientMatrix(
-			List<Double> xa, List<Double> stda, List<Double> xb,
-			List<Double> stdb, double detectionLimit) {
+			List<List<Double>> samples, List<List<Double>> stderr,
+			double detectionLimit) {
 		List<List<Double>> result = new ArrayList<>();
+
+		for (int i = 0; i < samples.size(); i++) {
+			List<Double> s1 = samples.get(i);
+			List<Double> std1 = stderr.get(i);
+			List<Double> nextResult = new ArrayList<>(samples.size());
+			for (int j = 0; j < samples.size(); j++) {
+				List<Double> s2 = samples.get(j);
+				List<Double> std2 = stderr.get(j);
+				double sc = Statistics.similarityCoefficient(s1, std1, s2, std2,
+						detectionLimit);
+
+				nextResult.add(sc);
+			}
+			result.add(nextResult);
+		}
 
 		return result;
 	}
