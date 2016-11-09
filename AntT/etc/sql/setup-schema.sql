@@ -158,18 +158,21 @@ CREATE TABLE bia_samples(
 	trend TEXT);	
 
 -- Lake and Marine could be combined into aquatic table?
+
+CREATE TABLE core_types(
+       core_type TEXT PRIMARY KEY);
 	
 CREATE TABLE lake_samples(
 	sample_id TEXT PRIMARY KEY REFERENCES samples(sample_id),
 	volcano_number INTEGER REFERENCES volcanoes(volcano_number), -- Volcano not require
 	-- start inherited from aquatic samples
-	core_type TEXT, -- TODO Is this really needed?
+	core_type TEXT REFERENCES core_types(core_type),
 	age TEXT,
 	core_length_m REAL,
-	sampling_dates TEXT,
+	sampling_date DATE,
 	depth_m REAL,
 	top_m REAL,
-	thickness REAL
+	thickness_cm REAL
 	-- end inherited from aquatic samples
 	);
 	
@@ -179,13 +182,13 @@ CREATE TABLE marine_samples(
 	sample_id TEXT PRIMARY KEY REFERENCES samples(sample_id),
 	volcano_number INTEGER REFERENCES volcanoes(volcano_number), -- Volcano not require
 	-- start inherited from aquatic samples
-	core_type TEXT, -- TODO Is this really needed?
+	core_type TEXT REFERENCES core_types(core_type),
 	age TEXT,
 	core_length_m REAL,
-	sampling_dates TEXT,
+	sampling_date DATE,
 	depth_m REAL,
 	top_m REAL,
-	thickness REAL
+	thickness_cm REAL
 	-- end inherited from aquatic samples
 	);
 
@@ -356,6 +359,9 @@ GRANT ALL PRIVILEGES ON samples_images TO :ADMIN;
 
 GRANT ALL PRIVILEGES ON icecore_samples TO :ADMIN;
 GRANT ALL PRIVILEGES ON bia_samples TO :ADMIN;
+
+GRANT ALL PRIVILEGES ON core_types TO :ADMIN;
+
 GRANT ALL PRIVILEGES ON lake_samples TO :ADMIN;
 GRANT ALL PRIVILEGES ON marine_samples TO :ADMIN;
 GRANT ALL PRIVILEGES ON outcrop_samples TO :ADMIN;
