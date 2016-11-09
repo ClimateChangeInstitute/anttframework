@@ -83,6 +83,19 @@ public class Statistics {
 		return stderror * Math.sqrt(N) / 2.819;
 	}
 
+	/**
+	 * The similarity matrix that results from this method is symmetric. Access
+	 * result.get(i).get(j) to get the list of the ith sample similarity
+	 * coefficient vs the jth sample.
+	 * 
+	 * @param samples
+	 *            List of samples of elements
+	 * @param stderr
+	 *            The error for each sample's elements
+	 * @param detectionLimit
+	 *            The detection limit (eg 0.33)
+	 * @return The similarity coefficient matrix
+	 */
 	public static List<List<Double>> similarityCoefficientMatrix(
 			List<List<Double>> samples, List<List<Double>> stderr,
 			double detectionLimit) {

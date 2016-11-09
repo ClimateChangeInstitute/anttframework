@@ -8,10 +8,10 @@ import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.supercsv.io.CsvListReader;
 import org.supercsv.io.ICsvListReader;
@@ -22,37 +22,6 @@ import org.supercsv.prefs.CsvPreference;
  *
  */
 public class StatisticsTest {
-
-	@Before
-	public void setUp() throws Exception {
-		ICsvListReader reader = new CsvListReader(
-				new FileReader(new File("./etc/data/borchardtINAAnoNaK.csv")),
-				CsvPreference.STANDARD_PREFERENCE);
-
-		String[] header = reader.getHeader(true);
-		List<String> line = reader.read();
-		List<List<Double>> samples = new ArrayList<>();
-		List<List<Double>> stderr = new ArrayList<>();
-		List<String> locales = new ArrayList<>();
-		while (line != null) {
-			List<Double> newSamples = new ArrayList<>();
-			List<Double> newStderr = new ArrayList<>();
-			locales.add(line.get(0));
-			for (int i = 1; i < line.size() - 1; i += 2) {
-				newSamples.add(Double.valueOf(line.get(i)));
-				newStderr.add(line.get(i + 1) != null
-						? Double.valueOf(line.get(i + 1)) : 0);
-			}
-
-			samples.add(newSamples);
-			stderr.add(newStderr);
-			line = reader.read();
-
-		}
-
-		Statistics.similarityCoefficientMatrix(samples, stderr, 0.33);
-		
-	}
 
 	/**
 	 * Test method for
@@ -118,5 +87,84 @@ public class StatisticsTest {
 
 		Statistics.R(2, -1);
 
+	}
+
+	/**
+	 * Test the similarity matrix function based on the weighted coefficient
+	 * example from the Borchardt paper.
+	 * 
+	 * @throws IOException
+	 */
+	@Test
+	public void testSimilarityCoefficientMatrix() throws IOException {
+
+		ICsvListReader inputReader = new CsvListReader(
+				new FileReader(new File("./etc/data/borchardtINAAnoNaK.csv")),
+				CsvPreference.STANDARD_PREFERENCE);
+
+		// Not used
+		// String[] header =
+		inputReader.getHeader(true);
+		List<String> line = inputReader.read();
+		List<List<Double>> samples = new ArrayList<>();
+		List<List<Double>> stderr = new ArrayList<>();
+		List<String> locales = new ArrayList<>();
+		while (line != null) {
+			List<Double> newSamples = new ArrayList<>();
+			List<Double> newStderr = new ArrayList<>();
+			locales.add(line.get(0));
+			for (int i = 1; i < line.size() - 1; i += 2) {
+				newSamples.add(Double.valueOf(line.get(i)));
+				newStderr.add(line.get(i + 1) != null
+						? Double.valueOf(line.get(i + 1)) : 0);
+			}
+
+			samples.add(newSamples);
+			stderr.add(newStderr);
+			line = inputReader.read();
+
+		}
+
+		List<List<Double>> result = Statistics
+				.similarityCoefficientMatrix(samples, stderr, 0.33);
+
+		ICsvListReader expectedReader = new CsvListReader(
+				new FileReader(new File(
+						"./etc/data/borchardtSimilarityCoefficients.csv")),
+				CsvPreference.STANDARD_PREFERENCE);
+
+		List<List<Double>> expectedResult = new ArrayList<>(result.size());
+
+		// header =
+		expectedReader.getHeader(true);
+		line = expectedReader.read();
+		while (line != null) {
+			List<Double> newExpResult = new ArrayList<>();
+			// First column is location number
+			for (int i = 1; i < line.size(); i++) {
+				newExpResult.add(line.get(i) != null
+						? Double.valueOf(line.get(i)) : null);
+			}
+			expectedResult.add(newExpResult);
+			line = expectedReader.read();
+		}
+
+		for (int i = 0; i < expectedResult.size(); i++) {
+			for (int j = 0; j < i; j++) {
+				// System.out.printf("%s=%s,%s ",
+				// expectedResult.get(i).get(j).toString(),
+				// String.format("%.2g", result.get(i).get(j)),
+				// String.format("%.4g", result.get(i).get(j)));
+				assertEquals(expectedResult.get(i).get(j), result.get(i).get(j),
+						0.009);
+				// Symmetric case
+				assertEquals(expectedResult.get(i).get(j), result.get(j).get(i),
+						0.009);
+			}
+			// System.out.println();
+		}
+
+		inputReader.close();
+		expectedReader.close();
 	}
 }
