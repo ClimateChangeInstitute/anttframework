@@ -135,7 +135,7 @@ CREATE TABLE icecore_samples(
 	sample_id TEXT PRIMARY KEY REFERENCES samples(sample_id),
 	volcano_number INTEGER REFERENCES volcanoes(volcano_number), -- Volcano not require
 	drilled_by TEXT,
-	drilling_dates TEXT,
+	drilling_date DATE NOT NULL,
 	core_diameter REAL,
 	max_core_depth REAL,
 	core_age REAL,
