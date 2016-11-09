@@ -216,12 +216,12 @@ CREATE TABLE mm_elements(
 	-- 1. sio2 -------------------
 	sio2 REAL,
 	std_sio2 REAL,
-	measured_sio2 REAL,
+	me_sio2 REAL,
 	sio2_units TEXT,
 	-- 2. tio2 -------------------
 	tio2 REAL,
 	std_tio2 REAL,
-	measured_tio2 REAL,
+	me_tio2 REAL,
 	tio2_units TEXT,
 	-- 3. so2 -------------------
 	so2 REAL,
