@@ -80,6 +80,7 @@ public class Statistics {
 	 * @return Standard deviation
 	 */
 	public static double calcStdDev(double stderror, int N) {
+		// TODO 2.819 is for t table value 22 with 99% confidence only
 		return stderror * Math.sqrt(N) / 2.819;
 	}
 
