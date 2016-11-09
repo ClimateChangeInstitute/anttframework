@@ -95,7 +95,6 @@ CREATE TABLE samples(
 	collection_date DATE NOT NULL,
 	comments TEXT,
 	site_id TEXT REFERENCES sites(site_id) NOT NULL,
-	site_type TEXT REFERENCES site_types(site_type) NOT NULL,
 	iid TEXT REFERENCES instruments(iid) NOT NULL);
 
 -- A sample may have many refs, and a ref may be used by many samples.
