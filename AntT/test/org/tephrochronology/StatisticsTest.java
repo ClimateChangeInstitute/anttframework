@@ -4,12 +4,12 @@
 package org.tephrochronology;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Test;
@@ -29,7 +29,14 @@ public class StatisticsTest {
 	 */
 	@Test
 	public void testSimilarityCoefficientListOfDoubleListOfDouble() {
-		fail("Not yet implemented");
+
+		List<Double> s1 = Arrays.asList(1.0, 1.0, 1.0);
+		List<Double> s2 = Arrays.asList(1.0, 2.0, 4.0);
+
+		assertEquals(1.0, Statistics.similarityCoefficient(s1, s1), 0.001);
+
+		assertEquals(7.0 / 12.0, Statistics.similarityCoefficient(s1, s2),
+				0.001);
 	}
 
 	/**
@@ -38,7 +45,25 @@ public class StatisticsTest {
 	 */
 	@Test
 	public void testSimilarityCoefficientListOfDoubleListOfDoubleListOfDoubleListOfDouble() {
-		fail("Not yet implemented");
+
+		List<Double> s1 = Arrays.asList(1.0, 1.0, 1.0);
+		List<Double> s2 = Arrays.asList(1.0, 2.0, 4.0);
+
+		List<Double> stderrsZero = Arrays.asList(0.0, 0.0, 0.0);
+		List<Double> stderrsTenth = Arrays.asList(0.1, 0.1, 0.1);
+
+		assertEquals(1.0, Statistics.similarityCoefficient(s1, stderrsZero, s1,
+				stderrsZero, 0.5), 0.001);
+
+		assertEquals(7.0 / 12.0, Statistics.similarityCoefficient(s1,
+				stderrsZero, s2, stderrsZero, 0.5), 0.001);
+
+		assertEquals(1.0, Statistics.similarityCoefficient(s1, stderrsTenth, s1,
+				stderrsTenth, 0.5), 0.001);
+
+		assertEquals(0.577, Statistics.similarityCoefficient(s1, stderrsTenth,
+				s2, stderrsTenth, 0.33), 0.001);
+
 	}
 
 	/**
