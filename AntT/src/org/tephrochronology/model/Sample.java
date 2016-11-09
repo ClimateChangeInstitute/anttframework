@@ -4,6 +4,7 @@
 package org.tephrochronology.model;
 
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * All samples in the database extend this type.
@@ -26,6 +27,11 @@ public class Sample {
 	private Site site;
 	
 	private Instrument instrument;
+	
+	/**
+	 * A sample may have many references, and a reference may be used by many samples.
+	 */
+	private List<Ref> refs;
 
 	/**
 	 * @param sampleID
@@ -103,6 +109,14 @@ public class Sample {
 
 	public void setInstrument(Instrument instrument) {
 		this.instrument = instrument;
+	}
+
+	public List<Ref> getRefs() {
+		return refs;
+	}
+
+	public void setRefs(List<Ref> refs) {
+		this.refs = refs;
 	}
 	
 }
