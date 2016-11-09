@@ -208,7 +208,11 @@ CREATE TABLE mm_elements(
 	method_type TEXT REFERENCES method_types(method_type) NOT NULL,
 	iid TEXT REFERENCES instruments(iid) NOT NULL,
 	date_measured DATE,
-	measured_by TEXT,
+	measured_by TEXT NOT NULL,
+	number_of_measurements INTEGER NOT NULL,
+	original_total REAL NOT NULL,
+	calculated_total REAL NOT NULL,
+	instrument_settings TEXT,
 	-- 1. sio2 -------------------
 	sio2 REAL,
 	std_sio2 REAL,
@@ -292,11 +296,7 @@ CREATE TABLE mm_elements(
 	------------------------------
 	h2o_plus REAL,
 	h2o_minus REAL,
-	loi REAL,
-	number_of_measurements INTEGER,
-	original_total INTEGER,
-	calculated_total REAL,
-	instrument_settings TEXT);
+	loi REAL);
 	
 
 
