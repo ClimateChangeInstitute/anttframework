@@ -198,12 +198,14 @@ CREATE TABLE outcrop_samples(
 	volcano_number INTEGER REFERENCES volcanoes(volcano_number) NOT NULL -- Required by outcrop
 	);
 
+CREATE TABLE method_types(
+       method_type TEXT PRIMARY KEY);
 	
 CREATE TABLE mm_elements(
 	longsample_id TEXT PRIMARY KEY,
 	sample_id TEXT REFERENCES samples(sample_id) NOT NULL,
 	comments TEXT,	
-	method TEXT NOT NULL, -- TODO maybe it should have a separate table?
+	method_type TEXT REFERENCES method_types(method_type) NOT NULL,
 	iid TEXT REFERENCES instruments(iid) NOT NULL,
 	date_measured DATE,
 	measured_by TEXT,
@@ -366,6 +368,7 @@ GRANT ALL PRIVILEGES ON lake_samples TO :ADMIN;
 GRANT ALL PRIVILEGES ON marine_samples TO :ADMIN;
 GRANT ALL PRIVILEGES ON outcrop_samples TO :ADMIN;
 
+GRANT ALL PRIVILEGES ON method_types TO :ADMIN;
 GRANT ALL PRIVILEGES ON mm_elements TO :ADMIN;
 
 ------------------------------------------------------------------------------
