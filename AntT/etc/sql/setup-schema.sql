@@ -134,16 +134,16 @@ CREATE TABLE samples_images(
 CREATE TABLE icecore_samples(
 	sample_id TEXT PRIMARY KEY REFERENCES samples(sample_id),
 	volcano_number INTEGER REFERENCES volcanoes(volcano_number), -- Volcano not require
-	drilled_by TEXT,
+	drilled_by TEXT NOT NULL,
 	drilling_date DATE NOT NULL,
-	core_diameter REAL,
-	max_core_depth REAL,
-	core_age REAL,
-	core_age_range TEXT, -- years
-	topdepth_m REAL,
-	bottomdepth_m REAL,
-	topyear_bp REAL,
-	bottomyear_bp REAL);
+	core_diameter REAL NOT NULL,
+	max_core_depth REAL NOT NULL,
+	core_age REAL NOT NULL,
+	core_age_range TEXT NOT NULL, -- years
+	topdepth_m REAL NOT NULL,
+	bottomdepth_m REAL NOT NULL,
+	topyear_bp REAL NOT NULL,
+	bottomyear_bp REAL NOT NULL);
 	
 	
 -- Blue Ice Area samples
