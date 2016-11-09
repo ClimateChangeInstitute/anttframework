@@ -20,12 +20,16 @@ public class Ref {
 	 */
 	private List<Sample> samples;
 	
+	private List<GrainSize> grainSizes;
+	
 	/**
 	 * @param doi
 	 */
-	public Ref(String doi) {
+	public Ref(String doi, List<Sample> samples, List<GrainSize> grainSizes) {
 		super();
 		this.doi = doi;
+		this.samples = samples;
+		this.grainSizes = grainSizes;
 	}
 
 	public String getDoi() {
@@ -42,6 +46,14 @@ public class Ref {
 
 	public void setSamples(List<Sample> samples) {
 		this.samples = samples;
+	}
+
+	public List<GrainSize> getGrainSizes() {
+		return grainSizes;
+	}
+
+	public void setGrainSizes(List<GrainSize> grainSizes) {
+		this.grainSizes = grainSizes;
 	}
 	
 }
