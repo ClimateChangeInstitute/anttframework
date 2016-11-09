@@ -92,7 +92,7 @@ CREATE TABLE samples(
 	sample_id TEXT PRIMARY KEY,
 	long_name TEXT,
 	sampled_by TEXT,
-	collection_dates TEXT,
+	collection_date DATE NOT NULL,
 	comments TEXT,
 	site_id TEXT REFERENCES sites(site_id) NOT NULL,
 	site_type TEXT REFERENCES site_types(site_type) NOT NULL,
