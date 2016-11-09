@@ -7,6 +7,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 /**
+ * Blue Ice Area sample.
+ * 
  * @author Mark Royer
  *
  */
