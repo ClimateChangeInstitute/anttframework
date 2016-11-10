@@ -43,6 +43,7 @@ public class QueryVolcanoes {
 
 		if (args.length != 2) {
 			System.err.println("Usage: java QueryVolcanoes USER PASS");
+			System.exit(-1);
 		}
 		
 		EntityManagerFactory emf = Persistence
