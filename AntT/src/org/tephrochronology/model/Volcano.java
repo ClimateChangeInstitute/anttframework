@@ -3,46 +3,81 @@
  */
 package org.tephrochronology.model;
 
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
 /**
  * @author Mark Royer
  *
  */
-public class Volcano {
-	
+@Entity
+@Table(name = "volcanoes")
+public class Volcano implements Serializable {
+
+	@Id
+	@Column(name = "volcano_number")
 	private int volcanoNumber;
-	
+
+	@Column(name = "old_volcano_number")
 	private String oldVolcanoNumber;
-	
+
+	@Column(name = "volcano_name")
 	private String name;
-	
+
+	@JoinColumn(name = "country", updatable = false, insertable = false)
 	private Country country;
-	
+
+	@JoinColumn(name = "primary_volcano_type")
 	private VolcanoType primaryVolcanoType;
-	
+
+	@Column(name = "last_known_eruption")
 	private String lastKnownEruption;
-	
+
+	@JoinColumns({
+			@JoinColumn(name = "region", referencedColumnName = "region"),
+			@JoinColumn(name = "subregion", referencedColumnName = "subregion"),
+			@JoinColumn(name = "country", referencedColumnName = "country") })
 	private Region region;
-	
+
+	@JoinColumns({
+			@JoinColumn(name = "subregion", referencedColumnName = "subregion", updatable = false, insertable = false),
+			@JoinColumn(name = "country", referencedColumnName = "country", updatable = false, insertable = false) })
 	private Subregion subregion;
-	
+
 	/**
 	 * -90 <= latitude <= 90
 	 */
+	@Column(name = "latitude")
 	private float latitude;
-	
+
 	/**
 	 * -180 <= longitude <= 180
 	 */
+	@Column(name = "longitude")
 	private float longitude;
-	
+
 	/**
 	 * Meters
 	 */
+	@Column(name = "elevation_m")
 	private float elevation;
-	
+
+	// @Column(name="dominant_rock_type")
+	@JoinColumn(name = "dominant_rock_type")
 	private RockType dominantRockType;
-	
+
+	@JoinColumn(name = "tectonic_setting")
 	private TectonicType tectonicSetting;
+
+	public Volcano() {
+	}
 
 	/**
 	 * @param volcanoNumber
@@ -183,6 +218,5 @@ public class Volcano {
 	public void setTectonicSetting(TectonicType tectonicSetting) {
 		this.tectonicSetting = tectonicSetting;
 	}
-	
-	
+
 }

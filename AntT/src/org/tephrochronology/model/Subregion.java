@@ -3,16 +3,34 @@
  */
 package org.tephrochronology.model;
 
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.IdClass;
+import javax.persistence.JoinColumn;
+import javax.persistence.Table;
+
 /**
  * @author Mark Royer
  *
  */
-public class Subregion {
-	
+@Entity
+@Table(name = "subregions")
+@IdClass(SubregionID.class)
+public class Subregion implements Serializable {
+
+	@Id
+	@Column(name = "subregion")
 	private String name;
-	
+
+	@Id
+	@JoinColumn(name="country")
 	private Country country;
 
+	public Subregion(){}
+	
 	public Subregion(String name, Country country) {
 		super();
 		this.name = name;
@@ -35,5 +53,4 @@ public class Subregion {
 		this.country = country;
 	}
 
-	
 }

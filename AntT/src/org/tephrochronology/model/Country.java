@@ -3,14 +3,25 @@
  */
 package org.tephrochronology.model;
 
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  * @author Mark Royer
  *
  */
-public class Country {
+@Entity
+@Table(name="countries")
+public class Country implements Serializable {
 
+	@Id
+	@Column(name="country")
 	private String name;
-
+	
 	public Country(String name) {
 		super();
 		this.name = name;
