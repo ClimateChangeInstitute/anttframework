@@ -16,8 +16,8 @@ public class GrainSizeID implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	Sample sample;
-	Instrument instrument;
+	String sample;
+	String instrument;
 
 	@Override
 	public boolean equals(Object obj) {

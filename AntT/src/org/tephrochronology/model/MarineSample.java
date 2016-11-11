@@ -34,7 +34,7 @@ public class MarineSample extends AquaticSample {
 	public MarineSample(String sampleID, String longName, String sampledBy,
 			LocalDate collectionDate, String comments, Site site,
 			Instrument instrument, List<Ref> refs, List<Image> images,
-			Integer volcanoNumber, String coreType, String age,
+			Integer volcanoNumber, CoreType coreType, String age,
 			float coreLength, LocalDate samplingDate, float depth, float top,
 			float thickness) {
 		super(sampleID, longName, sampledBy, collectionDate, comments, site,

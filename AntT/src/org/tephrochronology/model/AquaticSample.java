@@ -12,14 +12,14 @@ import java.util.List;
  * @author Mark Royer
  *
  */
-public class AquaticSample extends Sample {
+public abstract class AquaticSample extends Sample {
 
 	/**
 	 * Not required
 	 */
 	private Integer volcanoNumber;
 
-	private String coreType;
+	private CoreType coreType;
 
 	private String age;
 
@@ -67,7 +67,7 @@ public class AquaticSample extends Sample {
 	public AquaticSample(String sampleID, String longName, String sampledBy,
 			LocalDate collectionDate, String comments, Site site,
 			Instrument instrument, List<Ref> refs, List<Image> images,
-			Integer volcanoNumber, String coreType, String age,
+			Integer volcanoNumber, CoreType coreType, String age,
 			float coreLength, LocalDate samplingDate, float depth, float top,
 			float thickness) {
 		super(sampleID, longName, sampledBy, collectionDate, comments, site,
@@ -90,11 +90,11 @@ public class AquaticSample extends Sample {
 		this.volcanoNumber = volcanoNumber;
 	}
 
-	public String getCoreType() {
+	public CoreType getCoreType() {
 		return coreType;
 	}
 
-	public void setCoreType(String coreType) {
+	public void setCoreType(CoreType coreType) {
 		this.coreType = coreType;
 	}
 

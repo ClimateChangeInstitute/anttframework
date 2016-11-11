@@ -18,5 +18,7 @@
 		<class>org.tephrochronology.model.GrainSize</class>
 		<class>org.tephrochronology.model.Image</class>
 		<class>org.tephrochronology.model.IceCoreSample</class>
+		<class>org.tephrochronology.model.BIASample</class>
+		<class>org.tephrochronology.model.CoreType</class>
 	</persistence-unit>
 </persistence>
