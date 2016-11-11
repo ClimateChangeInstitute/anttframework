@@ -3,31 +3,53 @@
  */
 package org.tephrochronology.model;
 
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.Table;
+
 /**
  * @author Mark Royer
  *
  */
-public class Site {
+@Entity
+@Table(name = "sites")
+public class Site implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@Column(name = "site_id")
 	private String siteID;
-	
+
+	@JoinColumn(name = "site_type")
 	private SiteType siteType;
-	
+
 	/**
 	 * -90 <= latitude <= 90
 	 */
+	@Column(name = "latitude")
 	private float latitude;
-	
+
 	/**
 	 * -180 <= longitude <= 180
 	 */
+	@Column(name = "longitude")
 	private float longitude;
-	
+
 	/**
 	 * Meters
 	 */
+	@Column(name = "elevation_m")
 	private float elevation;
-	
+
+	@Column(name = "comment")
 	private String comment;
 
 	/**
@@ -47,6 +69,9 @@ public class Site {
 		this.longitude = longitude;
 		this.elevation = elevation;
 		this.comment = comment;
+	}
+
+	public Site() {
 	}
 
 	public String getSiteID() {
@@ -96,5 +121,5 @@ public class Site {
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
-	
+
 }
