@@ -10,5 +10,11 @@
 		<class>org.tephrochronology.model.Region</class>
 		<class>org.tephrochronology.model.Subregion</class>
 		<class>org.tephrochronology.model.TectonicType</class>
+		<class>org.tephrochronology.model.SiteType</class>
+		<class>org.tephrochronology.model.Instrument</class>
+		<class>org.tephrochronology.model.Ref</class>
+		<class>org.tephrochronology.model.Sample</class>
+		<class>org.tephrochronology.model.GrainSize</class>
+		<class>org.tephrochronology.model.Image</class>
 	</persistence-unit>
 </persistence>

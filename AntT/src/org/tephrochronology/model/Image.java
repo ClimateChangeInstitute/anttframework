@@ -3,24 +3,51 @@
  */
 package org.tephrochronology.model;
 
+import java.io.Serializable;
 import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
 /**
  * @author Mark Royer
  *
  */
-public class Image {
+@Entity
+@Table(name = "images")
+public class Image implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@Column(name = "image_id")
 	private int imageID;
 
+	@Column(name = "comments")
 	private String comments;
 
+	@Column(name = "bytes")
 	private byte[] bytes;
 
 	/**
 	 * A sample may have many images, and an image may be used by many samples.
 	 */
+	@ManyToMany
+	@JoinTable(name = "samples_images", joinColumns = {
+			@JoinColumn(name = "image_id") }, inverseJoinColumns = {
+					@JoinColumn(name = "sample_id") })
 	private List<Sample> samplesUsedBy;
+
+	public Image() {
+	}
 
 	/**
 	 * @param imageID

@@ -3,19 +3,41 @@
  */
 package org.tephrochronology.model;
 
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  * @author Mark Royer
  *
  */
-public class Instrument {
+@Entity
+@Table(name = "instruments")
+public class Instrument implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@Column(name = "iid")
 	private String id;
-	
+
+	@Column(name = "long_name")
 	private String longName;
-	
+
+	@Column(name = "location")
 	private String location;
-	
+
+	@Column(name = "comments")
 	private String comment;
+
+	public Instrument() {
+	}
 
 	/**
 	 * @param id
@@ -63,5 +85,5 @@ public class Instrument {
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
-	
+
 }

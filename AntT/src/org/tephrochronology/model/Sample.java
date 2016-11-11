@@ -3,8 +3,17 @@
  */
 package org.tephrochronology.model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
 /**
  * All samples in the database extend this type.
@@ -12,32 +21,58 @@ import java.util.List;
  * @author Mark Royer
  *
  */
-public class Sample {
+@Entity
+@Table(name = "samples")
+public class Sample implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@Column(name = "sample_id")
 	private String sampleID;
 
+	@Column(name = "long_name")
 	private String longName;
 
+	@Column(name = "sampled_by")
 	private String sampledBy;
 
+	@Column(name = "collection_date")
 	private LocalDate collectionDate;
 
+	@Column(name = "comments")
 	private String comments;
 
+	@JoinColumn(name = "site_id")
 	private Site site;
 
+	@JoinColumn(name = "iid")
 	private Instrument instrument;
 
 	/**
 	 * A sample may have many references, and a reference may be used by many
 	 * samples.
 	 */
+	@ManyToMany
+	@JoinTable(name = "samples_refs", joinColumns = {
+			@JoinColumn(name = "sample_id") }, inverseJoinColumns = {
+					@JoinColumn(name = "doi") })
 	private List<Ref> refs;
 
 	/**
 	 * A sample may have many images, and an image may be used by many samples.
 	 */
+	@ManyToMany
+	@JoinTable(name = "samples_images", joinColumns = {
+			@JoinColumn(name = "sample_id") }, inverseJoinColumns = {
+					@JoinColumn(name = "image_id") })
 	private List<Image> images;
+
+	public Sample() {
+	}
 
 	/**
 	 * @param sampleID
