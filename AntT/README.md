@@ -19,6 +19,8 @@ project. Maven version >=3.3.9 is required to build the project.
 The project requires that a PostgreSQL is installed.  PostgreSQL
 version >= 9.4 is required by the project.
 
+These sample layouts utilize HTML5 and Bootstrap v3.3.7. These are to be used for templating only. These layouts will later be built automatically.
+
 ## Building
 
 First, ensure that the database has been installed.  The `README.md`
@@ -41,6 +43,10 @@ in the `target` directory.
 
 To deploy the site contained by the war file to Tomcat, copy the war file into the Tomcat
 `webapps` directory.
+
+## Other
+
+1. Will be linted with bootlint on every release (see https://github.com/twbs/bootlint)
 
 
 <!--  LocalWords:  mvn AntT WebContent CSS JDK PostgreSQL README md
