@@ -1,0 +1,14 @@
+<persistence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+	version="2.0" xmlns="http://java.sun.com/xml/ns/persistence">
+	<persistence-unit name="antt" transaction-type="RESOURCE_LOCAL">
+		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+		<class>org.tephrochronology.model.Volcano</class>
+		<class>org.tephrochronology.model.Country</class>
+		<class>org.tephrochronology.model.RockType</class>
+		<class>org.tephrochronology.model.VolcanoType</class>
+		<class>org.tephrochronology.model.Region</class>
+		<class>org.tephrochronology.model.Subregion</class>
+		<class>org.tephrochronology.model.TectonicType</class>
+	</persistence-unit>
+</persistence>
