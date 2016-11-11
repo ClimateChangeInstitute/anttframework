@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE methodology SYSTEM "methodology.dtd">
 <methodology>
 	<!-- This is an example xml template - it is a way to define your papers -->
 	<!-- You may leave out the tags that you don't have information for or that 

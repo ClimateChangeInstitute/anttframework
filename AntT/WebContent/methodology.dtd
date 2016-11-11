@@ -1,1 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT methodology (paper*)>
+<!ELEMENT paper (title,description,doc)>
+<!ELEMENT title (#PCDATA)>
+<!ELEMENT description (#PCDATA)>
+<!ELEMENT doc (url)>
+<!ELEMENT url (#PCDATA)>
