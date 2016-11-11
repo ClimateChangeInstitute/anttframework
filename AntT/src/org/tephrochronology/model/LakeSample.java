@@ -6,6 +6,7 @@ package org.tephrochronology.model;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -15,6 +16,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "lake_samples")
+@DiscriminatorValue(value="L")
 public class LakeSample extends AquaticSample {
 
 	/**

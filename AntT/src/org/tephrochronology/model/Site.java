@@ -3,12 +3,15 @@
  */
 package org.tephrochronology.model;
 
+import static javax.persistence.CascadeType.PERSIST;
+
 import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -29,6 +32,7 @@ public class Site implements Serializable {
 	private String siteID;
 
 	@JoinColumn(name = "site_type")
+	@OneToOne(cascade=PERSIST)
 	private SiteType siteType;
 
 	/**

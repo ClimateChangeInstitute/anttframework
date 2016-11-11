@@ -3,12 +3,14 @@
  */
 package org.tephrochronology.model;
 
+import static javax.persistence.CascadeType.PERSIST;
 import static javax.persistence.DiscriminatorType.CHAR;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
@@ -18,6 +20,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -54,16 +57,18 @@ public abstract class Sample implements Serializable {
 	private String comments;
 
 	@JoinColumn(name = "site_id")
+	@OneToOne(cascade=PERSIST)
 	private Site site;
 
 	@JoinColumn(name = "iid")
+	@OneToOne(cascade=PERSIST)
 	private Instrument instrument;
 
 	/**
 	 * A sample may have many references, and a reference may be used by many
 	 * samples.
 	 */
-	@ManyToMany
+	@ManyToMany(cascade=PERSIST)
 	@JoinTable(name = "samples_refs", joinColumns = {
 			@JoinColumn(name = "sample_id") }, inverseJoinColumns = {
 					@JoinColumn(name = "doi") })
@@ -72,7 +77,7 @@ public abstract class Sample implements Serializable {
 	/**
 	 * A sample may have many images, and an image may be used by many samples.
 	 */
-	@ManyToMany
+	@ManyToMany(cascade=PERSIST)
 	@JoinTable(name = "samples_images", joinColumns = {
 			@JoinColumn(name = "sample_id") }, inverseJoinColumns = {
 					@JoinColumn(name = "image_id") })

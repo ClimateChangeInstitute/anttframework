@@ -15,6 +15,8 @@ import static org.eclipse.persistence.config.PersistenceUnitProperties.TARGET_SE
 import static org.eclipse.persistence.config.PersistenceUnitProperties.TRANSACTION_TYPE;
 import static org.eclipse.persistence.logging.SessionLog.OFF_LABEL;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +28,11 @@ import javax.persistence.TypedQuery;
 import javax.persistence.spi.PersistenceUnitTransactionType;
 
 import org.eclipse.persistence.config.TargetServer;
+import org.tephrochronology.model.Instrument;
+import org.tephrochronology.model.OutcropSample;
 import org.tephrochronology.model.Ref;
+import org.tephrochronology.model.Site;
+import org.tephrochronology.model.SiteType;
 import org.tephrochronology.model.Volcano;
 
 /**
@@ -67,6 +73,20 @@ public class QueryVolcanoes {
 		refs.stream().forEach(r -> System.out
 				.println(r.getDoi() + " " + r.getGrainSizes().size()));
 
+//		OutcropSample os = new OutcropSample("sample1", "long sample1",
+//				"test sampled", LocalDate.now(), "Just some test comments",
+//				new Site("site1", new SiteType("site1Type"), 70, 50, 30,
+//						"first site comment"),
+//				new Instrument("inst1", "inst1 long", "inst1 loc",
+//						"inst1 comment"),
+//				new ArrayList<>(), new ArrayList<>(), 210010);
+//		
+//		em.persist(os);
+
+		TypedQuery<OutcropSample> osQ = em.createQuery("SELECT o FROM OutcropSample o WHERE o.volcanoNumber = 210010", OutcropSample.class);
+
+		System.out.println(osQ.getSingleResult().getSampleID());
+		
 		em.getTransaction().commit();
 
 		em.close();
