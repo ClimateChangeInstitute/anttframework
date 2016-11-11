@@ -18,6 +18,11 @@ import javax.persistence.Table;
 @Table(name = "volcano_types")
 public class VolcanoType implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@Column(name = "volcano_type")
 	private String type;
@@ -26,7 +31,7 @@ public class VolcanoType implements Serializable {
 		super();
 		this.type = type;
 	}
-	
+
 	public VolcanoType() {
 		super();
 		type = "";

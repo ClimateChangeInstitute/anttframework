@@ -18,6 +18,11 @@ import javax.persistence.Table;
 @Table(name = "rock_types")
 public class RockType implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@Column(name = "rock_type")
 	private String type;
@@ -26,7 +31,7 @@ public class RockType implements Serializable {
 		super();
 		this.type = type;
 	}
-	
+
 	public RockType() {
 		super();
 		type = "";

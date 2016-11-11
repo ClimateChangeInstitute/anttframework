@@ -22,6 +22,11 @@ import javax.persistence.Table;
 @IdClass(RegionID.class)
 public class Region implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@Column(name = "region")
 	private String name;

@@ -18,12 +18,18 @@ import javax.persistence.Table;
 @Table(name = "tectonic_settings")
 public class TectonicType implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@Column(name = "tectonic_setting")
 	private String type;
 
-	public TectonicType(){}
-	
+	public TectonicType() {
+	}
+
 	public TectonicType(String type) {
 		super();
 		this.type = type;

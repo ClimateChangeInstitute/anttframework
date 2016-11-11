@@ -10,7 +10,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -20,6 +19,11 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "volcanoes")
 public class Volcano implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@Column(name = "volcano_number")

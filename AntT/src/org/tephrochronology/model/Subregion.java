@@ -21,16 +21,22 @@ import javax.persistence.Table;
 @IdClass(SubregionID.class)
 public class Subregion implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@Column(name = "subregion")
 	private String name;
 
 	@Id
-	@JoinColumn(name="country")
+	@JoinColumn(name = "country")
 	private Country country;
 
-	public Subregion(){}
-	
+	public Subregion() {
+	}
+
 	public Subregion(String name, Country country) {
 		super();
 		this.name = name;

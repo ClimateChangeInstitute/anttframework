@@ -18,6 +18,11 @@ import javax.persistence.Table;
 @Table(name="countries")
 public class Country implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@Column(name="country")
 	private String name;
