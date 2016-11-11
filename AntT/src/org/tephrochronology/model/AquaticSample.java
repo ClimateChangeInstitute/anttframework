@@ -6,45 +6,66 @@ package org.tephrochronology.model;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.JoinColumn;
+import javax.persistence.MappedSuperclass;
+
 /**
  * This class represents both lake and marine subtypes.
  * 
  * @author Mark Royer
  *
  */
+@MappedSuperclass
 public abstract class AquaticSample extends Sample {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Not required
 	 */
+	@Column(name="volcano_number")
 	private Integer volcanoNumber;
 
+	@JoinColumn(name="core_type")
 	private CoreType coreType;
 
+	@Column(name="age")
 	private String age;
 
 	/**
 	 * Meters
 	 */
+	@Column(name="core_length_m")
 	private float coreLength;
 
+	@Column(name="sampling_date")
 	private LocalDate samplingDate;
 
 	/**
 	 * Meters
 	 */
+	@Column(name="depth_m")
 	private float depth;
 
 	/**
 	 * Meters
 	 */
+	@Column(name="top_m")
 	private float top;
 
 	/**
 	 * Centimeters
 	 */
+	@Column(name="thickness_cm")
 	private float thickness;
 
+	public AquaticSample() {
+	}
+	
 	/**
 	 * @param sampleID
 	 * @param longName

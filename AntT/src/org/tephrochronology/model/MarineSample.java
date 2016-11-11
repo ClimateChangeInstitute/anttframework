@@ -6,11 +6,24 @@ package org.tephrochronology.model;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 /**
  * @author Mark Royer
  *
  */
+@Entity
+@Table(name = "marine_samples")
 public class MarineSample extends AquaticSample {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public MarineSample() {
+	}
 
 	/**
 	 * @param sampleID
