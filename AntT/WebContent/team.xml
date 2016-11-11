@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE team SYSTEM "team.dtd">
 <team>
 	<!-- This is an example xml template - it is a way to define your members -->
 	<member>
@@ -8,7 +9,7 @@
 		<other>Some other text</other>
 		<image>
 			<url>./index_files/images/team_member_375.png</url>
-			<Title>member1</Title>
+			<title>member1</title>
 			<alt>Member1</alt>
 		</image>
 	</member>
@@ -19,7 +20,7 @@
 		<other>Some other text</other>
 		<image>
 			<url>./index_files/images/team_member_375.png</url>
-			<Title>member2</Title>
+			<title>member2</title>
 			<alt>Member2</alt>
 		</image>
 	</member>
@@ -30,7 +31,7 @@
 		<other>Some more text</other>
 		<image>
 			<url>./index_files/images/team_member_375.png</url>
-			<Title>Member 3</Title>
+			<title>Member 3</title>
 			<alt>Member 3</alt>
 		</image>
 	</member>
