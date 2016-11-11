@@ -26,6 +26,7 @@ import javax.persistence.TypedQuery;
 import javax.persistence.spi.PersistenceUnitTransactionType;
 
 import org.eclipse.persistence.config.TargetServer;
+import org.tephrochronology.model.Ref;
 import org.tephrochronology.model.Volcano;
 
 /**
@@ -45,18 +46,26 @@ public class QueryVolcanoes {
 			System.err.println("Usage: java QueryVolcanoes USER PASS");
 			System.exit(-1);
 		}
-		
+
 		EntityManagerFactory emf = Persistence
 				.createEntityManagerFactory("antt", setupProperties(args));
 		EntityManager em = emf.createEntityManager();
 
 		em.getTransaction().begin();
 
-		TypedQuery<Volcano> q = em.createQuery("SELECT v FROM Volcano v", Volcano.class);
+		TypedQuery<Volcano> q = em.createQuery("SELECT v FROM Volcano v",
+				Volcano.class);
 
 		List<Volcano> vs = q.getResultList();
 
-		vs.stream().forEach(v -> System.out.println(v.getName()));
+		// vs.stream().forEach(v -> System.out.println(v.getName()));
+
+		TypedQuery<Ref> refQ = em.createQuery("SELECT r FROM Ref r", Ref.class);
+
+		List<Ref> refs = refQ.getResultList();
+
+		refs.stream().forEach(r -> System.out
+				.println(r.getDoi() + " " + r.getGrainSizes().size()));
 
 		em.getTransaction().commit();
 

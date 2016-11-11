@@ -6,52 +6,79 @@ package org.tephrochronology.model;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 /**
  * @author Mark Royer
  *
  */
+@Entity
+@Table(name="icecore_samples")
+@DiscriminatorValue(value="I")
 public class IceCoreSample extends Sample {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Not required
 	 */
+	@Column(name="volcano_number")
 	private Integer volcanoNumber;
-
+	
+	@Column(name="drilled_by")
 	private String drilledBy;
 
+	@Column(name="drilling_date")
 	private LocalDate drillingDate;
 
+	@Column(name="core_diameter")
 	private float coreDiameter;
 
+	@Column(name="max_core_depth")
 	private float maxCoreDepth;
 
+	@Column(name="core_age")
 	private float coreAge;
 
 	/**
 	 * Years
 	 */
+	@Column(name="core_age_range")
 	private String coreAgeRange;
 
 	/**
 	 * Meters
 	 */
+	@Column(name="topdepth_m")
 	private float topDepth;
 
 	/**
 	 * Meters
 	 */
+	@Column(name="bottomdepth_m")
 	private float bottomDepth;
 
 	/**
 	 * BP
 	 */
+	@Column(name="topyear_bp")
 	private float topYear;
 
 	/**
 	 * BP
 	 */
+	@Column(name="bottomyear_bp")
 	private float bottomYear;
 
+	public IceCoreSample() {
+	}
+	
 	/**
 	 * @param sampleID
 	 * @param longName

@@ -3,13 +3,18 @@
  */
 package org.tephrochronology.model;
 
+import static javax.persistence.DiscriminatorType.CHAR;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -23,7 +28,9 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "samples")
-public class Sample implements Serializable {
+@Inheritance(strategy=InheritanceType.JOINED)
+@DiscriminatorColumn(name="sample_type", discriminatorType=CHAR)	
+public abstract class Sample implements Serializable {
 
 	/**
 	 * 
