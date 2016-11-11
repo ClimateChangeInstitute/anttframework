@@ -56,6 +56,7 @@ function X2JS() {
 			var result = new Object;
 			var child = node.firstChild; 
 			
+			/* Allows for DOCTYPE definition, but skips over it */
 			if (child.nodeType == DOMNodeTypes.DOCTYPE) {
 				child = node.childNodes[1];
 			}
