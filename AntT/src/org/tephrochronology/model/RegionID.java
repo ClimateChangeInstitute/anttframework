@@ -23,7 +23,7 @@ public class RegionID implements Serializable {
 	public boolean equals(Object obj) {
 		if (obj instanceof RegionID) {
 			RegionID other = (RegionID) obj;
-			return name != null && subRegion != null && name.equals(other)
+			return name != null && subRegion != null && name.equals(other.name)
 					&& subRegion.equals(other.subRegion);
 		} else
 			return false;
