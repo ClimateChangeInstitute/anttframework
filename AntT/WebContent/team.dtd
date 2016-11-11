@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT team (member*)>
+<!ELEMENT member (name,url?,email?,other?,image?)>
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT email (#PCDATA)>
+<!ELEMENT other (#PCDATA)>
+<!ELEMENT image (url,title,alt)>
+<!ELEMENT url (#PCDATA)>
+<!ELEMENT title (#PCDATA)>
+<!ELEMENT alt (#PCDATA)>

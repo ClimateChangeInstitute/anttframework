@@ -23,7 +23,8 @@ function X2JS() {
 		ELEMENT_NODE 	   : 1,
 		TEXT_NODE    	   : 3,
 		CDATA_SECTION_NODE : 4,
-		DOCUMENT_NODE 	   : 9
+		DOCUMENT_NODE 	   : 9,
+		DOCTYPE			   : 10
 	};
 	
 	function getNodeLocalName( node ) {
@@ -54,10 +55,15 @@ function X2JS() {
 		if(node.nodeType == DOMNodeTypes.DOCUMENT_NODE) {
 			var result = new Object;
 			var child = node.firstChild; 
+			
+			if (child.nodeType == DOMNodeTypes.DOCTYPE) {
+				child = node.childNodes[1];
+			}
+			
 			var childName = getNodeLocalName(child);
 			result[childName] = parseDOMChildren(child);
 			return result;
-		}
+		} 
 		else
 		if(node.nodeType == DOMNodeTypes.ELEMENT_NODE) {
 			var result = new Object;
@@ -293,7 +299,8 @@ function X2JS() {
 		var xmlDoc;
 		if (window.DOMParser) {
 			var parser=new window.DOMParser();			
-			xmlDoc = parser.parseFromString( xmlDocStr, "text/xml" );
+			xmlDoc = parser.parseFromString( xmlDocStr, "application/xml" );
+			
 		}
 		else {
 			// IE :(
@@ -312,7 +319,8 @@ function X2JS() {
 	}
 	
 	this.xml_str2json = function (xmlDocStr) {
-		var xmlDoc = this.parseXmlString(xmlDocStr);	
+		var xmlDoc = this.parseXmlString(xmlDocStr);
+		console.log(xmlDoc);
 		return this.xml2json(xmlDoc);
 	}
 
