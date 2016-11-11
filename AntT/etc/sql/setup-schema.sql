@@ -88,6 +88,7 @@ CREATE TABLE refs(
 	doi TEXT PRIMARY KEY); -- TODO this table will need additional info columns 
 	
 -- Represents all samples
+-- sample_type must be I,B,L,M, or O
 CREATE TABLE samples(
 	sample_id TEXT PRIMARY KEY,
 	long_name TEXT,
@@ -95,7 +96,8 @@ CREATE TABLE samples(
 	collection_date DATE NOT NULL,
 	comments TEXT,
 	site_id TEXT REFERENCES sites(site_id) NOT NULL,
-	iid TEXT REFERENCES instruments(iid) NOT NULL);
+	iid TEXT REFERENCES instruments(iid) NOT NULL,
+	sample_type CHAR NOT NULL);
 
 -- A sample may have many refs, and a ref may be used by many samples.
 CREATE TABLE samples_refs(
