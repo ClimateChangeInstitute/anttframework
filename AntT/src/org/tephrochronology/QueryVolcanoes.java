@@ -42,20 +42,31 @@ public class QueryVolcanoes {
 
 		// queryVolcanoesExample(em);
 
-		TypedQuery<Ref> refQ = em.createQuery("SELECT r FROM Ref r", Ref.class);
+		//@formatter:off
+		TypedQuery<Ref> refQ = em.createQuery(
+				  "SELECT r FROM Ref r "
+				+ "WHERE r.doi < 'Ref100' "
+				+ "ORDER BY r.doi", 
+				Ref.class);
+		//@formatter:on
 
 		List<Ref> refs = refQ.getResultList();
 
-		refs.stream().forEach(r -> System.out
-				.println(r.getDoi() + " " + r.getGrainSizes().size()));
+		refs.stream()
+				.forEach(r -> System.out.printf(
+						"doi: %s, grain sizes count is: %d\n", r.getDoi(),
+						r.getGrainSizes().size()));
 
-		// addOutcropExample(em);
-
+		//@formatter:off
 		TypedQuery<OutcropSample> osQ = em.createQuery(
-				"SELECT o FROM OutcropSample o WHERE o.volcanoNumber = 210010",
+				  "SELECT o "
+				+ "FROM OutcropSample o "
+				+ "WHERE o.volcano.volcanoNumber = 210010",
 				OutcropSample.class);
+		//@formatter:on
 
-		System.out.println(osQ.getSingleResult().getSampleID());
+		osQ.getResultList().stream()
+				.forEach(e -> System.out.println(e.getSampleID()));
 
 		em.getTransaction().commit();
 
@@ -74,21 +85,6 @@ public class QueryVolcanoes {
 		List<Volcano> vs = q.getResultList();
 
 		vs.stream().forEach(v -> System.out.println(v.getName()));
-	}
-
-	/**
-	 * @param em
-	 */
-	static void addOutcropExample(EntityManager em) {
-		// OutcropSample os = new OutcropSample("sample1", "long sample1",
-		// "test sampled", LocalDate.now(), "Just some test comments",
-		// new Site("site1", new SiteType("site1Type"), 70, 50, 30,
-		// "first site comment"),
-		// new Instrument("inst1", "inst1 long", "inst1 loc",
-		// "inst1 comment"),
-		// new ArrayList<>(), new ArrayList<>(), 210010);
-		//
-		// em.persist(os);
 	}
 
 }
