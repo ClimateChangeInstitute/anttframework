@@ -5,8 +5,6 @@ package org.tephrochronology;
 
 import static org.tephrochronology.DBProperties.setupProperties;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -14,11 +12,8 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
-import org.tephrochronology.model.Instrument;
 import org.tephrochronology.model.OutcropSample;
 import org.tephrochronology.model.Ref;
-import org.tephrochronology.model.Site;
-import org.tephrochronology.model.SiteType;
 import org.tephrochronology.model.Volcano;
 
 /**
@@ -85,15 +80,15 @@ public class QueryVolcanoes {
 	 * @param em
 	 */
 	static void addOutcropExample(EntityManager em) {
-		OutcropSample os = new OutcropSample("sample1", "long sample1",
-				"test sampled", LocalDate.now(), "Just some test comments",
-				new Site("site1", new SiteType("site1Type"), 70, 50, 30,
-						"first site comment"),
-				new Instrument("inst1", "inst1 long", "inst1 loc",
-						"inst1 comment"),
-				new ArrayList<>(), new ArrayList<>(), 210010);
-
-		em.persist(os);
+		// OutcropSample os = new OutcropSample("sample1", "long sample1",
+		// "test sampled", LocalDate.now(), "Just some test comments",
+		// new Site("site1", new SiteType("site1Type"), 70, 50, 30,
+		// "first site comment"),
+		// new Instrument("inst1", "inst1 long", "inst1 loc",
+		// "inst1 comment"),
+		// new ArrayList<>(), new ArrayList<>(), 210010);
+		//
+		// em.persist(os);
 	}
 
 }

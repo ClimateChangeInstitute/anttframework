@@ -47,6 +47,8 @@ public class TestDataGenerator {
 
 	List<IceCoreSample> iceCoreSamples;
 
+	List<BIASample> biaSamples;
+
 	List<GrainSize> grainSizes;
 
 	/**
@@ -148,7 +150,22 @@ public class TestDataGenerator {
 	}
 
 	private void generateBIASampleData(EntityManager em) {
-		// TODO Auto-generated method stub
+
+		int n = 100;
+		biaSamples = new ArrayList<>();
+
+		Class<BIASample> c = BIASample.class;
+		range(0, n).forEach(i -> {
+			BIASample ref = new BIASample(c.getSimpleName() + i,
+					c.getName() + i, "first last" + i, LocalDate.now(),
+					"comment " + i, sites.get(i % sites.size()),
+					instruments.get(i % instruments.size()), getRefs(i),
+					getImages(i), volcanoes.get(i % volcanoes.size()),
+					"deep " + i, "sample description " + i, "sample media " + i,
+					"unit " + i, i, "trend " + i);
+			biaSamples.add(ref);
+			em.persist(ref);
+		});
 
 	}
 
@@ -159,15 +176,15 @@ public class TestDataGenerator {
 
 		Class<IceCoreSample> c = IceCoreSample.class;
 		range(0, n).forEach(i -> {
-			IceCoreSample ref = new IceCoreSample(c.getSimpleName() + i,
+			IceCoreSample ics = new IceCoreSample(c.getSimpleName() + i,
 					c.getName() + i, "first last" + i, LocalDate.now(),
 					"comment " + i, sites.get(i % sites.size()),
 					instruments.get(i % instruments.size()), getRefs(i),
 					getImages(i), volcanoes.get(i % volcanoes.size()),
 					"drilled by " + i, LocalDate.now(), i, i * 10, i * 100,
 					"0 - " + i, 0, i, 2016 - i, 1900 - i);
-			iceCoreSamples.add(ref);
-			em.persist(ref);
+			iceCoreSamples.add(ics);
+			em.persist(ics);
 		});
 
 	}
