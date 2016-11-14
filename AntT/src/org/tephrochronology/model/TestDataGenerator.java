@@ -3,15 +3,16 @@
  */
 package org.tephrochronology.model;
 
+import static java.util.stream.IntStream.range;
 import static org.tephrochronology.DBProperties.setupProperties;
 
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
 /**
@@ -21,6 +22,12 @@ import javax.persistence.Persistence;
  *
  */
 public class TestDataGenerator {
+
+	List<SiteType> siteTypes;
+
+	List<CoreType> coreTypes;
+
+	List<MethodType> methodTypes;
 
 	/**
 	 * @param args
@@ -51,6 +58,8 @@ public class TestDataGenerator {
 
 			generateTypeData(em);
 
+			generateSiteData(em);
+
 			em.getTransaction().rollback(); // For now
 
 			em.getTransaction().commit();
@@ -63,6 +72,21 @@ public class TestDataGenerator {
 		}
 	}
 
+	private void generateSiteData(EntityManager em) {
+
+		int n = 50;
+		List<Site> sites = new ArrayList<>();
+
+		range(0, n).forEach(i -> {
+			Site s = new Site(Site.class.toString() + n,
+					siteTypes.get(i % siteTypes.size()), (i * n) % 90,
+					(i * n) % 180, i * n * 100, "Comment " + i);
+			sites.add(s);
+			em.persist(s);
+		});
+
+	}
+
 	/**
 	 * Generates DB type data, eg Site_types, core_types, etc.
 	 * 
@@ -73,9 +97,9 @@ public class TestDataGenerator {
 			throws ReflectiveOperationException {
 
 		int n = 20;
-		List<SiteType> siteTypes = createAndPersistType(em, SiteType.class, n);
-		List<CoreType> coreTypes = createAndPersistType(em, CoreType.class, n);
-		List<MethodType> methodTypes = createAndPersistType(em, MethodType.class, n);
+		siteTypes = createAndPersistType(em, SiteType.class, n);
+		coreTypes = createAndPersistType(em, CoreType.class, n);
+		methodTypes = createAndPersistType(em, MethodType.class, n);
 
 	}
 
