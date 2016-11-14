@@ -6,14 +6,22 @@ package org.tephrochronology.model;
 import static java.util.stream.IntStream.range;
 import static org.tephrochronology.DBProperties.setupProperties;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.IntStream;
 
+import javax.imageio.ImageIO;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
 
 /**
  * Generates sample data for the database to use with testing.
@@ -35,11 +43,15 @@ public class TestDataGenerator {
 
 	List<Ref> refs;
 
+	List<Image> images;
+
+	List<GrainSize> grainSizes;
+
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-
+		
 		if (args.length != 2) {
 			System.err.println("Usage: java QueryVolcanoes USER PASS");
 			System.exit(-1);
@@ -70,7 +82,11 @@ public class TestDataGenerator {
 
 			generateReferenceData(em);
 
-			em.getTransaction().rollback(); // For now
+			generateImageData(em);
+
+			// generateGrainSizeData(em);
+
+			// em.getTransaction().rollback(); // For now
 
 			em.getTransaction().commit();
 
@@ -82,15 +98,75 @@ public class TestDataGenerator {
 		}
 	}
 
+	// private void generateGrainSizeData(EntityManager em) {
+	//
+	// int n = 1000;
+	// grainSizes = new ArrayList<>();
+	//
+	// range(0, n).forEach(i -> {
+	// int startIndex = i % refs.size();
+	// int endIndex = (i + 10) % refs.size();
+	// if (endIndex < startIndex) {
+	// int tmp = startIndex;
+	// startIndex = endIndex;
+	// endIndex = tmp;
+	// }
+	//
+	// GrainSize inst = new GrainSize(GrainSize.class.toString() + i,
+	// instruments.get(i % instruments.size()), "grain size " + i,
+	// "range " + i, LocalDate.now(), refs.subList(startIndex, endIndex));
+	// grainSizes.add(inst);
+	// em.persist(inst);
+	// });
+	//
+	// }
+
+	private void generateImageData(EntityManager em) {
+
+		int n = 1000;
+		images = new ArrayList<>();
+
+		System.out.print("Generating image data (This may take a moment).");
+		range(0, n).forEach(i -> {
+			System.out.print(".");
+			int w = 300;
+			int h = 300;
+			BufferedImage bi = new BufferedImage(w, h,
+					BufferedImage.TYPE_INT_ARGB);
+			Graphics2D g = (Graphics2D) bi.getGraphics();
+			g.setColor(Color.red);
+			g.fillRect(0, 0, w, h);
+			g.setColor(Color.white);
+			g.setFont(g.getFont().deriveFont(40f));
+			g.drawString("image " + i, 0, h / 2);
+
+			ByteArrayOutputStream out = new ByteArrayOutputStream();
+			try {
+				ImageIO.write(bi, "png", out);
+				out.flush();
+			} catch (IOException e) {
+				e.printStackTrace();
+				System.err.println("Couldn't create image.");
+			}
+
+			Image img = new Image(0, "Test image comment " + i,
+					out.toByteArray(), null);
+			images.add(img);
+			em.persist(img);
+		});
+		System.out.println();
+
+	}
+
 	private void generateReferenceData(EntityManager em) {
 
 		int n = 1000;
 		refs = new ArrayList<>();
 
 		range(0, n).forEach(i -> {
-			Ref inst = new Ref(Ref.class.toString() + i, null, null);
-			refs.add(inst);
-			em.persist(inst);
+			Ref ref = new Ref(Ref.class.toString() + i, null, null);
+			refs.add(ref);
+			em.persist(ref);
 		});
 
 	}
