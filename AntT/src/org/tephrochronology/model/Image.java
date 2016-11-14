@@ -8,10 +8,13 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -28,7 +31,9 @@ public class Image implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name = "image_id")
+	@Column(name = "image_id", updatable = false)
+	@SequenceGenerator(name = "images_image_id_seq", sequenceName = "images_image_id_seq", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "images_image_id_seq")
 	private int imageID;
 
 	@Column(name = "comments")
