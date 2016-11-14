@@ -29,6 +29,10 @@ public class TestDataGenerator {
 
 	List<MethodType> methodTypes;
 
+	List<Site> sites;
+
+	List<Instrument> instruments;
+
 	/**
 	 * @param args
 	 */
@@ -60,6 +64,8 @@ public class TestDataGenerator {
 
 			generateSiteData(em);
 
+			generateInstrumentData(em);
+
 			em.getTransaction().rollback(); // For now
 
 			em.getTransaction().commit();
@@ -72,10 +78,25 @@ public class TestDataGenerator {
 		}
 	}
 
+	private void generateInstrumentData(EntityManager em) {
+
+		int n = 15;
+		instruments = new ArrayList<>();
+
+		range(0, n).forEach(i -> {
+			Instrument inst = new Instrument(Instrument.class.toString() + i,
+					Instrument.class.toString() + i + " long name ",
+					"Location " + i, "Comment " + i);
+			instruments.add(inst);
+			em.persist(inst);
+		});
+
+	}
+
 	private void generateSiteData(EntityManager em) {
 
 		int n = 50;
-		List<Site> sites = new ArrayList<>();
+		sites = new ArrayList<>();
 
 		range(0, n).forEach(i -> {
 			Site s = new Site(Site.class.toString() + n,
