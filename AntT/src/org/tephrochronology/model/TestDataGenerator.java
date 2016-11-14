@@ -12,6 +12,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,9 +20,6 @@ import javax.imageio.ImageIO;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
 
 /**
  * Generates sample data for the database to use with testing.
@@ -30,6 +28,8 @@ import javax.swing.JFrame;
  *
  */
 public class TestDataGenerator {
+
+	List<Volcano> volcanoes;
 
 	List<SiteType> siteTypes;
 
@@ -45,13 +45,15 @@ public class TestDataGenerator {
 
 	List<Image> images;
 
+	List<IceCoreSample> iceCoreSamples;
+
 	List<GrainSize> grainSizes;
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		
+
 		if (args.length != 2) {
 			System.err.println("Usage: java QueryVolcanoes USER PASS");
 			System.exit(-1);
@@ -74,6 +76,10 @@ public class TestDataGenerator {
 
 			em.getTransaction().begin();
 
+			volcanoes = em.createQuery(
+					"SELECT v FROM Volcano v ORDER BY v.volcanoNumber",
+					Volcano.class).getResultList();
+
 			generateTypeData(em);
 
 			generateSiteData(em);
@@ -84,7 +90,15 @@ public class TestDataGenerator {
 
 			generateImageData(em);
 
-			// generateGrainSizeData(em);
+			generateIceCoreSampleData(em);
+
+			generateBIASampleData(em);
+
+			generateAquaticData(em);
+
+			generateOutcropData(em);
+
+			generateGrainSizeData(em);
 
 			// em.getTransaction().rollback(); // For now
 
@@ -98,28 +112,93 @@ public class TestDataGenerator {
 		}
 	}
 
-	// private void generateGrainSizeData(EntityManager em) {
-	//
-	// int n = 1000;
-	// grainSizes = new ArrayList<>();
-	//
-	// range(0, n).forEach(i -> {
-	// int startIndex = i % refs.size();
-	// int endIndex = (i + 10) % refs.size();
-	// if (endIndex < startIndex) {
-	// int tmp = startIndex;
-	// startIndex = endIndex;
-	// endIndex = tmp;
-	// }
-	//
-	// GrainSize inst = new GrainSize(GrainSize.class.toString() + i,
-	// instruments.get(i % instruments.size()), "grain size " + i,
-	// "range " + i, LocalDate.now(), refs.subList(startIndex, endIndex));
-	// grainSizes.add(inst);
-	// em.persist(inst);
-	// });
-	//
-	// }
+	private void generateGrainSizeData(EntityManager em) {
+
+		// TODO Finish
+		// int n = 1000;
+		// grainSizes = new ArrayList<>();
+		//
+		// range(0, n).forEach(i -> {
+		// int startIndex = i % refs.size();
+		// int endIndex = (i + 10) % refs.size();
+		// if (endIndex < startIndex) {
+		// int tmp = startIndex;
+		// startIndex = endIndex;
+		// endIndex = tmp;
+		// }
+		//
+		// GrainSize gs = new GrainSize(GrainSize.class.toString() + i,
+		// instruments.get(i % instruments.size()), "grain size " + i,
+		// "range " + i, LocalDate.now(),
+		// refs.subList(startIndex, endIndex));
+		// grainSizes.add(gs);
+		// em.persist(gs);
+		// });
+
+	}
+
+	private void generateOutcropData(EntityManager em) {
+		// TODO Auto-generated method stub
+
+	}
+
+	private void generateAquaticData(EntityManager em) {
+		// TODO Auto-generated method stub
+
+	}
+
+	private void generateBIASampleData(EntityManager em) {
+		// TODO Auto-generated method stub
+
+	}
+
+	private void generateIceCoreSampleData(EntityManager em) {
+
+		int n = 100;
+		iceCoreSamples = new ArrayList<>();
+
+		Class<IceCoreSample> c = IceCoreSample.class;
+		range(0, n).forEach(i -> {
+			IceCoreSample ref = new IceCoreSample(c.getSimpleName() + i,
+					c.getName() + i, "first last" + i, LocalDate.now(),
+					"comment " + i, sites.get(i % sites.size()),
+					instruments.get(i % instruments.size()), getRefs(i),
+					getImages(i), volcanoes.get(i % volcanoes.size()),
+					"drilled by " + i, LocalDate.now(), i, i * 10, i * 100,
+					"0 - " + i, 0, i, 2016 - i, 1900 - i);
+			iceCoreSamples.add(ref);
+			em.persist(ref);
+		});
+
+	}
+
+	/**
+	 * @param i
+	 */
+	private List<Ref> getRefs(int i) {
+		int startIndex = i % refs.size();
+		int endIndex = (i + 10) % refs.size();
+		if (endIndex < startIndex) {
+			int tmp = startIndex;
+			startIndex = endIndex;
+			endIndex = tmp;
+		}
+		return refs.subList(startIndex, endIndex);
+	}
+
+	/**
+	 * @param i
+	 */
+	private List<Image> getImages(int i) {
+		int startIndex = i % images.size();
+		int endIndex = (i + 10) % images.size();
+		if (endIndex < startIndex) {
+			int tmp = startIndex;
+			startIndex = endIndex;
+			endIndex = tmp;
+		}
+		return images.subList(startIndex, endIndex);
+	}
 
 	private void generateImageData(EntityManager em) {
 
@@ -164,7 +243,7 @@ public class TestDataGenerator {
 		refs = new ArrayList<>();
 
 		range(0, n).forEach(i -> {
-			Ref ref = new Ref(Ref.class.toString() + i, null, null);
+			Ref ref = new Ref(Ref.class.getSimpleName() + i, null, null);
 			refs.add(ref);
 			em.persist(ref);
 		});
@@ -177,7 +256,8 @@ public class TestDataGenerator {
 		instruments = new ArrayList<>();
 
 		range(0, n).forEach(i -> {
-			Instrument inst = new Instrument(Instrument.class.toString() + i,
+			Instrument inst = new Instrument(
+					Instrument.class.getSimpleName() + i,
 					Instrument.class.toString() + i + " long name ",
 					"Location " + i, "Comment " + i);
 			instruments.add(inst);
@@ -192,7 +272,7 @@ public class TestDataGenerator {
 		sites = new ArrayList<>();
 
 		range(0, n).forEach(i -> {
-			Site s = new Site(Site.class.toString() + i,
+			Site s = new Site(Site.class.getSimpleName() + i,
 					siteTypes.get(i % siteTypes.size()), (i * n) % 90,
 					(i * n) % 180, i * n * 100, "Comment " + i);
 			sites.add(s);
@@ -243,7 +323,7 @@ public class TestDataGenerator {
 		Constructor<T> constructor = type.getConstructor(String.class);
 
 		for (int i = 0; i < rows; i++) {
-			result.add(constructor.newInstance(type.toString() + i));
+			result.add(constructor.newInstance(type.getSimpleName() + i));
 		}
 
 		return result;
