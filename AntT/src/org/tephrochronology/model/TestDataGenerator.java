@@ -53,6 +53,8 @@ public class TestDataGenerator {
 
 	List<MarineSample> marineSamples;
 
+	List<OutcropSample> outcropSamples;
+
 	List<GrainSize> grainSizes;
 
 	/**
@@ -106,9 +108,9 @@ public class TestDataGenerator {
 
 			generateGrainSizeData(em);
 
-			// em.getTransaction().rollback(); // For now
-
 			em.getTransaction().commit();
+
+			System.out.println("Done generating test data.");
 
 		} catch (ReflectiveOperationException e) {
 			e.printStackTrace();
@@ -119,36 +121,49 @@ public class TestDataGenerator {
 	}
 
 	private void generateGrainSizeData(EntityManager em) {
+		System.out.printf("Generating %s data.\n",
+				GrainSize.class.getSimpleName());
 
-		// TODO Finish
-		// int n = 1000;
-		// grainSizes = new ArrayList<>();
-		//
-		// range(0, n).forEach(i -> {
-		// int startIndex = i % refs.size();
-		// int endIndex = (i + 10) % refs.size();
-		// if (endIndex < startIndex) {
-		// int tmp = startIndex;
-		// startIndex = endIndex;
-		// endIndex = tmp;
-		// }
-		//
-		// GrainSize gs = new GrainSize(GrainSize.class.toString() + i,
-		// instruments.get(i % instruments.size()), "grain size " + i,
-		// "range " + i, LocalDate.now(),
-		// refs.subList(startIndex, endIndex));
-		// grainSizes.add(gs);
-		// em.persist(gs);
-		// });
+		grainSizes = new ArrayList<>();
+
+		range(0, outcropSamples.size()).forEach(i -> {
+			range(0, instruments.size()).forEach(j -> {
+				GrainSize gs = new GrainSize(
+						outcropSamples.get(i % outcropSamples.size()),
+						instruments.get(j % instruments.size()),
+						GrainSize.class.getSimpleName() + i + " " + j,
+						"range " + i, LocalDate.now(), getRefs(i));
+				grainSizes.add(gs);
+				em.persist(gs);
+			});
+		});
 
 	}
 
 	private void generateOutcropData(EntityManager em) {
-		// TODO Auto-generated method stub
+		System.out.printf("Generating %s data.\n",
+				OutcropSample.class.getSimpleName());
+
+		int n = 100;
+		outcropSamples = new ArrayList<>();
+
+		Class<OutcropSample> c = OutcropSample.class;
+		range(0, n).forEach(i -> {
+			OutcropSample ls = new OutcropSample(c.getSimpleName() + i,
+					c.getName() + i, "first last" + i, LocalDate.now(),
+					"comment " + i, sites.get(i % sites.size()),
+					instruments.get(i % instruments.size()), getRefs(i),
+					getImages(i), volcanoes.get(i % volcanoes.size()));
+			outcropSamples.add(ls);
+			em.persist(ls);
+		});
 
 	}
 
 	private void generateAquaticData(EntityManager em) {
+		System.out.printf("Generating %s data.\n",
+				AquaticSample.class.getSimpleName());
+
 		int n = 100;
 		lakeSamples = new ArrayList<>();
 		marineSamples = new ArrayList<>();
@@ -182,6 +197,8 @@ public class TestDataGenerator {
 	}
 
 	private void generateBIASampleData(EntityManager em) {
+		System.out.printf("Generating %s data.\n",
+				BIASample.class.getSimpleName());
 
 		int n = 100;
 		biaSamples = new ArrayList<>();
@@ -202,6 +219,8 @@ public class TestDataGenerator {
 	}
 
 	private void generateIceCoreSampleData(EntityManager em) {
+		System.out.printf("Generating %s data.\n",
+				IceCoreSample.class.getSimpleName());
 
 		int n = 100;
 		iceCoreSamples = new ArrayList<>();
@@ -287,6 +306,7 @@ public class TestDataGenerator {
 	}
 
 	private void generateReferenceData(EntityManager em) {
+		System.out.printf("Generating %s data.\n", Ref.class.getSimpleName());
 
 		int n = 1000;
 		refs = new ArrayList<>();
@@ -300,6 +320,8 @@ public class TestDataGenerator {
 	}
 
 	private void generateInstrumentData(EntityManager em) {
+		System.out.printf("Generating %s data.\n",
+				Instrument.class.getSimpleName());
 
 		int n = 15;
 		instruments = new ArrayList<>();
@@ -316,6 +338,7 @@ public class TestDataGenerator {
 	}
 
 	private void generateSiteData(EntityManager em) {
+		System.out.printf("Generating %s data.\n", Site.class.getSimpleName());
 
 		int n = 50;
 		sites = new ArrayList<>();
@@ -353,6 +376,7 @@ public class TestDataGenerator {
 	 */
 	private <T> List<T> createAndPersistType(EntityManager em, Class<T> clazz,
 			int n) throws ReflectiveOperationException {
+		System.out.printf("Generating %s data.\n", clazz.getSimpleName());
 		List<T> types = createTypes(clazz, n);
 		types.stream().forEach(e -> em.persist(e));
 		return types;
