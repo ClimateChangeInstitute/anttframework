@@ -17,8 +17,8 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name="icecore_samples")
-@DiscriminatorValue(value="I")
+@Table(name = "icecore_samples")
+@DiscriminatorValue(value = "I")
 public class IceCoreSample extends Sample {
 
 	/**
@@ -29,57 +29,57 @@ public class IceCoreSample extends Sample {
 	/**
 	 * Not required
 	 */
-	@JoinColumn(name="volcano_number")
+	@JoinColumn(name = "volcano_number", nullable = true)
 	private Volcano volcano;
-	
-	@Column(name="drilled_by")
+
+	@Column(name = "drilled_by")
 	private String drilledBy;
 
-	@Column(name="drilling_date")
+	@Column(name = "drilling_date")
 	private LocalDate drillingDate;
 
-	@Column(name="core_diameter")
+	@Column(name = "core_diameter")
 	private float coreDiameter;
 
-	@Column(name="max_core_depth")
+	@Column(name = "max_core_depth")
 	private float maxCoreDepth;
 
-	@Column(name="core_age")
+	@Column(name = "core_age")
 	private float coreAge;
 
 	/**
 	 * Years
 	 */
-	@Column(name="core_age_range")
+	@Column(name = "core_age_range")
 	private String coreAgeRange;
 
 	/**
 	 * Meters
 	 */
-	@Column(name="topdepth_m")
+	@Column(name = "topdepth_m")
 	private float topDepth;
 
 	/**
 	 * Meters
 	 */
-	@Column(name="bottomdepth_m")
+	@Column(name = "bottomdepth_m")
 	private float bottomDepth;
 
 	/**
 	 * BP
 	 */
-	@Column(name="topyear_bp")
+	@Column(name = "topyear_bp")
 	private float topYear;
 
 	/**
 	 * BP
 	 */
-	@Column(name="bottomyear_bp")
+	@Column(name = "bottomyear_bp")
 	private float bottomYear;
 
 	public IceCoreSample() {
 	}
-	
+
 	/**
 	 * @param sampleID
 	 * @param longName

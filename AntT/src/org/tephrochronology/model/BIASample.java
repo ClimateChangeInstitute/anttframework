@@ -9,6 +9,7 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
 /**
@@ -19,7 +20,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "bia_samples")
-@DiscriminatorValue(value="B")
+@DiscriminatorValue(value = "B")
 public class BIASample extends Sample {
 
 	/**
@@ -30,28 +31,28 @@ public class BIASample extends Sample {
 	/**
 	 * Not required
 	 */
-	@Column(name="volcano_number")
-	private Integer volcanoNumber;
+	@JoinColumn(name = "volcano_number", nullable = true)
+	private Volcano volcano;
 
-	@Column(name="deep")
+	@Column(name = "deep")
 	private String deep;
 
-	@Column(name="sample_description")
+	@Column(name = "sample_description")
 	private String sampleDescription;
 
-	@Column(name="sample_media")
+	@Column(name = "sample_media")
 	private String sampleMedia;
 
-	@Column(name="unit_name")
+	@Column(name = "unit_name")
 	private String unitName;
 
 	/**
 	 * centimeters
 	 */
-	@Column(name="thickness_cm")
+	@Column(name = "thickness_cm")
 	private float thickness;
 
-	@Column(name="trend")
+	@Column(name = "trend")
 	private String trend;
 
 	public BIASample() {
@@ -67,7 +68,7 @@ public class BIASample extends Sample {
 	 * @param instrument
 	 * @param refs
 	 * @param images
-	 * @param volcanoNumber
+	 * @param volcano
 	 * @param deep
 	 * @param sampleDescription
 	 * @param sampleMedia
@@ -78,12 +79,12 @@ public class BIASample extends Sample {
 	public BIASample(String sampleID, String longName, String sampledBy,
 			LocalDate collectionDate, String comments, Site site,
 			Instrument instrument, List<Ref> refs, List<Image> images,
-			Integer volcanoNumber, String deep, String sampleDescription,
+			Volcano volcano, String deep, String sampleDescription,
 			String sampleMedia, String unitName, float thickness,
 			String trend) {
 		super(sampleID, longName, sampledBy, collectionDate, comments, site,
 				instrument, refs, images);
-		this.volcanoNumber = volcanoNumber;
+		this.volcano = volcano;
 		this.deep = deep;
 		this.sampleDescription = sampleDescription;
 		this.sampleMedia = sampleMedia;
@@ -92,12 +93,12 @@ public class BIASample extends Sample {
 		this.trend = trend;
 	}
 
-	public Integer getVolcanoNumber() {
-		return volcanoNumber;
+	public Volcano getVolcano() {
+		return volcano;
 	}
 
-	public void setVolcanoNumber(Integer volcanoNumber) {
-		this.volcanoNumber = volcanoNumber;
+	public void setVolcano(Volcano volcano) {
+		this.volcano = volcano;
 	}
 
 	public String getDeep() {

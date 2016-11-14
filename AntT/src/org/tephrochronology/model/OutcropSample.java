@@ -6,9 +6,9 @@ package org.tephrochronology.model;
 import java.time.LocalDate;
 import java.util.List;
 
-import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
 /**
@@ -17,7 +17,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "outcrop_samples")
-@DiscriminatorValue(value="O")
+@DiscriminatorValue(value = "O")
 public class OutcropSample extends Sample {
 
 	/**
@@ -28,8 +28,8 @@ public class OutcropSample extends Sample {
 	/**
 	 * Required by outcrop samples
 	 */
-	@Column(name = "volcano_number")
-	private int volcanoNumber;
+	@JoinColumn(name = "volcano_number", nullable = false)
+	private Volcano volcano;
 
 	public OutcropSample() {
 	}
@@ -44,23 +44,24 @@ public class OutcropSample extends Sample {
 	 * @param instrument
 	 * @param refs
 	 * @param images
-	 * @param volcanoNumber
+	 * @param volcano
+	 *            Not null
 	 */
 	public OutcropSample(String sampleID, String longName, String sampledBy,
 			LocalDate collectionDate, String comments, Site site,
 			Instrument instrument, List<Ref> refs, List<Image> images,
-			int volcanoNumber) {
+			Volcano volcano) {
 		super(sampleID, longName, sampledBy, collectionDate, comments, site,
 				instrument, refs, images);
-		this.volcanoNumber = volcanoNumber;
+		this.volcano = volcano;
 	}
 
-	public int getVolcanoNumber() {
-		return volcanoNumber;
+	public Volcano getVolcano() {
+		return volcano;
 	}
 
-	public void setVolcanoNumber(int volcanoNumber) {
-		this.volcanoNumber = volcanoNumber;
+	public void setVolcano(Volcano volcano) {
+		this.volcano = volcano;
 	}
 
 }

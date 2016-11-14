@@ -16,7 +16,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "lake_samples")
-@DiscriminatorValue(value="L")
+@DiscriminatorValue(value = "L")
 public class LakeSample extends AquaticSample {
 
 	/**
@@ -37,7 +37,7 @@ public class LakeSample extends AquaticSample {
 	 * @param instrument
 	 * @param refs
 	 * @param images
-	 * @param volcanoNumber
+	 * @param volcano
 	 * @param coreType
 	 * @param age
 	 * @param coreLength
@@ -49,12 +49,11 @@ public class LakeSample extends AquaticSample {
 	public LakeSample(String sampleID, String longName, String sampledBy,
 			LocalDate collectionDate, String comments, Site site,
 			Instrument instrument, List<Ref> refs, List<Image> images,
-			Integer volcanoNumber, CoreType coreType, String age,
-			float coreLength, LocalDate samplingDate, float depth, float top,
-			float thickness) {
+			Volcano volcano, CoreType coreType, String age, float coreLength,
+			LocalDate samplingDate, float depth, float top, float thickness) {
 		super(sampleID, longName, sampledBy, collectionDate, comments, site,
-				instrument, refs, images, volcanoNumber, coreType, age,
-				coreLength, samplingDate, depth, top, thickness);
+				instrument, refs, images, volcano, coreType, age, coreLength,
+				samplingDate, depth, top, thickness);
 	}
 
 }
