@@ -24,6 +24,7 @@
 		<class>org.tephrochronology.model.LakeSample</class>
 		<class>org.tephrochronology.model.MarineSample</class>
 		<class>org.tephrochronology.model.OutcropSample</class>
+		<class>org.tephrochronology.model.MethodType</class>
 		<class>org.tephrochronology.model.LocalDateAttributeConverter</class>
 	</persistence-unit>
 </persistence>
