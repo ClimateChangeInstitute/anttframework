@@ -32,7 +32,7 @@ public class TestDataGenerator {
 	List<Site> sites;
 
 	List<Instrument> instruments;
-	
+
 	List<Ref> refs;
 
 	/**
@@ -67,7 +67,7 @@ public class TestDataGenerator {
 			generateSiteData(em);
 
 			generateInstrumentData(em);
-			
+
 			generateReferenceData(em);
 
 			em.getTransaction().rollback(); // For now
@@ -83,17 +83,16 @@ public class TestDataGenerator {
 	}
 
 	private void generateReferenceData(EntityManager em) {
-		
+
 		int n = 1000;
 		refs = new ArrayList<>();
 
 		range(0, n).forEach(i -> {
-			Ref inst = new Ref(Ref.class.toString()+i, null, null);
+			Ref inst = new Ref(Ref.class.toString() + i, null, null);
 			refs.add(inst);
 			em.persist(inst);
 		});
-		
-		
+
 	}
 
 	private void generateInstrumentData(EntityManager em) {
@@ -117,7 +116,7 @@ public class TestDataGenerator {
 		sites = new ArrayList<>();
 
 		range(0, n).forEach(i -> {
-			Site s = new Site(Site.class.toString() + n,
+			Site s = new Site(Site.class.toString() + i,
 					siteTypes.get(i % siteTypes.size()), (i * n) % 90,
 					(i * n) % 180, i * n * 100, "Comment " + i);
 			sites.add(s);
