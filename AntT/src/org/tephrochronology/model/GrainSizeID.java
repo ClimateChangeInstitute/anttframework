@@ -19,6 +19,19 @@ public class GrainSizeID implements Serializable {
 	String sample;
 	String instrument;
 
+	public GrainSizeID() {
+	}
+
+	/**
+	 * @param sample
+	 * @param instrument
+	 */
+	public GrainSizeID(String sample, String instrument) {
+		super();
+		this.sample = sample;
+		this.instrument = instrument;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof GrainSizeID) {

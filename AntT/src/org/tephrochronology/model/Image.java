@@ -17,6 +17,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.eclipse.persistence.oxm.annotations.XmlInverseReference;
+
 /**
  * @author Mark Royer
  *
@@ -49,6 +51,7 @@ public class Image implements Serializable {
 	@JoinTable(name = "samples_images", joinColumns = {
 			@JoinColumn(name = "image_id") }, inverseJoinColumns = {
 					@JoinColumn(name = "sample_id") })
+	@XmlInverseReference(mappedBy="images")
 	private List<Sample> samplesUsedBy;
 
 	public Image() {
