@@ -9,6 +9,7 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
 /**
@@ -28,8 +29,8 @@ public class IceCoreSample extends Sample {
 	/**
 	 * Not required
 	 */
-	@Column(name="volcano_number")
-	private Integer volcanoNumber;
+	@JoinColumn(name="volcano_number")
+	private Volcano volcano;
 	
 	@Column(name="drilled_by")
 	private String drilledBy;
@@ -89,7 +90,7 @@ public class IceCoreSample extends Sample {
 	 * @param instrument
 	 * @param refs
 	 * @param images
-	 * @param volcanoNumber
+	 * @param volcano
 	 * @param drilledBy
 	 * @param drillingDate
 	 * @param coreDiameter
@@ -104,13 +105,13 @@ public class IceCoreSample extends Sample {
 	public IceCoreSample(String sampleID, String longName, String sampledBy,
 			LocalDate collectionDate, String comments, Site site,
 			Instrument instrument, List<Ref> refs, List<Image> images,
-			Integer volcanoNumber, String drilledBy, LocalDate drillingDate,
+			Volcano volcano, String drilledBy, LocalDate drillingDate,
 			float coreDiameter, float maxCoreDepth, float coreAge,
 			String coreAgeRange, float topDepth, float bottomDepth,
 			float topYear, float bottomYear) {
 		super(sampleID, longName, sampledBy, collectionDate, comments, site,
 				instrument, refs, images);
-		this.volcanoNumber = volcanoNumber;
+		this.volcano = volcano;
 		this.drilledBy = drilledBy;
 		this.drillingDate = drillingDate;
 		this.coreDiameter = coreDiameter;
@@ -123,12 +124,12 @@ public class IceCoreSample extends Sample {
 		this.bottomYear = bottomYear;
 	}
 
-	public Integer getVolcanoNumber() {
-		return volcanoNumber;
+	public Volcano getVolcano() {
+		return volcano;
 	}
 
-	public void setVolcanoNumber(Integer volcanoNumber) {
-		this.volcanoNumber = volcanoNumber;
+	public void setVolcano(Volcano volcano) {
+		this.volcano = volcano;
 	}
 
 	public String getDrilledBy() {
