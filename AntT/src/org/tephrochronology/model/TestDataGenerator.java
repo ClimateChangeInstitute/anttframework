@@ -49,6 +49,10 @@ public class TestDataGenerator {
 
 	List<BIASample> biaSamples;
 
+	List<LakeSample> lakeSamples;
+
+	List<MarineSample> marineSamples;
+
 	List<GrainSize> grainSizes;
 
 	/**
@@ -145,8 +149,36 @@ public class TestDataGenerator {
 	}
 
 	private void generateAquaticData(EntityManager em) {
-		// TODO Auto-generated method stub
+		int n = 100;
+		lakeSamples = new ArrayList<>();
+		marineSamples = new ArrayList<>();
 
+		Class<LakeSample> lakeClazz = LakeSample.class;
+		range(0, n).forEach(i -> {
+			LakeSample ls = new LakeSample(lakeClazz.getSimpleName() + i,
+					lakeClazz.getName() + i, "first last" + i, LocalDate.now(),
+					"comment " + i, sites.get(i % sites.size()),
+					instruments.get(i % instruments.size()), getRefs(i),
+					getImages(i), volcanoes.get(i % volcanoes.size()),
+					coreTypes.get(i % coreTypes.size()), "age " + i, i,
+					LocalDate.now(), i * 10f, 0, i);
+			lakeSamples.add(ls);
+			em.persist(ls);
+		});
+
+		Class<MarineSample> marineClazz = MarineSample.class;
+		range(0, n).forEach(i -> {
+			MarineSample ms = new MarineSample(marineClazz.getSimpleName() + i,
+					marineClazz.getName() + i, "first last" + i,
+					LocalDate.now(), "comment " + i,
+					sites.get(i % sites.size()),
+					instruments.get(i % instruments.size()), getRefs(i),
+					getImages(i), volcanoes.get(i % volcanoes.size()),
+					coreTypes.get(i % coreTypes.size()), "age " + i, i,
+					LocalDate.now(), i * 10f, 0, i);
+			marineSamples.add(ms);
+			em.persist(ms);
+		});
 	}
 
 	private void generateBIASampleData(EntityManager em) {
@@ -156,15 +188,15 @@ public class TestDataGenerator {
 
 		Class<BIASample> c = BIASample.class;
 		range(0, n).forEach(i -> {
-			BIASample ref = new BIASample(c.getSimpleName() + i,
+			BIASample bias = new BIASample(c.getSimpleName() + i,
 					c.getName() + i, "first last" + i, LocalDate.now(),
 					"comment " + i, sites.get(i % sites.size()),
 					instruments.get(i % instruments.size()), getRefs(i),
 					getImages(i), volcanoes.get(i % volcanoes.size()),
 					"deep " + i, "sample description " + i, "sample media " + i,
 					"unit " + i, i, "trend " + i);
-			biaSamples.add(ref);
-			em.persist(ref);
+			biaSamples.add(bias);
+			em.persist(bias);
 		});
 
 	}
