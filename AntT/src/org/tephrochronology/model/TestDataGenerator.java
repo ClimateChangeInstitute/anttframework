@@ -32,6 +32,8 @@ public class TestDataGenerator {
 	List<Site> sites;
 
 	List<Instrument> instruments;
+	
+	List<Ref> refs;
 
 	/**
 	 * @param args
@@ -65,6 +67,8 @@ public class TestDataGenerator {
 			generateSiteData(em);
 
 			generateInstrumentData(em);
+			
+			generateReferenceData(em);
 
 			em.getTransaction().rollback(); // For now
 
@@ -76,6 +80,20 @@ public class TestDataGenerator {
 			em.close();
 			emf.close();
 		}
+	}
+
+	private void generateReferenceData(EntityManager em) {
+		
+		int n = 1000;
+		refs = new ArrayList<>();
+
+		range(0, n).forEach(i -> {
+			Ref inst = new Ref(Ref.class.toString()+i, null, null);
+			refs.add(inst);
+			em.persist(inst);
+		});
+		
+		
 	}
 
 	private void generateInstrumentData(EntityManager em) {
