@@ -27,45 +27,45 @@ public abstract class AquaticSample extends Sample {
 	/**
 	 * Not required
 	 */
-	@Column(name="volcano_number")
-	private Integer volcanoNumber;
+	@JoinColumn(name = "volcano_number", nullable = true)
+	private Volcano volcano;
 
-	@JoinColumn(name="core_type")
+	@JoinColumn(name = "core_type")
 	private CoreType coreType;
 
-	@Column(name="age")
+	@Column(name = "age")
 	private String age;
 
 	/**
 	 * Meters
 	 */
-	@Column(name="core_length_m")
+	@Column(name = "core_length_m")
 	private float coreLength;
 
-	@Column(name="sampling_date")
+	@Column(name = "sampling_date")
 	private LocalDate samplingDate;
 
 	/**
 	 * Meters
 	 */
-	@Column(name="depth_m")
+	@Column(name = "depth_m")
 	private float depth;
 
 	/**
 	 * Meters
 	 */
-	@Column(name="top_m")
+	@Column(name = "top_m")
 	private float top;
 
 	/**
 	 * Centimeters
 	 */
-	@Column(name="thickness_cm")
+	@Column(name = "thickness_cm")
 	private float thickness;
 
 	public AquaticSample() {
 	}
-	
+
 	/**
 	 * @param sampleID
 	 * @param longName
@@ -76,7 +76,7 @@ public abstract class AquaticSample extends Sample {
 	 * @param instrument
 	 * @param refs
 	 * @param images
-	 * @param volcanoNumber
+	 * @param volcano
 	 * @param coreType
 	 * @param age
 	 * @param coreLength
@@ -88,12 +88,11 @@ public abstract class AquaticSample extends Sample {
 	public AquaticSample(String sampleID, String longName, String sampledBy,
 			LocalDate collectionDate, String comments, Site site,
 			Instrument instrument, List<Ref> refs, List<Image> images,
-			Integer volcanoNumber, CoreType coreType, String age,
-			float coreLength, LocalDate samplingDate, float depth, float top,
-			float thickness) {
+			Volcano volcano, CoreType coreType, String age, float coreLength,
+			LocalDate samplingDate, float depth, float top, float thickness) {
 		super(sampleID, longName, sampledBy, collectionDate, comments, site,
 				instrument, refs, images);
-		this.volcanoNumber = volcanoNumber;
+		this.volcano = volcano;
 		this.coreType = coreType;
 		this.age = age;
 		this.coreLength = coreLength;
@@ -103,12 +102,12 @@ public abstract class AquaticSample extends Sample {
 		this.thickness = thickness;
 	}
 
-	public Integer getVolcanoNumber() {
-		return volcanoNumber;
+	public Volcano getVolcano() {
+		return volcano;
 	}
 
-	public void setVolcanoNumber(Integer volcanoNumber) {
-		this.volcanoNumber = volcanoNumber;
+	public void setVolcano(Volcano volcano) {
+		this.volcano = volcano;
 	}
 
 	public CoreType getCoreType() {

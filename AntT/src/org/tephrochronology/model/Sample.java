@@ -28,8 +28,8 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "samples")
-@Inheritance(strategy=InheritanceType.JOINED)
-@DiscriminatorColumn(name="sample_type", discriminatorType=CHAR)	
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "sample_type", discriminatorType = CHAR)
 public abstract class Sample implements Serializable {
 
 	/**

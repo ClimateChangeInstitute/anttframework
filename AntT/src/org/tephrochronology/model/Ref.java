@@ -14,6 +14,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import org.eclipse.persistence.oxm.annotations.XmlInverseReference;
+
 /**
  * TODO This class will need additional properties to match the database.
  * 
@@ -41,6 +43,7 @@ public class Ref implements Serializable {
 	@JoinTable(name = "samples_refs", joinColumns = {
 			@JoinColumn(name = "doi") }, inverseJoinColumns = {
 					@JoinColumn(name = "sample_id") })
+	@XmlInverseReference(mappedBy="refs")
 	private List<Sample> samples;
 
 	@ManyToMany
@@ -48,6 +51,7 @@ public class Ref implements Serializable {
 			@JoinColumn(name = "doi") }, inverseJoinColumns = {
 					@JoinColumn(name = "sample_id", referencedColumnName = "sample_id"),
 					@JoinColumn(name = "iid", referencedColumnName = "iid") })
+	@XmlInverseReference(mappedBy="refs")
 	private List<GrainSize> grainSizes;
 
 	public Ref() {
