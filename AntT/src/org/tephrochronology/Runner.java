@@ -1,8 +1,10 @@
 package org.tephrochronology;
 
+import static org.apache.commons.io.FileUtils.copyDirectory;
+
+import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.io.File;
 
 /**
  * Start the program
@@ -12,7 +14,7 @@ import java.io.File;
  */
 public class Runner {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		final Path PROJECT_ROOT = Paths.get("").toAbsolutePath();
 		final Path SOURCE_DIR = Paths.get(PROJECT_ROOT + "/template");
 
@@ -33,7 +35,7 @@ public class Runner {
 		/*
 		 * Put web layout in output folder
 		 */
-		// FileUtils.copyDirectory(SOURCE_DIR.toFile(), OUTPUT_DIR.toFile());
+		copyDirectory(SOURCE_DIR.toFile(), OUTPUT_DIR.toFile());
 
 		/*
 		 * Generate all site XMLSamples
@@ -48,6 +50,9 @@ public class Runner {
 		AQUATIC_MARINE.toFile().mkdir();
 		OUTCROP.toFile().mkdir();
 
+		
 	}
+	
+	private static void createDir()
 
 }
