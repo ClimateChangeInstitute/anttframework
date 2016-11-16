@@ -44,14 +44,12 @@
 			<artifactId>postgresql</artifactId>
 			<version>9.4.1212.jre7</version>
 		</dependency>
-<<<<<<< HEAD
 		<!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
 			<version>2.5</version>
 		</dependency>
-=======
 		<!-- Jersey core Servlet 2.x implementation -->
 		<dependency>
 			<groupId>org.glassfish.jersey.containers</groupId>
@@ -76,8 +74,6 @@
 			<artifactId>mail</artifactId>
 			<version>1.4.7</version>
 		</dependency>
-
->>>>>>> d1a3bfbb9f9e0227dbd9c906a3d0ba6c757b2aef
 	</dependencies>
 	<build>
 		<sourceDirectory>src</sourceDirectory>
