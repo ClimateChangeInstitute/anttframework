@@ -1,7 +1,5 @@
 package org.tephrochronology;
 
-import static org.apache.commons.io.FileUtils.copyDirectory;
-
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -25,6 +23,12 @@ public class Runner {
 
 	public static void main(String[] args)
 			throws IOException, PropertyException, JAXBException {
+		
+		if (args.length != 2) {
+			System.err.println("Usage: java Runner USER PASS");
+			System.exit(-1);
+		}
+		
 		final Path PROJECT_ROOT = Paths.get("").toAbsolutePath();
 		final Path WEBCONTENT_DIR = Paths.get(PROJECT_ROOT + "/WebContent");
 
@@ -47,7 +51,8 @@ public class Runner {
 		fileGenerator.writeSampleXMLFiles(AQUATIC_LAKE, LakeSample.class);
 		fileGenerator.writeSampleXMLFiles(AQUATIC_MARINE, MarineSample.class);
 		fileGenerator.writeSampleXMLFiles(OUTCROP, OutcropSample.class);
-
+		
+		fileGenerator.writeAllSamplesXMLFile(GEN_DIR);
 	}
 
 	private static Path appendChildAndCreateDir(final Path PROJECT_ROOT,

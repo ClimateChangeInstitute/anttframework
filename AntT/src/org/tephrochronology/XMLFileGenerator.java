@@ -9,11 +9,13 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
@@ -22,8 +24,9 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.PropertyException;
 import javax.xml.namespace.QName;
 
-import org.tephrochronology.model.IceCoreSample;
+import org.tephrochronology.model.BIASample;
 import org.tephrochronology.model.Sample;
+import org.tephrochronology.model.SampleInfo;
 
 /**
  * @author willie
@@ -44,8 +47,8 @@ public class XMLFileGenerator {
 
 	}
 
-	public <T extends Sample> void writeSampleXMLFiles(
-			Path outputLocation, Class<T> clazz)
+	public <T extends Sample> void writeSampleXMLFiles(Path outputLocation,
+			Class<T> clazz)
 			throws PropertyException, JAXBException, FileNotFoundException {
 		TypedQuery<T> q = em.createQuery(
 				String.format("SELECT s FROM %s s ORDER BY s.sampleID",
@@ -55,14 +58,47 @@ public class XMLFileGenerator {
 		List<T> samples = q.getResultList();
 
 		for (T s : samples) {
-			PrintStream out = new PrintStream(
-					new FileOutputStream(outputLocation + "/"
-							+ s.getSampleID() + ".xml"));
+			PrintStream out = new PrintStream(new FileOutputStream(
+					outputLocation + "/" + s.getSampleID() + ".xml"));
 			writeObjectToXML(s, clazz, out);
 			out.flush();
 			out.close();
 		}
 
+	}
+
+	public void writeAllSamplesXMLFile(Path outputLocation)
+			throws FileNotFoundException, PropertyException, JAXBException {
+
+		//@formatter:off
+		Query q = em.createNativeQuery(
+				  "SELECT sample_type, sample_id, long_name, "
+				  + "sampled_by, comments, collection_date, site_id, iid "
+				+ "FROM samples "
+				+ "ORDER BY sample_type, sample_id, collection_date");
+		//@formatter:on
+
+		List<Object[]> queryResult = q.getResultList();
+
+		List<SampleInfo> samples = new ArrayList<>();
+
+		queryResult.stream().forEach(e -> samples.add(new SampleInfo(e)));
+
+		PrintStream out = new PrintStream(
+				new FileOutputStream(outputLocation + "/allSamples.xml"));
+
+		JAXBElement<Object[]> je = new JAXBElement<Object[]>(
+				new QName("samples"), Object[].class, samples.toArray());
+
+		JAXBContext jc = JAXBContext.newInstance(Object[].class,
+				SampleInfo.class);
+
+		Marshaller marshaller = jc.createMarshaller();
+		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+		marshaller.marshal(je, out);
+
+		out.flush();
+		out.close();
 	}
 
 	/**
