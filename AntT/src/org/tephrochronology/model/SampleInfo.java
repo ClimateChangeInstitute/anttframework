@@ -3,8 +3,6 @@ package org.tephrochronology.model;
 import java.sql.Date;
 import java.time.LocalDate;
 
-import javax.xml.bind.annotation.XmlRootElement;
-
 
 /**
  * Simple {@link Sample} results.
@@ -12,7 +10,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Mark Royer
  *
  */
-@XmlRootElement(name="sample")
 public class SampleInfo {
 
 	private String sampleID;
@@ -112,6 +109,14 @@ public class SampleInfo {
 
 	public void setIid(String iid) {
 		this.iid = iid;
+	}
+
+	public String getSampleType() {
+		return sampleType;
+	}
+
+	public void setSampleType(String sampleType) {
+		this.sampleType = sampleType;
 	}
 
 }

@@ -24,13 +24,13 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.PropertyException;
 import javax.xml.namespace.QName;
 
-import org.tephrochronology.model.BIASample;
 import org.tephrochronology.model.Sample;
 import org.tephrochronology.model.SampleInfo;
+import org.tephrochronology.model.Samples;
 
 /**
  * @author willie
- *
+ * @author Mark Royer
  */
 public class XMLFileGenerator {
 
@@ -78,6 +78,7 @@ public class XMLFileGenerator {
 				+ "ORDER BY sample_type, sample_id, collection_date");
 		//@formatter:on
 
+		@SuppressWarnings("unchecked")
 		List<Object[]> queryResult = q.getResultList();
 
 		List<SampleInfo> samples = new ArrayList<>();
@@ -87,15 +88,11 @@ public class XMLFileGenerator {
 		PrintStream out = new PrintStream(
 				new FileOutputStream(outputLocation + "/allSamples.xml"));
 
-		JAXBElement<Object[]> je = new JAXBElement<Object[]>(
-				new QName("samples"), Object[].class, samples.toArray());
-
-		JAXBContext jc = JAXBContext.newInstance(Object[].class,
-				SampleInfo.class);
+		JAXBContext jc = JAXBContext.newInstance(Samples.class);
 
 		Marshaller marshaller = jc.createMarshaller();
 		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-		marshaller.marshal(je, out);
+		marshaller.marshal(new Samples(samples), out);
 
 		out.flush();
 		out.close();
