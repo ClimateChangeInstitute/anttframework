@@ -23,6 +23,7 @@ import javax.xml.bind.PropertyException;
 import javax.xml.namespace.QName;
 
 import org.tephrochronology.model.IceCoreSample;
+import org.tephrochronology.model.Sample;
 
 /**
  * @author willie
@@ -43,19 +44,21 @@ public class XMLFileGenerator {
 
 	}
 
-	public void writeIceCoreSampleXMLFiles(Path outputLocation)
+	public <T extends Sample> void writeSampleXMLFiles(
+			Path outputLocation, Class<T> clazz)
 			throws PropertyException, JAXBException, FileNotFoundException {
-		TypedQuery<IceCoreSample> q = em.createQuery(
-				"SELECT s FROM IceCoreSample s ORDER BY s.sampleID",
-				IceCoreSample.class);
+		TypedQuery<T> q = em.createQuery(
+				String.format("SELECT s FROM %s s ORDER BY s.sampleID",
+						clazz.getSimpleName()),
+				clazz);
 
-		List<IceCoreSample> ics = q.getResultList();
+		List<T> samples = q.getResultList();
 
-		for (IceCoreSample iceCoreSample : ics) {
+		for (T s : samples) {
 			PrintStream out = new PrintStream(
 					new FileOutputStream(outputLocation + "/"
-							+ iceCoreSample.getSampleID() + ".xml"));
-			writeObjectToXML(iceCoreSample, IceCoreSample.class, out);
+							+ s.getSampleID() + ".xml"));
+			writeObjectToXML(s, clazz, out);
 			out.flush();
 			out.close();
 		}
