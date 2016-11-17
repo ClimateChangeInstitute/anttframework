@@ -5,9 +5,12 @@ package org.tephrochronology;
 
 import static org.tephrochronology.DBProperties.setupProperties;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
@@ -15,13 +18,8 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.PropertyException;
 import javax.xml.namespace.QName;
 
-import org.tephrochronology.model.GrainSize;
-import org.tephrochronology.model.GrainSizeID;
 import org.tephrochronology.model.IceCoreSample;
-import org.tephrochronology.model.Image;
-import org.tephrochronology.model.Ref;
 import org.tephrochronology.model.TestDataGenerator;
-import org.tephrochronology.model.Volcano;
 
 /**
  * This class requires that the test data has been generated from the
@@ -45,19 +43,30 @@ public class ExampleXMLOutput {
 
 		em.getTransaction().begin();
 
-		displayObjectXML(em.find(Volcano.class, 210010), Volcano.class);
+		// displayObjectXML(em.find(Volcano.class, 210010), Volcano.class);
 
-		displayObjectXML(em.find(IceCoreSample.class, "IceCoreSample9"),
+		TypedQuery<IceCoreSample> q = em.createQuery(
+				"SELECT s FROM IceCoreSample s ORDER BY s.sampleID",
 				IceCoreSample.class);
 
-		displayObjectXML(em.find(Ref.class, "Ref11"), Ref.class);
+		List<IceCoreSample> ics = q.getResultList();
 
-		displayObjectXML(em.find(Image.class, 11), Image.class);
+		for (IceCoreSample iceCoreSample : ics) {
+			displayObjectXML(iceCoreSample, IceCoreSample.class);	
+		}
+		
 
-		displayObjectXML(
-				em.find(GrainSize.class,
-						new GrainSizeID("OutcropSample13", "Instrument6")),
-				GrainSize.class);
+		// displayObjectXML(em.find(IceCoreSample.class, "IceCoreSample9"),
+		// IceCoreSample.class);
+		//
+		// displayObjectXML(em.find(Ref.class, "Ref11"), Ref.class);
+		//
+		// displayObjectXML(em.find(Imag'e.class, 11), Image.class);
+		//
+		// displayObjectXML(
+		// em.find(GrainSize.class,
+		// new GrainSizeID("OutcropSample13", "Instrument6")),
+		// GrainSize.class);
 
 		em.getTransaction().commit();
 		em.close();
