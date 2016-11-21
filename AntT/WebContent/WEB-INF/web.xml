@@ -1,12 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
-  <display-name>AntT</display-name>
-  <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
-    <welcome-file>index.htm</welcome-file>
-    <welcome-file>index.jsp</welcome-file>
-    <welcome-file>default.html</welcome-file>
-    <welcome-file>default.htm</welcome-file>
-    <welcome-file>default.jsp</welcome-file>
-  </welcome-file-list>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+	id="WebApp_ID" version="3.1">
+	<display-name>AntT</display-name>
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.htm</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>default.html</welcome-file>
+		<welcome-file>default.htm</welcome-file>
+		<welcome-file>default.jsp</welcome-file>
+	</welcome-file-list>
+
+	<!-- Uncomment the following and insert privileged="true" for this webapps 
+		 Context tag in Tomcat's server.xml file to enable SSI. -->
+	
+<!-- 	<servlet>
+        <servlet-name>ssi</servlet-name>
+        <servlet-class>
+          org.apache.catalina.ssi.SSIServlet
+        </servlet-class>
+        <init-param>
+          <param-name>buffered</param-name>
+          <param-value>1</param-value>
+        </init-param>
+        <init-param>
+          <param-name>debug</param-name>
+          <param-value>0</param-value>
+        </init-param>
+        <init-param>
+          <param-name>expires</param-name>
+          <param-value>666</param-value>
+        </init-param>
+        <init-param>
+          <param-name>isVirtualWebappRelative</param-name>
+          <param-value>false</param-value>
+        </init-param>
+        <load-on-startup>4</load-on-startup>
+    </servlet>
+	<servlet-mapping>
+		<servlet-name>ssi</servlet-name>
+		<url-pattern>*.shtml</url-pattern>
+		<url-pattern>*.html</url-pattern>
+	</servlet-mapping> -->
+	
+	
 </web-app>
