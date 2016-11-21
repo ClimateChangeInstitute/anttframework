@@ -38,3 +38,9 @@ body > .container {
 code {
   font-size: 80%;
 }
+
+
+.footer-img {
+	width: 150px;
+	padding: 10px;	
+}
