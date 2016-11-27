@@ -226,6 +226,13 @@ CREATE TABLE elements(
 	element_name TEXT PRIMARY KEY
 );
 	
+CREATE TABLE mm_elements_data(
+	longsample_id TEXT REFERENCES mm_elements(longsample_id) NOT NULL,
+	element TEXT REFERENCES elements(element_name) NOT NULL,
+	std_so2 REAL NOT NULL,
+	me_so2 REAL NOT NULL,
+	so2_units TEXT NOT NULL,
+	PRIMARY KEY(longsample_id, element));
 
 	
 --	so2 REAL,
@@ -308,7 +315,7 @@ GRANT ALL PRIVILEGES ON method_types TO :ADMIN;
 
 GRANT ALL PRIVILEGES ON mm_elements TO :ADMIN;
 GRANT ALL PRIVILEGES ON elements TO :ADMIN;
-
+GRANT ALL PRIVILEGES ON mm_elements_data TO :ADMIN;
 ------------------------------------------------------------------------------
 ------------------------------------------------------------------------------
 ----------------------------- End priveleges section --------------------------
