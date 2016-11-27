@@ -2153,5 +2153,26 @@ INSERT INTO site_types (site_type) VALUES ('LAKE');
 INSERT INTO site_types (site_type) VALUES ('OUTCROP');
 INSERT INTO site_types (site_type) VALUES ('SEA');
 
+--
+-- Data for elements
+--
+
+
+INSERT INTO elements (element_name) VALUES ('sio2');
+INSERT INTO elements (element_name) VALUES ('tio2');
+INSERT INTO elements (element_name) VALUES ('so2');
+INSERT INTO elements (element_name) VALUES ('al2o3');
+INSERT INTO elements (element_name) VALUES ('cr2o3');
+INSERT INTO elements (element_name) VALUES ('fe2o3');
+INSERT INTO elements (element_name) VALUES ('feo');
+INSERT INTO elements (element_name) VALUES ('mno');
+INSERT INTO elements (element_name) VALUES ('mgo');
+INSERT INTO elements (element_name) VALUES ('cao');
+INSERT INTO elements (element_name) VALUES ('na2o');
+INSERT INTO elements (element_name) VALUES ('k2o');
+INSERT INTO elements (element_name) VALUES ('p2o5');
+INSERT INTO elements (element_name) VALUES ('cl');
+INSERT INTO elements (element_name) VALUES ('co2');
+
 
 COMMIT;
