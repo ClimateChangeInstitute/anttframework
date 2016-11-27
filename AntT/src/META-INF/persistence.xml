@@ -28,5 +28,6 @@
 		<class>org.tephrochronology.model.OutcropSample</class>
 		<class>org.tephrochronology.model.MethodType</class>
 		<class>org.tephrochronology.model.LocalDateAttributeConverter</class>
+		<class>org.tephrochronology.model.Element</class>
 	</persistence-unit>
 </persistence>
