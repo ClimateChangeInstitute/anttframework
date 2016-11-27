@@ -3,8 +3,10 @@
  */
 package org.tephrochronology.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
@@ -14,23 +16,29 @@ import javax.persistence.Table;
  * @author Mark Royer
  *
  */
-//@Entity
-@Table(name="mm_elements_data")
+@Entity
+@Table(name = "mm_elements_data")
+@IdClass(MMElementDataID.class)
 public class MMElementData {
-	
+
 	@Id
-	@JoinColumn(name="")
+	@JoinColumn(name = "longsample_id")
 	protected MMElement mmElement;
-	
+
 	@Id
+	@JoinColumn(name = "element")
 	protected Element element;
-	
+
+	@Column(name = "val")
 	protected Float value;
-	
+
+	@Column(name = "std")
 	protected Float std;
-	
+
+	@Column(name = "me")
 	protected Float me;
-	
+
+	@Column(name = "unit")
 	protected String unit;
 
 	/**
@@ -46,6 +54,8 @@ public class MMElementData {
 		this.me = me;
 		this.unit = unit;
 	}
-	
-	
+
+	public MMElementData() {
+	}
+
 }
