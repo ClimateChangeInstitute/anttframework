@@ -8,15 +8,17 @@ import java.util.Map;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.MapKeyColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.MapKeyJoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
+ * Major/Minor element data measurements.
+ * 
  * @author Mark Royer
  *
  */
@@ -68,7 +70,9 @@ public class MMElement {
 	private Float loi;
 
 	@OneToMany
-	@MapKeyColumn(name = "element")
+	@JoinTable(name = "mm_elements_data", joinColumns = {
+			@JoinColumn(name = "longsample_id", referencedColumnName = "longsample_id") })
+	@MapKeyJoinColumn(name = "element")
 	@CollectionTable(name = "mm_elements_data", joinColumns = {
 			@JoinColumn(name = "longsample_id", referencedColumnName = "longsample_id"),
 			@JoinColumn(name = "element", referencedColumnName = "element_name") })
