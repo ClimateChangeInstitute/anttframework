@@ -203,6 +203,7 @@ CREATE TABLE outcrop_samples(
 CREATE TABLE method_types(
        method_type TEXT PRIMARY KEY);
 	
+-- Major/Minor Elements
 CREATE TABLE mm_elements(
 	longsample_id TEXT PRIMARY KEY,
 	sample_id TEXT REFERENCES samples(sample_id) NOT NULL,
@@ -221,17 +222,18 @@ CREATE TABLE mm_elements(
 
 --  ***** Example elements *****
 --	sio2,tio2,so2,al2o3,cr2o3,fe2o3,feo,mno,mgo,cao,na2o,k2o,p2o5,p2o5,cl,co2
-
 CREATE TABLE elements(
 	element_name TEXT PRIMARY KEY
 );
 	
+-- Major/Minor Elements Data
 CREATE TABLE mm_elements_data(
 	longsample_id TEXT REFERENCES mm_elements(longsample_id) NOT NULL,
 	element TEXT REFERENCES elements(element_name) NOT NULL,
-	std_so2 REAL NOT NULL,
-	me_so2 REAL NOT NULL,
-	so2_units TEXT NOT NULL,
+	val REAL NOT NULL,
+	std REAL NOT NULL,
+	me REAL NOT NULL,
+	unit TEXT NOT NULL,
 	PRIMARY KEY(longsample_id, element));
 
 	
