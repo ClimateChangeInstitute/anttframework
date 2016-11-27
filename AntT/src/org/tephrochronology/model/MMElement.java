@@ -1,72 +1,77 @@
-	/**
- * 
- */
+/**
+* 
+*/
 package org.tephrochronology.model;
 
 import java.time.LocalDate;
 import java.util.Map;
 
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.MapKeyColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
 /**
  * @author Mark Royer
  *
  */
+@Entity
+@Table(name = "mm_elements")
 public class MMElement {
 
-	/**
-	 * Used to populate the elemental data in {@link MMElement#elementData}.
-	 * 
-	 * @author Mark Royer
-	 *
-	 */
-	protected class MMElementData {
-		protected Float value;
-		protected Float std;
-		protected Float me;
-		protected String unit;
-
-		/**
-		 * @param value
-		 * @param std
-		 * @param me
-		 * @param unit
-		 */
-		public MMElementData(Float value, Float std, Float me, String unit) {
-			super();
-			this.value = value;
-			this.std = std;
-			this.me = me;
-			this.unit = unit;
-		}
-	};
-
+	@Id
+	@Column(name = "longsample_id")
 	private String longsampleID;
 
+	@JoinColumn(name = "sample_id")
 	private Sample sample;
 
+	@Column(name = "comments")
 	private String comments;
 
+	@JoinColumn(name = "method_type")
 	private MethodType methodType;
 
+	@JoinColumn(name = "iid")
 	private Instrument instrument;
 
+	@Column(name = "date_measured")
 	private LocalDate dateMeasured;
 
+	@Column(name = "measured_by")
 	private String measuredBy;
 
+	@Column(name = "number_of_measurements")
 	private int numberOfMeasurements;
 
+	@Column(name = "original_total")
 	private float originalTotal;
 
+	@Column(name = "calculated_total")
 	private float calculatedTotal;
 
+	@Column(name = "instrument_settings")
 	private String instrumentSettings;
 
+	@Column(name = "h2o_plus")
 	private Float h2o_plus;
 
+	@Column(name = "h2o_minus")
 	private Float h2o_minus;
 
+	@Column(name = "loi")
 	private Float loi;
 
+	@OneToMany
+	@MapKeyColumn(name = "element")
+	@CollectionTable(name = "mm_elements_data", joinColumns = {
+			@JoinColumn(name = "longsample_id", referencedColumnName = "longsample_id"),
+			@JoinColumn(name = "element", referencedColumnName = "element_name") })
 	private Map<Element, MMElementData> elementData;
 
 	/**
@@ -108,6 +113,9 @@ public class MMElement {
 		this.h2o_minus = h2o_minus;
 		this.loi = loi;
 		this.elementData = elementData;
+	}
+
+	public MMElement() {
 	}
 
 	public String getLongsampleID() {
