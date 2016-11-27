@@ -16,7 +16,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "elements")
-public class Element implements Serializable {
+public class Element implements Serializable, Comparable<Element> {
 
 	/**
 	 * 
@@ -25,7 +25,7 @@ public class Element implements Serializable {
 
 	@Id
 	@Column(name = "element_name")
-	private String name;
+	protected String name;
 
 	public Element(String name) {
 		super();
@@ -41,8 +41,19 @@ public class Element implements Serializable {
 		return name;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	@Override
+	public int compareTo(Element o) {
+		return name.compareTo(o.name);
+	}
+
+	@Override
+	public int hashCode() {
+		return name.hashCode();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		return name.equals(((Element) obj).name);
 	}
 
 }

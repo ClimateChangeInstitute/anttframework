@@ -1,4 +1,4 @@
-/**
+	/**
  * 
  */
 package org.tephrochronology.model;
@@ -67,7 +67,7 @@ public class MMElement {
 
 	private Float loi;
 
-	private Map<String, MMElementData> elementData;
+	private Map<Element, MMElementData> elementData;
 
 	/**
 	 * @param longsampleID
@@ -91,7 +91,7 @@ public class MMElement {
 			LocalDate dateMeasured, String measuredBy, int numberOfMeasurements,
 			float originalTotal, float calculatedTotal,
 			String instrumentSettings, Float h2o_plus, Float h2o_minus,
-			Float loi, Map<String, MMElementData> elementData) {
+			Float loi, Map<Element, MMElementData> elementData) {
 		super();
 		this.longsampleID = longsampleID;
 		this.sample = sample;
@@ -222,11 +222,11 @@ public class MMElement {
 		this.loi = loi;
 	}
 
-	public Map<String, MMElementData> getElementData() {
+	public Map<Element, MMElementData> getElementData() {
 		return elementData;
 	}
 
-	public void setElementData(Map<String, MMElementData> elementData) {
+	public void setElementData(Map<Element, MMElementData> elementData) {
 		this.elementData = elementData;
 	}
 
