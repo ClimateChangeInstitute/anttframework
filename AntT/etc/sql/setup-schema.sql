@@ -237,14 +237,6 @@ CREATE TABLE mm_elements_data(
 	PRIMARY KEY(longsample_id, element));
 
 	
---	so2 REAL,
---	std_so2 REAL,
---	me_so2 REAL,
---	so2_units TEXT,
-
-
-
-	
 ------------------------------------------------------------------------------
 -- End Sample Related Tables
 ------------------------------------------------------------------------------

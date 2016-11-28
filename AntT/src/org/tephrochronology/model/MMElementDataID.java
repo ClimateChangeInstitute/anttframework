@@ -45,5 +45,19 @@ public class MMElementDataID implements Serializable {
 		this.element = element;
 	}
 	
-	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof MMElementDataID) {
+			MMElementDataID other = (MMElementDataID) obj;
+			return mmElement != null && element != null
+					&& mmElement.equals(other.mmElement)
+					&& element.equals(other.element);
+		} else
+			return false;
+	}
+
+	@Override
+	public int hashCode() {
+		return super.hashCode();
+	}
 }
