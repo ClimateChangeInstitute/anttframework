@@ -17,7 +17,7 @@ app.factory('dataSource', [ '$http', function($http) {
 	return factory;
 } ]);
 
-app.controller('BIASample', function($location, $scope, dataSource) {
+app.controller('biaSample', function($location, $scope, dataSource) {
 
 	$scope.AppController = [];
 

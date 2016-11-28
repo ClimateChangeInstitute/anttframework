@@ -17,7 +17,7 @@ app.factory('dataSource', [ '$http', function($http) {
 	return factory;
 } ]);
 
-app.controller('IceCoreSample', function($location, $scope, dataSource) {
+app.controller('iceCoreSample', function($location, $scope, dataSource) {
 
 	$scope.AppController = [];
 

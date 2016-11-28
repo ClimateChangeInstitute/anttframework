@@ -17,7 +17,7 @@ app.factory('dataSource', [ '$http', function($http) {
 	return factory;
 } ]);
 
-app.controller('Outcrop', function($location, $scope, dataSource) {
+app.controller('outcropSample', function($location, $scope, dataSource) {
 
 	$scope.AppController = [];
 

@@ -10,7 +10,7 @@ app.factory('dataSource', [ '$http', function($http) {
 	return factory;
 } ]);
 
-app.controller('AllSamples', function($scope, dataSource) {
+app.controller('allSamples', function($scope, dataSource) {
 
 	$scope.AppController = [];
 
