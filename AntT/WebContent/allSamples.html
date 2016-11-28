@@ -70,12 +70,14 @@
 
 		<div ng-controller="AllSamples">
 			<div ng-repeat="sample in dataSet">
-				<div class="panel panel-default">
-				  <div class="panel-body">
-				    <p><strong>Sample ID: </strong>{{sample.sampleID}} <span class="pull-right"><strong>Collection Date: </strong> {{sample.collectionDate}}</span></p>
-				    <p><strong>Sample Type: </strong>{{sample.sampleType}}<span class="pull-right"><strong>Collected By: </strong> {{sample.sampledBy}}</span></p>
-				  </div>
-				</div>
+				<a href="{{sample.sampleType}}.html?id={{sample.sampleID}}">
+					<div class="panel panel-default">
+					  <div class="panel-body">
+					    <p><strong>Sample ID: </strong>{{sample.sampleID}} <span class="pull-right"><strong>Collection Date: </strong> {{sample.collectionDate}}</span></p>
+					    <p><strong>Sample Type: </strong>{{sample.sampleType}}<span class="pull-right"><strong>Collected By: </strong> {{sample.sampledBy}}</span></p>
+					  </div>
+					</div>
+				</a>
 			</div>
 		</div>
 	</div>
