@@ -72,10 +72,10 @@ public class MMElement {
 	@OneToMany
 	@JoinTable(name = "mm_elements_data", joinColumns = {
 			@JoinColumn(name = "longsample_id", referencedColumnName = "longsample_id") })
-	@MapKeyJoinColumn(name = "element")
+	@MapKeyJoinColumn(name = "element", updatable = false, insertable = false)
 	@CollectionTable(name = "mm_elements_data", joinColumns = {
-			@JoinColumn(name = "longsample_id", referencedColumnName = "longsample_id"),
-			@JoinColumn(name = "element", referencedColumnName = "element_name") })
+			@JoinColumn(name = "longsample_id", referencedColumnName = "longsample_id", updatable = false, insertable = false),
+			@JoinColumn(name = "element", referencedColumnName = "element_name", updatable = false, insertable = false) })
 	private Map<Element, MMElementData> elementData;
 
 	/**
