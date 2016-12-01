@@ -54,9 +54,14 @@
 			<div id="navbar" class="collapse navbar-collapse">
 				<ul class="nav navbar-nav">
 					<li><a href="about.html">About</a></li>
-					<li><a href="database.html">Database</a></li>
+					<li class="active dropdown">
+					          <a href="database.html" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Database <span class="caret"></span></a>
+					          <ul class="dropdown-menu">
+					            <li><a href="allSamples.html">All Samples</a></li>
+					          </ul>
+					        </li>
 					<li><a href="methodology.html">Methodology</a></li>
-					<li class="active"><a href="team.html">Team</a></li>
+					<li><a href="team.html">Team</a></li>
 				</ul>
 			</div>
 			<!--/.nav-collapse -->
@@ -67,18 +72,16 @@
 
 	<!-- Begin page content -->
 	<div class="container" id="insert-xml-here" ng-app="exampleApp" ng-cloak>
-		
-		<div class="page-header">
-			<h1>All Samples <label style="font-size: 18px;font-weight: 200; margin-top: 20px;" class="pull-right">Search: <input ng-model="searchText">
-			</label>
-			</h1>
-		</div>
-
 		<div ng-controller="allSamples">
+		
+			<div class="page-header">
+				<h1>All Samples <label style="font-size: 18px;font-weight: 200; margin-top: 20px;" class="pull-right">Search: <input ng-model="searchText">
+				</label>
+				</h1>
+			</div>
 
-
-			<div ng-repeat="filter in Filters">
-			  <h3 class="sort">{{filter.name}}</h3>
+			<div class="" ng-repeat="filter in Filters">
+			  <h3 class="filter-header">{{filter.name}}</h3>
 			  <ul class="sortoptions">
 			    <li ng-repeat="option in filter.options">
 			      <input type="checkbox" ng-model="option.IsIncluded" ng-checked="option.IsIncluded"> {{option.value}}
@@ -86,8 +89,6 @@
 			    </li>
 			  </ul>
 			</div>
-
-
 
 			<div ng-repeat="sample in dataSet | filter:searchText | checkboxFilters:Filters:this">
 				<a href="{{sample.sampleType}}.html?id={{sample.sampleID}}">
@@ -99,6 +100,7 @@
 					</div>
 				</a>
 			</div>
+
 		</div>
 	</div>
 
