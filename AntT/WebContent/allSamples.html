@@ -27,6 +27,7 @@
 <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
 <script src="index_files/ie-emulation-modes-warning.js"></script>
 
+
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -65,13 +66,30 @@
 	<!-- Begin page content -->
 
 	<!-- Begin page content -->
-	<div class="container" id="insert-xml-here" ng-app="exampleApp">
+	<div class="container" id="insert-xml-here" ng-app="exampleApp" ng-cloak>
+		
 		<div class="page-header">
-			<h1>All Samples</h1>
+			<h1>All Samples <label style="font-size: 18px;font-weight: 200; margin-top: 20px;" class="pull-right">Search: <input ng-model="searchText">
+			</label>
+			</h1>
 		</div>
 
 		<div ng-controller="allSamples">
-			<div ng-repeat="sample in dataSet">
+
+
+			<div ng-repeat="filter in Filters">
+			  <h3 class="sort">{{filter.name}}</h3>
+			  <ul class="sortoptions">
+			    <li ng-repeat="option in filter.options">
+			      <input type="checkbox" ng-model="option.IsIncluded" ng-checked="option.IsIncluded"> {{option.value}}
+			      <span>({{option.count}})</span>
+			    </li>
+			  </ul>
+			</div>
+
+
+
+			<div ng-repeat="sample in dataSet | filter:searchText | checkboxFilters:Filters:this">
 				<a href="{{sample.sampleType}}.html?id={{sample.sampleID}}">
 					<div class="panel panel-default selectpanelhover">
 					  <div class="panel-body">
@@ -104,6 +122,7 @@
 				|| document
 						.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')
 	</script>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.js'></script>
 	<script src="index_files/bootstrap.js"></script>
 	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 	<script src="index_files/ie10-viewport-bug-workaround.js"></script>
