@@ -5,13 +5,21 @@ package org.tephrochronology;
 
 import static org.tephrochronology.DBProperties.setupProperties;
 
+import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
+import org.tephrochronology.model.Element;
+import org.tephrochronology.model.Instrument;
+import org.tephrochronology.model.MMElement;
+import org.tephrochronology.model.MMElementData;
+import org.tephrochronology.model.MethodType;
 import org.tephrochronology.model.OutcropSample;
 import org.tephrochronology.model.Ref;
 import org.tephrochronology.model.Volcano;
@@ -68,11 +76,45 @@ public class QueryVolcanoes {
 		osQ.getResultList().stream()
 				.forEach(e -> System.out.println(e.getSampleID()));
 
+		//@formatter:off
+		TypedQuery<MMElement> mmeQ = em.createQuery(
+				  "SELECT m "
+				+ "FROM MMElement m ",
+				MMElement.class);
+		//@formatter:on
+
+		// Map<Element, MMElementData> data = new HashMap<>();
+		// MMElement el = new MMElement(
+		// MMElement.class.getSimpleName() + "0",
+		// osQ.getSingleResult(),
+		// "Comment",
+		// new MethodType("MethodType0"),
+		// new Instrument(Instrument.class.getSimpleName() + "0","","",""),
+		// LocalDate.now(),
+		// "Mark",
+		// 5, 3f, 2f, "instrument settings", 1f, -2f, 1f, data);
+		// Element elem = new Element("sio2");
+		// data.put(elem, new MMElementData(el, elem, 10f, 2f, 1f, "ppb"));
+		// elem = new Element("tio2");
+		// data.put(elem, new MMElementData(el, elem, 20f, 4f, 2f, "ppb"));
+		// elem = new Element("so2");
+		// data.put(elem, new MMElementData(el, elem, 30f, 8f, 3f, "ppb"));
+		//
+		// em.persist(el);
+
+		List<MMElement> mmeList = mmeQ.getResultList();
+
+		for (MMElement m : mmeList) {
+			m.getElementData().values().stream()
+					.forEach(e -> System.out.println(e.getValue()));
+		}
+
 		em.getTransaction().commit();
 
 		em.close();
 		emf.close();
 
+		System.out.println("Done");
 	}
 
 	/**

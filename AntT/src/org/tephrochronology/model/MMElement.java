@@ -6,12 +6,12 @@ package org.tephrochronology.model;
 import java.time.LocalDate;
 import java.util.Map;
 
-import javax.persistence.CollectionTable;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
+import javax.persistence.MapKeyColumn;
 import javax.persistence.MapKeyJoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -69,13 +69,9 @@ public class MMElement {
 	@Column(name = "loi")
 	private Float loi;
 
-	@OneToMany
-	@JoinTable(name = "mm_elements_data", joinColumns = {
-			@JoinColumn(name = "longsample_id", referencedColumnName = "longsample_id") })
-	@MapKeyJoinColumn(name = "element", updatable = false, insertable = false)
-	@CollectionTable(name = "mm_elements_data", joinColumns = {
-			@JoinColumn(name = "longsample_id", referencedColumnName = "longsample_id", updatable = false, insertable = false),
-			@JoinColumn(name = "element", referencedColumnName = "element_name", updatable = false, insertable = false) })
+	@OneToMany(mappedBy = "mmElement", cascade = { CascadeType.PERSIST })
+	@MapKeyColumn(name = "element")
+	@MapKeyJoinColumn(name = "element", referencedColumnName = "element_name", insertable = false, updatable = false)
 	private Map<Element, MMElementData> elementData;
 
 	/**
