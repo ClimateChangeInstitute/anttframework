@@ -24,6 +24,8 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.PropertyException;
 import javax.xml.namespace.QName;
 
+import org.tephrochronology.model.MMElement;
+import org.tephrochronology.model.MMElements;
 import org.tephrochronology.model.Sample;
 import org.tephrochronology.model.SampleInfo;
 import org.tephrochronology.model.Samples;
@@ -98,6 +100,31 @@ public class XMLFileGenerator {
 		out.close();
 	}
 
+	public void writeAllMMElementXMLFile(Path outputLocation)
+			throws FileNotFoundException, JAXBException {
+		//@formatter:off
+		TypedQuery<MMElement> q = em.createQuery(
+				  "SELECT mme "
+				+ "FROM MMElement mme "
+				+ "ORDER BY mme.longsampleID", MMElement.class);
+		//@formatter:on
+
+		List<MMElement> queryResult = q.getResultList();
+		
+		PrintStream out = new PrintStream(
+				new FileOutputStream(outputLocation + "/allMMEelements.xml"));
+
+		JAXBContext jc = JAXBContext.newInstance(MMElements.class);
+
+		Marshaller marshaller = jc.createMarshaller();
+		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+		marshaller.marshal(new MMElements(queryResult), out);
+
+		out.flush();
+		out.close();
+
+	}
+
 	/**
 	 * @param o
 	 * @param clazz
@@ -117,4 +144,5 @@ public class XMLFileGenerator {
 		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 		marshaller.marshal(je, out);
 	}
+
 }

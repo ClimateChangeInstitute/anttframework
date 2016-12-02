@@ -53,6 +53,8 @@ public class Runner {
 		fileGenerator.writeSampleXMLFiles(OUTCROP, OutcropSample.class);
 		
 		fileGenerator.writeAllSamplesXMLFile(GEN_DIR);
+		
+		fileGenerator.writeAllMMElementXMLFile(GEN_DIR);
 	}
 
 	private static Path appendChildAndCreateDir(final Path PROJECT_ROOT,

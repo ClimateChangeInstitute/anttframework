@@ -14,7 +14,9 @@ import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.imageio.ImageIO;
 import javax.persistence.EntityManager;
@@ -57,6 +59,10 @@ public class TestDataGenerator {
 
 	List<GrainSize> grainSizes;
 
+	List<Element> elements;
+
+	List<MMElement> mmElements;
+
 	/**
 	 * @param args
 	 */
@@ -88,6 +94,9 @@ public class TestDataGenerator {
 					"SELECT v FROM Volcano v ORDER BY v.volcanoNumber",
 					Volcano.class).getResultList();
 
+			elements = em.createQuery("SELECT e FROM Element e ORDER BY e.name",
+					Element.class).getResultList();
+
 			generateTypeData(em);
 
 			generateSiteData(em);
@@ -108,6 +117,8 @@ public class TestDataGenerator {
 
 			generateGrainSizeData(em);
 
+			generateMMElementData(em);
+
 			em.getTransaction().commit();
 
 			System.out.println("Done generating test data.");
@@ -118,6 +129,32 @@ public class TestDataGenerator {
 			em.close();
 			emf.close();
 		}
+	}
+
+	private void generateMMElementData(EntityManager em) {
+		System.out.printf("Generating %s data.\n",
+				MMElement.class.getSimpleName());
+
+		int n = 100;
+		mmElements = new ArrayList<>();
+
+		range(0, n).forEach(i -> {
+			Map<Element, MMElementData> data = new HashMap<>();
+			MMElement el = new MMElement(MMElement.class.getSimpleName() + i,
+					outcropSamples.get(i % outcropSamples.size()),
+					"Comment " + i, methodTypes.get(i % methodTypes.size()),
+					instruments.get(i % instruments.size()),
+					LocalDate.now(), "Mark", 5, 3f, 2f, "instrument settings for " + i,
+					1f, -2f, 1f, data);
+			range(0, i % elements.size()).forEach(j ->{
+				Element elem = elements.get(j % elements.size());
+				data.put(elem, new MMElementData(el, elem, j*10f, j * 2f, j*1f, "ppb"));
+			});
+			
+			mmElements.add(el);
+			em.persist(el);
+		});
+
 	}
 
 	private void generateGrainSizeData(EntityManager em) {

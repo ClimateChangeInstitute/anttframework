@@ -10,6 +10,8 @@ import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
+import org.eclipse.persistence.oxm.annotations.XmlInverseReference;
+
 /**
  * Used to populate the elemental data in {@link MMElement#elementData}.
  * 
@@ -23,6 +25,7 @@ public class MMElementData {
 
 	@Id
 	@JoinColumn(name = "longsample_id")
+	@XmlInverseReference(mappedBy="elementData")
 	protected MMElement mmElement;
 
 	@Id
