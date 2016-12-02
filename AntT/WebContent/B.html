@@ -63,70 +63,104 @@
 	<!-- Begin page content -->
 
 	<!-- Begin page content -->
-	<div class="container" id="insert-xml-here" ng-app="exampleApp">
-		<div class="page-header">
-			<h1>BIASample Data</h1>
-		</div>
-
+	<div class="container" id="insert-xml-here" ng-app="exampleApp" ng-cloak>
 		<div ng-controller="biaSample">
 			<div ng-repeat="sample in dataSet">
-				
-				<h3>Misc:</h3>
-				<div>
-					<p>{{sample.comments}}</p>
-					<p>{{sample.collectionDate}}</p>
-					<p>{{sample.longName}}</p>
-					<p>{{sample.sampleID}}</p>
-					<p>{{sample.sampledBy}}</p>
+
+				<div class="page-header">
+					<h1>BIASample Data (sample {{sample.sampleID}})</h1>
+				</div>
+
+				<div class="row">
+					<h4>Volcano ({{sample.volcano.name}} - {{sample.volcano.volcanoNumber}})</h4>
+					<div class="col-sm-6">
+				      	<h4>Location Data</h4>
+				      	<hr>
+						<div>
+							<p><strong>Country: </strong>{{sample.volcano.region.subRegion.country.name}}</p>
+							<p><strong>Region: </strong>{{sample.volcano.region.name}}</p>
+							<p><strong>Sub-region: </strong>{{sample.volcano.region.subRegion.name}}</p>
+							<p><strong>Latitude,Longitude: </strong>{{sample.volcano.latitude}},{{sample.volcano.longitude}}</p>
+							<p><strong>Elevation: </strong>{{sample.volcano.elevation}} M</p>
+						</div>
+				    </div>
+				    <div class="col-sm-6">
+				      	<h4>Tectonic Data</h4>
+				      	<hr>
+						<div>
+							<p><strong>Primary Volcano Type: </strong>{{sample.volcano.primaryVolcanoType.type}}</p>
+							<p><strong>Tectonic Setting: </strong>{{sample.volcano.tectonicSetting.type}}</p>
+							<p><strong>Dominant Rock Type: </strong>{{sample.volcano.dominantRockType.type}}</p>
+							<p><strong>Last Known Eruption: </strong>{{sample.volcano.lastKnownEruption}}</p>
+							<p><strong>Old Volcano Number: </strong>{{sample.volcano.oldVolcanoNumber}}</p>
+						</div>
+				    </div>
+
 				</div>
 				<hr>
-				
-				<h3>Refs:</h3>
-				<div ng-repeat="ref in sample.refs">
-					<p>{{ref.doi}}</p>
+				<div class="row">
+				    <div class="col-sm-4">
+				      	<h4>Misc:</h4>
+						<div>
+							<p>{{sample.comments}}</p>
+							<p>{{sample.collectionDate}}</p>
+							<p>{{sample.longName}}</p>
+							<p>{{sample.sampleID}}</p>
+							<p>{{sample.sampledBy}}</p>
+						</div>
+				    </div>
+				    <div class="col-sm-4">
+				      	<h4>Instrument:</h4>
+				      	<div ng-repeat="item in sample.instrument">
+				      		<p>{{item}}</p>
+				      	</div>
+				    </div>
+				    <div class="col-sm-4">
+				      	<h4>Site:</h4>
+  						<div ng-repeat="info in sample.site">
+  							<p>{{info}}</p>
+  						</div>
+				    </div>
 				</div>
 				<hr>
-				
-				<h3>Images:</h3>
-				<div ng-repeat="image in sample.images">
-					<img src="data:image/png;base64,{{image.bytes}}">
+				<div class="row">
+				    <div class="col-sm-4">
+				      	<h4>Misc:</h4>
+						<div>
+							<p>{{sample.comments}}</p>
+							<p>{{sample.collectionDate}}</p>
+							<p>{{sample.longName}}</p>
+							<p>{{sample.sampleID}}</p>
+							<p>{{sample.sampledBy}}</p>
+						</div>
+				    </div>
+				    <div class="col-sm-4">
+				      	<h4>Instrument:</h4>
+				      	<div ng-repeat="item in sample.instrument">
+				      		<p>{{item}}</p>
+				      	</div>
+				    </div>
+				    <div class="col-sm-4">
+				      One of three columns
+				    </div>
 				</div>
 				<hr>
-				
-				<h3>Instrument:</h3>
-				<hr>
-				<div ng-repeat="item in sample.instrument">
-					<p>{{item}}</p>
+				<div class="row">
+					<div class="pull-left" ng-repeat="image in sample.images">
+					      <img src="data:image/png;base64,{{image.bytes}}" alt="{{image.comments}}" width="100px">
+					      <div >
+					        <h4>{{image.imageID}}</h4>
+					        <p>{{image.comments}}</p>
+					      </div>
+					</div>
 				</div>
 				<hr>
-						
-				<h3>Site:</h3>
-				<div ng-repeat="info in sample.site">
-					<p>{{info}}</p>
-				</div>	
-				<hr>
-				
-				<h3>Core Info:</h3>
-				<div>
-					<p><strong>Bottom Year: </strong>{{sample.bottomYear}}</p>
-					<p><strong>Bottom Depth: </strong>{{sample.bottomDepth}}</p>
-					<p><strong>Core Age: </strong>{{sample.coreAge}}</p>
-					<p><strong>Core Age Range: </strong>{{sample.coreAgeRange}}</p>
-					<p><strong>Core Diameter: </strong>{{sample.coreDiameter}}</p>
-					<p><strong>Drilled By: </strong>{{sample.drilledBy}}</p>
-					<p><strong>Drilling Date: </strong>{{sample.drillingDate}}</p>
-					<p><strong>Max Core Depth: </strong>{{sample.maxCoreDepth}}</p>
-					<p><strong>Top Depth: </strong>{{sample.topDepth}}</p>
-					<p><strong>Top Year: </strong>{{sample.topYear}}</p>
-				</div>
-				<hr>
-				
-				<h3>Volcano Data:</h3>
-				<div ng-repeat="data in sample.volcano">
-					<p>{{data}}</p>
-				</div>	
-				<hr>
-				
+				<row class="row">
+					<h4>Refrences:</h4>
+					<div ng-repeat="ref in sample.refs">
+						<p>{{ref.doi}}</p>
+					</div>
+				</row>
 			</div>
 		</div>
 	</div>
