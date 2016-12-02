@@ -76,31 +76,14 @@ public class QueryVolcanoes {
 		osQ.getResultList().stream()
 				.forEach(e -> System.out.println(e.getSampleID()));
 
+//		createMMElement(em, osQ);
+
 		//@formatter:off
 		TypedQuery<MMElement> mmeQ = em.createQuery(
 				  "SELECT m "
 				+ "FROM MMElement m ",
 				MMElement.class);
 		//@formatter:on
-
-		// Map<Element, MMElementData> data = new HashMap<>();
-		// MMElement el = new MMElement(
-		// MMElement.class.getSimpleName() + "0",
-		// osQ.getSingleResult(),
-		// "Comment",
-		// new MethodType("MethodType0"),
-		// new Instrument(Instrument.class.getSimpleName() + "0","","",""),
-		// LocalDate.now(),
-		// "Mark",
-		// 5, 3f, 2f, "instrument settings", 1f, -2f, 1f, data);
-		// Element elem = new Element("sio2");
-		// data.put(elem, new MMElementData(el, elem, 10f, 2f, 1f, "ppb"));
-		// elem = new Element("tio2");
-		// data.put(elem, new MMElementData(el, elem, 20f, 4f, 2f, "ppb"));
-		// elem = new Element("so2");
-		// data.put(elem, new MMElementData(el, elem, 30f, 8f, 3f, "ppb"));
-		//
-		// em.persist(el);
 
 		List<MMElement> mmeList = mmeQ.getResultList();
 
@@ -115,6 +98,25 @@ public class QueryVolcanoes {
 		emf.close();
 
 		System.out.println("Done");
+	}
+
+	static void createMMElement(EntityManager em,
+			TypedQuery<OutcropSample> osQ) {
+		Map<Element, MMElementData> data = new HashMap<>();
+		MMElement el = new MMElement(MMElement.class.getSimpleName() + "0",
+				osQ.getSingleResult(), "Comment", new MethodType("MethodType0"),
+				new Instrument(Instrument.class.getSimpleName() + "0", "", "",
+						""),
+				LocalDate.now(), "Mark", 5, 3f, 2f, "instrument settings", 1f,
+				-2f, 1f, data);
+		Element elem = new Element("sio2");
+		data.put(elem, new MMElementData(el, elem, 10f, 2f, 1f, "ppb"));
+		elem = new Element("tio2");
+		data.put(elem, new MMElementData(el, elem, 20f, 4f, 2f, "ppb"));
+		elem = new Element("so2");
+		data.put(elem, new MMElementData(el, elem, 30f, 8f, 3f, "ppb"));
+		
+		em.persist(el);
 	}
 
 	/**
