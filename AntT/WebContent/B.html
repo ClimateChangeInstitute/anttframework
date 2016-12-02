@@ -100,48 +100,42 @@
 				<hr>
 				<div class="row">
 				    <div class="col-sm-4">
-				      	<h4>Misc:</h4>
+				      	<h4>Sample Data:</h4>
+				      	<hr>
 						<div>
-							<p>{{sample.comments}}</p>
-							<p>{{sample.collectionDate}}</p>
-							<p>{{sample.longName}}</p>
-							<p>{{sample.sampleID}}</p>
-							<p>{{sample.sampledBy}}</p>
+							<p><strong>ID: </strong>{{sample.sampleID}}</p>
+							<p><strong>Collection Date: </strong>{{sample.collectionDate | date : "longDate"}} </p>
+							<p><strong>Long Name: </strong>{{sample.longName}}</p>
+							<p><strong>Sampled By: </strong>{{sample.sampledBy}}</p>
+							<p><strong>Deep: </strong>{{sample.deep}}</p>
+							<p><strong>Description: </strong>{{sample.sampleDescription}}</p>
+							<p><strong>Media: </strong>{{sample.sampleMedia}}</p>
+							<p><strong>Thickness: </strong>{{sample.thickness}}</p>
+							<p><strong>Trend: </strong>{{sample.trend}}</p>
+							<p><strong>Unit Name: </strong>{{sample.unitName}}</p>
+							<p><strong>Comments: </strong>{{sample.comments}}</p>
 						</div>
 				    </div>
 				    <div class="col-sm-4">
-				      	<h4>Instrument:</h4>
-				      	<div ng-repeat="item in sample.instrument">
-				      		<p>{{item}}</p>
+				      	<h4 class="">Instrument:</h4>
+				      	<hr>
+				      	<div>
+				      		<p><strong>Instrument ID: </strong>{{sample.instrument.id}}</p>
+				      		<p><strong>Long Name: </strong>{{sample.instrument.longName}}</p>
+  							<p><strong>Location: </strong>{{sample.instrument.location}}</p>
+  							<p><strong>Comment: </strong>{{sample.instrument.comment}}</p>
 				      	</div>
 				    </div>
 				    <div class="col-sm-4">
 				      	<h4>Site:</h4>
-  						<div ng-repeat="info in sample.site">
-  							<p>{{info}}</p>
-  						</div>
-				    </div>
-				</div>
-				<hr>
-				<div class="row">
-				    <div class="col-sm-4">
-				      	<h4>Misc:</h4>
-						<div>
-							<p>{{sample.comments}}</p>
-							<p>{{sample.collectionDate}}</p>
-							<p>{{sample.longName}}</p>
-							<p>{{sample.sampleID}}</p>
-							<p>{{sample.sampledBy}}</p>
-						</div>
-				    </div>
-				    <div class="col-sm-4">
-				      	<h4>Instrument:</h4>
-				      	<div ng-repeat="item in sample.instrument">
-				      		<p>{{item}}</p>
+  						<hr>
+				      	<div>
+				      		<p><strong>Site ID: </strong>{{sample.site.siteID}}</p>
+				      		<p><strong>Latitude,Longitude: </strong>{{sample.site.latitude}},{{sample.site.longitude}}
+				      		<p><strong>Elevation: </strong>{{sample.site.elevation}} M</p>
+  							<p><strong>Site Type: </strong>{{sample.site.siteType.type}}</p>
+  							<p><strong>Comment: </strong>{{sample.site.comment}}</p>
 				      	</div>
-				    </div>
-				    <div class="col-sm-4">
-				      One of three columns
 				    </div>
 				</div>
 				<hr>
@@ -170,8 +164,8 @@
 		<footer class="footer">
 			<div class="container">
 				<p>
-				<img class="footer-img" alt="UMaine CCI" src="./images/ccilogo.svg">
-			</p>
+					<img class="footer-img" alt="UMaine CCI" src="./images/ccilogo.svg">
+				</p>
 			</div>
 		</footer>
 
