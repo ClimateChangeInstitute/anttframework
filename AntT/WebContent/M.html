@@ -70,7 +70,7 @@
 
 		<div ng-controller="aquaticSample">
 			<div ng-repeat="sample in dataSet">
-				
+
 				<h3>Misc:</h3>
 				<div>
 					<p>{{sample.comments}}</p>
@@ -80,86 +80,107 @@
 					<p>{{sample.sampledBy}}</p>
 				</div>
 				<hr>
-				
+
 				<h3>Refs:</h3>
 				<div ng-repeat="ref in sample.refs">
 					<p>{{ref.doi}}</p>
 				</div>
 				<hr>
-				
+
 				<h3>Images:</h3>
 				<div ng-repeat="image in sample.images">
 					<img src="data:image/png;base64,{{image.bytes}}">
 				</div>
 				<hr>
-				
+
 				<h3>Instrument:</h3>
 				<hr>
 				<div ng-repeat="item in sample.instrument">
 					<p>{{item}}</p>
 				</div>
 				<hr>
-						
+
 				<h3>Site:</h3>
 				<div ng-repeat="info in sample.site">
 					<p>{{info}}</p>
-				</div>	
-				<hr>
-				
-				<h3>Core Info:</h3>
-				<div>
-					<p><strong>Bottom Year: </strong>{{sample.bottomYear}}</p>
-					<p><strong>Bottom Depth: </strong>{{sample.bottomDepth}}</p>
-					<p><strong>Core Age: </strong>{{sample.coreAge}}</p>
-					<p><strong>Core Age Range: </strong>{{sample.coreAgeRange}}</p>
-					<p><strong>Core Diameter: </strong>{{sample.coreDiameter}}</p>
-					<p><strong>Drilled By: </strong>{{sample.drilledBy}}</p>
-					<p><strong>Drilling Date: </strong>{{sample.drillingDate}}</p>
-					<p><strong>Max Core Depth: </strong>{{sample.maxCoreDepth}}</p>
-					<p><strong>Top Depth: </strong>{{sample.topDepth}}</p>
-					<p><strong>Top Year: </strong>{{sample.topYear}}</p>
 				</div>
 				<hr>
-				
+
+				<h3>Core Info:</h3>
+				<div>
+					<p>
+						<strong>Bottom Year: </strong>{{sample.bottomYear}}
+					</p>
+					<p>
+						<strong>Bottom Depth: </strong>{{sample.bottomDepth}}
+					</p>
+					<p>
+						<strong>Core Age: </strong>{{sample.coreAge}}
+					</p>
+					<p>
+						<strong>Core Age Range: </strong>{{sample.coreAgeRange}}
+					</p>
+					<p>
+						<strong>Core Diameter: </strong>{{sample.coreDiameter}}
+					</p>
+					<p>
+						<strong>Drilled By: </strong>{{sample.drilledBy}}
+					</p>
+					<p>
+						<strong>Drilling Date: </strong>{{sample.drillingDate}}
+					</p>
+					<p>
+						<strong>Max Core Depth: </strong>{{sample.maxCoreDepth}}
+					</p>
+					<p>
+						<strong>Top Depth: </strong>{{sample.topDepth}}
+					</p>
+					<p>
+						<strong>Top Year: </strong>{{sample.topYear}}
+					</p>
+				</div>
+				<hr>
+
 				<h3>Volcano Data:</h3>
 				<div ng-repeat="data in sample.volcano">
 					<p>{{data}}</p>
-				</div>	
+				</div>
 				<hr>
-				
+
 			</div>
 		</div>
 	</div>
 
 
 
-		<footer class="footer">
-			<div class="container">
-				<p>
+	<footer class="footer">
+		<div class="container">
+			<p>
+				<img class="footer-img" alt="NMT" src="./images/nmtLogo.svg">
 				<img class="footer-img" alt="UMaine CCI" src="./images/ccilogo.svg">
 			</p>
-			</div>
-		</footer>
+		</div>
+	</footer>
 
 
-		<!-- Bootstrap core JavaScript
+	<!-- Bootstrap core JavaScript
     ================================================== -->
-		<!-- Placed at the end of the document so the pages load faster -->
-		<script src="index_files/jquery.js"></script>
-		<script>
-			window.jQuery
-					|| document
-							.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')
-		</script>
-		<script src="index_files/bootstrap.js"></script>
-		<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-		<script src="index_files/ie10-viewport-bug-workaround.js"></script>
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="index_files/jquery.js"></script>
+	<script>
+		window.jQuery
+				|| document
+						.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')
+	</script>
+	<script src="index_files/bootstrap.js"></script>
+	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+	<script src="index_files/ie10-viewport-bug-workaround.js"></script>
 
 
-		<script src="./lib/angular.min.js"></script>
+	<script src="./lib/angular.min.js"></script>
 
-		<script src="./lib/xml2json.js"></script>
+	<script src="./lib/xml2json.js"></script>
 
-		<script src="./js/aquaticSamples.module.js"></script>
+	<script src="./js/aquaticSamples.module.js"></script>
 </body>
 </html>
