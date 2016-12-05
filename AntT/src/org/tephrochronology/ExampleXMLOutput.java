@@ -19,7 +19,6 @@ import javax.xml.bind.PropertyException;
 import javax.xml.namespace.QName;
 
 import org.tephrochronology.model.IceCoreSample;
-import org.tephrochronology.model.TestDataGenerator;
 
 /**
  * This class requires that the test data has been generated from the

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.tephrochronology.model;
+package org.tephrochronology;
 
 import static java.util.stream.IntStream.range;
 import static org.tephrochronology.DBProperties.setupProperties;
@@ -22,6 +22,25 @@ import javax.imageio.ImageIO;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+
+import org.tephrochronology.model.AquaticSample;
+import org.tephrochronology.model.BIASample;
+import org.tephrochronology.model.CoreType;
+import org.tephrochronology.model.Element;
+import org.tephrochronology.model.GrainSize;
+import org.tephrochronology.model.IceCoreSample;
+import org.tephrochronology.model.Image;
+import org.tephrochronology.model.Instrument;
+import org.tephrochronology.model.LakeSample;
+import org.tephrochronology.model.MMElement;
+import org.tephrochronology.model.MMElementData;
+import org.tephrochronology.model.MarineSample;
+import org.tephrochronology.model.MethodType;
+import org.tephrochronology.model.OutcropSample;
+import org.tephrochronology.model.Ref;
+import org.tephrochronology.model.Site;
+import org.tephrochronology.model.SiteType;
+import org.tephrochronology.model.Volcano;
 
 /**
  * Generates sample data for the database to use with testing.
