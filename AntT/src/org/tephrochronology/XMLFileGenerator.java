@@ -121,6 +121,21 @@ public class XMLFileGenerator {
 
 		List<MMElement> queryResult = q.getResultList();
 
+//		//@formatter:off
+//		TypedQuery<MMElementInfo> q = em.createQuery(
+//				  "SELECT NEW org.tephrochronology.model.MMElementInfo("
+//			    + "mme.longsampleID, mme.sample.sampleID, mme.comments, "
+//			    + "mme.methodType, mme.instrument.id, mme.dateMeasured, mme.measuredBy, "
+//			    + "mme.numberOfMeasurements, mme.originalTotal,	"
+//			    + "mme.calculatedTotal, mme.instrumentSettings, mme.h2o_plus, "
+//			    + "mme.h2o_minus, mme.loi, mme.elementData) "
+//				+ "FROM MMElement mme "
+//				+ "ORDER BY mme.longsampleID", MMElementInfo.class);
+//		//@formatter:on
+//				
+//
+//		List<MMElementInfo> queryResult = q.getResultList();
+		
 		PrintStream out = new PrintStream(new FileOutputStream(
 				outputLocation + File.separator + ALLMMELEMENTS_FILENAME));
 
