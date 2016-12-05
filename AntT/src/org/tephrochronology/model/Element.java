@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlValue;
 
 /**
  * @author Mark Royer
@@ -25,6 +26,7 @@ public class Element implements Serializable, Comparable<Element> {
 
 	@Id
 	@Column(name = "element_name")
+	@XmlValue
 	protected String name;
 
 	public Element(String name) {
