@@ -44,6 +44,9 @@ public class MMElementInfo {
 
 	private Map<Element, MMElementData> elementData;
 
+	public MMElementInfo() {
+	}
+
 	public MMElementInfo(String longsampleID, String sampleID, String comments,
 			MethodType methodType, String iid, LocalDate dateMeasured,
 			String measuredBy, int numberOfMeasurements, float originalTotal,
@@ -66,6 +69,16 @@ public class MMElementInfo {
 		this.h2o_minus = h2o_minus;
 		this.loi = loi;
 		this.elementData = elementData;
+	}
+
+	public MMElementInfo(MMElement e) {
+		this(e.getLongsampleID(), e.getSample().getSampleID(), e.getComments(),
+				e.getMethodType(), e.getInstrument().getId(),
+				e.getDateMeasured(), e.getMeasuredBy(),
+				e.getNumberOfMeasurements(), e.getOriginalTotal(),
+				e.getCalculatedTotal(), e.getInstrumentSettings(),
+				e.getH2o_plus(), e.getH2o_minus(), e.getLoi(),
+				e.getElementData());
 	}
 
 	public String getLongsampleID() {

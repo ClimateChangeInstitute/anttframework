@@ -21,21 +21,21 @@ public class MMElements {
 	 * 
 	 */
 	@XmlElement(name = "mmelement")
-	List<MMElement> mmelements;
+	List<MMElementInfo> mmelements;
 
 	public MMElements() {
 	}
 
-	public MMElements(List<MMElement> mmelements) {
+	public MMElements(List<MMElementInfo> mmelements) {
 		super();
 		this.mmelements = mmelements;
 	}
 
-	public List<MMElement> getMmelements() {
+	public List<MMElementInfo> getMmelements() {
 		return mmelements;
 	}
 
-	public void setMmelements(List<MMElement> mmelements) {
+	public void setMmelements(List<MMElementInfo> mmelements) {
 		this.mmelements = mmelements;
 	}
 }

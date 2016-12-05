@@ -10,6 +10,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -24,6 +25,7 @@ import javax.xml.bind.PropertyException;
 import javax.xml.namespace.QName;
 
 import org.tephrochronology.model.MMElement;
+import org.tephrochronology.model.MMElementInfo;
 import org.tephrochronology.model.MMElements;
 import org.tephrochronology.model.Sample;
 import org.tephrochronology.model.SampleInfo;
@@ -90,7 +92,7 @@ public class XMLFileGenerator {
 				, SampleInfo.class);
 		//@formatter:on
 
-		List<SampleInfo> samples = q.getResultList();//new ArrayList<>();
+		List<SampleInfo> samples = q.getResultList();// new ArrayList<>();
 
 		PrintStream out = new PrintStream(new FileOutputStream(
 				outputLocation + File.separator + ALLSAMPLES_FILENAME));
@@ -121,21 +123,11 @@ public class XMLFileGenerator {
 
 		List<MMElement> queryResult = q.getResultList();
 
-//		//@formatter:off
-//		TypedQuery<MMElementInfo> q = em.createQuery(
-//				  "SELECT NEW org.tephrochronology.model.MMElementInfo("
-//			    + "mme.longsampleID, mme.sample.sampleID, mme.comments, "
-//			    + "mme.methodType, mme.instrument.id, mme.dateMeasured, mme.measuredBy, "
-//			    + "mme.numberOfMeasurements, mme.originalTotal,	"
-//			    + "mme.calculatedTotal, mme.instrumentSettings, mme.h2o_plus, "
-//			    + "mme.h2o_minus, mme.loi, mme.elementData) "
-//				+ "FROM MMElement mme "
-//				+ "ORDER BY mme.longsampleID", MMElementInfo.class);
-//		//@formatter:on
-//				
-//
-//		List<MMElementInfo> queryResult = q.getResultList();
-		
+		List<MMElementInfo> elementInfos = new ArrayList<>(queryResult.size());
+
+		queryResult.stream()
+				.forEachOrdered(e -> elementInfos.add(new MMElementInfo(e)));
+
 		PrintStream out = new PrintStream(new FileOutputStream(
 				outputLocation + File.separator + ALLMMELEMENTS_FILENAME));
 
@@ -143,7 +135,7 @@ public class XMLFileGenerator {
 
 		Marshaller marshaller = jc.createMarshaller();
 		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-		marshaller.marshal(new MMElements(queryResult), out);
+		marshaller.marshal(new MMElements(elementInfos), out);
 
 		out.flush();
 		out.close();
