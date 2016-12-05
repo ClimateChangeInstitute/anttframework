@@ -11,7 +11,7 @@
 			tortor mauris condimentum nibh, ut fermentum massa justo sit amet
 			risus.</description>
 		<doc>
-			<url>http://site/methodology/papers/paper1.pdf</url>
+			<url>./content/file.pdf</url>
 		</doc>
 	</paper>
 	<paper>
@@ -21,7 +21,7 @@
 			tortor mauris condimentum nibh, ut fermentum massa justo sit amet
 			risus.</description>
 		<doc>
-			<url>http://site/methodology/papers/paper2.pdf</url>
+			<url>./content/file.pdf</url>
 		</doc>
 	</paper>
 	<paper>
@@ -31,7 +31,7 @@
 			tortor mauris condimentum nibh, ut fermentum massa justo sit amet
 			risus.</description>
 		<doc>
-			<url>http://site/methodology/papers/paper3.pdf</url>
+			<url>./content/file.pdf</url>
 		</doc>
 	</paper>
 	<paper>
@@ -41,7 +41,7 @@
 			tortor mauris condimentum nibh, ut fermentum massa justo sit amet
 			risus.</description>
 		<doc>
-			<url>http://site/methodology/papers/paper4.pdf</url>
+			<url>./content/file.pdf</url>
 		</doc>
 	</paper>
 	<paper>
@@ -51,7 +51,7 @@
 			tortor mauris condimentum nibh, ut fermentum massa justo sit amet
 			risus.</description>
 		<doc>
-			<url>http://site/methodology/papers/paper5.pdf</url>
+			<url>./content/file.pdf</url>
 		</doc>
 	</paper>
 	<paper>
@@ -61,7 +61,7 @@
 			tortor mauris condimentum nibh, ut fermentum massa justo sit amet
 			risus.</description>
 		<doc>
-			<url>http://site/methodology/papers/paper6.pdf</url>
+			<url>./content/file.pdf</url>
 		</doc>
 	</paper>
 </methodology>
