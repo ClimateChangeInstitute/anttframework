@@ -110,7 +110,7 @@ public class XMLFileGenerator {
 	public void writeAllMMElementXMLFile(Path outputLocation)
 			throws FileNotFoundException, JAXBException {
 
-		final String ALLMMELEMENTS_FILENAME = "allMMEelements.xml";
+		final String ALLMMELEMENTS_FILENAME = "allMMElements.xml";
 
 		System.out.printf("Generating %s file.\n", ALLMMELEMENTS_FILENAME);
 
