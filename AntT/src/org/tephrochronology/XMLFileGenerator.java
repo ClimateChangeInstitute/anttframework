@@ -5,6 +5,7 @@ package org.tephrochronology;
 
 import static org.tephrochronology.DBProperties.setupProperties;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
@@ -52,6 +53,9 @@ public class XMLFileGenerator {
 	public <T extends Sample> void writeSampleXMLFiles(Path outputLocation,
 			Class<T> clazz)
 			throws PropertyException, JAXBException, FileNotFoundException {
+
+		System.out.printf("Generating %s sample files.", clazz.getSimpleName());
+
 		TypedQuery<T> q = em.createQuery(
 				String.format("SELECT s FROM %s s ORDER BY s.sampleID",
 						clazz.getSimpleName()),
@@ -60,22 +64,28 @@ public class XMLFileGenerator {
 		List<T> samples = q.getResultList();
 
 		for (T s : samples) {
+			System.out.print('.');
 			PrintStream out = new PrintStream(new FileOutputStream(
 					outputLocation + "/" + s.getSampleID() + ".xml"));
 			writeObjectToXML(s, clazz, out);
 			out.flush();
 			out.close();
 		}
+		System.out.println();
 
 	}
 
 	public void writeAllSamplesXMLFile(Path outputLocation)
 			throws FileNotFoundException, PropertyException, JAXBException {
 
+		final String ALLSAMPLES_FILENAME = "allSamples.xml";
+
+		System.out.printf("Generating %s file.\n", ALLSAMPLES_FILENAME);
+
 		//@formatter:off
 		Query q = em.createNativeQuery(
 				  "SELECT sample_type, sample_id, long_name, "
-				  + "sampled_by, comments, collection_date, site_id, iid "
+				+ "sampled_by, comments, collection_date, site_id, iid "
 				+ "FROM samples "
 				+ "ORDER BY sample_type, sample_id, collection_date");
 		//@formatter:on
@@ -87,8 +97,8 @@ public class XMLFileGenerator {
 
 		queryResult.stream().forEach(e -> samples.add(new SampleInfo(e)));
 
-		PrintStream out = new PrintStream(
-				new FileOutputStream(outputLocation + "/allSamples.xml"));
+		PrintStream out = new PrintStream(new FileOutputStream(
+				outputLocation + File.separator + ALLSAMPLES_FILENAME));
 
 		JAXBContext jc = JAXBContext.newInstance(Samples.class);
 
@@ -102,6 +112,11 @@ public class XMLFileGenerator {
 
 	public void writeAllMMElementXMLFile(Path outputLocation)
 			throws FileNotFoundException, JAXBException {
+
+		final String ALLMMELEMENTS_FILENAME = "allMMEelements.xml";
+
+		System.out.printf("Generating %s file.\n", ALLMMELEMENTS_FILENAME);
+
 		//@formatter:off
 		TypedQuery<MMElement> q = em.createQuery(
 				  "SELECT mme "
@@ -110,9 +125,9 @@ public class XMLFileGenerator {
 		//@formatter:on
 
 		List<MMElement> queryResult = q.getResultList();
-		
-		PrintStream out = new PrintStream(
-				new FileOutputStream(outputLocation + "/allMMEelements.xml"));
+
+		PrintStream out = new PrintStream(new FileOutputStream(
+				outputLocation + File.separator + ALLMMELEMENTS_FILENAME));
 
 		JAXBContext jc = JAXBContext.newInstance(MMElements.class);
 
