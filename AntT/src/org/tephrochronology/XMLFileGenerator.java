@@ -10,13 +10,11 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
@@ -83,19 +81,16 @@ public class XMLFileGenerator {
 		System.out.printf("Generating %s file.\n", ALLSAMPLES_FILENAME);
 
 		//@formatter:off
-		Query q = em.createNativeQuery(
-				  "SELECT sample_type, sample_id, long_name, "
-				+ "sampled_by, comments, collection_date, site_id, iid "
-				+ "FROM samples "
-				+ "ORDER BY sample_type, sample_id, collection_date");
+		TypedQuery<SampleInfo> q = em.createQuery(
+				  "SELECT NEW org.tephrochronology.model.SampleInfo(TYPE(s), "
+				+ "s.sampleID, s.longName, s.sampledBy, s.comments, "
+				+ "s.collectionDate, s.site.siteID, s.instrument.id) "
+				+ "FROM Sample s "
+				+ "ORDER BY TYPE(s), s.sampleID, s.collectionDate"
+				, SampleInfo.class);
 		//@formatter:on
 
-		@SuppressWarnings("unchecked")
-		List<Object[]> queryResult = q.getResultList();
-
-		List<SampleInfo> samples = new ArrayList<>();
-
-		queryResult.stream().forEach(e -> samples.add(new SampleInfo(e)));
+		List<SampleInfo> samples = q.getResultList();//new ArrayList<>();
 
 		PrintStream out = new PrintStream(new FileOutputStream(
 				outputLocation + File.separator + ALLSAMPLES_FILENAME));

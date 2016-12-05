@@ -1,8 +1,6 @@
 package org.tephrochronology.model;
 
-import java.sql.Date;
 import java.time.LocalDate;
-
 
 /**
  * Simple {@link Sample} results.
@@ -31,28 +29,18 @@ public class SampleInfo {
 	public SampleInfo() {
 	}
 
-	/**
-	 * @param sampleID
-	 * @param longName
-	 * @param sampledBy
-	 * @param collectionDate
-	 * @param comments
-	 * @param siteID
-	 * @param iid
-	 */
-	public SampleInfo(Object[] objs) {
+	public SampleInfo(String sampleType, String sampleID, String longName,
+			String sampledBy, String comments, LocalDate collectionDate,
+			String siteID, String iid) {
 		super();
-		// sample_type, sample_id, long_name, "
-		// + "sampled_by, comments, collection_date, site_id, iid
-		this.sampleType = (String) objs[0];
-		this.sampleID = (String) objs[1];
-		this.longName = (String) objs[2];
-		this.sampledBy = (String) objs[3];
-		this.comments = (String) objs[4];
-		this.collectionDate = new LocalDateAttributeConverter()
-				.convertToEntityAttribute((Date) objs[5]);
-		this.siteID = (String) objs[6];
-		this.iid = (String) objs[7];
+		this.sampleType = sampleType;
+		this.sampleID = sampleID;
+		this.longName = longName;
+		this.sampledBy = sampledBy;
+		this.comments = comments;
+		this.collectionDate = collectionDate;
+		this.siteID = siteID;
+		this.iid = iid;
 	}
 
 	public String getSampleID() {
