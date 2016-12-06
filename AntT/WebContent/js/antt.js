@@ -1,5 +1,5 @@
 /**
- * AntT namespace.  Requires jQuery.
+ * AntT namespace. Requires jQuery.
  */
 (function(scope) {
 
@@ -28,9 +28,11 @@
 		this.dateMeasured = new Date(parts[0], parts[1], parts[2]);
 		this.elementData = {};
 		var that = this;
-		$(e.elementData.entry).each(function(i, e) {
-			that.elementData[e.key] = new MMElementData(e.value);
-		});
+		if (e.elementData) {
+			$(e.elementData.entry).each(function(i, e) {
+				that.elementData[e.key] = new MMElementData(e.value);
+			});
+		}
 		this.h2o_minus = parseFloat(e.h2o_minus);
 		this.h2o_plus = parseFloat(e.h2o_plus);
 		this.iid = e.iid;
@@ -42,6 +44,32 @@
 		this.numberOfMeasurements = parseInt(e.numberOfMeasurements);
 		this.originalTotal = parseFloat(e.originalTotal);
 		this.sampleID = e.sampleID;
+	};
+
+	var mmelements = [];
+
+	/**
+	 * @param callback
+	 *            {function} Called after the AJAX get request completes
+	 * @returns {undefined}
+	 */
+	scope.loadMMElements = function(callback) {
+		$.ajax({
+			type : "GET",
+			url : "./generated/allMMElements.xml",
+			dataType : "xml",
+			success : function(xml) {
+
+				var x2js = new X2JS();
+				var json = x2js.xml2json(xml);
+				$(json.mmelements.mmelement).each(function(i, e) {
+					mmelements.push(new MMElement(e));
+				});
+
+				if (callback)
+					callback();
+			}
+		});
 	};
 	
 })(window.antt = window.antt || {});
