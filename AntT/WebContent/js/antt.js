@@ -71,5 +71,37 @@
 			}
 		});
 	};
-	
+
+	/**
+	 * @returns {MMElement[]} Currently loaded MMElement data
+	 */
+	scope.getMMElements = function() {
+		return mmelements;
+	};
+
+	/**
+	 * Filter MMElements based on the given array of keys. Make sure the
+	 * MMElement data has already been loaded via antt.loadMMElements function.
+	 * 
+	 * @param keys
+	 *            {string[]}
+	 * @returns {MMElement[]} MMElements that contain every key in the given
+	 *          array
+	 */
+	scope.filterMMElements = function(keys) {
+		var result = [];
+
+		$(mmelements).each(function(i, e) {
+			var eKeys = Object.keys(e.elementData);
+
+			for (var j = 0; j < keys.length; j++) {
+				if ($.inArray(keys[j], eKeys) < 0)
+					return;
+			}
+			result.push(e);
+		});
+
+		return result;
+	};
+
 })(window.antt = window.antt || {});
