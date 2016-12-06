@@ -49,6 +49,63 @@
 	var mmelements = [];
 
 	/**
+	 * @param xa
+	 *            {number[]} Concentration of A elements
+	 * @param xb
+	 *            {number[]} Concentration of B elements
+	 * @return {number} Similarity coefficient for comparison between sample A
+	 *         and sample B
+	 */
+	function similarityCoefficient(xa, xb) {
+		var stderr = Array(xa.length).fill(0.0);
+		// Setting standard error to 0 for each element makes them be
+		// considered equally. Detection limit is ignored.
+		return similarityCoefficient(xa, stderr, xb, stderr, 1 /*
+																 * Doesn't
+																 * matter
+																 */);
+	}
+
+	/**
+	 * Assumes errors are symmetrical and positive with 95% confidence.
+	 * 
+	 * @param xa
+	 *            {number[]} Concentration of A elements
+	 * @param stderra
+	 *            {number[]} Standard error for A elements
+	 * @param xb
+	 *            {number[]} Concentration of B elements
+	 * @param stderrb
+	 *            {number[]} Standard error for B elements
+	 * @param detectionLimit
+	 *            {number} Typically 0.33
+	 * @return {number} Similarity coefficient for comparison between sample A
+	 *         and sample B
+	 */
+	function similarityCoefficient(xa, stderra, xb, stderrb, detectionLimit) {
+
+		// Calculate weighting coefficients
+		/** @Type {number[]} */
+		var g = [];
+		var i = 0;
+		for (i = 0; i < xa.length; i++) {
+			g.push(weightingCoefficient(xa[i],
+					calcStdDev(stderra[i], xa.length), xb[i], calcStdDev(
+							stderrb[i], xb.length), detectionLimit));
+		}
+
+		var n = 0;
+		for (i = 0; i < xa.length; i++) {
+			n += R(xa[i], xb[i]) * g[i];
+		}
+		var d = g.reduce(function(x, y) {
+			return x + y;
+		}, 0.0);
+
+		return n / d;
+	}
+
+	/**
 	 * @param callback
 	 *            {function} Called after the AJAX get request completes
 	 * @returns {undefined}
