@@ -106,6 +106,102 @@
 	}
 
 	/**
+	 * Assumes confidence level of 99%
+	 * 
+	 * @param stderror
+	 *            {number} Assume positive symmetrical
+	 * @param N
+	 *            {number} sample size
+	 * @return {number} Standard deviation
+	 */
+	function calcStdDev(stderror, N) {
+		// TODO 2.819 is for t table value 22 with 99% confidence only
+		return stderror * Math.sqrt(N) / 2.819;
+	}
+
+	/**
+	 * The similarity matrix that results from this method is symmetric. Access
+	 * result[i][j] to get the list of the ith sample similarity coefficient vs
+	 * the jth sample.
+	 * 
+	 * @param samples
+	 *            {number[][]} List of samples of elements
+	 * @param stderr
+	 *            {number[][]} The error for each sample's elements
+	 * @param detectionLimit
+	 *            {number} The detection limit (eg 0.33)
+	 * @return {number[][]} The similarity coefficient matrix
+	 */
+	function similarityCoefficientMatrix(
+			samples, stderr,
+			detectionLimit) {
+		var result = [];
+
+		for (var i = 0; i < samples.length; i++) {
+			var s1 = samples[i];
+			var std1 = stderr[i];
+			var nextResult = [];// samples.size());
+			for (var j = 0; j < samples.length; j++) {
+				var s2 = samples[j];
+				var std2 = stderr[j];
+				var sc = Statistics.similarityCoefficient(s1, std1, s2, std2,
+						detectionLimit);
+
+				nextResult.push(sc);
+			}
+			result.push(nextResult);
+		}
+
+		return result;
+	}
+
+	/**
+	 * Weighting coefficient between 0 and 1 which reflects precision.
+	 * 
+	 * @param xai
+	 *            {number} Concentration of element i in A
+	 * @param stderrai
+	 *            {number} Standard error for xai
+	 * @param xbi
+	 *            {number} Concentration of element i in B
+	 * @param stderrbi
+	 *            {number} Standard error for xbi
+	 * @param detectionLimit
+	 *            {number} Typically 0.33
+	 * @return {number} Weighting coefficient between 0 and 1
+	 */
+	function weightingCoefficient(xai, stderrai,
+			xbi, stderrbi, detectionLimit) {
+		var result = 1 - Math.sqrt(
+				(Math.pow(stderrai / xai, 2) + Math.pow(stderrbi / xbi, 2))
+						/ detectionLimit);
+
+		if (result < 0) {
+			result = 0;
+		}
+
+		return result;
+	}
+
+	/**
+	 * Create a ratio from a and b. The values of a and b can not both be 0
+	 * since one will be the denominator. If a < 0 or b < 0 then this function
+	 * will throw
+	 * 
+	 * @param a
+	 *            {number} >= 0
+	 * @param b
+	 *            {number} >= 0
+	 * @return {number} a/b iff a <= b, b/a otherwise
+	 */
+	function R(a, b) {
+		if (a < 0 || b < 0)
+			throw "Negative values are not allowed for a and b.";
+
+		return a <= b ? a / b : b / a;
+	}
+	
+	/**
 	 * @param callback
 	 *            {function} Called after the AJAX get request completes
 	 * @returns {undefined}
