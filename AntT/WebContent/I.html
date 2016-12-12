@@ -89,7 +89,7 @@
 				
 				<h3>Images:</h3>
 				<div ng-repeat="image in sample.images">
-					<img src="data:image/png;base64,{{image.bytes}}">
+					<img ng-src="data:image/png;base64,{{image.bytes}}">
 				</div>
 				<hr>
 				
