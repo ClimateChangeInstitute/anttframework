@@ -46,8 +46,8 @@
 		this.sampleID = e.sampleID;
 	};
 
-	var mmelements = [];
-
+	scope.statistics = {};
+	
 	/**
 	 * @param xa
 	 *            {number[]} Concentration of A elements
@@ -114,7 +114,7 @@
 	 *            {number} sample size
 	 * @return {number} Standard deviation
 	 */
-	function calcStdDev(stderror, N) {
+	scope.statistics.calcStdDev = function(stderror, N) {
 		// TODO 2.819 is for t table value 22 with 99% confidence only
 		return stderror * Math.sqrt(N) / 2.819;
 	}
@@ -170,7 +170,7 @@
 	 *            {number} Typically 0.33
 	 * @return {number} Weighting coefficient between 0 and 1
 	 */
-	function weightingCoefficient(xai, stderrai,
+	scope.statistics.weightingCoefficient = function(xai, stderrai,
 			xbi, stderrbi, detectionLimit) {
 		var result = 1 - Math.sqrt(
 				(Math.pow(stderrai / xai, 2) + Math.pow(stderrbi / xbi, 2))
@@ -200,6 +200,8 @@
 
 		return a <= b ? a / b : b / a;
 	}
+
+	var mmelements = [];
 	
 	/**
 	 * @param callback
