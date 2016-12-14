@@ -1,12 +1,11 @@
 (function() {
 
 	QUnit.module("statistics", {
-		setup : function() {
+		beforeEach : function() {
 			/* Nothing to setup */
 		},
-		teardown : function() {
+		afterEach : function() {
 			/* Nothing to tear down */
-			return moduleTeardown.apply(this, arguments);
 		}
 	});
 
