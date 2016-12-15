@@ -56,7 +56,7 @@
 	 * @return {number} Similarity coefficient for comparison between sample A
 	 *         and sample B
 	 */
-	function similarityCoefficient(xa, xb) {
+	scope.statistics.similarityCoefficient = function(xa, xb) {
 		var stderr = Array(xa.length).fill(0.0);
 		// Setting standard error to 0 for each element makes them be
 		// considered equally. Detection limit is ignored.
@@ -114,10 +114,11 @@
 	 *            {number} sample size
 	 * @return {number} Standard deviation
 	 */
-	scope.statistics.calcStdDev = function(stderror, N) {
+	var calcStdDev = function(stderror, N) {
 		// TODO 2.819 is for t table value 22 with 99% confidence only
 		return stderror * Math.sqrt(N) / 2.819;
 	}
+	scope.statistics.calcStdDev = calcStdDev;
 
 	/**
 	 * The similarity matrix that results from this method is symmetric. Access
@@ -132,7 +133,7 @@
 	 *            {number} The detection limit (eg 0.33)
 	 * @return {number[][]} The similarity coefficient matrix
 	 */
-	function similarityCoefficientMatrix(
+	var similarityCoefficientMatrix = function(
 			samples, stderr,
 			detectionLimit) {
 		var result = [];
@@ -154,6 +155,7 @@
 
 		return result;
 	}
+	scope.statistics.similarityCoefficientMatrix = similarityCoefficientMatrix;
 
 	/**
 	 * Weighting coefficient between 0 and 1 which reflects precision.
@@ -170,7 +172,7 @@
 	 *            {number} Typically 0.33
 	 * @return {number} Weighting coefficient between 0 and 1
 	 */
-	scope.statistics.weightingCoefficient = function(xai, stderrai,
+	var weightingCoefficient = function(xai, stderrai,
 			xbi, stderrbi, detectionLimit) {
 		var result = 1 - Math.sqrt(
 				(Math.pow(stderrai / xai, 2) + Math.pow(stderrbi / xbi, 2))
@@ -182,7 +184,8 @@
 
 		return result;
 	}
-
+	scope.statistics.weightingCoefficient = weightingCoefficient;
+	
 	/**
 	 * Create a ratio from a and b. The values of a and b can not both be 0
 	 * since one will be the denominator. If a < 0 or b < 0 then this function
@@ -194,12 +197,13 @@
 	 *            {number} >= 0
 	 * @return {number} a/b iff a <= b, b/a otherwise
 	 */
-	scope.statistics.R = function(a, b) {
+	var R = function(a, b) {
 		if (a < 0 || b < 0)
 			throw "Negative values are not allowed for a and b.";
 
 		return a <= b ? a / b : b / a;
 	}
+	scope.statistics.R = R;
 
 	var mmelements = [];
 	

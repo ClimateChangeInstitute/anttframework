@@ -49,4 +49,14 @@
 
 	});
 
+	QUnit.test("Test SimilarityCoefficient(Number[], Number[])", function(assert) {
+
+		var s1 = [1.0, 1.0, 1.0];
+		var s2 = [1.0, 2.0, 4.0];
+
+		assert.strictEqual(1.0, antt.statistics.similarityCoefficient(s1, s1), "1.0 === similarityCoefficient(s1, s1)");
+
+		assert.strictEqual(7.0 / 12.0, antt.statistics.similarityCoefficient(s1, s2), "7.0 / 12.0 === similarityCoefficient(s1, s2)");
+	});
+	
 })();
