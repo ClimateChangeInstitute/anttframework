@@ -194,7 +194,7 @@
 	 *            {number} >= 0
 	 * @return {number} a/b iff a <= b, b/a otherwise
 	 */
-	function R(a, b) {
+	scope.statistics.R = function(a, b) {
 		if (a < 0 || b < 0)
 			throw "Negative values are not allowed for a and b.";
 
