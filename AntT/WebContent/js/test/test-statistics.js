@@ -49,14 +49,39 @@
 
 	});
 
-	QUnit.test("Test SimilarityCoefficient(Number[], Number[])", function(assert) {
+	QUnit.test("Test SimilarityCoefficientListList(Number[], Number[])", function(assert) {
 
+		/** @Type {number[]} */
 		var s1 = [1.0, 1.0, 1.0];
+		/** @Type {number[]} */
 		var s2 = [1.0, 2.0, 4.0];
 
-		assert.strictEqual(1.0, antt.statistics.similarityCoefficient(s1, s1), "1.0 === similarityCoefficient(s1, s1)");
+		assert.strictEqual(1.0, antt.statistics.similarityCoefficientListList(s1, s1), "1.0 === similarityCoefficient(s1, s1)");
 
-		assert.strictEqual(7.0 / 12.0, antt.statistics.similarityCoefficient(s1, s2), "7.0 / 12.0 === similarityCoefficient(s1, s2)");
+		assert.strictEqual(7.0 / 12.0, antt.statistics.similarityCoefficientListList(s1, s2), "7.0 / 12.0 === similarityCoefficient(s1, s2)");
+	});
+	
+	
+	QUnit.test("Test SimilarityCoefficientListListListListLimit(Number[], Number[], Number[], Number[], Number", function(assert) {
+
+		/** @Type {number[]} */
+		var s1 = [1.0, 1.0, 1.0];
+		/** @Type {number[]} */
+		var s2 = [1.0, 2.0, 4.0];
+
+		/** @Type {number[]} */
+		var stderrsZero = Array(s1.length).fill(0.0);
+		/** @Type {number[]} */
+		var stderrsTenth = Array(s1.length).fill(0.1);
+
+		assert.strictEqual(1.0, antt.statistics.similarityCoefficientListListListListLimit(s1, stderrsZero, s1, stderrsZero, 0.5), "1.0 === similarityCoefficientListListListListLimit(s1, stderrsZero, s1, stderrsZero, 0.5)");
+
+		assert.strictEqual(7.0 / 12.0, antt.statistics.similarityCoefficientListListListListLimit(s1, stderrsZero, s2, stderrsZero, 0.5), "7.0 / 12.0 === similarityCoefficientListListListListLimit(s1, stderrsZero, s2, stderrsZero, 0.5)");
+
+		assert.strictEqual(1.0, antt.statistics.similarityCoefficientListListListListLimit(s1, stderrsTenth, s1, stderrsTenth, 0.5), "1.0 === similarityCoefficientListListListListLimit(s1, stderrsTenth, s1, stderrsTenth, 0.5)");
+
+		assert.strictEqual(0.5771054455663506, antt.statistics.similarityCoefficientListListListListLimit(s1, stderrsTenth, s2, stderrsTenth, 0.33), "0.5771054455663506 === similarityCoefficientListListListListLimit(s1, stderrsTenth, s2, stderrsTenth, 0.33)");
+
 	});
 	
 })();
