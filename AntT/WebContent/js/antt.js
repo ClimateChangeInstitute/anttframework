@@ -56,15 +56,16 @@
 	 * @return {number} Similarity coefficient for comparison between sample A
 	 *         and sample B
 	 */
-	scope.statistics.similarityCoefficient = function(xa, xb) {
+	var similarityCoefficientListList = function(xa, xb) {
 		var stderr = Array(xa.length).fill(0.0);
 		// Setting standard error to 0 for each element makes them be
 		// considered equally. Detection limit is ignored.
-		return similarityCoefficient(xa, stderr, xb, stderr, 1 /*
+		return similarityCoefficientListListListListLimit(xa, stderr, xb, stderr, 1 /*
 																 * Doesn't
 																 * matter
 																 */);
 	}
+	scope.statistics.similarityCoefficientListList = similarityCoefficientListList; 
 
 	/**
 	 * Assumes errors are symmetrical and positive with 95% confidence.
@@ -82,7 +83,7 @@
 	 * @return {number} Similarity coefficient for comparison between sample A
 	 *         and sample B
 	 */
-	function similarityCoefficient(xa, stderra, xb, stderrb, detectionLimit) {
+	var similarityCoefficientListListListListLimit = function(xa, stderra, xb, stderrb, detectionLimit) {
 
 		// Calculate weighting coefficients
 		/** @Type {number[]} */
@@ -104,6 +105,7 @@
 
 		return n / d;
 	}
+	scope.statistics.similarityCoefficientListListListListLimit = similarityCoefficientListListListListLimit;
 
 	/**
 	 * Assumes confidence level of 99%
