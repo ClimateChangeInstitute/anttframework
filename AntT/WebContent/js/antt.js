@@ -147,7 +147,7 @@
 			for (var j = 0; j < samples.length; j++) {
 				var s2 = samples[j];
 				var std2 = stderr[j];
-				var sc = Statistics.similarityCoefficient(s1, std1, s2, std2,
+				var sc = similarityCoefficientListListListListLimit(s1, std1, s2, std2,
 						detectionLimit);
 
 				nextResult.push(sc);
