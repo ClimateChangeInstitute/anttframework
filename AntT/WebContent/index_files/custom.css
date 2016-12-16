@@ -1,4 +1,4 @@
-a:hover{
+a.special:hover{
 	text-decoration: none;
 }
 .selectpanelhover:hover{
@@ -8,4 +8,8 @@ a:hover{
 
 .filter-header {
 	text-transform: capitalize;
+}
+
+body {
+	padding-bottom: 200px;
 }

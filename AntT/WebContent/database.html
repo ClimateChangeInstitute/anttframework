@@ -18,10 +18,10 @@
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <link href="index_files/ie10-viewport-bug-workaround.css"
 	rel="stylesheet">
-<link href="index_files/custom.css" rel="stylesheet">
 
 <!-- Custom styles for this template -->
 <link href="index_files/sticky-footer-navbar.css" rel="stylesheet">
+<link href="index_files/custom.css" rel="stylesheet">
 
 <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
 <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -114,7 +114,7 @@
 
 						<div
 							ng-repeat="sample in dataSet | filter:searchText | checkboxFilters:Filters:this">
-							<a href="{{sample.sampleType}}.html?id={{sample.sampleID}}">
+							<a class="special" href="{{sample.sampleType}}.html?id={{sample.sampleID}}">
 								<div class="panel panel-default selectpanelhover">
 									<div class="panel-body">
 										<p>
