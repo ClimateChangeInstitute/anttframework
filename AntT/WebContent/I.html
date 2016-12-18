@@ -74,8 +74,12 @@
 
 
 				<div class="row">
-					<h4>Volcano ({{sample.volcano.name}} -
-						{{sample.volcano.volcanoNumber}})</h4>
+					<div class="col-sm-12">
+						<h3>Volcano ({{sample.volcano.name}} -
+							{{sample.volcano.volcanoNumber}})</h3>
+					</div>
+				</div>
+				<div class="row">
 					<div class="col-sm-6">
 						<h4>Location Data</h4>
 						<hr>
@@ -90,7 +94,7 @@
 								<strong>Sub-region: </strong>{{sample.volcano.region.subRegion.name}}
 							</p>
 							<p>
-								<strong>Latitude,Longitude: </strong>{{sample.volcano.latitude}},{{sample.volcano.longitude}}
+								<strong>(Latitude,Longitude): </strong>({{sample.volcano.latitude}}N,{{sample.volcano.longitude}}E)
 							</p>
 							<p>
 								<strong>Elevation: </strong>{{sample.volcano.elevation}} M
@@ -188,7 +192,9 @@
 								<strong>Site ID: </strong>{{sample.site.siteID}}
 							</p>
 							<p>
-								<strong>Latitude,Longitude: </strong>{{sample.site.latitude}},{{sample.site.longitude}}
+								<strong>(Latitude,Longitude): </strong>({{sample.site.latitude}}N,{{sample.site.longitude}}E)
+
+
 
 
 							
