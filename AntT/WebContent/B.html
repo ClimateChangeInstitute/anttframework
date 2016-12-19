@@ -22,6 +22,7 @@
 <!-- Custom styles for this template -->
 <link href="index_files/sticky-footer-navbar.css" rel="stylesheet">
 <link href="index_files/custom.css" rel="stylesheet">
+<link rel="stylesheet" href="index_files/blueimp-gallery.min.css">
 
 <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
 <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -165,7 +166,7 @@
 						</div>
 					</div>
 					<div class="col-sm-4">
-						<h4 class="">Instrument:</h4>
+						<h4>Instrument:</h4>
 						<hr>
 						<div>
 							<p>
@@ -207,13 +208,32 @@
 				</div>
 				<hr>
 				<div class="row">
-					<div class="pull-left" ng-repeat="image in sample.images">
-						<img ng-src="data:image/png;base64,{{image.bytes}}"
-							alt="{{image.comments}}" width="100px">
-						<div>
-							<h4>{{image.imageID}}</h4>
-							<p>{{image.comments}}</p>
-						</div>
+					<div id="links">
+					    <!-- <a ng-repeat="image in sample.images" href="./images/test.png" title="{{images.comments}}">
+					        <img ng-src="./images/test.png" alt="{{image.comments}}">
+					    </a> -->
+					    <a href="images/img1.png" title="title">
+					        <img ng-src="images/img1_t.png" alt="title">
+					    </a>
+					    <a href="images/img2.png" title="title">
+					        <img ng-src="images/img2_t.png" alt="title">
+					    </a>
+					    <a href="images/img3.png" title="title">
+					        <img ng-src="images/img3_t.png" alt="title">
+					    </a>
+					    <a href="images/img4.png" title="title">
+					        <img ng-src="images/img4_t.png" alt="title">
+					    </a>
+					</div>
+
+					<div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls">
+					    <div class="slides"></div>
+					    <h3 class="title"></h3>
+					    <a class="prev">‹</a>
+					    <a class="next">›</a>
+					    <a class="close">×</a>
+					    <a class="play-pause"></a>
+					    <ol class="indicator"></ol>
 					</div>
 				</div>
 				<hr>
@@ -257,5 +277,8 @@
 	<script src="./lib/xml2json.js"></script>
 
 	<script src="./js/biaSamples.module.js"></script>
+
+	<script src="js/blueimp-gallery.min.js"></script>
+	<script src="js/gallery.js"></script>
 </body>
 </html>
