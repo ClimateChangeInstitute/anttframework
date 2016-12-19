@@ -28,4 +28,19 @@ app.controller('biaSample', function($location, $scope, dataSource) {
 		var json = x2js.xml_str2json(data);
 		$scope.dataSet = json;
 	});
+
+	// Hack to make blueiomp image gallery work properly with base 64 images
+	$scope.handleClick = function (event) {
+		console.log('handle click');
+		  event.preventDefault();
+		  event = event || window.event;
+		    var target = event.target || event.srcElement,
+		        link = target.src ? target.parentNode : target,
+		        options = {index: link, event: event},
+		        links = $('#links>a');
+		    links.each(function(i, e){
+		    	$(e).attr('href', $(e).attr('href').replace('unsafe:', ''));
+		    });
+		    blueimp.Gallery(links, options);
+		};
 });
