@@ -213,7 +213,7 @@
 				<div class="row">
 					<div id="links">
 						<a ng-click="handleClick($event)" ng-repeat="image in sample.images" href="data:image/png;base64,{{image.bytes}}" title="{{images.comments}}">
-					        <img ng-src="data:image/png;base64,{{image.bytes}}" alt="{{image.comments}}">
+					        <img ng-src="data:image/png;base64,{{image.thumbBytes}}" alt="{{image.comments}}">
 					    </a>
 					</div>
 
@@ -279,6 +279,5 @@
 	<script src="./js/biaSamples.module.js"></script>
 
 	<script src="js/blueimp-gallery.min.js"></script>
-	<script src="js/gallery.js"></script>
 </body>
 </html>

@@ -44,6 +44,9 @@ public class Image implements Serializable {
 	@Column(name = "bytes")
 	private byte[] bytes;
 
+	@Column(name = "thumbBytes")
+	private byte[] thumbBytes;
+
 	/**
 	 * A sample may have many images, and an image may be used by many samples.
 	 */
@@ -51,7 +54,7 @@ public class Image implements Serializable {
 	@JoinTable(name = "samples_images", joinColumns = {
 			@JoinColumn(name = "image_id") }, inverseJoinColumns = {
 					@JoinColumn(name = "sample_id") })
-	@XmlInverseReference(mappedBy="images")
+	@XmlInverseReference(mappedBy = "images")
 	private List<Sample> samplesUsedBy;
 
 	public Image() {
@@ -61,14 +64,16 @@ public class Image implements Serializable {
 	 * @param imageID
 	 * @param comments
 	 * @param bytes
+	 * @param thumbBytes
 	 * @param samplesUsedBy
 	 */
-	public Image(int imageID, String comments, byte[] bytes,
+	public Image(int imageID, String comments, byte[] bytes, byte[] thumbBytes,
 			List<Sample> samplesUsedBy) {
 		super();
 		this.imageID = imageID;
 		this.comments = comments;
 		this.bytes = bytes;
+		this.thumbBytes = thumbBytes;
 		this.samplesUsedBy = samplesUsedBy;
 	}
 
@@ -102,5 +107,13 @@ public class Image implements Serializable {
 
 	public void setSamplesUsedBy(List<Sample> samplesUsedBy) {
 		this.samplesUsedBy = samplesUsedBy;
+	}
+
+	public byte[] getThumbBytes() {
+		return thumbBytes;
+	}
+
+	public void setThumbBytes(byte[] thumbBytes) {
+		this.thumbBytes = thumbBytes;
 	}
 }
