@@ -68,14 +68,12 @@
 
 	<!-- Begin page content -->
 	<div class="container">
-		<br>
-		<br>
+		<br> <br>
 		<div class="text-center">
 			<button class="btn btn-lg btn-block btn-primary" data-toggle="modal"
 				data-target="#search">Search Database</button>
 		</div>
-		<br>
-		<br>
+		<br> <br>
 		<ul class="nav nav-tabs">
 			<li class="active"><a data-toggle="tab" href="#menu0">All
 					Samples</a></li>
@@ -92,15 +90,21 @@
 				<div ng-app="exampleApp" ng-cloak>
 					<div ng-controller="allSamples">
 
-						<div class="page-header">
-							<h3>
-								All Samples <label
-									style="font-size: 18px; font-weight: 200; margin-top: 8px;"
-									class="pull-right">Search: <input ng-model="searchText"
+
+						<div class="row">
+							<div class="col-sm-8">
+								<h3>All Samples</h3>
+							</div>
+							<div class="col-sm-4">
+								<label
+									style="font-size: 18px; font-weight: 200; margin-top: 15px;">Search:
+									<input ng-model="searchText"
 									placeholder="keyword (displayed fields)">
 								</label>
-							</h3>
+							</div>
 						</div>
+						<hr>
+
 
 						<div class="" ng-repeat="filter in Filters">
 							<h3 class="filter-header">{{filter.name}}</h3>
@@ -114,7 +118,8 @@
 
 						<div
 							ng-repeat="sample in dataSet | filter:searchText | checkboxFilters:Filters:this">
-							<a class="special" href="{{sample.sampleType}}.html?id={{sample.sampleID}}">
+							<a class="special"
+								href="{{sample.sampleType}}.html?id={{sample.sampleID}}">
 								<div class="panel panel-default selectpanelhover">
 									<div class="panel-body">
 										<!-- may use again -->
@@ -130,12 +135,20 @@
 										</p> -->
 										<div class="row">
 											<div class="col-sm-9">
-												<p><strong>Sample ID: </strong>{{sample.sampleID}}</p>
-												<p><strong>Sample Type: </strong>{{sample.sampleType}}</p>
+												<p>
+													<strong>Sample ID: </strong>{{sample.sampleID}}
+												</p>
+												<p>
+													<strong>Sample Type: </strong>{{sample.sampleType}}
+												</p>
 											</div>
 											<div class="col-sm-3">
-												<p><strong>Collection Date: </strong>{{sample.collectionDate}}</p>
-												<p><strong>Collected By: </strong>{{sample.sampledBy}}</p>
+												<p>
+													<strong>Collection Date: </strong>{{sample.collectionDate}}
+												</p>
+												<p>
+													<strong>Collected By: </strong>{{sample.sampledBy}}
+												</p>
 											</div>
 										</div>
 									</div>
@@ -277,7 +290,9 @@
 
 			</div>
 		</div>
-		<br><br><br>
+		<br>
+		<br>
+		<br>
 	</div>
 
 	<footer class="footer">
@@ -299,8 +314,8 @@
 		window.jQuery
 				|| document
 						.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')
-						
-		$(document).ready(function(){
+
+		$(document).ready(function() {
 			antt.loadMMElements(function() {
 				console.log(antt.getMMElements());
 			});
