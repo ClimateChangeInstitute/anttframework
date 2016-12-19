@@ -75,7 +75,8 @@
 
 				<div class="row">
 					<div class="col-sm-12">
-						<h3> Volcano ({{sample.volcano.name}} - {{sample.volcano.volcanoNumber}})</h3>
+						<h3>Volcano ({{sample.volcano.name}} -
+							{{sample.volcano.volcanoNumber}})</h3>
 					</div>
 				</div>
 				<div class="row">
@@ -193,6 +194,8 @@
 							<p>
 								<strong>(Latitude,Longitude): </strong>({{sample.site.latitude}}N,{{sample.site.longitude}}E)
 
+
+
 							
 							<p>
 								<strong>Elevation: </strong>{{sample.site.elevation}} M
@@ -209,31 +212,18 @@
 				<hr>
 				<div class="row">
 					<div id="links">
-					    <!-- <a ng-repeat="image in sample.images" href="./images/test.png" title="{{images.comments}}">
-					        <img ng-src="./images/test.png" alt="{{image.comments}}">
-					    </a> -->
-					    <a href="images/img1.png" title="title">
-					        <img ng-src="images/img1_t.png" alt="title">
-					    </a>
-					    <a href="images/img2.png" title="title">
-					        <img ng-src="images/img2_t.png" alt="title">
-					    </a>
-					    <a href="images/img3.png" title="title">
-					        <img ng-src="images/img3_t.png" alt="title">
-					    </a>
-					    <a href="images/img4.png" title="title">
-					        <img ng-src="images/img4_t.png" alt="title">
+						<a ng-click="handleClick($event)" ng-repeat="image in sample.images" href="data:image/png;base64,{{image.bytes}}" title="{{images.comments}}">
+					        <img ng-src="data:image/png;base64,{{image.bytes}}" alt="{{image.comments}}">
 					    </a>
 					</div>
 
-					<div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls">
-					    <div class="slides"></div>
-					    <h3 class="title"></h3>
-					    <a class="prev">‹</a>
-					    <a class="next">›</a>
-					    <a class="close">×</a>
-					    <a class="play-pause"></a>
-					    <ol class="indicator"></ol>
+					<div id="blueimp-gallery"
+						class="blueimp-gallery blueimp-gallery-controls">
+						<div class="slides"></div>
+						<h3 class="title"></h3>
+						<a class="prev">‹</a> <a class="next">›</a> <a class="close">×</a>
+						<a class="play-pause"></a>
+						<ol class="indicator"></ol>
 					</div>
 				</div>
 				<hr>
@@ -275,7 +265,7 @@
 	<script>
 		window.jQuery
 				|| document
-						.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')
+						.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>');
 	</script>
 	<script src="index_files/bootstrap.js"></script>
 	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
