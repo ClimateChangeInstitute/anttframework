@@ -117,7 +117,8 @@
 							<a class="special" href="{{sample.sampleType}}.html?id={{sample.sampleID}}">
 								<div class="panel panel-default selectpanelhover">
 									<div class="panel-body">
-										<p>
+										<!-- may use again -->
+										<!-- <p>
 											<strong>Sample ID: </strong>{{sample.sampleID}} <span
 												class="pull-right"><strong>Collection Date:
 											</strong> {{sample.collectionDate}}</span>
@@ -126,7 +127,17 @@
 											<strong>Sample Type: </strong>{{sample.sampleType}}<span
 												class="pull-right"><strong>Collected By: </strong>
 												{{sample.sampledBy}}</span>
-										</p>
+										</p> -->
+										<div class="row">
+											<div class="col-sm-9">
+												<p><strong>Sample ID: </strong>{{sample.sampleID}}</p>
+												<p><strong>Sample Type: </strong>{{sample.sampleType}}</p>
+											</div>
+											<div class="col-sm-3">
+												<p><strong>Collection Date: </strong>{{sample.collectionDate}}</p>
+												<p><strong>Collected By: </strong>{{sample.sampledBy}}</p>
+											</div>
+										</div>
 									</div>
 								</div>
 							</a>
