@@ -7,6 +7,8 @@ import static java.util.stream.IntStream.range;
 import static org.tephrochronology.DBProperties.setupProperties;
 
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
@@ -362,16 +364,12 @@ public class TestDataGenerator {
 		System.out.print("Generating image data (This may take a moment).");
 		range(0, n).forEach(i -> {
 			System.out.print(".");
+			
+			// Image dimensions
 			int w = 1920;
 			int h = 1080;
-			BufferedImage bi = new BufferedImage(w, h,
-					BufferedImage.TYPE_INT_ARGB);
-			Graphics2D g = (Graphics2D) bi.getGraphics();
-			g.setColor(getColor(i));
-			g.fillRect(0, 0, w, h);
-			g.setColor(Color.white);
-			g.setFont(g.getFont().deriveFont(40f));
-			g.drawString("image " + i, 0, h / 2);
+			
+			BufferedImage bi = createImage(i, w, h);
 
 			BufferedImage thumbImage = scaleAndCrop(bi, 75);
 
@@ -388,11 +386,30 @@ public class TestDataGenerator {
 
 	}
 
+	private static BufferedImage createImage(int i, int w, int h) {
+
+		BufferedImage bi = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+		Graphics2D g = (Graphics2D) bi.getGraphics();
+		g.setColor(getColor(i));
+		g.fillRect(0, 0, w, h);
+		g.setColor(Color.white);
+
+		g.setFont(g.getFont().deriveFont(200f).deriveFont(Font.BOLD));
+
+		FontMetrics metrics = g.getFontMetrics(g.getFont());
+		int x = (w - metrics.stringWidth("image " + 5)) / 2;
+		int y = ((h - metrics.getHeight()) / 2) + metrics.getAscent();
+
+		g.drawString("image " + 5, x, y);
+
+		return bi;
+	}
+
 	/**
 	 * @param bi
 	 * @return
 	 */
-	private ByteArrayOutputStream asOutputStream(BufferedImage bi) {
+	private static ByteArrayOutputStream asOutputStream(BufferedImage bi) {
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		try {
 			ImageIO.write(bi, "png", out);
@@ -404,7 +421,7 @@ public class TestDataGenerator {
 		return out;
 	}
 
-	public BufferedImage scaleAndCrop(BufferedImage img, int newSize) {
+	public static BufferedImage scaleAndCrop(BufferedImage img, int newSize) {
 
 		float w = img.getWidth();
 		float h = img.getHeight();
@@ -415,7 +432,7 @@ public class TestDataGenerator {
 
 		float newW = rat > 1 ? rat * MIN_SIZE : MIN_SIZE;
 		float newH = rat <= 1 ? rat * MIN_SIZE : MIN_SIZE;
-		
+
 		BufferedImage newImg = scale(img, newW, newH);
 
 		float extra = rat > 1 ? newW - MIN_SIZE : newH - MIN_SIZE;
