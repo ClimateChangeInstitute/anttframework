@@ -74,7 +74,7 @@ app.controller('allSamples', function($scope, dataSource) {
 			      }   
 			    } 
 			    else {
-			      var filter = {};
+				  var filter = {};
 			      filter.name = key;
 			      filter.options = [];
 			      filter.options.push({ value: value, count: 1 });
