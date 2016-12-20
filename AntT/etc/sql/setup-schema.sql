@@ -124,7 +124,8 @@ CREATE TABLE grain_sizes_refs(
 CREATE TABLE images(
 	image_id SERIAL PRIMARY KEY,
 	comments TEXT,
-	bytes BYTEA);
+	bytes BYTEA,
+	thumbBytes BYTEA);
 
 -- A sample may have many images, and an image may be used by many samples
 CREATE TABLE samples_images(

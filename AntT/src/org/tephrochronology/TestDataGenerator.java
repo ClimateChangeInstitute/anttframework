@@ -7,7 +7,10 @@ import static java.util.stream.IntStream.range;
 import static org.tephrochronology.DBProperties.setupProperties;
 
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -162,14 +165,15 @@ public class TestDataGenerator {
 			MMElement el = new MMElement(MMElement.class.getSimpleName() + i,
 					outcropSamples.get(i % outcropSamples.size()),
 					"Comment " + i, methodTypes.get(i % methodTypes.size()),
-					instruments.get(i % instruments.size()),
-					LocalDate.now(), "Mark", 5, 3f, 2f, "instrument settings for " + i,
-					1f, -2f, 1f, data);
-			range(0, i % elements.size()).forEach(j ->{
+					instruments.get(i % instruments.size()), LocalDate.now(),
+					"Mark", 5, 3f, 2f, "instrument settings for " + i, 1f, -2f,
+					1f, data);
+			range(0, i % elements.size()).forEach(j -> {
 				Element elem = elements.get(j % elements.size());
-				data.put(elem, new MMElementData(el, elem, j*10f, j * 2f, j*1f, "ppb"));
+				data.put(elem, new MMElementData(el, elem, j * 10f, j * 2f,
+						j * 1f, "ppb"));
 			});
-			
+
 			mmElements.add(el);
 			em.persist(el);
 		});
@@ -324,6 +328,34 @@ public class TestDataGenerator {
 		return images.subList(startIndex, endIndex);
 	}
 
+	private static Color getColor(final int num) {
+
+		int i = num % 10;
+
+		switch (i) {
+		case 0:
+			return Color.black;
+		case 1:
+			return Color.blue;
+		case 2:
+			return Color.cyan;
+		case 3:
+			return Color.darkGray;
+		case 4:
+			return Color.green;
+		case 5:
+			return Color.magenta;
+		case 6:
+			return Color.orange;
+		case 7:
+			return Color.pink;
+		case 8:
+			return Color.red;
+		default: // case 9:
+			return Color.yellow;
+		}
+	}
+
 	private void generateImageData(EntityManager em) {
 
 		int n = 1000;
@@ -332,33 +364,104 @@ public class TestDataGenerator {
 		System.out.print("Generating image data (This may take a moment).");
 		range(0, n).forEach(i -> {
 			System.out.print(".");
-			int w = 300;
-			int h = 300;
-			BufferedImage bi = new BufferedImage(w, h,
-					BufferedImage.TYPE_INT_ARGB);
-			Graphics2D g = (Graphics2D) bi.getGraphics();
-			g.setColor(Color.red);
-			g.fillRect(0, 0, w, h);
-			g.setColor(Color.white);
-			g.setFont(g.getFont().deriveFont(40f));
-			g.drawString("image " + i, 0, h / 2);
+			
+			// Image dimensions
+			int w = 1920;
+			int h = 1080;
+			
+			BufferedImage bi = createImage(i, w, h);
 
-			ByteArrayOutputStream out = new ByteArrayOutputStream();
-			try {
-				ImageIO.write(bi, "png", out);
-				out.flush();
-			} catch (IOException e) {
-				e.printStackTrace();
-				System.err.println("Couldn't create image.");
-			}
+			BufferedImage thumbImage = scaleAndCrop(bi, 75);
+
+			ByteArrayOutputStream out = asOutputStream(bi);
+
+			ByteArrayOutputStream thumbOut = asOutputStream(thumbImage);
 
 			Image img = new Image(0, "Test image comment " + i,
-					out.toByteArray(), null);
+					out.toByteArray(), thumbOut.toByteArray(), null);
 			images.add(img);
 			em.persist(img);
 		});
 		System.out.println();
 
+	}
+
+	private static BufferedImage createImage(int i, int w, int h) {
+
+		BufferedImage bi = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+		Graphics2D g = (Graphics2D) bi.getGraphics();
+		g.setColor(getColor(i));
+		g.fillRect(0, 0, w, h);
+		g.setColor(Color.white);
+
+		g.setFont(g.getFont().deriveFont(200f).deriveFont(Font.BOLD));
+
+		FontMetrics metrics = g.getFontMetrics(g.getFont());
+		int x = (w - metrics.stringWidth("image " + 5)) / 2;
+		int y = ((h - metrics.getHeight()) / 2) + metrics.getAscent();
+
+		g.drawString("image " + 5, x, y);
+
+		return bi;
+	}
+
+	/**
+	 * @param bi
+	 * @return
+	 */
+	private static ByteArrayOutputStream asOutputStream(BufferedImage bi) {
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+		try {
+			ImageIO.write(bi, "png", out);
+			out.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.err.println("Couldn't create image.");
+		}
+		return out;
+	}
+
+	public static BufferedImage scaleAndCrop(BufferedImage img, int newSize) {
+
+		float w = img.getWidth();
+		float h = img.getHeight();
+
+		float rat = w / h;
+
+		int MIN_SIZE = 75;
+
+		float newW = rat > 1 ? rat * MIN_SIZE : MIN_SIZE;
+		float newH = rat <= 1 ? rat * MIN_SIZE : MIN_SIZE;
+
+		BufferedImage newImg = scale(img, newW, newH);
+
+		float extra = rat > 1 ? newW - MIN_SIZE : newH - MIN_SIZE;
+
+		// Width greater than height crop sides
+		if (rat > 1) {
+			return newImg.getSubimage((int) extra / 2, 0,
+					Math.min(Math.round(newW - extra / 2), MIN_SIZE),
+					Math.round(newH));
+		} else {
+			return newImg.getSubimage(0, (int) extra / 2, Math.round(newW),
+					Math.min(Math.round(newH - extra / 2), MIN_SIZE));
+		}
+	}
+
+	/**
+	 * @param img
+	 * @param w
+	 * @param h
+	 * @return
+	 */
+	public static BufferedImage scale(BufferedImage img, float w, float h) {
+		BufferedImage result = new BufferedImage(Math.round(w), Math.round(h),
+				img.getType());
+		Graphics2D g = result.createGraphics();
+		AffineTransform at = AffineTransform
+				.getScaleInstance(w / img.getWidth(), h / img.getHeight());
+		g.drawRenderedImage(img, at);
+		return result;
 	}
 
 	private void generateReferenceData(EntityManager em) {
