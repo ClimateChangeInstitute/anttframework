@@ -15,6 +15,7 @@
 		this.unit = mme.unit;
 		this.value = parseFloat(mme.value);
 	};
+	scope.MMElementData = MMElementData;
 
 	/**
 	 * @param e
@@ -45,6 +46,7 @@
 		this.originalTotal = parseFloat(e.originalTotal);
 		this.sampleID = e.sampleID;
 	};
+	scope.MMElement = MMElement;
 
 	scope.statistics = {};
 	
@@ -242,9 +244,9 @@
 	 * @param mmelements
 	 *            {MMElement[]}
 	 * @returns {MMElement[]} MMElements that contain every key in the given
-	 *          array
+	 *          array or an empty array
 	 */
-	var filterMMElements = function(keys, mmelemens) {
+	var filterMMElements = function(keys, mmelements) {
 		var result = [];
 
 		$(mmelements).each(function(i, e) {
