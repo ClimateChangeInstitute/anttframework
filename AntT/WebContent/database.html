@@ -77,15 +77,16 @@
 
 
 				<div class="row">
-					<div class="col-sm-8">
+					<div class="col-sm-9">
 						<h3>All Samples</h3>
 					</div>
-					<div class="col-sm-4">
-						<label
-							style="font-size: 18px; font-weight: 200; margin-top: 15px;">Search:
-							<input ng-model="searchText"
-							placeholder="keyword (displayed fields)">
-						</label>
+					<div class="col-sm-3">
+						<form class="form-inline">
+							<div class="form-group" style="margin-top: 17px;">
+								<label for="searchText1">Search :</label>
+								<input class="form-control" ng-model="searchText" placeholder="keyword (displayed fields)">
+							</div>
+						</form>
 					</div>
 				</div>
 				<hr>
@@ -110,10 +111,8 @@
 				</div>
 				<hr>
 
-				<div
-					ng-repeat="sample in dataSet | filter:searchText | checkboxFilters:Filters:this">
-					<a class="special"
-						href="{{sample.sampleType}}.html?id={{sample.sampleID}}">
+				<div ng-repeat="sample in dataSet | filter:searchText | checkboxFilters:Filters:this">
+					<a class="special" href="{{sample.sampleType}}.html?id={{sample.sampleID}}">
 						<div class="panel panel-default selectpanelhover">
 							<div class="panel-body">
 								<!-- may use again -->
