@@ -214,7 +214,7 @@
 	 *            {function} Called after the AJAX get request completes
 	 * @returns {undefined}
 	 */
-	scope.loadMMElements = function(callback) {
+	var loadMMElements = function(callback) {
 		$.ajax({
 			type : "GET",
 			url : "./generated/allMMElements.xml",
@@ -232,13 +232,15 @@
 			}
 		});
 	};
+	scope.loadMMElements = loadMMElements;
 
 	/**
 	 * @returns {MMElement[]} Currently loaded MMElement data
 	 */
-	scope.getMMElements = function() {
+	var getMMElements = function() {
 		return mmelements;
 	};
+	scope.getMMElements = getMMElements;
 
 	/**
 	 * Filter MMElements based on the given array of keys. Make sure the
@@ -249,7 +251,7 @@
 	 * @returns {MMElement[]} MMElements that contain every key in the given
 	 *          array
 	 */
-	scope.filterMMElements = function(keys) {
+	var filterMMElements = function(keys) {
 		var result = [];
 
 		$(mmelements).each(function(i, e) {
@@ -264,5 +266,6 @@
 
 		return result;
 	};
+	scope.filterMMElements = filterMMElements;
 
 })(window.antt = window.antt || {});
