@@ -59,13 +59,27 @@ app.controller('allSamples', function($scope, dataSource) {
 			
 		  _.each(sample, function(value, key) { 
 
+		  	// key = ((key.replace(/([A-Z]+)/g, ",$1").replace(/^,/, "")).split(",")).join(" ");
+		  	// key = (key.charAt(0).toUpperCase() + key.slice(1));
+
 		  	var existingFilter = _.findWhere(filters, { name: key });
 
 		  	// temp for now - we are only interested in sample type as a filter
 		  	// we can use any other key filter later
 		    if (key == 'sampleType')
 		    {
-				if (existingFilter) {
+		    	// if (value == 'B')
+		    	// 	value = "BIA";
+		    	// if (value == 'I')
+		    	// 	value = "Ice Core";
+		    	// if (value == 'O')
+		    	// 	value = "Outcrop";
+		    	// if (value == 'L')
+		    	// 	value = "Lake";
+		    	// if (value == 'M')
+		    	// 	value = "Marine";
+
+		    	if (existingFilter) {
 			      var existingOption = _.findWhere(existingFilter.options, { value: value });
 			      if (existingOption) {
 			        existingOption.count += 1;

@@ -90,16 +90,25 @@
 				</div>
 				<hr>
 
-
-				<div class="" ng-repeat="filter in Filters">
-					<h3 class="filter-header">{{filter.name}}</h3>
-					<ul class="sortoptions">
-						<li ng-repeat="option in filter.options"><input
-							type="checkbox" ng-model="option.IsIncluded"
-							ng-checked="option.IsIncluded"><span> {{option.value}}</span>  ({{option.count}})
-						</li>
-					</ul>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<div class="row">
+							<div class="col-sm-12">
+								<div ng-repeat="filter in Filters">
+									<ul class="sortoptions filterSection">
+										<strong>
+											<li class="filterName">{{filter.name}} :</li>
+										</strong>
+										<li ng-repeat="option in filter.options">
+											<input type="checkbox" ng-model="option.IsIncluded" ng-checked="option.IsIncluded"><label class="changable"> {{option.value}}</label> <label> ({{option.count}}) </label>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
+				<hr>
 
 				<div
 					ng-repeat="sample in dataSet | filter:searchText | checkboxFilters:Filters:this">
@@ -279,12 +288,6 @@
 			});
 		});
 	</script>
-	<script type="text/javascript">
-	var = $("ul li span");
-		
-	console.log(length(var));
-
-</script>
 	<script
 		src='https://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.js'></script>
 	<script src="index_files/bootstrap.js"></script>

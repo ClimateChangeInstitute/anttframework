@@ -13,3 +13,30 @@ a.special:hover{
 body {
 	padding-bottom: 200px;
 }
+
+ul {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13pt;
+    line-height: 30px;
+    padding: 0px;
+}
+.filterSection li {
+    list-style: none;
+    margin: 0px;
+    padding: 5px;
+    display: inline;
+}
+
+.filterSection li:first-letter{
+    text-transform: capitalize;
+}
+.filterSection li input {
+    margin-right: 6px;
+}
+.filterSection {
+    margin: 0px;
+    padding: 0px;
+}
+.filterSection label {
+    font-weight: normal;
+}
