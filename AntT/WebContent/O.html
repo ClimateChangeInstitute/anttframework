@@ -22,6 +22,7 @@
 <!-- Custom styles for this template -->
 <link href="index_files/sticky-footer-navbar.css" rel="stylesheet">
 <link href="index_files/custom.css" rel="stylesheet">
+<link rel="stylesheet" href="index_files/blueimp-gallery.min.css">
 
 <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
 <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -194,6 +195,7 @@
 								<strong>(Latitude,Longitude): </strong>({{sample.site.latitude}}N,{{sample.site.longitude}}E)
 
 
+
 							
 							<p>
 								<strong>Elevation: </strong>{{sample.site.elevation}} M
@@ -209,20 +211,34 @@
 				</div>
 				<hr>
 				<div class="row">
-					<div class="pull-left" ng-repeat="image in sample.images">
-						<img ng-src="data:image/png;base64,{{image.bytes}}"
-							alt="{{image.comments}}" width="100px">
-						<div>
-							<h4>{{image.imageID}}</h4>
-							<p>{{image.comments}}</p>
+					<div class="col-sm-12">
+						<div id="links">
+							<a ng-click="handleClick($event)"
+								ng-repeat="image in sample.images"
+								href="data:image/png;base64,{{image.bytes}}"
+								title="{{images.comments}}"> <img
+								ng-src="data:image/png;base64,{{image.thumbBytes}}"
+								alt="{{image.comments}}">
+							</a>
 						</div>
+					</div>
+
+					<div id="blueimp-gallery"
+						class="blueimp-gallery blueimp-gallery-controls">
+						<div class="slides"></div>
+						<h3 class="title"></h3>
+						<a class="prev">‹</a> <a class="next">›</a> <a class="close">×</a>
+						<a class="play-pause"></a>
+						<ol class="indicator"></ol>
 					</div>
 				</div>
 				<hr>
 				<div class="row">
-					<h4>References:</h4>
-					<div ng-repeat="ref in sample.refs">
-						<p>{{ref.doi}}</p>
+					<div class="col-sm-12">
+						<h4>References:</h4>
+						<div ng-repeat="ref in sample.refs">
+							<p>{{ref.doi}}</p>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -259,5 +275,7 @@
 	<script src="./lib/xml2json.js"></script>
 
 	<script src="./js/outcropSamples.module.js"></script>
+
+	<script src="js/blueimp-gallery.min.js"></script>
 </body>
 </html>

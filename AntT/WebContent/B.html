@@ -196,6 +196,8 @@
 
 
 
+
+
 							
 							<p>
 								<strong>Elevation: </strong>{{sample.site.elevation}} M
@@ -211,10 +213,16 @@
 				</div>
 				<hr>
 				<div class="row">
-					<div id="links">
-						<a ng-click="handleClick($event)" ng-repeat="image in sample.images" href="data:image/png;base64,{{image.bytes}}" title="{{images.comments}}">
-					        <img ng-src="data:image/png;base64,{{image.thumbBytes}}" alt="{{image.comments}}">
-					    </a>
+					<div class="col-sm-12">
+						<div id="links">
+							<a ng-click="handleClick($event)"
+								ng-repeat="image in sample.images"
+								href="data:image/png;base64,{{image.bytes}}"
+								title="{{images.comments}}"> <img
+								ng-src="data:image/png;base64,{{image.thumbBytes}}"
+								alt="{{image.comments}}">
+							</a>
+						</div>
 					</div>
 
 					<div id="blueimp-gallery"
@@ -225,13 +233,14 @@
 						<a class="play-pause"></a>
 						<ol class="indicator"></ol>
 					</div>
-					
 				</div>
 				<hr>
 				<div class="row">
-					<h4>References:</h4>
-					<div ng-repeat="ref in sample.refs">
-						<p>{{ref.doi}}</p>
+					<div class="col-sm-12">
+						<h4>References:</h4>
+						<div ng-repeat="ref in sample.refs">
+							<p>{{ref.doi}}</p>
+						</div>
 					</div>
 				</div>
 			</div>
