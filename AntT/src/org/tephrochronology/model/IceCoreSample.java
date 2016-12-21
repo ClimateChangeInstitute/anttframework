@@ -18,7 +18,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "icecore_samples")
-@DiscriminatorValue(value = "Ice Core")
+@DiscriminatorValue(value = "I")
 public class IceCoreSample extends Sample {
 
 	/**

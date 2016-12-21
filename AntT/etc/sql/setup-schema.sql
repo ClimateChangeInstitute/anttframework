@@ -97,7 +97,7 @@ CREATE TABLE samples(
 	comments TEXT,
 	site_id TEXT REFERENCES sites(site_id) NOT NULL,
 	iid TEXT REFERENCES instruments(iid) NOT NULL,
-	sample_type VARCHAR NOT NULL);
+	sample_type CHAR NOT NULL);
 
 -- A sample may have many refs, and a ref may be used by many samples.
 CREATE TABLE samples_refs(

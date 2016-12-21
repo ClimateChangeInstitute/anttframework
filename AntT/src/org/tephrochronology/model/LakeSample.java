@@ -16,7 +16,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "lake_samples")
-@DiscriminatorValue(value = "Lake")
+@DiscriminatorValue(value = "L")
 public class LakeSample extends AquaticSample {
 
 	/**
