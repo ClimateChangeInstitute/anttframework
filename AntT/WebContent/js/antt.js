@@ -61,9 +61,9 @@
 		// Setting standard error to 0 for each element makes them be
 		// considered equally. Detection limit is ignored.
 		return similarityCoefficientListListListListLimit(xa, stderr, xb, stderr, 1 /*
-																 * Doesn't
-																 * matter
-																 */);
+																					 * Doesn't
+																					 * matter
+																					 */);
 	}
 	scope.statistics.similarityCoefficientListList = similarityCoefficientListList; 
 
@@ -206,8 +206,6 @@
 		return a <= b ? a / b : b / a;
 	}
 	scope.statistics.R = R;
-
-	var mmelements = [];
 	
 	/**
 	 * @param callback
@@ -223,35 +221,30 @@
 
 				var x2js = new X2JS();
 				var json = x2js.xml2json(xml);
+				var mmelements = [];
 				$(json.mmelements.mmelement).each(function(i, e) {
 					mmelements.push(new MMElement(e));
 				});
 
 				if (callback)
-					callback();
+					callback(mmelements);
 			}
 		});
 	};
 	scope.loadMMElements = loadMMElements;
-
-	/**
-	 * @returns {MMElement[]} Currently loaded MMElement data
-	 */
-	var getMMElements = function() {
-		return mmelements;
-	};
-	scope.getMMElements = getMMElements;
-
+	
 	/**
 	 * Filter MMElements based on the given array of keys. Make sure the
 	 * MMElement data has already been loaded via antt.loadMMElements function.
 	 * 
 	 * @param keys
 	 *            {string[]}
+	 * @param mmelements
+	 *            {MMElement[]}
 	 * @returns {MMElement[]} MMElements that contain every key in the given
 	 *          array
 	 */
-	var filterMMElements = function(keys) {
+	var filterMMElements = function(keys, mmelemens) {
 		var result = [];
 
 		$(mmelements).each(function(i, e) {
