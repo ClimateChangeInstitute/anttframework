@@ -361,7 +361,7 @@ public class TestDataGenerator {
 		int n = 1000;
 		images = new ArrayList<>();
 
-		System.out.print("Generating image data (This may take a moment).");
+		System.out.print("Generating image data (This may take a moment, or maybe an hour).");
 		range(0, n).forEach(i -> {
 			System.out.print(".");
 			
