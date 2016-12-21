@@ -92,7 +92,7 @@ app.controller('allSamples', function($scope, dataSource) {
 				  var key_long_name = ((key.replace(/([A-Z]+)/g, ",$1").replace(/^,/, "")).split(",")).join(" ");
 				  key_long_name = key_long_name.charAt(0).toUpperCase() + key_long_name.slice(1);
 			      filter.name = key;
-			      filter.key_long_name = key_long_name;
+			      filter.key_long_name = key_long_name.replace(/Long/g, "");
 			      filter.options = [];
 			      filter.options.push({ value: value, count: 1 });
 			      filters.push(filter);      
