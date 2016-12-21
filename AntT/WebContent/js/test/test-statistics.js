@@ -14,14 +14,6 @@
 		}
 	});
 
-	QUnit.test("Example Tests", function(assert) {
-
-		assert.ok(1 == '1', "1 == '1' is ok");
-
-		assert.notOk(1 === '1', "1 === '1' is notOk");
-
-	});
-
 	QUnit.test("Test weightingCoefficient()", function(assert) {
 
 		assert.strictEqual(1.0, antt.statistics.weightingCoefficient(3, 0, 2,
