@@ -17,7 +17,7 @@ need to be recreated in every environment.
 
 ```python
 THE_ADMIN = "replacewithadminuser"
-THE_ADIM_PASS = "replacewithadminpass"
+THE_ADMIN_PASS = "replacewithadminpass"
 ```
 
 ## DB Creation
