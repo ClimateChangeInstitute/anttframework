@@ -212,10 +212,10 @@
 	 *            {function} Called after the AJAX get request completes
 	 * @returns {undefined}
 	 */
-	var loadMMElements = function(callback) {
+	var loadMMElements = function(fileURL, callback) {
 		$.ajax({
 			type : "GET",
-			url : "./generated/allMMElements.xml",
+			url : fileURL,
 			dataType : "xml",
 			success : function(xml) {
 
