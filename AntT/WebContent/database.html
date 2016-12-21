@@ -96,10 +96,14 @@
 								<div ng-repeat="filter in Filters">
 									<ul class="sortoptions filterSection">
 										<strong>
-											<li>{{filter.name}} :</li>
+											<li>
+												{{filter.name}} :
+											</li>
 										</strong>
 										<li ng-repeat="option in filter.options">
-											<input type="checkbox" ng-model="option.IsIncluded" ng-checked="option.IsIncluded"><label class="changable"> {{option.value}}</label> <label> ({{option.count}}) </label>
+											<label class="form-inline">
+												<input type="checkbox" ng-model="option.IsIncluded" ng-checked="option.IsIncluded">{{option.value}} ({{option.count}}) 
+											</label>
 										</li>
 									</ul>
 								</div>

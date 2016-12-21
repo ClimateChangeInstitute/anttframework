@@ -61,15 +61,15 @@ app.controller('allSamples', function($scope, dataSource) {
 		  _.each(sample, function(value, key) { 
 
 		  	if (value == 'B')
-		  		sample.sampleTypeLong = "Blue Ice Area (BIA) Sample";
+		  		sample.sampleTypeLong = "Blue Ice Area (BIA)";
 		  	if (value == 'I')
-		  		sample.sampleTypeLong = "Ice Core Sample";
+		  		sample.sampleTypeLong = "Ice Core";
 		  	if (value == 'O')
-		  		sample.sampleTypeLong = "Outcrop Sample";
+		  		sample.sampleTypeLong = "Outcrop";
 		  	if (value == 'L')
-		  		sample.sampleTypeLong = "Lake Sample";
+		  		sample.sampleTypeLong = "Lake";
 		  	if (value == 'M')
-		  		sample.sampleTypeLong = "Marine Sample";
+		  		sample.sampleTypeLong = "Marine";
 
 		  	value = sample.sampleTypeLong;
 
