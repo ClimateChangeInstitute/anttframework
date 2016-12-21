@@ -74,8 +74,6 @@
 		
 		<div ng-app="exampleApp" ng-cloak>
 			<div ng-controller="allSamples">
-
-
 				<div class="row">
 					<div class="col-sm-9">
 						<h3>All Samples</h3>
@@ -98,7 +96,7 @@
 								<div ng-repeat="filter in Filters">
 									<ul class="sortoptions filterSection">
 										<strong>
-											<li class="filterName">{{filter.name}} :</li>
+											<li>{{filter.name}} :</li>
 										</strong>
 										<li ng-repeat="option in filter.options">
 											<input type="checkbox" ng-model="option.IsIncluded" ng-checked="option.IsIncluded"><label class="changable"> {{option.value}}</label> <label> ({{option.count}}) </label>
