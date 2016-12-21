@@ -1,5 +1,10 @@
 (function() {
 
+	QUnit.assert.close = function(actual, expected, maxDifference, message) {
+		var passes = (actual === expected) || Math.abs(actual - expected) <= maxDifference;
+		this.push(passes, actual, expected, message);
+	}
+	
 	QUnit.module("statistics", {
 		beforeEach : function() {
 			/* Nothing to setup */
@@ -144,9 +149,9 @@
 	
 		for (var i = 0; i < expectedResult.length; i++) {
 			for (var j = 0; j < i; j++) {
-				assert.equal(result[i][j].toFixed(2), expectedResult[i][j]);
+				assert.close(result[i][j], expectedResult[i][j], 0.008);
 				// Symmetric case
-				assert.equal(result[j][i].toFixed(2), expectedResult[i][j]);
+				assert.close(result[j][i], expectedResult[i][j], 0.008);
 			}
 		}
 
