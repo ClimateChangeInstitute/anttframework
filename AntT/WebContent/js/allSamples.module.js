@@ -73,9 +73,6 @@ app.controller('allSamples', function($scope, dataSource) {
 
 		  	value = sample.sampleTypeLong;
 
-		  	// key = ((key.replace(/([A-Z]+)/g, ",$1").replace(/^,/, "")).split(",")).join(" ");
-		  	// key = (key.charAt(0).toUpperCase() + key.slice(1));
-
 		  	var existingFilter = _.findWhere(filters, { name: key });
 
 		  	// temp for now - we are only interested in sample type as a filter
@@ -92,7 +89,10 @@ app.controller('allSamples', function($scope, dataSource) {
 			    } 
 			    else {
 				  var filter = {};
+				  var key_long_name = ((key.replace(/([A-Z]+)/g, ",$1").replace(/^,/, "")).split(",")).join(" ");
+				  key_long_name = key_long_name.charAt(0).toUpperCase() + key_long_name.slice(1);
 			      filter.name = key;
+			      filter.key_long_name = key_long_name;
 			      filter.options = [];
 			      filter.options.push({ value: value, count: 1 });
 			      filters.push(filter);      
