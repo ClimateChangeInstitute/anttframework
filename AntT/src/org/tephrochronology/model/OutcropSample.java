@@ -17,7 +17,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "outcrop_samples")
-@DiscriminatorValue(value = "O")
+@DiscriminatorValue(value = "Outcrop")
 public class OutcropSample extends Sample {
 
 	/**

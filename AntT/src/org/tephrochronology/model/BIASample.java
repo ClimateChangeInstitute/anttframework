@@ -20,7 +20,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "bia_samples")
-@DiscriminatorValue(value = "B")
+@DiscriminatorValue(value = "Blue Ice Area (BIA)")
 public class BIASample extends Sample {
 
 	/**

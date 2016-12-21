@@ -3,7 +3,7 @@
  */
 package org.tephrochronology.model;
 
-import static javax.persistence.DiscriminatorType.CHAR;
+import static javax.persistence.DiscriminatorType.STRING;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -11,6 +11,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
@@ -29,7 +30,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "samples")
 @Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(name = "sample_type", discriminatorType = CHAR)
+@DiscriminatorColumn(name = "sample_type", discriminatorType = STRING)
 public abstract class Sample implements Serializable {
 
 	/**

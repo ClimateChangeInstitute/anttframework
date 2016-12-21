@@ -93,7 +93,7 @@ public class XMLFileGenerator {
 		//@formatter:on
 
 		List<SampleInfo> samples = q.getResultList();// new ArrayList<>();
-
+		
 		PrintStream out = new PrintStream(new FileOutputStream(
 				outputLocation + File.separator + ALLSAMPLES_FILENAME));
 
@@ -105,6 +105,7 @@ public class XMLFileGenerator {
 
 		out.flush();
 		out.close();
+	
 	}
 
 	public void writeAllMMElementXMLFile(Path outputLocation)
