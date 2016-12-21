@@ -56,8 +56,22 @@ app.controller('allSamples', function($scope, dataSource) {
 		var filters = [];
 		_.each(samples, function(sample) {
 
+			sample.sampleTypeLong = '';
 			
 		  _.each(sample, function(value, key) { 
+
+		  	if (value == 'B')
+		  		sample.sampleTypeLong = "Blue Ice Area (BIA) Sample";
+		  	if (value == 'I')
+		  		sample.sampleTypeLong = "Ice Core Sample";
+		  	if (value == 'O')
+		  		sample.sampleTypeLong = "Outcrop Sample";
+		  	if (value == 'L')
+		  		sample.sampleTypeLong = "Lake Sample";
+		  	if (value == 'M')
+		  		sample.sampleTypeLong = "Marine Sample";
+
+		  	value = sample.sampleTypeLong;
 
 		  	// key = ((key.replace(/([A-Z]+)/g, ",$1").replace(/^,/, "")).split(",")).join(" ");
 		  	// key = (key.charAt(0).toUpperCase() + key.slice(1));
@@ -66,19 +80,8 @@ app.controller('allSamples', function($scope, dataSource) {
 
 		  	// temp for now - we are only interested in sample type as a filter
 		  	// we can use any other key filter later
-		    if (key == 'sampleType')
+		    if (key == 'sampleTypeLong')
 		    {
-		    	// if (value == 'B')
-		    	// 	value = "BIA";
-		    	// if (value == 'I')
-		    	// 	value = "Ice Core";
-		    	// if (value == 'O')
-		    	// 	value = "Outcrop";
-		    	// if (value == 'L')
-		    	// 	value = "Lake";
-		    	// if (value == 'M')
-		    	// 	value = "Marine";
-
 		    	if (existingFilter) {
 			      var existingOption = _.findWhere(existingFilter.options, { value: value });
 			      if (existingOption) {
