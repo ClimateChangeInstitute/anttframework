@@ -193,6 +193,8 @@
 							</p>
 							<p>
 								<strong>(Latitude,Longitude): </strong>({{sample.site.latitude}}N,{{sample.site.longitude}}E)
+
+
 							
 							<p>
 								<strong>Elevation: </strong>{{sample.site.elevation}} M
@@ -230,6 +232,93 @@
 					</div>
 				</div>
 				<hr>
+			</div>
+			<div class="row">
+				<div class="col-sm-12">
+					<h3>MMElement Data</h3>
+				</div>
+			</div>
+			<hr>
+			<div class="row" ng-hide="mmElements.elementData.entry == null">
+				<div class="col-md-12 table-responsive">
+					<table class="table table-hover table-condensed">
+						<thead>
+							<tr>
+								<th>Element</th>
+								<th>me</th>
+								<th>std</th>
+								<th>unit</th>
+								<th>value</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="e in mmElements.elementData.entry">
+								<td>{{e.value.element}}</td>
+								<td>{{e.value.me}}</td>
+								<td>{{e.value.std}}</td>
+								<td>{{e.value.unit}}</td>
+								<td>{{e.value.value}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<hr>
+			<div class="row">
+				<div class="col-sm-6">
+					<h4>Sample Data</h4>
+					<hr>
+					<div>
+						<p>
+							<strong>Date Measured: </strong>{{mmElements.dateMeasured}}
+						</p>
+						<p>
+							<strong>Measured By: </strong>{{mmElements.measuredBy}}
+						</p>
+						<p>
+							<strong>Long Sample ID: </strong>{{mmElements.longsampleID}}
+						</p>
+						<p>
+							<strong>Method Type: </strong>{{mmElenets.methodType.type}}
+						</p>
+						<p>
+							<strong>Number of Measurements: </strong>{{mmElenets.numberOfMeasurements}}
+						</p>
+						<p>
+							<strong>Original Total: </strong>{{mmElenets.calculatedTotal}}
+						</p>
+						<p>
+							<strong>Calculated Total: </strong>{{mmElenets.methodType.type}}
+						</p>
+						<p>
+							<strong>H2O Minus: </strong>{{mmElenets.h2o_minus}}
+						</p>
+						<p>
+							<strong>H2O Plus: </strong>{{mmElenets.h2o_plus}}
+						</p>
+						<p>
+							<strong>Comments: </strong>{{mmElements.comments}}
+						</p>
+					</div>
+				</div>
+				<div class="col-sm-6">
+					<h4>Instrument</h4>
+					<hr>
+					<div>
+						<p>
+							<strong>ID: </strong>{{mmElements.iid}}
+						</p>
+						<p>
+							<strong>Instrument Setting: </strong>{{mmElements.instrumentSettings}}
+						</p>
+						<p>
+							<strong>LOI: </strong>{{mmElements.loi}}
+						</p>
+					</div>
+				</div>
+			</div>
+			<hr>
+			<div ng-repeat="sample in dataSet">
 				<div class="row">
 					<div class="col-sm-12">
 						<h4>References:</h4>
