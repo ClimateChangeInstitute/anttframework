@@ -14,6 +14,10 @@ app.factory('dataSource', [ '$http', function($http) {
 		return $http.get("generated/XMLSamples/Outcrop/" + param + ".xml");
 	};
 
+	factory.getMmelements = function() {
+		return $http.get("generated/allMMElements.xml");
+	};
+
 	return factory;
 } ]);
 
@@ -32,6 +36,27 @@ app.controller('outcropSample', function($location, $scope, dataSource) {
 		for (var item in json) {
 		    $( "#pageTitle" ).text( json[ item ][ 'sampleID' ] );
 		}
+	});
+
+	// refactor this search later
+	function getOutcropMMElements(json) {
+		for (var item in json) {
+			var e = json[item];
+			for (var i in e) {
+				var q = e[i]
+				for (var n in q) {
+					if (param == q[n]['sampleID']){
+						return q[n];
+					}
+				}
+			} 
+		}
+	}
+
+	dataSource.getMmelements().success(function(data) {
+		var x2js = new X2JS();
+		var json = x2js.xml_str2json(data);
+		$scope.mmElements = getOutcropMMElements(json);
 	});
 
 	// Hack to make blueimp image gallery work properly with base 64 images
