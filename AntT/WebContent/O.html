@@ -239,7 +239,7 @@
 				</div>
 			</div>
 			<hr>
-			<div class="row" ng-hide="mmElements.elementData.entry == null">
+			<div class="row" ng-hide="mmElements.elementData == null">
 				<div class="col-md-12 table-responsive">
 					<table class="table table-hover table-condensed">
 						<thead>
@@ -252,12 +252,12 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr ng-repeat="e in mmElements.elementData.entry">
-								<td>{{e.value.element}}</td>
-								<td>{{e.value.value}}</td>
-								<td>{{e.value.std}}</td>
-								<td>{{e.value.unit}}</td>
-								<td>{{e.value.me}}</td>
+							<tr ng-repeat="e in mmElements.elementData">
+								<td>{{e.element}}</td>
+								<td>{{e.value}}</td>
+								<td>{{e.std}}</td>
+								<td>{{e.unit}}</td>
+								<td>{{e.me}}</td>
 							</tr>
 						</tbody>
 					</table>
@@ -359,6 +359,8 @@
 	<script src="./lib/angular.min.js"></script>
 
 	<script src="./lib/xml2json.js"></script>
+
+	<script src="./js/antt.js"></script>
 
 	<script src="./js/outcropSamples.module.js"></script>
 

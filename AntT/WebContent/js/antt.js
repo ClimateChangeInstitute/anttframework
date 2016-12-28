@@ -210,6 +210,22 @@
 	scope.statistics.R = R;
 	
 	/**
+	 * @param xml
+	 *            Either an XML object or a string representation (Not null)
+	 * @returns {MMElement[]} The mm elements or an empty list
+	 */
+	var xmlToMMElements = function(xml) {
+		var x2js = new X2JS();
+		var json = (typeof xml) === 'string' ? x2js.xml_str2json(xml) : x2js.xml2json(xml);
+		var mmelements = [];
+		$(json.mmelements.mmelement).each(function(i, e) {
+			mmelements.push(new MMElement(e));
+		});
+		return mmelements;
+	};
+	scope.xmlToMMElements = xmlToMMElements;
+	
+	/**
 	 * @param callback
 	 *            {function} Called after the AJAX get request completes
 	 * @returns {undefined}
@@ -220,16 +236,8 @@
 			url : fileURL,
 			dataType : "xml",
 			success : function(xml) {
-
-				var x2js = new X2JS();
-				var json = x2js.xml2json(xml);
-				var mmelements = [];
-				$(json.mmelements.mmelement).each(function(i, e) {
-					mmelements.push(new MMElement(e));
-				});
-
 				if (callback)
-					callback(mmelements);
+					callback(xmlToMMElements(xml));
 			}
 		});
 	};
