@@ -4,7 +4,7 @@
 package org.tephrochronology.model;
 
 import java.time.LocalDate;
-import java.util.Map;
+import java.util.List;
 
 /**
  * Used for shallow {@link MMElement} query results.
@@ -42,7 +42,7 @@ public class MMElementInfo {
 
 	private Float loi;
 
-	private Map<Element, MMElementData> elementData;
+	private List<MMElementData> elementData;
 
 	public MMElementInfo() {
 	}
@@ -52,7 +52,7 @@ public class MMElementInfo {
 			String measuredBy, int numberOfMeasurements, float originalTotal,
 			float calculatedTotal, String instrumentSettings, Float h2o_plus,
 			Float h2o_minus, Float loi,
-			Map<Element, MMElementData> elementData) {
+			List<MMElementData> elementData) {
 		super();
 		this.longsampleID = longsampleID;
 		this.sampleID = sampleID;
@@ -193,11 +193,11 @@ public class MMElementInfo {
 		this.loi = loi;
 	}
 
-	public Map<Element, MMElementData> getElementData() {
+	public List<MMElementData> getElementData() {
 		return elementData;
 	}
 
-	public void setElementData(Map<Element, MMElementData> elementData) {
+	public void setElementData(List<MMElementData> elementData) {
 		this.elementData = elementData;
 	}
 

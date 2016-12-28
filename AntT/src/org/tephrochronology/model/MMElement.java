@@ -4,15 +4,13 @@
 package org.tephrochronology.model;
 
 import java.time.LocalDate;
-import java.util.Map;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.MapKeyColumn;
-import javax.persistence.MapKeyJoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -70,9 +68,7 @@ public class MMElement {
 	private Float loi;
 
 	@OneToMany(mappedBy = "mmElement", cascade = { CascadeType.PERSIST })
-	@MapKeyColumn(name = "element")
-	@MapKeyJoinColumn(name = "element", referencedColumnName = "element_name", insertable = false, updatable = false)
-	private Map<Element, MMElementData> elementData;
+	private List<MMElementData> elementData;
 
 	/**
 	 * @param longsampleID
@@ -96,7 +92,7 @@ public class MMElement {
 			LocalDate dateMeasured, String measuredBy, int numberOfMeasurements,
 			float originalTotal, float calculatedTotal,
 			String instrumentSettings, Float h2o_plus, Float h2o_minus,
-			Float loi, Map<Element, MMElementData> elementData) {
+			Float loi, List<MMElementData> elementData) {
 		super();
 		this.longsampleID = longsampleID;
 		this.sample = sample;
@@ -230,11 +226,11 @@ public class MMElement {
 		this.loi = loi;
 	}
 
-	public Map<Element, MMElementData> getElementData() {
+	public List<MMElementData> getElementData() {
 		return elementData;
 	}
 
-	public void setElementData(Map<Element, MMElementData> elementData) {
+	public void setElementData(List<MMElementData> elementData) {
 		this.elementData = elementData;
 	}
 

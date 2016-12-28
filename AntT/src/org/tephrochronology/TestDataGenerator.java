@@ -17,9 +17,7 @@ import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.imageio.ImageIO;
 import javax.persistence.EntityManager;
@@ -161,7 +159,7 @@ public class TestDataGenerator {
 		mmElements = new ArrayList<>();
 
 		range(0, n).forEach(i -> {
-			Map<Element, MMElementData> data = new HashMap<>();
+			List<MMElementData> data = new ArrayList<>();
 			MMElement el = new MMElement(MMElement.class.getSimpleName() + i,
 					outcropSamples.get(i % outcropSamples.size()),
 					"Comment " + i, methodTypes.get(i % methodTypes.size()),
@@ -170,8 +168,8 @@ public class TestDataGenerator {
 					1f, data);
 			range(0, i % elements.size()).forEach(j -> {
 				Element elem = elements.get(j % elements.size());
-				data.put(elem, new MMElementData(el, elem, j * 10f, j * 2f,
-						j * 1f, "ppb"));
+				data.add(new MMElementData(el, elem, j * 10f, j * 2f, j * 1f,
+						"ppb"));
 			});
 
 			mmElements.add(el);
@@ -361,14 +359,15 @@ public class TestDataGenerator {
 		int n = 1000;
 		images = new ArrayList<>();
 
-		System.out.print("Generating image data (This may take a moment, or maybe an hour).");
+		System.out.print(
+				"Generating image data (This may take a moment, or maybe an hour).");
 		range(0, n).forEach(i -> {
 			System.out.print(".");
-			
+
 			// Image dimensions
 			int w = 1920;
 			int h = 1080;
-			
+
 			BufferedImage bi = createImage(i, w, h);
 
 			BufferedImage thumbImage = scaleAndCrop(bi, 75);

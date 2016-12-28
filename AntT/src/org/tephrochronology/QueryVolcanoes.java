@@ -6,9 +6,8 @@ package org.tephrochronology;
 import static org.tephrochronology.DBProperties.setupProperties;
 
 import java.time.LocalDate;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -76,7 +75,7 @@ public class QueryVolcanoes {
 		osQ.getResultList().stream()
 				.forEach(e -> System.out.println(e.getSampleID()));
 
-//		createMMElement(em, osQ);
+		// createMMElement(em, osQ);
 
 		//@formatter:off
 		TypedQuery<MMElement> mmeQ = em.createQuery(
@@ -88,7 +87,7 @@ public class QueryVolcanoes {
 		List<MMElement> mmeList = mmeQ.getResultList();
 
 		for (MMElement m : mmeList) {
-			m.getElementData().values().stream()
+			m.getElementData().stream()
 					.forEach(e -> System.out.println(e.getValue()));
 		}
 
@@ -102,7 +101,7 @@ public class QueryVolcanoes {
 
 	static void createMMElement(EntityManager em,
 			TypedQuery<OutcropSample> osQ) {
-		Map<Element, MMElementData> data = new HashMap<>();
+		List<MMElementData> data = new ArrayList<>();
 		MMElement el = new MMElement(MMElement.class.getSimpleName() + "0",
 				osQ.getSingleResult(), "Comment", new MethodType("MethodType0"),
 				new Instrument(Instrument.class.getSimpleName() + "0", "", "",
@@ -110,12 +109,12 @@ public class QueryVolcanoes {
 				LocalDate.now(), "Mark", 5, 3f, 2f, "instrument settings", 1f,
 				-2f, 1f, data);
 		Element elem = new Element("sio2");
-		data.put(elem, new MMElementData(el, elem, 10f, 2f, 1f, "ppb"));
+		data.add(new MMElementData(el, elem, 10f, 2f, 1f, "ppb"));
 		elem = new Element("tio2");
-		data.put(elem, new MMElementData(el, elem, 20f, 4f, 2f, "ppb"));
+		data.add(new MMElementData(el, elem, 20f, 4f, 2f, "ppb"));
 		elem = new Element("so2");
-		data.put(elem, new MMElementData(el, elem, 30f, 8f, 3f, "ppb"));
-		
+		data.add(new MMElementData(el, elem, 30f, 8f, 3f, "ppb"));
+
 		em.persist(el);
 	}
 
