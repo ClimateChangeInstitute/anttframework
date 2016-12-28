@@ -32,6 +32,10 @@ public class MMElementData {
 	@JoinColumn(name = "element")
 	protected Element element;
 
+	@Id
+	@JoinColumn(name = "unit")
+	protected Unit unit;
+	
 	@Column(name = "val", nullable = false)
 	protected Float value;
 
@@ -41,9 +45,6 @@ public class MMElementData {
 	@Column(name = "me", nullable = false)
 	protected Float me;
 
-	@Column(name = "unit", nullable = false)
-	protected String unit;
-
 	/**
 	 * @param value
 	 * @param std
@@ -51,7 +52,7 @@ public class MMElementData {
 	 * @param unit
 	 */
 	public MMElementData(MMElement mmElement, Element element, Float value,
-			Float std, Float me, String unit) {
+			Float std, Float me, Unit unit) {
 		super();
 		this.mmElement = mmElement;
 		this.element = element;
@@ -104,11 +105,11 @@ public class MMElementData {
 		this.me = me;
 	}
 
-	public String getUnit() {
+	public Unit getUnit() {
 		return unit;
 	}
 
-	public void setUnit(String unit) {
+	public void setUnit(Unit unit) {
 		this.unit = unit;
 	}
 

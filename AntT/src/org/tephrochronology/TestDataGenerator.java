@@ -41,6 +41,7 @@ import org.tephrochronology.model.OutcropSample;
 import org.tephrochronology.model.Ref;
 import org.tephrochronology.model.Site;
 import org.tephrochronology.model.SiteType;
+import org.tephrochronology.model.Unit;
 import org.tephrochronology.model.Volcano;
 
 /**
@@ -169,9 +170,19 @@ public class TestDataGenerator {
 			range(0, i % elements.size()).forEach(j -> {
 				Element elem = elements.get(j % elements.size());
 				data.add(new MMElementData(el, elem, j * 10f, j * 2f, j * 1f,
-						"ppb"));
+						new Unit("ppb")));
 			});
 
+			double sum = data.stream().mapToDouble(MMElementData::getValue)
+					.sum();
+			List<MMElementData> percents = new ArrayList<>();
+			data.stream()
+					.forEach(e -> percents.add(new MMElementData(el,
+							e.getElement(), (float) (100 * e.getValue() / sum),
+							e.getStd(), e.getMe(), new Unit("%"))));
+
+			data.addAll(percents);
+			
 			mmElements.add(el);
 			em.persist(el);
 		});

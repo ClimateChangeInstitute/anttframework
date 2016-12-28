@@ -19,11 +19,14 @@ public class MMElementDataID implements Serializable {
 	protected String mmElement;
 
 	protected String element;
+	
+	protected String unit;
 
-	public MMElementDataID(String mmElement, String element) {
+	public MMElementDataID(String mmElement, String element, String unit) {
 		super();
 		this.mmElement = mmElement;
 		this.element = element;
+		this.unit = unit;
 	}
 
 	MMElementDataID() {
@@ -45,13 +48,21 @@ public class MMElementDataID implements Serializable {
 		this.element = element;
 	}
 	
+	public String getUnit() {
+		return unit;
+	}
+
+	public void setUnit(String unit) {
+		this.unit = unit;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof MMElementDataID) {
 			MMElementDataID other = (MMElementDataID) obj;
 			return mmElement != null && element != null
 					&& mmElement.equals(other.mmElement)
-					&& element.equals(other.element);
+					&& element.equals(other.element) && unit.equals(other.unit);
 		} else
 			return false;
 	}
