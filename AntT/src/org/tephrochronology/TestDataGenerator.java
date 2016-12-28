@@ -143,7 +143,7 @@ public class TestDataGenerator {
 
 			System.out.println("Done generating test data.");
 
-		} catch (ReflectiveOperationException e) {
+		} catch (ReflectiveOperationException | IOException e) {
 			e.printStackTrace();
 		} finally {
 			em.close();
@@ -354,14 +354,15 @@ public class TestDataGenerator {
 		}
 	}
 
-	private void generateImageData(EntityManager em) {
+	private void generateImageData(EntityManager em) throws IOException {
 
-		int n = 1000;
+		int n = 500;
 		images = new ArrayList<>();
 
 		System.out.print(
 				"Generating image data (This may take a moment, or maybe an hour).");
-		range(0, n).forEach(i -> {
+
+		for (int i = 0; i < n; i++) {
 			System.out.print(".");
 
 			// Image dimensions
@@ -380,14 +381,15 @@ public class TestDataGenerator {
 					out.toByteArray(), thumbOut.toByteArray(), null);
 			images.add(img);
 			em.persist(img);
-		});
+		}
 		System.out.println();
 
 	}
 
 	private static BufferedImage createImage(int i, int w, int h) {
 
-		BufferedImage bi = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+		BufferedImage bi = new BufferedImage(w, h,
+				BufferedImage.TYPE_3BYTE_BGR);
 		Graphics2D g = (Graphics2D) bi.getGraphics();
 		g.setColor(getColor(i));
 		g.fillRect(0, 0, w, h);
@@ -399,7 +401,7 @@ public class TestDataGenerator {
 		int x = (w - metrics.stringWidth("image " + 5)) / 2;
 		int y = ((h - metrics.getHeight()) / 2) + metrics.getAscent();
 
-		g.drawString("image " + 5, x, y);
+		g.drawString("image " + i, x, y);
 
 		return bi;
 	}
@@ -407,16 +409,13 @@ public class TestDataGenerator {
 	/**
 	 * @param bi
 	 * @return
+	 * @throws IOException
 	 */
-	private static ByteArrayOutputStream asOutputStream(BufferedImage bi) {
+	private static ByteArrayOutputStream asOutputStream(BufferedImage bi)
+			throws IOException {
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		try {
-			ImageIO.write(bi, "png", out);
-			out.flush();
-		} catch (IOException e) {
-			e.printStackTrace();
-			System.err.println("Couldn't create image.");
-		}
+		ImageIO.write(bi, "jpg", out);
+		out.flush();
 		return out;
 	}
 
