@@ -10,8 +10,8 @@
 
 	function createMMED(i) {
 
-		var entry = []; 
-			
+		var entry = [];
+
 		var cur = {
 			element : 'ca',
 			me : '' + i,
@@ -20,8 +20,11 @@
 			value : '' + i * 10
 		};
 
-		entry.push({'key': cur.element, 'value': cur});
-		
+		entry.push({
+			'key' : cur.element,
+			'value' : cur
+		});
+
 		cur = {
 			element : 'k',
 			me : '' + i,
@@ -30,14 +33,18 @@
 			value : '' + i * 10
 		};
 
-		entry.push( {'key': cur.element, 'value': cur});
-	
+		entry.push({
+			'key' : cur.element,
+			'value' : cur
+		});
+
 		var result = {};
-		
+
 		result.entry = entry;
-		
+
 		return result;
-	};
+	}
+	;
 
 	function createMMElementData() {
 
@@ -88,20 +95,18 @@
 
 	});
 
-	QUnit.test("Test filterMMElements(string[], MMElement[])",
-			function(assert) {
+	QUnit.test("Test filterMMElements(string[], MMElement[])", function(assert) {
 
-				var result = antt.filterMMElements([ 'not in' ], mmelements);
+		var result = antt.filterMMElements([ 'not in' ], mmelements);
 
-				assert.ok(result !== null, "result !== null, empty result");
+		assert.ok(result !== null, "result !== null, empty result");
 
-				assert.ok(result.length === 0, "result.length === 0, empty result");
+		assert.ok(result.length === 0, "result.length === 0, empty result");
 
-				
-				result = antt.filterMMElements([ 'ca' ], mmelements);
+		result = antt.filterMMElements([ 'ca' ], mmelements);
 
-				assert.ok(result !== null, "result !== null");
+		assert.ok(result !== null, "result !== null");
 
-			});
+	});
 
 })();

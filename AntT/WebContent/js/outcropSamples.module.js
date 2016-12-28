@@ -1,10 +1,10 @@
 var app = angular.module('exampleApp', []);
 
 app.config(function($locationProvider) {
-  $locationProvider.html5Mode({
-	enabled: true,
-	requireBase: false
-  });
+	$locationProvider.html5Mode({
+		enabled : true,
+		requireBase : false
+	});
 });
 
 app.factory('dataSource', [ '$http', function($http) {
@@ -33,14 +33,16 @@ app.controller('outcropSample', function($location, $scope, dataSource) {
 		$scope.dataSet = json;
 
 		// set page title
-		for (var item in json) {
-		    $( "#pageTitle" ).text( json[ item ][ 'sampleID' ] );
+		for ( var item in json) {
+			$("#pageTitle").text(json[item]['sampleID']);
 		}
 	});
 
 	/**
-	 * @param mmelements {MMElement[]} List of MMElements (Not null)
-	 * @param id {string} The id to match (Not null)
+	 * @param mmelements
+	 *            {MMElement[]} List of MMElements (Not null)
+	 * @param id
+	 *            {string} The id to match (Not null)
 	 * @returns An element with matching sampleID to the given id or null
 	 */
 	function getOutcropMMElements(mmelements, id) {
@@ -59,16 +61,17 @@ app.controller('outcropSample', function($location, $scope, dataSource) {
 	});
 
 	// Hack to make blueimp image gallery work properly with base 64 images
-	$scope.handleClick = function (event) {
-		  event.preventDefault();
-		  event = event || window.event;
-		    var target = event.target || event.srcElement,
-		        link = target.src ? target.parentNode : target,
-		        options = {index: link, event: event},
-		        links = $('#links>a');
-		    links.each(function(i, e){
-		    	$(e).attr('href', $(e).attr('href').replace('unsafe:', ''));
-		    });
-		    blueimp.Gallery(links, options);
-		};
+	$scope.handleClick = function(event) {
+		event.preventDefault();
+		event = event || window.event;
+		var target = event.target || event.srcElement, link = target.src ? target.parentNode
+				: target, options = {
+			index : link,
+			event : event
+		}, links = $('#links>a');
+		links.each(function(i, e) {
+			$(e).attr('href', $(e).attr('href').replace('unsafe:', ''));
+		});
+		blueimp.Gallery(links, options);
+	};
 });
