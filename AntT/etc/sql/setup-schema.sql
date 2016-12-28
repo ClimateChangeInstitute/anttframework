@@ -226,16 +226,20 @@ CREATE TABLE mm_elements(
 CREATE TABLE elements(
 	element_name TEXT PRIMARY KEY
 );
-	
+
+CREATE TABLE units(
+	unit TEXT PRIMARY KEY
+);
+
 -- Major/Minor Elements Data
 CREATE TABLE mm_elements_data(
 	longsample_id TEXT REFERENCES mm_elements(longsample_id) NOT NULL,
 	element TEXT REFERENCES elements(element_name) NOT NULL,
+	unit TEXT REFERENCES units(unit) NOT NULL,
 	val REAL NOT NULL,
 	std REAL NOT NULL,
 	me REAL NOT NULL,
-	unit TEXT NOT NULL,
-	PRIMARY KEY(longsample_id, element));
+	PRIMARY KEY(longsample_id, element, unit));
 
 	
 ------------------------------------------------------------------------------
@@ -310,6 +314,7 @@ GRANT ALL PRIVILEGES ON method_types TO :ADMIN;
 
 GRANT ALL PRIVILEGES ON mm_elements TO :ADMIN;
 GRANT ALL PRIVILEGES ON elements TO :ADMIN;
+GRANT ALL PRIVILEGES ON units TO :ADMIN;
 GRANT ALL PRIVILEGES ON mm_elements_data TO :ADMIN;
 ------------------------------------------------------------------------------
 ------------------------------------------------------------------------------

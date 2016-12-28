@@ -2175,4 +2175,13 @@ INSERT INTO elements (element_name) VALUES ('cl');
 INSERT INTO elements (element_name) VALUES ('co2');
 
 
+--
+-- Data for units
+--
+
+INSERT INTO units (unit) VALUES ('%');
+INSERT INTO units (unit) VALUES ('ppb');
+INSERT INTO units (unit) VALUES ('ppm');
+
+
 COMMIT;
