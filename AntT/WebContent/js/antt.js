@@ -251,17 +251,24 @@
 	 *            {string[]}
 	 * @param mmelements
 	 *            {MMElement[]}
+	 * @param unit
+	 *            {string} matching elements must also be the same unit
 	 * @returns {MMElement[]} MMElements that contain every key in the given
 	 *          array or an empty array
 	 */
-	var filterMMElements = function(keys, mmelements) {
+	var filterMMElements = function(keys, mmelements, unit) {
 		var result = [];
 
 		$(mmelements).each(function(i, e) {
-			var eKeys = Object.keys(e.elementData);
-
-			for (var j = 0; j < keys.length; j++) {
-				if ($.inArray(keys[j], eKeys) < 0)
+			for (var i = 0; i < keys.length; i++) {
+				var found = false;
+				for (var j = 0; j < e.elementData.length; j++) {
+					if (keys[i] === e.elementData[j].element) {
+						found = true;
+						break;
+					}
+				}
+				if (!found) // No match! Don't add to the results
 					return;
 			}
 			result.push(e);
@@ -270,5 +277,28 @@
 		return result;
 	};
 	scope.filterMMElements = filterMMElements;
+	
+	var searchButtonClicked = function(event) {
+		
+		var elements = [];
+		var values = {};
+		$("input[id^='element-'").each(function(i,e){
+			var $e = $(e);
+			var v = $e.val();
+			if (v !== '') {
+				var n = $e.attr('id').split('-')[1];
+				elements.push(n);
+				values[n] = v;
+			}
+		})
+		
+		
+		loadMMElements('generated/allMMElements.xml', function(allMMElements){
+			var filtered = filterMMElements(elements, allMMElements, '%');
+			console.log(filtered);	
+		});
+		
+	};
+	scope.searchButtonClicked = searchButtonClicked;
 
 })(window.antt = window.antt || {});

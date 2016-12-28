@@ -174,7 +174,7 @@
 								<label class="col-xs-2 col-form-label" for="">SIO<sub>2</sub>:
 								</label>
 								<div class="input-group col-xs-9">
-									<input type="text" class="form-control" id="">
+									<input type="text" class="form-control" id="element-sio2">
 									<div class="input-group-addon">%</div>
 								</div>
 							</div>
@@ -182,7 +182,7 @@
 								<label class="col-xs-2 col-form-label" for="">TiO<sub>2</sub>:
 								</label>
 								<div class="input-group col-xs-9">
-									<input type="text" class="form-control" id="">
+									<input type="text" class="form-control" id="element-tio2">
 									<div class="input-group-addon">%</div>
 								</div>
 							</div>
@@ -190,35 +190,35 @@
 								<label class="col-xs-2 col-form-label" for="">Al<sub>2</sub>O<sub>3</sub>:
 								</label>
 								<div class="input-group col-xs-9">
-									<input type="text" class="form-control" id="">
+									<input type="text" class="form-control" id="element-al2o3">
 									<div class="input-group-addon">%</div>
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-xs-2 col-form-label" for="">FeO:</label>
 								<div class="input-group col-xs-9">
-									<input type="text" class="form-control" id="">
+									<input type="text" class="form-control" id="element-feo">
 									<div class="input-group-addon">%</div>
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-xs-2 col-form-label" for="">MnO:</label>
 								<div class="input-group col-xs-9">
-									<input type="text" class="form-control" id="">
+									<input type="text" class="form-control" id="element-mro">
 									<div class="input-group-addon">%</div>
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-xs-2 col-form-label" for="">MgO:</label>
 								<div class="input-group col-xs-9">
-									<input type="text" class="form-control" id="">
+									<input type="text" class="form-control" id="element-mgo">
 									<div class="input-group-addon">%</div>
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-xs-2 col-form-label" for="">CaO:</label>
 								<div class="input-group col-xs-9">
-									<input type="text" class="form-control" id="">
+									<input type="text" class="form-control" id="element-cao">
 									<div class="input-group-addon">%</div>
 								</div>
 							</div>
@@ -226,7 +226,7 @@
 								<label class="col-xs-2 col-form-label" for="">Na<sub>2</sub>O:
 								</label>
 								<div class="input-group col-xs-9">
-									<input type="text" class="form-control" id="">
+									<input type="text" class="form-control" id="element-na2o">
 									<div class="input-group-addon">%</div>
 								</div>
 							</div>
@@ -234,7 +234,7 @@
 								<label class="col-xs-2 col-form-label" for="">K<sub>2</sub>O:
 								</label>
 								<div class="input-group col-xs-9">
-									<input type="text" class="form-control" id="">
+									<input type="text" class="form-control" id="element-k2o">
 									<div class="input-group-addon">%</div>
 								</div>
 							</div>
@@ -242,16 +242,17 @@
 								<label class="col-xs-2 col-form-label" for="">P<sub>2</sub>O<sub>5</sub>:
 								</label>
 								<div class="input-group col-xs-9">
-									<input type="text" class="form-control" id="">
+									<input type="text" class="form-control" id="element-p2o5">
 									<div class="input-group-addon">%</div>
 								</div>
 							</div>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-primary pull-left"
-								data-dismiss="modal">Search</button>
 							<button type="button" class="btn btn-default"
 								data-dismiss="modal">Close</button>
+							<button id="search-confirm" type="button" class="btn btn-primary"
+								data-dismiss="modal">Search</button>
+							
 						</div>
 					</form>
 				</div>
@@ -282,6 +283,10 @@
 		window.jQuery
 				|| document
 						.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>');
+		
+		$(document).ready(function(){
+			$("#search-confirm").click(antt.searchButtonClicked);
+		});
 	</script>
 	<script src='./lib/lodash.js'></script>
 	<script src="index_files/bootstrap.js"></script>
