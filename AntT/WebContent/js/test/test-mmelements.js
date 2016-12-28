@@ -82,6 +82,7 @@
 		var done = assert.async();
 		antt.loadMMElements("../../generated/allMMElements.xml", function(mms) {
 			assert.ok(mms !== null, "result !== null");
+			assert.ok(mms[1].elementData[0].unit, "Element unit data exists.");
 			done();
 		});
 

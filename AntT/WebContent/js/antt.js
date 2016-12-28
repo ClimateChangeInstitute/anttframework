@@ -27,11 +27,11 @@
 		this.comments = e.comments;
 		var parts = e.dateMeasured.split('-');
 		this.dateMeasured = new Date(parts[0], parts[1], parts[2]);
-		this.elementData = {};
+		this.elementData = [];
 		var that = this;
 		if (e.elementData) {
-			$(e.elementData.entry).each(function(i, e) {
-				that.elementData[e.key] = new MMElementData(e.value);
+			$(e.elementData).each(function(i, e) {
+				that.elementData.push(new MMElementData(e));
 			});
 		}
 		this.h2o_minus = parseFloat(e.h2o_minus);
