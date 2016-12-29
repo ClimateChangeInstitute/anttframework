@@ -89,7 +89,7 @@ public class DBExporter {
 		this.props = props;
 	}
 
-	public void dumpDB(String dbName, File dir)
+	public void dumpDB(String dbName, File dataDir)
 			throws ClassNotFoundException, SQLException, IOException {
 
 		// Class.forName("org.postgresql.Driver");
@@ -99,29 +99,60 @@ public class DBExporter {
 		// "jdbc:postgresql://localhost:5432/" + dbName,
 		// props.get(JDBC_USER), props.get(JDBC_PASSWORD));
 
-		copyTableToFile(dbName, dir, "countries");
-		copyTableToFile(dbName, dir, "subregions");
-		copyTableToFile(dbName, dir, "regions");
-		copyTableToFile(dbName, dir, "volcano_types");
-		copyTableToFile(dbName, dir, "rock_types");
-		copyTableToFile(dbName, dir, "tectonic_settings");
+		copyTableToFile(dbName, dataDir, "countries");
+		copyTableToFile(dbName, dataDir, "subregions");
+		copyTableToFile(dbName, dataDir, "regions");
+		copyTableToFile(dbName, dataDir, "volcano_types");
+		copyTableToFile(dbName, dataDir, "rock_types");
+		copyTableToFile(dbName, dataDir, "tectonic_settings");
 
-		copyTableToFile(dbName, dir, "volcanoes");
+		copyTableToFile(dbName, dataDir, "volcanoes");
 
-		copyTableToFile(dbName, dir, "site_types");
-		copyTableToFile(dbName, dir, "sites");
-		copyTableToFile(dbName, dir, "instruments");
+		copyTableToFile(dbName, dataDir, "site_types");
+		copyTableToFile(dbName, dataDir, "sites");
+		copyTableToFile(dbName, dataDir, "instruments");
 
-		copyTableToFile(dbName, dir, "refs");
+		copyTableToFile(dbName, dataDir, "refs");
 
-		copyTableToFile(dbName, dir, "samples_refs");
+		copyTableToFile(dbName, dataDir, "samples_refs");
 
-		copyTableToFile(dbName, dir, "grain_sizes");
-		copyTableToFile(dbName, dir, "grain_sizes_refs");
+		copyTableToFile(dbName, dataDir, "grain_sizes");
+		copyTableToFile(dbName, dataDir, "grain_sizes_refs");
 
-		// TODO write out images to jpg files
-		// copyTableToFile(dbName, dir, "images");
+		copyTableToFile(dbName, dataDir, "images", "image_id", "comments");
 
+		writeImages(dbName, dataDir);
+
+		copyTableToFile(dbName, dataDir, "samples_images");
+
+		// TODO combine samples data for each type no need to write samples
+		// table
+		copyTableToFile(dbName, dataDir, "samples");
+
+		copyTableToFile(dbName, dataDir, "icecore_samples");
+		copyTableToFile(dbName, dataDir, "bia_samples");
+
+		copyTableToFile(dbName, dataDir, "core_types");
+
+		copyTableToFile(dbName, dataDir, "lake_samples");
+		copyTableToFile(dbName, dataDir, "marine_samples");
+		copyTableToFile(dbName, dataDir, "outcrop_samples");
+
+		copyTableToFile(dbName, dataDir, "method_types");
+
+		copyTableToFile(dbName, dataDir, "mm_elements");
+		copyTableToFile(dbName, dataDir, "elements");
+		copyTableToFile(dbName, dataDir, "units");
+		copyTableToFile(dbName, dataDir, "mm_elements_data");
+
+	}
+
+	/**
+	 * @param dbName
+	 * @param dir
+	 * @throws IOException
+	 */
+	private void writeImages(String dbName, File dir) throws IOException {
 		File imageDir = new File(dir, "images");
 		if (!imageDir.exists())
 			imageDir.mkdir();
@@ -133,39 +164,20 @@ public class DBExporter {
 		TypedQuery<Image> images = em.createQuery("SELECT i FROM Image i",
 				Image.class);
 
+		System.out.print("Writing image files");
+		
 		for (Image i : images.getResultList()) {
 			try (FileOutputStream io = new FileOutputStream(
 					new File(imageDir, i.getImageID()))) {
 				io.write(i.getBytes());
 				io.flush();
-			} catch (Exception e) {
+			} catch (IOException e) {
 				e.printStackTrace();
 				throw e;
 			}
+			System.out.print(".");
 		}
-
-		copyTableToFile(dbName, dir, "samples_images");
-
-		// TODO combine samples data for each type no need to write samples
-		// table
-		copyTableToFile(dbName, dir, "samples");
-
-		copyTableToFile(dbName, dir, "icecore_samples");
-		copyTableToFile(dbName, dir, "bia_samples");
-
-		copyTableToFile(dbName, dir, "core_types");
-
-		copyTableToFile(dbName, dir, "lake_samples");
-		copyTableToFile(dbName, dir, "marine_samples");
-		copyTableToFile(dbName, dir, "outcrop_samples");
-
-		copyTableToFile(dbName, dir, "method_types");
-
-		copyTableToFile(dbName, dir, "mm_elements");
-		copyTableToFile(dbName, dir, "elements");
-		copyTableToFile(dbName, dir, "units");
-		copyTableToFile(dbName, dir, "mm_elements_data");
-
+		System.out.println();
 	}
 
 	/**
@@ -175,16 +187,21 @@ public class DBExporter {
 	 * @param fileName
 	 * @throws IOException
 	 */
-	private void copyTableToFile(String dbName, File dir, String tableName)
-			throws IOException {
+	private void copyTableToFile(String dbName, File dir, String tableName,
+			String... columns) throws IOException {
 
 		String fileName = String.format("%s.csv", tableName);
 		String user = props.get(JDBC_USER);
 		String pass = props.get(JDBC_PASSWORD);
 
+		String specifiedColumns = "";
+		if (columns != null && columns.length > 0) {
+			specifiedColumns = String.format("(%s)", String.join(",", columns));
+		}
+
 		String pgCommand = String.format(
-				"\\copy %s TO '%s/%s' DELIMITER ',' CSV HEADER", tableName,
-				dir.getAbsolutePath(), fileName);
+				"\\copy %s %s TO '%s/%s' DELIMITER ',' CSV HEADER", tableName,
+				specifiedColumns, dir.getAbsolutePath(), fileName);
 
 		String bashCommand = String.format(
 				"PGPASSWORD=%s psql -d %s -h localhost -U %s -c \"%s\"", pass,
