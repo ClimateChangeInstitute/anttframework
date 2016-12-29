@@ -17,7 +17,7 @@ import javax.persistence.Table;
 import org.eclipse.persistence.oxm.annotations.XmlInverseReference;
 
 /**
- * TODO This class will need additional properties to match the database.
+ * Represents tephrochronology references.
  * 
  * @author Mark Royer
  *
