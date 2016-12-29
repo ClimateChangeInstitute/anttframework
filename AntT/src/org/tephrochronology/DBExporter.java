@@ -16,6 +16,7 @@ import java.io.InputStreamReader;
 import java.sql.SQLException;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 import javax.imageio.ImageIO;
 import javax.persistence.EntityManager;
@@ -99,52 +100,55 @@ public class DBExporter {
 		// "jdbc:postgresql://localhost:5432/" + dbName,
 		// props.get(JDBC_USER), props.get(JDBC_PASSWORD));
 
-		copyTableToFile(dbName, dataDir, "countries");
-		copyTableToFile(dbName, dataDir, "subregions");
-		copyTableToFile(dbName, dataDir, "regions");
-		copyTableToFile(dbName, dataDir, "volcano_types");
-		copyTableToFile(dbName, dataDir, "rock_types");
-		copyTableToFile(dbName, dataDir, "tectonic_settings");
+		copyTableToFile(dbName, "countries", dataDir);
+		copyTableToFile(dbName, "subregions", dataDir);
+		copyTableToFile(dbName, "regions", dataDir);
+		copyTableToFile(dbName, "volcano_types", dataDir);
+		copyTableToFile(dbName, "rock_types", dataDir);
+		copyTableToFile(dbName, "tectonic_settings", dataDir);
 
-		copyTableToFile(dbName, dataDir, "volcanoes");
+		copyTableToFile(dbName, "volcanoes", dataDir);
 
-		copyTableToFile(dbName, dataDir, "site_types");
-		copyTableToFile(dbName, dataDir, "sites");
-		copyTableToFile(dbName, dataDir, "instruments");
+		copyTableToFile(dbName, "site_types", dataDir);
+		copyTableToFile(dbName, "sites", dataDir);
+		copyTableToFile(dbName, "instruments", dataDir);
 
-		copyTableToFile(dbName, dataDir, "refs");
+		copyTableToFile(dbName, "refs", dataDir);
 
-		copyTableToFile(dbName, dataDir, "samples_refs");
+		copyTableToFile(dbName, "samples_refs", dataDir);
 
-		copyTableToFile(dbName, dataDir, "grain_sizes");
-		copyTableToFile(dbName, dataDir, "grain_sizes_refs");
+		copyTableToFile(dbName, "grain_sizes", dataDir);
+		copyTableToFile(dbName, "grain_sizes_refs", dataDir);
 
-		copyTableToFile(dbName, dataDir, "images", "image_id", "comments");
+		copyTableToFile(dbName, "(SELECT image_id, comments FROM images)",
+				"images.csv", dataDir);
 
 		writeImages(dbName, dataDir);
 
-		copyTableToFile(dbName, dataDir, "samples_images");
+		copyTableToFile(dbName, "samples_images", dataDir);
 
 		// TODO combine samples data for each type no need to write samples
 		// table
-		copyTableToFile(dbName, dataDir, "samples");
+		copyTableToFile(dbName, "samples", dataDir);
 
-		copyTableToFile(dbName, dataDir, "icecore_samples");
-		copyTableToFile(dbName, dataDir, "bia_samples");
+		copyTableToFile(dbName, "icecore_samples", dataDir);
+		copyTableToFile(dbName, "bia_samples", dataDir);
 
-		copyTableToFile(dbName, dataDir, "core_types");
+		copyTableToFile(dbName, "core_types", dataDir);
 
-		copyTableToFile(dbName, dataDir, "lake_samples");
-		copyTableToFile(dbName, dataDir, "marine_samples");
-		copyTableToFile(dbName, dataDir, "outcrop_samples");
+		copyTableToFile(dbName, "lake_samples", dataDir);
+		copyTableToFile(dbName, "marine_samples", dataDir);
+		copyTableToFile(dbName, "outcrop_samples", dataDir);
 
-		copyTableToFile(dbName, dataDir, "method_types");
+		copyTableToFile(dbName, "method_types", dataDir);
 
-		copyTableToFile(dbName, dataDir, "mm_elements");
-		copyTableToFile(dbName, dataDir, "elements");
-		copyTableToFile(dbName, dataDir, "units");
-		copyTableToFile(dbName, dataDir, "mm_elements_data");
+		copyTableToFile(dbName, "mm_elements", dataDir);
+		copyTableToFile(dbName, "elements", dataDir);
+		copyTableToFile(dbName, "units", dataDir);
+		copyTableToFile(dbName, "mm_elements_data", dataDir);
 
+		System.out.printf("Dump completed.  Files are located at %s\n",
+				dataDir.getAbsolutePath());
 	}
 
 	/**
@@ -165,7 +169,7 @@ public class DBExporter {
 				Image.class);
 
 		System.out.print("Writing image files");
-		
+
 		for (Image i : images.getResultList()) {
 			try (FileOutputStream io = new FileOutputStream(
 					new File(imageDir, i.getImageID()))) {
@@ -181,27 +185,52 @@ public class DBExporter {
 	}
 
 	/**
+	 * Performs the same action as
+	 * {@link #copyTableToFile(String, String, String, File)} except uses the
+	 * given table name as the file name with .csv appended.
+	 * 
 	 * @param dbName
+	 * @param table
 	 * @param dir
-	 * @param tableName
-	 * @param fileName
 	 * @throws IOException
 	 */
-	private void copyTableToFile(String dbName, File dir, String tableName,
-			String... columns) throws IOException {
+	private void copyTableToFile(String dbName, String table, File dir)
+			throws IOException {
 
-		String fileName = String.format("%s.csv", tableName);
+		if (table.contains("("))
+			throw new IOException("Table name shouldn't contain parens.  "
+					+ "Use the method that specifies a file name instead.");
+
+		copyTableToFile(dbName, table, String.format("%s.csv", table), dir);
+	}
+
+	/**
+	 * @param dbName
+	 *            The name of the database (Not null)
+	 * @param query
+	 *            Typically just a table name, but can be a select query (Not
+	 *            null)
+	 * @param fileName
+	 *            The name of the file to save to (Not null)
+	 * @param dir
+	 *            The directory to write the file (Not null and must exist)
+	 * @throws IOException
+	 */
+	private void copyTableToFile(String dbName, String query, String fileName,
+			File dir) throws IOException {
+
 		String user = props.get(JDBC_USER);
 		String pass = props.get(JDBC_PASSWORD);
 
 		String specifiedColumns = "";
-		if (columns != null && columns.length > 0) {
-			specifiedColumns = String.format("(%s)", String.join(",", columns));
-		}
+		// if (columns != null && columns.length > 0) {
+		// specifiedColumns = String.format("(%s)", String.join(",", columns));
+		// }
 
 		String pgCommand = String.format(
-				"\\copy %s %s TO '%s/%s' DELIMITER ',' CSV HEADER", tableName,
-				specifiedColumns, dir.getAbsolutePath(), fileName);
+				"\\copy %s TO '%s/%s' DELIMITER ',' CSV HEADER", query,
+				// specifiedColumns,
+				dir.getAbsolutePath(), fileName);
 
 		String bashCommand = String.format(
 				"PGPASSWORD=%s psql -d %s -h localhost -U %s -c \"%s\"", pass,
@@ -220,5 +249,15 @@ public class DBExporter {
 			System.out.println(line);
 		}
 		input.close();
+
+		try {
+			p.waitFor(10, TimeUnit.SECONDS);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
+		if (p.exitValue() != 0) {
+			throw new IOException("Copy failed. See output for details.");
+		}
 	}
 }
