@@ -84,11 +84,14 @@ CREATE TABLE instruments(
 	comments TEXT);
 	
 -- Can't name the table references because it's a reserved word!
+-- TODO This table will likely need additional info columns
 CREATE TABLE refs(
-	doi TEXT PRIMARY KEY); -- TODO this table will need additional info columns 
+	doi TEXT PRIMARY KEY); 
 	
 -- Represents all samples
 -- sample_type must be I,B,L,M, or O
+-- Join this table with bia_samples, icecore_samples, lake_samples, 
+-- marine_samples, or outcrop_samples to get all sample information. 
 CREATE TABLE samples(
 	sample_id TEXT PRIMARY KEY,
 	long_name TEXT,
@@ -136,7 +139,7 @@ CREATE TABLE samples_images(
 -- Icecore samples
 CREATE TABLE icecore_samples(
 	sample_id TEXT PRIMARY KEY REFERENCES samples(sample_id),
-	volcano_number INTEGER REFERENCES volcanoes(volcano_number), -- Volcano not require
+	volcano_number INTEGER REFERENCES volcanoes(volcano_number), -- Volcano not required
 	drilled_by TEXT NOT NULL,
 	drilling_date DATE NOT NULL,
 	core_diameter REAL NOT NULL,
@@ -152,7 +155,7 @@ CREATE TABLE icecore_samples(
 -- Blue Ice Area samples
 CREATE TABLE bia_samples(
 	sample_id TEXT PRIMARY KEY REFERENCES samples(sample_id),
-	volcano_number INTEGER REFERENCES volcanoes(volcano_number), -- Volcano not require
+	volcano_number INTEGER REFERENCES volcanoes(volcano_number), -- Volcano not required
 	deep TEXT,
 	sample_description TEXT,
 	sample_media TEXT,
@@ -167,7 +170,7 @@ CREATE TABLE core_types(
 	
 CREATE TABLE lake_samples(
 	sample_id TEXT PRIMARY KEY REFERENCES samples(sample_id),
-	volcano_number INTEGER REFERENCES volcanoes(volcano_number), -- Volcano not require
+	volcano_number INTEGER REFERENCES volcanoes(volcano_number), -- Volcano not required
 	-- start inherited from aquatic samples
 	core_type TEXT REFERENCES core_types(core_type),
 	age TEXT,
@@ -183,7 +186,7 @@ CREATE TABLE lake_samples(
 -- Mostly the same (actually is for now!) as lake_samples
 CREATE TABLE marine_samples(
 	sample_id TEXT PRIMARY KEY REFERENCES samples(sample_id),
-	volcano_number INTEGER REFERENCES volcanoes(volcano_number), -- Volcano not require
+	volcano_number INTEGER REFERENCES volcanoes(volcano_number), -- Volcano not required
 	-- start inherited from aquatic samples
 	core_type TEXT REFERENCES core_types(core_type),
 	age TEXT,
