@@ -389,8 +389,9 @@ public class TestDataGenerator {
 
 			ByteArrayOutputStream thumbOut = asOutputStream(thumbImage);
 
-			Image img = new Image(0, "Test image comment " + i,
-					out.toByteArray(), thumbOut.toByteArray(), null);
+			Image img = new Image(String.format("image%d.jpg", i),
+					"Test image comment " + i, out.toByteArray(),
+					thumbOut.toByteArray(), null);
 			images.add(img);
 			em.persist(img);
 		}
