@@ -8,7 +8,6 @@ import static org.eclipse.persistence.config.PersistenceUnitProperties.JDBC_USER
 import static org.tephrochronology.DBProperties.setupProperties;
 
 import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -18,7 +17,6 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
-import javax.imageio.ImageIO;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -127,18 +125,50 @@ public class DBExporter {
 
 		copyTableToFile(dbName, "samples_images", dataDir);
 
-		// TODO combine samples data for each type no need to write samples
-		// table
-		copyTableToFile(dbName, "samples", dataDir);
+// @formatter:off
+		copyTableToFile(dbName, 
+  "(SELECT s.sample_id, long_name, sampled_by, collection_date, comments, site_id, iid,"
+	    + "drilled_by, drilling_date,core_diameter,max_core_depth,core_age,core_age_range,topdepth_m,bottomdepth_m,topyear_bp,bottomyear_bp "
+ + "FROM samples s, icecore_samples i "
+ + "WHERE s.sample_id = i.sample_id "
+ + "ORDER BY s.sample_id)",
+				"icecore_samples.csv", dataDir);
+				
+		copyTableToFile(dbName, 
+ "(SELECT s.sample_id, long_name, sampled_by, collection_date, comments, site_id, iid, "
+	   + "volcano_number, deep, sample_description,sample_media,unit_name,thickness_cm,trend "
++ "FROM samples s, bia_samples b "
++ "WHERE s.sample_id = b.sample_id "
++ "ORDER BY s.sample_id)",				
+				"bia_samples.csv", dataDir);
 
-		copyTableToFile(dbName, "icecore_samples", dataDir);
-		copyTableToFile(dbName, "bia_samples", dataDir);
+		copyTableToFile(dbName,
+  "(SELECT s.sample_id, long_name, sampled_by, collection_date, comments, site_id, iid,"
+	    + "volcano_number,core_type,age,core_length_m,sampling_date,depth_m,top_m,thickness_cm "
+ + "FROM samples s, lake_samples l "
+ + "WHERE s.sample_id = l.sample_id	"
+ + "ORDER BY s.sample_id)",
+				"lake_samples.csv", dataDir);
+		
+		copyTableToFile(dbName,
+ "(SELECT s.sample_id, long_name, sampled_by, collection_date, comments, site_id, iid,"
+      + " volcano_number,core_type,age,core_length_m,sampling_date,depth_m,top_m,thickness_cm "
++ "FROM samples s, marine_samples m "
++ "WHERE s.sample_id = m.sample_id "
++ "ORDER BY s.sample_id)",
+				"marine_samples.csv", dataDir);
+		
+		copyTableToFile(dbName,
+ "(SELECT s.sample_id, long_name, sampled_by, collection_date, comments, site_id, iid,"
+      + " volcano_number "
++ "FROM samples s, outcrop_samples o "
++ "WHERE s.sample_id = o.sample_id "
++ "ORDER BY s.sample_id)",				
+				"outcrop_samples.csv", dataDir);
+
+// @formatter:on
 
 		copyTableToFile(dbName, "core_types", dataDir);
-
-		copyTableToFile(dbName, "lake_samples", dataDir);
-		copyTableToFile(dbName, "marine_samples", dataDir);
-		copyTableToFile(dbName, "outcrop_samples", dataDir);
 
 		copyTableToFile(dbName, "method_types", dataDir);
 
@@ -222,14 +252,8 @@ public class DBExporter {
 		String user = props.get(JDBC_USER);
 		String pass = props.get(JDBC_PASSWORD);
 
-		String specifiedColumns = "";
-		// if (columns != null && columns.length > 0) {
-		// specifiedColumns = String.format("(%s)", String.join(",", columns));
-		// }
-
 		String pgCommand = String.format(
 				"\\copy %s TO '%s/%s' DELIMITER ',' CSV HEADER", query,
-				// specifiedColumns,
 				dir.getAbsolutePath(), fileName);
 
 		String bashCommand = String.format(
