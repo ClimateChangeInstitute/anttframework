@@ -71,7 +71,7 @@
 		</div>
 		<br> <br>
 
-		
+
 		<div ng-app="exampleApp" ng-cloak>
 			<div ng-controller="allSamples">
 				<div class="row">
@@ -81,8 +81,9 @@
 					<div class="col-sm-3">
 						<form class="form-inline">
 							<div class="form-group" style="margin-top: 17px;">
-								<label for="searchText1">Search :</label>
-								<input class="form-control" ng-model="searchText" placeholder="keyword (displayed fields)">
+								<label for="searchText1">Search :</label> <input
+									class="form-control" ng-model="searchText"
+									placeholder="keyword (displayed fields)">
 							</div>
 						</form>
 					</div>
@@ -95,16 +96,12 @@
 							<div class="col-sm-12">
 								<div ng-repeat="filter in Filters">
 									<ul class="sortoptions filterSection">
-										<strong>
-											<li>
-												{{filter.key_long_name}} :
-											</li>
-										</strong>
-										<li ng-repeat="option in filter.options">
-											<label class="form-inline">
-												<input type="checkbox" ng-model="option.IsIncluded" ng-checked="option.IsIncluded">{{option.value}} ({{option.count}}) 
-											</label>
-										</li>
+										<li><strong> {{filter.key_long_name}} : </strong></li>
+										<li ng-repeat="option in filter.options"><label
+											class="form-inline"> <input type="checkbox"
+												ng-model="option.IsIncluded" ng-checked="option.IsIncluded">{{option.value}}
+												({{option.count}})
+										</label></li>
 									</ul>
 								</div>
 							</div>
@@ -113,8 +110,10 @@
 				</div>
 				<hr>
 
-				<div ng-repeat="sample in dataSet | filter:searchText | checkboxFilters:Filters:this">
-					<a class="special" href="{{sample.sampleType}}.html?id={{sample.sampleID}}">
+				<div
+					ng-repeat="sample in dataSet | filter:searchText | checkboxFilters:Filters:this">
+					<a class="special"
+						href="{{sample.sampleType}}.html?id={{sample.sampleID}}">
 						<div class="panel panel-default selectpanelhover">
 							<div class="panel-body">
 								<!-- may use again -->
@@ -252,22 +251,20 @@
 								data-dismiss="modal">Close</button>
 							<button id="search-confirm" type="button" class="btn btn-primary"
 								data-dismiss="modal">Search</button>
-							
+
 						</div>
 					</form>
 				</div>
 
 			</div>
 		</div>
-		<br>
-		<br>
-		<br>
+		<br> <br> <br>
 	</div>
 
 	<footer class="footer">
 		<div class="container">
 			<p>
-			    <img class="footer-img" alt="UMaine CCI" src="./images/ccilogo.svg">
+				<img class="footer-img" alt="UMaine CCI" src="./images/ccilogo.svg">
 				<img class="footer-img" alt="NMT" src="./images/nmtLogo.svg">
 			</p>
 		</div>
@@ -281,10 +278,9 @@
 	<script src="js/antt.js"></script>
 	<script>
 		window.jQuery
-				|| document
-						.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>');
-		
-		$(document).ready(function(){
+				|| document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>');
+
+		$(document).ready(function() {
 			$("#search-confirm").click(antt.searchButtonClicked);
 		});
 	</script>
