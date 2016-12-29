@@ -122,7 +122,7 @@ CREATE TABLE grain_sizes_refs(
 	PRIMARY KEY (sample_id, iid, doi));
 	
 CREATE TABLE images(
-	image_id SERIAL PRIMARY KEY,
+	image_id TEXT PRIMARY KEY, -- This is the file name
 	comments TEXT,
 	bytes BYTEA,
 	thumbBytes BYTEA);
@@ -130,7 +130,7 @@ CREATE TABLE images(
 -- A sample may have many images, and an image may be used by many samples
 CREATE TABLE samples_images(
 	sample_id TEXT REFERENCES samples(sample_id) NOT NULL,
-	image_id INTEGER REFERENCES images(image_id) NOT NULL,
+	image_id TEXT REFERENCES images(image_id) NOT NULL,
 	PRIMARY KEY (sample_id, image_id));
 	
 -- Icecore samples
@@ -298,7 +298,6 @@ GRANT ALL PRIVILEGES ON grain_sizes TO :ADMIN;
 GRANT ALL PRIVILEGES ON grain_sizes_refs TO :ADMIN;
 
 GRANT ALL PRIVILEGES ON images TO :ADMIN;
-GRANT ALL PRIVILEGES ON images_image_id_seq TO :ADMIN;
 GRANT ALL PRIVILEGES ON samples_images TO :ADMIN;
 
 GRANT ALL PRIVILEGES ON icecore_samples TO :ADMIN;
