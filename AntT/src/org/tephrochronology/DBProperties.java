@@ -27,6 +27,15 @@ import org.eclipse.persistence.config.TargetServer;
  */
 public class DBProperties {
 
+	/**
+	 * Create common database properties from the given arguments. The first
+	 * argument must be the database user, and the second must be the database
+	 * password.
+	 * 
+	 * @param args
+	 *            (Not null)
+	 * @return Common database properties
+	 */
 	public static Map<String, String> setupProperties(String[] args) {
 
 		Map<String, String> properties = new HashMap<>();
@@ -54,5 +63,4 @@ public class DBProperties {
 
 	}
 
-	
 }
