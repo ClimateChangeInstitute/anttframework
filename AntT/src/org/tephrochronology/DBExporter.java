@@ -98,10 +98,48 @@ public class DBExporter {
 		// "jdbc:postgresql://localhost:5432/" + dbName,
 		// props.get(JDBC_USER), props.get(JDBC_PASSWORD));
 
-		String tableName = "volcanoes";
-		String fileName = String.format("%s.csv", tableName);
+		copyTableToFile(dbName, dir, "countries");
+		copyTableToFile(dbName, dir, "subregions");
+		copyTableToFile(dbName, dir, "regions");
+		copyTableToFile(dbName, dir, "volcano_types");
+		copyTableToFile(dbName, dir, "rock_types");
+		copyTableToFile(dbName, dir, "tectonic_settings");
+		
+		copyTableToFile(dbName, dir, "volcanoes");
 
-		copyTableToFile(dbName, dir, tableName, fileName);
+		copyTableToFile(dbName, dir, "site_types");
+		copyTableToFile(dbName, dir, "sites");
+		copyTableToFile(dbName, dir, "instruments");
+
+		copyTableToFile(dbName, dir, "refs");
+
+		copyTableToFile(dbName, dir, "samples");
+		copyTableToFile(dbName, dir, "samples_refs");
+
+		copyTableToFile(dbName, dir, "grain_sizes");
+		copyTableToFile(dbName, dir, "grain_sizes_refs");
+
+		// TODO write out images to jpg files
+//		copyTableToFile(dbName, dir, "images");
+//		copyTableToFile(dbName, dir, "images_image_id_seq");
+		copyTableToFile(dbName, dir, "samples_images");
+
+		copyTableToFile(dbName, dir, "icecore_samples");
+		copyTableToFile(dbName, dir, "bia_samples");
+
+		copyTableToFile(dbName, dir, "core_types");
+
+		copyTableToFile(dbName, dir, "lake_samples");
+		copyTableToFile(dbName, dir, "marine_samples");
+		copyTableToFile(dbName, dir, "outcrop_samples");
+
+		copyTableToFile(dbName, dir, "method_types");
+
+		copyTableToFile(dbName, dir, "mm_elements");
+		copyTableToFile(dbName, dir, "elements");
+		copyTableToFile(dbName, dir, "units");
+		copyTableToFile(dbName, dir, "mm_elements_data");
+		
 
 	}
 
@@ -112,8 +150,10 @@ public class DBExporter {
 	 * @param fileName
 	 * @throws IOException
 	 */
-	private void copyTableToFile(String dbName, File dir, String tableName,
-			String fileName) throws IOException {
+	private void copyTableToFile(String dbName, File dir, String tableName)
+			throws IOException {
+
+		String fileName = String.format("%s.csv", tableName);
 		String user = props.get(JDBC_USER);
 		String pass = props.get(JDBC_PASSWORD);
 
