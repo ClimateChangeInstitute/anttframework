@@ -90,7 +90,8 @@ public class TestDataGenerator {
 	public static void main(String[] args) {
 
 		if (args.length != 2) {
-			System.err.println("Usage: java QueryVolcanoes USER PASS");
+			System.err.printf("Usage: java %s USER PASS\n",
+					TestDataGenerator.class.getName());
 			System.exit(-1);
 		}
 
@@ -182,7 +183,7 @@ public class TestDataGenerator {
 							e.getStd(), e.getMe(), new Unit("%"))));
 
 			data.addAll(percents);
-			
+
 			mmElements.add(el);
 			em.persist(el);
 		});
