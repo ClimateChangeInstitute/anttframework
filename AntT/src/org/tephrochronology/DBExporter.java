@@ -12,7 +12,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.sql.SQLException;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
@@ -88,15 +87,17 @@ public class DBExporter {
 		this.props = props;
 	}
 
-	public void dumpDB(String dbName, File dataDir)
-			throws ClassNotFoundException, SQLException, IOException {
-
-		// Class.forName("org.postgresql.Driver");
-		//
-		//
-		// Connection conn = DriverManager.getConnection(
-		// "jdbc:postgresql://localhost:5432/" + dbName,
-		// props.get(JDBC_USER), props.get(JDBC_PASSWORD));
+	/**
+	 * Save all of the tables in the specified database to dataDir as CSV files.
+	 * Images are exported as JPEG files in an images subfolder.
+	 * 
+	 * @param dbName
+	 *            The database name (Not null)
+	 * @param dataDir
+	 *            The folder to save the data (Not null and must exist)
+	 * @throws IOException
+	 */
+	public void dumpDB(String dbName, File dataDir) throws IOException {
 
 		copyTableToFile(dbName, "countries", dataDir);
 		copyTableToFile(dbName, "subregions", dataDir);
@@ -182,9 +183,15 @@ public class DBExporter {
 	}
 
 	/**
+	 * Write all of the images in the specified database to the given directory.
+	 * 
 	 * @param dbName
+	 *            Database to get images from (Not null)
 	 * @param dir
+	 *            The directory to write the images to (Not null and will be
+	 *            created if does not exist)
 	 * @throws IOException
+	 *             Thrown if there is an issue writing to the file
 	 */
 	private void writeImages(String dbName, File dir) throws IOException {
 		File imageDir = new File(dir, "images");
@@ -220,9 +227,13 @@ public class DBExporter {
 	 * given table name as the file name with .csv appended.
 	 * 
 	 * @param dbName
+	 *            The name of the database (Not null)
 	 * @param table
+	 *            Table to save as CSV (Not null)
 	 * @param dir
+	 *            The directory to write the file (Not null and must exist)
 	 * @throws IOException
+	 *             Thrown if unable to write the file
 	 */
 	private void copyTableToFile(String dbName, String table, File dir)
 			throws IOException {
@@ -235,6 +246,8 @@ public class DBExporter {
 	}
 
 	/**
+	 * Save the result of the given query to fileName in the given directory.
+	 * 
 	 * @param dbName
 	 *            The name of the database (Not null)
 	 * @param query
@@ -277,11 +290,13 @@ public class DBExporter {
 		try {
 			p.waitFor(10, TimeUnit.SECONDS);
 		} catch (InterruptedException e) {
-			e.printStackTrace();
+			throw new IOException(
+					"Copy failed to finish in allotted timeout period.");
 		}
 
 		if (p.exitValue() != 0) {
-			throw new IOException("Copy failed. See output for details.");
+			throw new IOException(
+					"Copy exited with nonzero value.  It's likely the write did not succeed.");
 		}
 	}
 }
