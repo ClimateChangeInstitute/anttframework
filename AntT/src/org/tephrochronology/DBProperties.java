@@ -12,6 +12,9 @@ import static org.eclipse.persistence.config.PersistenceUnitProperties.TARGET_SE
 import static org.eclipse.persistence.config.PersistenceUnitProperties.TRANSACTION_TYPE;
 import static org.eclipse.persistence.logging.SessionLog.OFF_LABEL;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,6 +29,31 @@ import org.eclipse.persistence.config.TargetServer;
  *
  */
 public class DBProperties {
+
+	/**
+	 * Returns a JDBC connection to the database. The JDBC_URL, JDBC_USER, and
+	 * JDBC_PASSWORD must be specified in the given properties.
+	 * 
+	 * @param props
+	 *            Database connection properties (Not null)
+	 * @return A connection to the database or null if unable to connect
+	 */
+	public static Connection getJDBCConnection(Map<String, String> props) {
+
+		Connection conn = null;
+
+		try {
+			Class.forName("org.postgresql.Driver");
+
+			conn = DriverManager.getConnection(props.get(JDBC_URL),
+					props.get(JDBC_USER), props.get(JDBC_PASSWORD));
+
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
+
+		return conn;
+	}
 
 	/**
 	 * Create common database properties from the given arguments. The first
