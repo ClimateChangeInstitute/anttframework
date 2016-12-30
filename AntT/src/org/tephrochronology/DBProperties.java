@@ -14,6 +14,8 @@ import static org.eclipse.persistence.logging.SessionLog.OFF_LABEL;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
@@ -37,22 +39,19 @@ public class DBProperties {
 	 * @param props
 	 *            Database connection properties (Not null)
 	 * @return A connection to the database or null if unable to connect
+	 * @throws ClassNotFoundException
+	 *             Thrown if unable to load the postgres driver
+	 * @throws SQLException
+	 *             Thrown if unable to connect to the database
 	 */
-	public static Connection getJDBCConnection(Map<String, String> props) {
+	public static Connection getJDBCConnection(Map<String, String> props)
+			throws ClassNotFoundException, SQLException {
 
-		Connection conn = null;
+		// Need to make sure the postgres driver has been loaded
+		Class.forName("org.postgresql.Driver");
 
-		try {
-			Class.forName("org.postgresql.Driver");
-
-			conn = DriverManager.getConnection(props.get(JDBC_URL),
-					props.get(JDBC_USER), props.get(JDBC_PASSWORD));
-
-		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
-		}
-
-		return conn;
+		return DriverManager.getConnection(props.get(JDBC_URL),
+				props.get(JDBC_USER), props.get(JDBC_PASSWORD));
 	}
 
 	/**
@@ -89,6 +88,63 @@ public class DBProperties {
 
 		return properties;
 
+	}
+
+	/**
+	 * This function will return true only if the database with the given
+	 * properties can be connected to with the supplied user and password.
+	 * 
+	 * @param properties
+	 *            Database connection properties (Not null)
+	 * @return true IFF the database for the provided properties exists and was
+	 *         able to be connected to with the given user and password
+	 */
+	public static boolean dBExists(Map<String, String> properties) {
+
+		boolean result = false;
+
+		try {
+
+			Connection conn = DBProperties.getJDBCConnection(properties);
+
+			System.out.println(conn);
+
+			PreparedStatement st = conn.prepareStatement(
+					"SELECT EXISTS(SELECT 1 FROM pg_database WHERE datname=?)");
+			st.setString(1, getDB(properties));
+			ResultSet rs = st.executeQuery();
+
+			while (rs.next()) {
+				result = rs.getBoolean(1);
+			}
+
+		} catch (ClassNotFoundException | SQLException e) {
+			// Ignore the result will be false
+		}
+
+		return result;
+	}
+
+	/**
+	 * Return the database specified by the JDBC_URL. If no JDBC_URL is
+	 * specified, null is returned.
+	 * 
+	 * @param properties
+	 *            JDBC connection properties (Not null)
+	 * @return The database name or null if not found
+	 */
+	public static String getDB(Map<String, String> properties) {
+		// Looks like jdbc:postgresql://localhost:5432/antt
+		String url = properties.get(JDBC_URL);
+		if (url == null)
+			return null;
+
+		String[] parts = url.split("/");
+
+		if (parts.length == 4)
+			return parts[3];
+		else
+			return null;
 	}
 
 }
