@@ -55,6 +55,8 @@ public class Runner {
 		fileGenerator.writeAllSamplesXMLFile(GEN_DIR);
 		
 		fileGenerator.writeAllMMElementXMLFile(GEN_DIR);
+		
+		System.out.println("Done generating xml sample files.");
 	}
 
 	private static Path appendChildAndCreateDir(final Path PROJECT_ROOT,
