@@ -1,7 +1,6 @@
 #!/usr/bin/python
 
 import getpass
-import os
 from subprocess import check_call, CalledProcessError
 from sys import stderr
 import sys
@@ -12,17 +11,19 @@ from properties import SQL_DATA, DATABASE, SQL_SCHEMA, \
 
 
 CREATE = "create"
+SCHEMAONLY = "schema"
 RESTORE = "restore"
 
 def main() :
 
-    if(len(sys.argv) < 2) or (sys.argv[1] != CREATE and sys.argv[1] != RESTORE):
+    if(len(sys.argv) < 2) or (sys.argv[1] != CREATE and sys.argv[1] != RESTORE and sys.argv[1] != SCHEMAONLY):
         stderr.write(textwrap.dedent("""\
                    usage: ./setup.py option
-                     option: Either '%s' or '%s'.
+                     option: Either '%s', '%s', or '%s'.
                          - %s: An empty DB is created.
+                         - %s: An empty DB is created and initialized with data using %s file.
                          - %s: A DB is created using %s file.
-                   """ % (CREATE, RESTORE, CREATE, RESTORE, SQL_BACKUP_FILE)))
+                   """ % (CREATE, SCHEMAONLY, RESTORE, SCHEMAONLY, CREATE, SQL_DATA, RESTORE, SQL_BACKUP_FILE)))
         exit(1)
 
     progOption = sys.argv[1]
@@ -52,11 +53,17 @@ def main() :
         if progOption == CREATE:
             check_call(["psql", DATABASE, "-f", SQL_SCHEMA, "-v", "ADMIN=%s" % (ADMIN)])
             check_call(["psql", DATABASE, "-f", SQL_DATA])  # Default users and data
-        else :
+        elif progOption == RESTORE:
             check_call(["psql", DATABASE, "-f", SQL_BACKUP_FILE])
+        elif progOption == SCHEMAONLY:
+            check_call(["psql", DATABASE, "-f", SQL_SCHEMA, "-v", "ADMIN=%s" % (ADMIN)])
+        else:
+            stderr.write("The program option was not recognized.\n")
             
     except CalledProcessError :
-        stderr.write("Something went wrong. Are you sure you have the proper permissions?\n")
+        stderr.write(textwrap.dedent("""\
+        Something went wrong. Are you sure you have the proper permissions?
+        Perhaps the current user is not a DB super user?\n"""))
         exit(1)
 
 
