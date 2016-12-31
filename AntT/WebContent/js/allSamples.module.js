@@ -1,4 +1,4 @@
-var app = angular.module('exampleApp', []);
+var app = angular.module('exampleApp', ['cgBusy']);
 
 app.factory('dataSource', [ '$http', function($http) {
 	var factory = [];
@@ -46,7 +46,15 @@ app.controller('allSamples', function($scope, dataSource) {
 
 	$scope.AppController = [];
 
-	dataSource.getData().success(function(data) {
+	// If we decide not to use default behavior, let's use this alternative behavior
+	// $scope.delay = 0;
+	// $scope.minDuration = 500;
+	// $scope.message = 'Loading data...';
+	// $scope.templateUrl = 'angular-busy.html';
+	// $scope.backdrop = true;
+	// $scope.promise = null;
+
+	$scope.promise = dataSource.getData().success(function(data) {
 		var x2js = new X2JS();
 		var json = x2js.xml_str2json(data);
 		samples = json.samples.sample;

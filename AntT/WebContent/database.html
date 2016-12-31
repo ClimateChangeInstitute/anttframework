@@ -22,6 +22,7 @@
 <!-- Custom styles for this template -->
 <link href="index_files/sticky-footer-navbar.css" rel="stylesheet">
 <link href="index_files/custom.css" rel="stylesheet">
+<link href="index_files/angular-busy.min.css" rel="stylesheet">
 
 <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
 <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -74,6 +75,7 @@
 
 		<div ng-app="exampleApp" ng-cloak>
 			<div ng-controller="allSamples">
+				
 				<div class="row">
 					<div class="col-sm-9">
 						<h3>All Samples</h3>
@@ -90,66 +92,68 @@
 				</div>
 				<hr>
 
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<div class="row">
-							<div class="col-sm-12">
-								<div ng-repeat="filter in Filters">
-									<ul class="sortoptions filterSection">
-										<li><strong> {{filter.key_long_name}} : </strong></li>
-										<li ng-repeat="option in filter.options"><label
-											class="form-inline"> <input type="checkbox"
-												ng-model="option.IsIncluded" ng-checked="option.IsIncluded">{{option.value}}
-												({{option.count}})
-										</label></li>
-									</ul>
+				<div cg-busy="promise">
+
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<div class="row">
+								<div class="col-sm-12">
+									<div ng-repeat="filter in Filters">
+										<ul class="sortoptions filterSection">
+											<li><strong> {{filter.key_long_name}} : </strong></li>
+											<li ng-repeat="option in filter.options"><label
+												class="form-inline"> <input type="checkbox"
+													ng-model="option.IsIncluded" ng-checked="option.IsIncluded">{{option.value}}
+													({{option.count}})
+											</label></li>
+										</ul>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-				<hr>
+					<hr>
 
-				<div
-					ng-repeat="sample in dataSet | filter:searchText | checkboxFilters:Filters:this">
-					<a class="special"
-						href="{{sample.sampleType}}.html?id={{sample.sampleID}}">
-						<div class="panel panel-default selectpanelhover">
-							<div class="panel-body">
-								<!-- may use again -->
-								<!-- <p>
-									<strong>Sample ID: </strong>{{sample.sampleID}} <span
-										class="pull-right"><strong>Collection Date:
-									</strong> {{sample.collectionDate}}</span>
-								</p>
-								<p>
-									<strong>Sample Type: </strong>{{sample.sampleType}}<span
-										class="pull-right"><strong>Collected By: </strong>
-										{{sample.sampledBy}}</span>
-								</p> -->
-								<div class="row">
-									<div class="col-sm-9">
-										<p>
-											<strong>Sample ID: </strong>{{sample.sampleID}}
-										</p>
-										<p>
-											<strong>Sample Type: </strong>{{sample.sampleTypeLong}}
-										</p>
-									</div>
-									<div class="col-sm-3">
-										<p>
-											<strong>Collection Date: </strong>{{sample.collectionDate}}
-										</p>
-										<p>
-											<strong>Collected By: </strong>{{sample.sampledBy}}
-										</p>
+					<div
+						ng-repeat="sample in dataSet | filter:searchText | checkboxFilters:Filters:this">
+						<a class="special"
+							href="{{sample.sampleType}}.html?id={{sample.sampleID}}">
+							<div class="panel panel-default selectpanelhover">
+								<div class="panel-body">
+									<!-- may use again -->
+									<!-- <p>
+										<strong>Sample ID: </strong>{{sample.sampleID}} <span
+											class="pull-right"><strong>Collection Date:
+										</strong> {{sample.collectionDate}}</span>
+									</p>
+									<p>
+										<strong>Sample Type: </strong>{{sample.sampleType}}<span
+											class="pull-right"><strong>Collected By: </strong>
+											{{sample.sampledBy}}</span>
+									</p> -->
+									<div class="row">
+										<div class="col-sm-9">
+											<p>
+												<strong>Sample ID: </strong>{{sample.sampleID}}
+											</p>
+											<p>
+												<strong>Sample Type: </strong>{{sample.sampleTypeLong}}
+											</p>
+										</div>
+										<div class="col-sm-3">
+											<p>
+												<strong>Collection Date: </strong>{{sample.collectionDate}}
+											</p>
+											<p>
+												<strong>Collected By: </strong>{{sample.sampledBy}}
+											</p>
+										</div>
 									</div>
 								</div>
 							</div>
-						</div>
-					</a>
+						</a>
+					</div>
 				</div>
-
 			</div>
 		</div>
 
@@ -285,16 +289,20 @@
 		});
 	</script>
 	<script src='./lib/lodash.js'></script>
+	
 	<script src="index_files/bootstrap.js"></script>
 	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 	<script src="index_files/ie10-viewport-bug-workaround.js"></script>
 
-
 	<script src="./lib/angular.min.js"></script>
+
+	<script src="./lib/angular-busy.js"></script>
 
 	<script src="./lib/xml2json.js"></script>
 
 	<script src="./js/allSamples.module.js"></script>
+
+
 
 </body>
 </html>
