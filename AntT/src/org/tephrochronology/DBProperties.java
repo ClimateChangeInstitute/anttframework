@@ -103,9 +103,7 @@ public class DBProperties {
 
 		boolean result = false;
 
-		try {
-
-			Connection conn = DBProperties.getJDBCConnection(properties);
+		try (Connection conn = DBProperties.getJDBCConnection(properties)) {
 
 			System.out.println(conn);
 
@@ -117,7 +115,7 @@ public class DBProperties {
 			while (rs.next()) {
 				result = rs.getBoolean(1);
 			}
-
+			
 		} catch (ClassNotFoundException | SQLException e) {
 			// Ignore the result will be false
 		}
