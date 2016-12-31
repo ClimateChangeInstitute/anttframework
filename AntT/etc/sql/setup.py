@@ -1,6 +1,5 @@
 #!/usr/bin/python
 
-import getpass
 from subprocess import check_call, CalledProcessError
 from sys import stderr
 import sys
@@ -28,16 +27,11 @@ def main() :
 
     progOption = sys.argv[1]
 
-    if(getpass.getuser() != "postgres"):
-        textwrap.dedent("""\
-                ********
-                Warning: Not postgres user.  May not be able to create the db.
-                ********""")
-
     print textwrap.dedent("""\
                 ********
-                Warning: Installation user must have access to all files in current directory.
+                Warning: Installation user must have access to all files in the current directory.
                 Run as postgres from /tmp if you don't want to modify your permissions.
+                Alternatively, make sure the current user is a postres super user.
                 ********""")
 
 
