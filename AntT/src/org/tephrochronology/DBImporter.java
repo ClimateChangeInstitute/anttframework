@@ -69,33 +69,70 @@ public class DBImporter {
 		} else {
 
 			if (dBExists(props)) {
-				// Delete the database
 				dropDatabase();
 			} else {
-				// Run the setup script schema only
-				System.out.printf("The %s DB does not exist.  Creating...",
-						dbName);
-
-				// TODO create database 
-				
+				createDatabase();
 			}
-			
-			// TODO populate the datbase from ant-data folder
+
+			// TODO populate the database from ant-data folder
 
 		}
 
 	}
 
 	/**
-	 * Delete the database using the python script.
+	 * Create the database using the script etc/sql/setup.py schema.
+	 * 
+	 * @throws IOException
+	 *             Thrown if unable to read or write any files
+	 */
+	private void createDatabase() throws IOException {
+		// The -u option is critical to make Python flush buffers for
+		// STDIN and STDOUT!
+		ProcessBuilder pb = new ProcessBuilder("/bin/bash", "-c",
+				"cd etc/sql && python -u ./setup.py schema");
+
+		pb.redirectErrorStream(true);
+
+		Process p = pb.start();
+
+		BufferedReader input = new BufferedReader(
+				new InputStreamReader(p.getInputStream()));
+
+		PrintWriter out = new PrintWriter(p.getOutputStream());
+
+		out.println("y");
+		out.flush();
+
+		String line = null;
+		while ((line = input.readLine()) != null) {
+			System.out.println(line);
+		}
+
+		input.close();
+
+		try {
+			p.waitFor(10, TimeUnit.SECONDS);
+		} catch (InterruptedException e) {
+			throw new IOException(
+					"Failed to finish in allotted timeout period.");
+		}
+
+		if (p.exitValue() != 0) {
+			throw new IOException("Exited with nonzero value.");
+		}
+	}
+
+	/**
+	 * Delete the database using the Python script etc/sql/teardown.py.
 	 * 
 	 * @throws IOException
 	 */
 	private void dropDatabase() throws IOException {
 		// The -u option is critical to make Python flush buffers for
-		// stdin and stdout!
+		// STDIN and STDOUT!
 		ProcessBuilder pb = new ProcessBuilder("/bin/bash", "-c",
-				"python -u ./etc/sql/teardown.py");
+				"cd etc/sql && python -u ./teardown.py");
 
 		pb.redirectErrorStream(true);
 
