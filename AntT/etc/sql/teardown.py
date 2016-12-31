@@ -16,7 +16,7 @@ def main():
 ******************************************************************************
 WARNING !!!!
 ******************************************************************************
-You will deleting the %s Database.
+Deleting the %s Database.
 """ % DATABASE
 
     ans = raw_input("Are you absolutely sure you want to continue (y/N)?")
