@@ -49,7 +49,7 @@ app.controller('allSamples', function($scope, dataSource) {
 	// If we decide not to use default behavior, let's use this alternative behavior
 	// $scope.delay = 0;
 	// $scope.minDuration = 500;
-	// $scope.message = 'Loading data...';
+	$scope.message = 'Loading samples. Please wait...';
 	// $scope.templateUrl = 'angular-busy.html';
 	// $scope.backdrop = true;
 	// $scope.promise = null;
