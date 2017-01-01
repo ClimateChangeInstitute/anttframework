@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -71,7 +72,21 @@ public class DBImporter {
 		} else {
 
 			if (dBExists(props)) {
-				dropDatabase();
+				
+				System.out.printf(
+						"The '%s' database exists and the contents will be overwritten.\n"
+						+ "Data found in the '%s' directory will be used.  Continue? (y/N):",
+						dbName, dataDir.getAbsolutePath());
+				Scanner scan = new Scanner(System.in);
+				String ans = scan.nextLine();
+				scan.close();
+				if (!"y".equalsIgnoreCase(ans)) {
+					System.out.println("Exiting");
+					System.exit(-1);
+				} else {
+					dropDatabase();	
+				}
+				
 			}
 
 			createDatabase();
