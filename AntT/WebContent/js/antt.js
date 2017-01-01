@@ -280,6 +280,8 @@
 	
 	var searchButtonClicked = function(event) {
 		
+		$("#morphingHeader").text("Search Query Results");
+
 		var elements = [];
 		var values = {};
 		$("input[id^='element-'").each(function(i,e){
@@ -295,10 +297,11 @@
 		
 		loadMMElements('generated/allMMElements.xml', function(allMMElements){
 			var filtered = filterMMElements(elements, allMMElements, '%');
-			console.log(filtered);	
+			//console.log(filtered);	
 		});
 		
 	};
+	scope.filtered;
 	scope.searchButtonClicked = searchButtonClicked;
 
 	// From

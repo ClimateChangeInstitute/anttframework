@@ -72,13 +72,12 @@
 		</div>
 		<br> <br>
 
-
 		<div ng-app="exampleApp" ng-cloak>
 			<div ng-controller="allSamples">
 				
 				<div class="row">
 					<div class="col-sm-9">
-						<h3>All Samples</h3>
+						<h3 id="morphingHeader">All Samples</h3>
 					</div>
 					<div class="col-sm-3">
 						<form class="form-inline">
@@ -93,7 +92,6 @@
 				<hr>
 
 				<div cg-busy="promise">
-
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							<div class="row">
