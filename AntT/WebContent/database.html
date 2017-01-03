@@ -74,7 +74,7 @@
 
 		<div ng-app="exampleApp" ng-cloak>
 			<div ng-controller="allSamples">
-				
+
 				<div class="row">
 					<div class="col-sm-9">
 						<h3 id="morphingHeader">All Samples</h3>
@@ -113,8 +113,13 @@
 					<hr>
 
 					<div class="alert alert-info alert-dismissible" role="alert">
-					  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					  <strong>Heads up!</strong> Click on a sample below to see more information about it or tick one or more of the checkboxes above to display only those types of samples. 
+						<button type="button" class="close" data-dismiss="alert"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<strong>Heads up!</strong> Click on a sample below to see more
+						information about it or tick one or more of the checkboxes above
+						to display only those types of samples.
 					</div>
 					<div
 						ng-repeat="sample in dataSet | filter:searchText | checkboxFilters:Filters:this">
@@ -122,17 +127,6 @@
 							href="{{sample.sampleType}}.html?id={{sample.sampleID}}">
 							<div class="panel panel-default selectpanelhover">
 								<div class="panel-body">
-									<!-- may use again -->
-									<!-- <p>
-										<strong>Sample ID: </strong>{{sample.sampleID}} <span
-											class="pull-right"><strong>Collection Date:
-										</strong> {{sample.collectionDate}}</span>
-									</p>
-									<p>
-										<strong>Sample Type: </strong>{{sample.sampleType}}<span
-											class="pull-right"><strong>Collected By: </strong>
-											{{sample.sampledBy}}</span>
-									</p> -->
 									<div class="row">
 										<div class="col-sm-9">
 											<p>
@@ -284,14 +278,15 @@
 	<script src="js/antt.js"></script>
 	<script>
 		window.jQuery
-				|| document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>');
+				|| document
+						.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>');
 
 		$(document).ready(function() {
 			$("#search-confirm").click(antt.searchButtonClicked);
 		});
 	</script>
 	<script src='./lib/lodash.js'></script>
-	
+
 	<script src="index_files/bootstrap.js"></script>
 	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 	<script src="index_files/ie10-viewport-bug-workaround.js"></script>
