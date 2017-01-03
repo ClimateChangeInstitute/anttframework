@@ -9,7 +9,8 @@
 	 * @returns {MMElementData} Fully typed MMEelementData object
 	 */
 	function MMElementData(mme) {
-		this.element = mme.element;
+		this.element = mme.element.name;
+		this.format = mme.element.format;
 		this.me = parseFloat(mme.me);
 		this.std = parseFloat(mme.std);
 		this.unit = mme.unit;

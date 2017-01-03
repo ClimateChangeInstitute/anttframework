@@ -7,6 +7,12 @@ app.config(function($locationProvider) {
 	});
 });
 
+app.filter('unsafe', function($sce) {
+    return function(val) {
+        return $sce.trustAsHtml(val);
+    };
+});
+
 app.factory('dataSource', [ '$http', function($http) {
 	var factory = [];
 

@@ -253,7 +253,7 @@
 						</thead>
 						<tbody>
 							<tr ng-repeat="e in mmElements.elementData">
-								<td>{{e.element}}</td>
+								<td ng-bind-html="e.element.format | unsafe"></td>
 								<td>{{e.value}}</td>
 								<td>{{e.std}}</td>
 								<td>{{e.unit}}</td>
