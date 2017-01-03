@@ -9,7 +9,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlValue;
 
 /**
  * @author Mark Royer
@@ -26,36 +25,56 @@ public class Element implements Serializable, Comparable<Element> {
 
 	@Id
 	@Column(name = "element_name")
-	@XmlValue
 	protected String name;
 
-	public Element(String name) {
+	@Column(name = "format")
+	protected String format;
+
+	public Element(String name, String format) {
 		super();
 		this.name = name;
+		this.format = format;
 	}
 
 	public Element() {
 		super();
-		name = "";
 	}
 
 	public String getName() {
 		return name;
 	}
 
+	public String getFormat() {
+		return format;
+	}
+
 	@Override
 	public int compareTo(Element o) {
-		return name.compareTo(o.name);
+		return (name + format).compareTo((o.name + o.format));
 	}
 
 	@Override
 	public int hashCode() {
-		return name.hashCode();
+		return (name + format).hashCode();
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		return name.equals(((Element) obj).name);
+
+		if (obj instanceof Element) {
+			Element other = (Element) obj;
+			return name.equals(other.name) && format.equals(other.format);
+		} else
+			return false;
 	}
 
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setFormat(String format) {
+		this.format = format;
+	}
+	
 }

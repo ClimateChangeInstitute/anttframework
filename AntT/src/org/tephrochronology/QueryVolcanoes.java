@@ -109,11 +109,11 @@ public class QueryVolcanoes {
 						""),
 				LocalDate.now(), "Mark", 5, 3f, 2f, "instrument settings", 1f,
 				-2f, 1f, data);
-		Element elem = new Element("sio2");
+		Element elem = new Element("sio2", "SiO<sub>2</sub>");
 		data.add(new MMElementData(el, elem, 10f, 2f, 1f, new Unit("ppb")));
-		elem = new Element("tio2");
+		elem = new Element("tio2", "TiO<sub>2</sub>");
 		data.add(new MMElementData(el, elem, 20f, 4f, 2f, new Unit("ppb")));
-		elem = new Element("so2");
+		elem = new Element("so2", "SO<sub>2</sub>");
 		data.add(new MMElementData(el, elem, 30f, 8f, 3f, new Unit("ppb")));
 
 		em.persist(el);
