@@ -45,6 +45,19 @@
 		this.numberOfMeasurements = parseInt(e.numberOfMeasurements);
 		this.originalTotal = parseFloat(e.originalTotal);
 		this.sampleID = e.sampleID;
+		this.sampleType = (this.sampleID).charAt(0).toUpperCase();
+		this.sampleTypeLong = '';
+
+		if (this.sampleType == 'B')
+			this.sampleTypeLong = "Blue Ice Area (BIA)";
+		if (this.sampleType == 'I')
+			this.sampleTypeLong = "Ice Core";
+		if (this.sampleType == 'O')
+			this.sampleTypeLong = "Outcrop";
+		if (this.sampleType == 'L')
+			this.sampleTypeLong = "Lake";
+		if (this.sampleType == 'M')
+			this.sampleTypeLong = "Marine";
 	};
 	scope.MMElement = MMElement;
 
@@ -280,8 +293,6 @@
 	
 	var searchButtonClicked = function(event) {
 		
-		$("#morphingHeader").text("Search Query Results");
-
 		var elements = [];
 		var values = {};
 		$("input[id^='element-'").each(function(i,e){
@@ -306,7 +317,7 @@
 
 	// From
 	// http://stackoverflow.com/questions/19491336/get-url-parameter-jquery-or-how-to-get-query-string-values-in-js
-	var getUrlParameter = function getUrlParameter(sParam) {
+	var getUrlParameter = function (sParam) {
 	    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
 	        sURLVariables = sPageURL.split('&'),
 	        sParameterName,
@@ -320,6 +331,59 @@
 	        }
 	    }
 	};
+	scope.getUrlParameter = getUrlParameter;
+
+	// returns object of one or more search query strings
+	var getUrlParameters = function() {
+		var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+			        sURLVariables = sPageURL.split('&'),
+			        sParameterName,
+			        i;
+		var values = [];
+
+	    for (i = 0; i < sURLVariables.length; i++) {
+	        sParameterName = sURLVariables[i].split('=');
+	        values.push({key: sParameterName[0], value: sParameterName[1]});
+	    }
+
+	    return values;
+	};
+	scope.getUrlParameters = getUrlParameters;
+
+	/**
+	 * Return search query parameter array 
+	 * 
+	 * ex. url -> ?s=sio2:3:tio:40&s=sio2:10:tio:40:ko:1
+	 *     
+	 *     function param -> [{"key":"s","value":"sio2:3:tio:40"},{"key":"s","value":"sio2:10:tio:40:ko:1"}]
+	 *     returned -> [{"sio2":"3","tio":"40"},{"sio2":"10","tio":"40","ko":"1"}] 
+	 *
+	 * @param arr {{key:value}[]} GET url of keys and values (Not null)
+	 * @param key only url keys matching this are used (Not null)
+	 * @param delim key:val separator; default is colon
+	 * @return {object[]} Search query parameter array (Never null)
+	 *
+	 *
+	 */
+	var getQueriedElements = function(arr, key, delim = ':') {
+
+		var result = [];
+		for (var i = 0; i < arr.length; i++) {
+
+			if (arr[i].key === key) {
+
+				var url_param_string = arr[i].value.split(delim);
+				var element = {};
+				for (var j = 0; j < url_param_string.length; j+=2) {
+					element[url_param_string[j]] = url_param_string[j+1];
+				}
+				result.push(element);
+			}
+		}
+
+		return result;
+	}
+	scope.getQueriedElements = getQueriedElements;
 	
 	// Perform common page functionality
 	$(document).ready(function(){
