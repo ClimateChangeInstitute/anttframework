@@ -382,9 +382,35 @@
 		}
 
 		return result;
-	}
+	};
 	scope.getQueriedElements = getQueriedElements;
 	
+
+	/**
+	 * Takes MMElement type and returns and array of values that match each key 
+	 *
+	 * @param keys
+	 * @param MMElement
+	 * @return arr array of values that match each in keys
+	 */
+	var valuesArray = function(keys, mmelement) {
+		
+		var result = [];
+
+		$.each(keys, function(i, k) {
+			$.each(mmelement.elementData, function(j, e) {
+				if (e.element === k && e.unit === '%') {
+					result.push(e.value);
+				}
+			});
+		})
+
+		return result;
+	};
+	scope.valuesArray = valuesArray;
+
+
+
 	// Perform common page functionality
 	$(document).ready(function(){
 		var id = getUrlParameter('id');
