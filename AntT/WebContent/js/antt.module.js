@@ -235,6 +235,7 @@ app.controller('results', function($scope, dataSource) {
 	    }
 
 	    console.log(elements);
+	    console.log(values);
 	    // END PARSE URL
 
 		var filtered = filterMMElements(elements, allMMElements, '%');
@@ -243,11 +244,8 @@ app.controller('results', function($scope, dataSource) {
 		// // create checkbox filters on the fly for dynamic data
 		var filters = [];
 		_.each(filtered, function(sample) {
-
 			
-		  _.each(sample, function(value, key) { 
-
-		  	console.log(sample.sampleTypeLong);
+			_.each(sample, function(value, key) { 
 
 		  	value = sample.sampleTypeLong;
 
