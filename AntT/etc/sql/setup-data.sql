@@ -2158,21 +2158,21 @@ INSERT INTO site_types (site_type) VALUES ('SEA');
 --
 
 
-INSERT INTO elements (element_name) VALUES ('sio2');
-INSERT INTO elements (element_name) VALUES ('tio2');
-INSERT INTO elements (element_name) VALUES ('so2');
-INSERT INTO elements (element_name) VALUES ('al2o3');
-INSERT INTO elements (element_name) VALUES ('cr2o3');
-INSERT INTO elements (element_name) VALUES ('fe2o3');
-INSERT INTO elements (element_name) VALUES ('feo');
-INSERT INTO elements (element_name) VALUES ('mno');
-INSERT INTO elements (element_name) VALUES ('mgo');
-INSERT INTO elements (element_name) VALUES ('cao');
-INSERT INTO elements (element_name) VALUES ('na2o');
-INSERT INTO elements (element_name) VALUES ('k2o');
-INSERT INTO elements (element_name) VALUES ('p2o5');
-INSERT INTO elements (element_name) VALUES ('cl');
-INSERT INTO elements (element_name) VALUES ('co2');
+INSERT INTO elements (element_name, format) VALUES ('sio2', 'SIO<sub>2</sub>');
+INSERT INTO elements (element_name, format) VALUES ('tio2', 'TiO<sub>2</sub>');
+INSERT INTO elements (element_name, format) VALUES ('so2', 'SO<sub>2</sub>');
+INSERT INTO elements (element_name, format) VALUES ('al2o3', 'Al<sub>2</sub>O<sub>3</sub>');
+INSERT INTO elements (element_name, format) VALUES ('cr2o3', 'Cr<sub>2</sub>O<sub>3</sub>');
+INSERT INTO elements (element_name, format) VALUES ('fe2o3', 'Fe<sub>2</sub>O<sub>3</sub>');
+INSERT INTO elements (element_name, format) VALUES ('feo', 'FeO');
+INSERT INTO elements (element_name, format) VALUES ('mno', 'MnO');
+INSERT INTO elements (element_name, format) VALUES ('mgo', 'MgO');
+INSERT INTO elements (element_name, format) VALUES ('cao', 'CaO');
+INSERT INTO elements (element_name, format) VALUES ('na2o', 'Na<sub>2</sub>O');
+INSERT INTO elements (element_name, format) VALUES ('k2o', 'K<sub>2</sub>O');
+INSERT INTO elements (element_name, format) VALUES ('p2o5', 'P<sub>2</sub>O<sub>5</sub>');
+INSERT INTO elements (element_name, format) VALUES ('cl', 'Cl');
+INSERT INTO elements (element_name, format) VALUES ('co2', 'CO<sub>2</sub>');
 
 
 --

@@ -227,7 +227,8 @@ CREATE TABLE mm_elements(
 --  ***** Example elements *****
 --	sio2,tio2,so2,al2o3,cr2o3,fe2o3,feo,mno,mgo,cao,na2o,k2o,p2o5,p2o5,cl,co2
 CREATE TABLE elements(
-	element_name TEXT PRIMARY KEY
+	element_name TEXT PRIMARY KEY,
+	format TEXT NOT NULL -- HTML formatted string
 );
 
 CREATE TABLE units(
