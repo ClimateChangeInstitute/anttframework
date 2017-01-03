@@ -77,7 +77,7 @@
 
 				<div class="row">
 					<div class="col-sm-9">
-						<h3 id="morphingHeader">All Samples</h3>
+						<h3>Search Query Results</h3>
 					</div>
 					<div class="col-sm-3">
 						<form class="form-inline">
@@ -121,7 +121,8 @@
 						information about it or tick one or more of the checkboxes above
 						to display only those types of samples.
 					</div>
-					<div ng-repeat="sample in filtered | filter:searchText | checkboxFilters:Filters:this">
+					<div
+						ng-repeat="sample in filtered | filter:searchText | checkboxFilters:Filters:this">
 						<a class="special"
 							href="{{sample.sampleType}}.html?id={{sample.sampleID}}">
 							<div class="panel panel-default selectpanelhover">

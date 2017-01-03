@@ -60,190 +60,227 @@ app.controller('results', function($scope, dataSource) {
 
 	var searchButtonClicked = function(event) {
 		
-		$("#morphingHeader").text("Search Query Results");
-
 		var elements = [];
 		var values = {};
+		var url = '';
+		var url_param_count = 0;
+		// also create url here
 		$("input[id^='element-'").each(function(i,e){
 			var $e = $(e);
 			var v = $e.val();
+
 			if (v !== '') {
+				if (url_param_count == 0) {
+					url += '?'
+					url_param_count = 1;
+				}
 				var n = $e.attr('id').split('-')[1];
 				elements.push(n);
 				values[n] = v;
+				url += (n + '=' + v + '&'); 
 			}
 		})
 
-		/**
-		 * @param callback
-		 *            {function} Called after the AJAX get request completes
-		 * @returns {undefined}
-		 */
-		var loadMMElements = function(fileURL, callback) {
-			$.ajax({
-				type : "GET",
-				url : fileURL,
-				dataType : "xml",
-				success : function(xml) {
-					if (callback)
-						callback(xmlToMMElements(xml));
-				}
-			});
+		if (url.slice(-1) == '&') {
+			url = url.slice(0, -1);
+		}
 
-			/**
-			 * @param xml
-			 *            Either an XML object or a string representation (Not null)
-			 * @returns {MMElement[]} The mm elements or an empty list
-			 */
-			var xmlToMMElements = function(xml) {
-				var x2js = new X2JS();
-				var json = (typeof xml) === 'string' ? x2js.xml_str2json(xml) : x2js.xml2json(xml);
-				var mmelements = [];
-				$(json.mmelements.mmelement).each(function(i, e) {
-					mmelements.push(new MMElement(e));
-				});
-				return mmelements;
-			};
+		console.log(elements);
+		console.log(url);
 
-			/**
-			 * @param e
-			 *            {object} A JSON parsed allMMElements.xml MMElement
-			 * @returns {MMEelement} A typed MMElement object
-			 */
-			function MMElement(e) {
-				this.calculatedTotal = parseFloat(e.calculatedTotal);
-				this.comments = e.comments;
-				var parts = e.dateMeasured.split('-');
-				this.dateMeasured = new Date(parts[0], parts[1], parts[2]);
-				this.elementData = [];
-				var that = this;
-				if (e.elementData) {
-					$(e.elementData).each(function(i, e) {
-						that.elementData.push(new MMElementData(e));
-					});
-				}
-				this.h2o_minus = parseFloat(e.h2o_minus);
-				this.h2o_plus = parseFloat(e.h2o_plus);
-				this.iid = e.iid;
-				this.instrumentSettings = e.instrumentSettings;
-				this.loi = parseFloat(e.loi);
-				this.longsampleID = e.longsampleID;
-				this.measuredBy = e.measuredBy;
-				this.methodType = e.methodType.type;
-				this.numberOfMeasurements = parseInt(e.numberOfMeasurements);
-				this.originalTotal = parseFloat(e.originalTotal);
-				this.sampleID = e.sampleID;
-				this.sampleType = (this.sampleID).charAt(0).toUpperCase();
-				this.sampleTypeLong = '';
+		window.location = 'results.html' + url;
+	}
 
-				if (this.sampleType == 'B')
-					this.sampleTypeLong = "Blue Ice Area (BIA)";
-				if (this.sampleType == 'I')
-					this.sampleTypeLong = "Ice Core";
-				if (this.sampleType == 'O')
-					this.sampleTypeLong = "Outcrop";
-				if (this.sampleType == 'L')
-					this.sampleTypeLong = "Lake";
-				if (this.sampleType == 'M')
-					this.sampleTypeLong = "Marine";
-			};
-
-			/**
-			 * @param mme
-			 *            {object} A JSON parsed allMMElements.xml MMElement entry value
-			 * @returns {MMElementData} Fully typed MMEelementData object
-			 */
-			function MMElementData(mme) {
-				this.element = mme.element;
-				this.me = parseFloat(mme.me);
-				this.std = parseFloat(mme.std);
-				this.unit = mme.unit;
-				this.value = parseFloat(mme.value);
-			};
-		};
-		
-		$scope.promise = loadMMElements('generated/allMMElements.xml', function(allMMElements){
-
-			/**
-			 * Filter MMElements based on the given array of keys. Make sure the
-			 * MMElement data has already been loaded via antt.loadMMElements function.
-			 * 
-			 * @param keys
-			 *            {string[]}
-			 * @param mmelements
-			 *            {MMElement[]}
-			 * @param unit
-			 *            {string} matching elements must also be the same unit
-			 * @returns {MMElement[]} MMElements that contain every key in the given
-			 *          array or an empty array
-			 */
-			var filterMMElements = function(keys, mmelements, unit) {
-				var result = [];
-
-				$(mmelements).each(function(i, e) {
-					for (var i = 0; i < keys.length; i++) {
-						var found = false;
-						for (var j = 0; j < e.elementData.length; j++) {
-							if (keys[i] === e.elementData[j].element) {
-								found = true;
-								break;
-							}
-						}
-						if (!found) // No match! Don't add to the results
-							return;
-					}
-					result.push(e);
-				});
-
-				return result;
-			};
-
-			var filtered = filterMMElements(elements, allMMElements, '%');
-			$scope.filtered = filtered;
-
-
-			// // create checkbox filters on the fly for dynamic data
-			var filters = [];
-			_.each(filtered, function(sample) {
-
-				
-			  _.each(sample, function(value, key) { 
-
-			  	console.log(sample.sampleTypeLong);
-
-			  	value = sample.sampleTypeLong;
-
-			  	var existingFilter = _.findWhere(filters, { name: key });
-
-			  	// temp for now - we are only interested in sample type as a filter
-			  	// we can use any other key filter later
-			    if (key == 'sampleTypeLong')
-			    {
-			    	if (existingFilter) {
-				      var existingOption = _.findWhere(existingFilter.options, { value: value });
-				      if (existingOption) {
-				        existingOption.count += 1;
-				      } else {
-				        existingFilter.options.push({ value: value, count: 1 }); 
-				      }   
-				    } 
-				    else {
-					  var filter = {};
-					  var key_long_name = ((key.replace(/([A-Z]+)/g, ",$1").replace(/^,/, "")).split(",")).join(" ");
-					  key_long_name = key_long_name.charAt(0).toUpperCase() + key_long_name.slice(1);
-				      filter.name = key;
-				      filter.key_long_name = key_long_name.replace(/Long/g, "");
-				      filter.options = [];
-				      filter.options.push({ value: value, count: 1 });
-				      filters.push(filter);      
-				    }
-				}   
-			  });
-			});
-			$scope.Filters = filters;
-			$scope.$apply();
+	/**
+	 * @param callback
+	 *            {function} Called after the AJAX get request completes
+	 * @returns {undefined}
+	 */
+	var loadMMElements = function(fileURL, callback) {
+		$.ajax({
+			type : "GET",
+			url : fileURL,
+			dataType : "xml",
+			success : function(xml) {
+				if (callback)
+					callback(xmlToMMElements(xml));
+			}
 		});
+
+		/**
+		 * @param xml
+		 *            Either an XML object or a string representation (Not null)
+		 * @returns {MMElement[]} The mm elements or an empty list
+		 */
+		var xmlToMMElements = function(xml) {
+			var x2js = new X2JS();
+			var json = (typeof xml) === 'string' ? x2js.xml_str2json(xml) : x2js.xml2json(xml);
+			var mmelements = [];
+			$(json.mmelements.mmelement).each(function(i, e) {
+				mmelements.push(new MMElement(e));
+			});
+			return mmelements;
+		};
+
+		/**
+		 * @param e
+		 *            {object} A JSON parsed allMMElements.xml MMElement
+		 * @returns {MMEelement} A typed MMElement object
+		 */
+		function MMElement(e) {
+			this.calculatedTotal = parseFloat(e.calculatedTotal);
+			this.comments = e.comments;
+			var parts = e.dateMeasured.split('-');
+			this.dateMeasured = new Date(parts[0], parts[1], parts[2]);
+			this.elementData = [];
+			var that = this;
+			if (e.elementData) {
+				$(e.elementData).each(function(i, e) {
+					that.elementData.push(new MMElementData(e));
+				});
+			}
+			this.h2o_minus = parseFloat(e.h2o_minus);
+			this.h2o_plus = parseFloat(e.h2o_plus);
+			this.iid = e.iid;
+			this.instrumentSettings = e.instrumentSettings;
+			this.loi = parseFloat(e.loi);
+			this.longsampleID = e.longsampleID;
+			this.measuredBy = e.measuredBy;
+			this.methodType = e.methodType.type;
+			this.numberOfMeasurements = parseInt(e.numberOfMeasurements);
+			this.originalTotal = parseFloat(e.originalTotal);
+			this.sampleID = e.sampleID;
+			this.sampleType = (this.sampleID).charAt(0).toUpperCase();
+			this.sampleTypeLong = '';
+
+			if (this.sampleType == 'B')
+				this.sampleTypeLong = "Blue Ice Area (BIA)";
+			if (this.sampleType == 'I')
+				this.sampleTypeLong = "Ice Core";
+			if (this.sampleType == 'O')
+				this.sampleTypeLong = "Outcrop";
+			if (this.sampleType == 'L')
+				this.sampleTypeLong = "Lake";
+			if (this.sampleType == 'M')
+				this.sampleTypeLong = "Marine";
+		};
+
+		/**
+		 * @param mme
+		 *            {object} A JSON parsed allMMElements.xml MMElement entry value
+		 * @returns {MMElementData} Fully typed MMEelementData object
+		 */
+		function MMElementData(mme) {
+			this.element = mme.element;
+			this.me = parseFloat(mme.me);
+			this.std = parseFloat(mme.std);
+			this.unit = mme.unit;
+			this.value = parseFloat(mme.value);
+		};
 	};
+	
+	$scope.promise = loadMMElements('generated/allMMElements.xml', function(allMMElements){
+
+		/**
+		 * Filter MMElements based on the given array of keys. Make sure the
+		 * MMElement data has already been loaded via antt.loadMMElements function.
+		 * 
+		 * @param keys
+		 *            {string[]}
+		 * @param mmelements
+		 *            {MMElement[]}
+		 * @param unit
+		 *            {string} matching elements must also be the same unit
+		 * @returns {MMElement[]} MMElements that contain every key in the given
+		 *          array or an empty array
+		 */
+		var filterMMElements = function(keys, mmelements, unit) {
+			var result = [];
+
+			$(mmelements).each(function(i, e) {
+				for (var i = 0; i < keys.length; i++) {
+					var found = false;
+					for (var j = 0; j < e.elementData.length; j++) {
+						if (keys[i] === e.elementData[j].element) {
+							found = true;
+							break;
+						}
+					}
+					if (!found) // No match! Don't add to the results
+						return;
+				}
+				result.push(e);
+			});
+
+			return result;
+		};
+
+
+		// PARSE URL HERE
+
+		var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+			        sURLVariables = sPageURL.split('&'),
+			        sParameterName,
+			        i;
+		var elements = [];
+		var values = {};
+
+		console.log(sPageURL);
+		console.log(sURLVariables);
+
+	    for (i = 0; i < sURLVariables.length; i++) {
+	        sParameterName = sURLVariables[i].split('=');
+	        elements.push(sParameterName[0]);
+	        values[sParameterName[0]] = sParameterName[1];
+	    }
+
+	    console.log(elements);
+	    // END PARSE URL
+
+		var filtered = filterMMElements(elements, allMMElements, '%');
+		$scope.filtered = filtered;
+
+		// // create checkbox filters on the fly for dynamic data
+		var filters = [];
+		_.each(filtered, function(sample) {
+
+			
+		  _.each(sample, function(value, key) { 
+
+		  	console.log(sample.sampleTypeLong);
+
+		  	value = sample.sampleTypeLong;
+
+		  	var existingFilter = _.findWhere(filters, { name: key });
+
+		  	// temp for now - we are only interested in sample type as a filter
+		  	// we can use any other key filter later
+		    if (key == 'sampleTypeLong')
+		    {
+		    	if (existingFilter) {
+			      var existingOption = _.findWhere(existingFilter.options, { value: value });
+			      if (existingOption) {
+			        existingOption.count += 1;
+			      } else {
+			        existingFilter.options.push({ value: value, count: 1 }); 
+			      }   
+			    } 
+			    else {
+				  var filter = {};
+				  var key_long_name = ((key.replace(/([A-Z]+)/g, ",$1").replace(/^,/, "")).split(",")).join(" ");
+				  key_long_name = key_long_name.charAt(0).toUpperCase() + key_long_name.slice(1);
+			      filter.name = key;
+			      filter.key_long_name = key_long_name.replace(/Long/g, "");
+			      filter.options = [];
+			      filter.options.push({ value: value, count: 1 });
+			      filters.push(filter);      
+			    }
+			}   
+		  });
+		});
+		$scope.Filters = filters;
+		$scope.$apply();
+	});
 });
 
 
