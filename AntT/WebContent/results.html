@@ -103,54 +103,33 @@
 						to display only those types of samples.
 					</div>
 					<div
-						ng-repeat="sample in filtered | filter:searchText">
-						<a class="special"
-							href="{{sample.sampleType}}.html?id={{sample.sampleID}}">
+						ng-repeat="search in filtered | filter:searchText">
 							<div class="panel panel-default selectpanelhover">
 								<div class="panel-body">
-									<div class="row">
-										<div class="col-sm-9">
-											<p>
-												<strong>Sample ID: </strong>{{sample.sampleID}}
-											</p>
-											<p>
-												<strong>Sample Type: </strong>{{sample.longsampleID}}
-											</p>
-										</div>
-										<div class="col-sm-3">
-											<p>
-												<strong>Collection Date: </strong>{{sample.dateMeasured}}
-											</p>
-											<p>
-												<strong>Collected By: </strong>{{sample.measuredBy}}
-											</p>
-										</div>
-									</div>
+									
 									<div class="row">
 										<div class="col-sm-12">
-											<h3>Geochemical Data</h3>
+											<h3>Search title</h3>
 										</div>
 									</div>
 									<hr>
-									<div class="row" ng-hide="sample.elementData == null">
+									<div class="row">
 										<div class="col-md-12 table-responsive">
 											<table class="table table-hover table-condensed">
 												<thead>
 													<tr>
-														<th>Element</th>
-														<th>%</th>
-														<th>std</th>
-														<th>unit</th>
-														<th>me</th>
+														<th>Coefficient</th>
+														<th>MME</th>
+														<th>save</th>
 													</tr>
 												</thead>
 												<tbody>
-													<tr ng-repeat="e in sample.elementData">
-														<td>{{e.element}}</td>
-														<td>{{e.value}}</td>
-														<td>{{e.std}}</td>
-														<td>{{e.unit}}</td>
-														<td>{{e.me}}</td>
+													<tr ng-repeat="o in search">
+														<td>{{o.simVal | number:4}}</td>
+														<td>
+															<a class="special" href="{{o.mme.sampleType}}.html?id={{o.mme.sampleID}}">{{o.mme.sampleID}}</a>
+														</td>
+														<td><input type="checkbox"></td>
 													</tr>
 												</tbody>
 											</table>
