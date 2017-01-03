@@ -92,25 +92,6 @@
 				<hr>
 
 				<div cg-busy="{promise:promise,message:message}">
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<div class="row">
-								<div class="col-sm-12">
-									<div ng-repeat="filter in Filters">
-										<ul class="sortoptions filterSection">
-											<li><strong> {{filter.key_long_name}} : </strong></li>
-											<li ng-repeat="option in filter.options"><label
-												class="form-inline"> <input type="checkbox"
-													ng-model="option.IsIncluded" ng-checked="option.IsIncluded">{{option.value}}
-													({{option.count}})
-											</label></li>
-										</ul>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<hr>
 
 					<div class="alert alert-info alert-dismissible" role="alert">
 						<button type="button" class="close" data-dismiss="alert"
