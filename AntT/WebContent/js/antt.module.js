@@ -10,38 +10,6 @@ app.factory('dataSource', [ '$http', function($http) {
 	return factory;
 } ]);
 
-app.filter('checkboxFilters', function () {
-    return function (samples, filterTypes, scope) {
-      var filtered = [];
-
-      var sampleFilters = _.filter(filterTypes, function(ft) {
-      	return  _.any(ft.options, { 'IsIncluded': true });
-      });
-
-      _.each(samples, function(samp) {
-        var includeSample = true;
-        _.each(sampleFilters, function(filter) {
-        	var temp = []; 
-        	_.each(samp, function(val, key) {
-        		temp.push({name: key, value: val});
-        	});
-        	
-        	var props = _.filter(temp, {'name' : filter.name});
-
-          if (!_.any(props, function(prop) { 
-          	
-          	return _.any(filter.options, { 'value': prop.value, 'IsIncluded': true }); })) {
-            includeSample = false;
-          }
-        });
-        if (includeSample) {
-          filtered.push(samp);
-        }
-      });
-      return filtered;
-    };
-  });
-
 app.controller('results', function($scope, dataSource) {
 
 	$scope.AppController = [];
@@ -93,71 +61,33 @@ app.controller('results', function($scope, dataSource) {
 
 	$scope.promise = antt.loadMMElements('generated/allMMElements.xml', function(allMMElements){
 
-		// PARSE URL HERE
-
-		// var sPageURL = decodeURIComponent(window.location.search.substring(1)),
-		// 	        sURLVariables = sPageURL.split('&'),
-		// 	        sParameterName,
-		// 	        i;
-		// var elements = [];
-		// var values = {};
-
-		// console.log(sPageURL);
-		// console.log(sURLVariables);
-
-	 //    for (i = 0; i < sURLVariables.length; i++) {
-	 //        sParameterName = sURLVariables[i].split('=');
-	 //        elements.push(sParameterName[0]);
-	 //        values[sParameterName[0]] = sParameterName[1];
-	 //    }
-
-	 //    console.log(elements);
-	 //    console.log(values);
-
 	 	var values = antt.getUrlParameters();
 	 	var searches = antt.getQueriedElements(values, 's');
 
+	 	var allResults = [];
 
-	    // END PARSE URL
-	    var filtered = antt.filterMMElements(searches[0], allMMElements, '%');
-		$scope.filtered = filtered;
+	 	$.each(searches, function(i, s) {
 
-		// // create checkbox filters on the fly for dynamic data
-		var filters = [];
-		_.each(filtered, function(sample) {
-			
-			_.each(sample, function(value, key) { 
+		    var filtered = antt.filterMMElements(Object.keys(s), allMMElements, '%');
 
-		  	value = sample.sampleTypeLong;
+		    var searchRes = [];
 
-		  	var existingFilter = _.findWhere(filters, { name: key });
+		    $.each(filtered, function(i, e) {
 
-		  	// temp for now - we are only interested in sample type as a filter
-		  	// we can use any other key filter later
-		    if (key == 'sampleTypeLong')
-		    {
-		    	if (existingFilter) {
-			      var existingOption = _.findWhere(existingFilter.options, { value: value });
-			      if (existingOption) {
-			        existingOption.count += 1;
-			      } else {
-			        existingFilter.options.push({ value: value, count: 1 }); 
-			      }   
-			    } 
-			    else {
-				  var filter = {};
-				  var key_long_name = ((key.replace(/([A-Z]+)/g, ",$1").replace(/^,/, "")).split(",")).join(" ");
-				  key_long_name = key_long_name.charAt(0).toUpperCase() + key_long_name.slice(1);
-			      filter.name = key;
-			      filter.key_long_name = key_long_name.replace(/Long/g, "");
-			      filter.options = [];
-			      filter.options.push({ value: value, count: 1 });
-			      filters.push(filter);      
-			    }
-			}   
-		  });
+		    	var simVal = antt.statistics.similarityCoefficientListList(Object.values(s), antt.valuesArray(Object.keys(s), e));
+
+		    	searchRes.push({simVal: simVal, mme: e});
+		    })
+
+		    searchRes.sort(function(a,b) {
+		    	return b.simVal - a.simVal;
+		    });
+
+		    allResults.push(searchRes);
 		});
-		$scope.Filters = filters;
-		$scope.$apply();
+
+	    console.log(allResults);
+
+		$scope.filtered = allResults;
 	});
 });
