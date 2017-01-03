@@ -89,5 +89,6 @@ app.controller('results', function($scope, dataSource) {
 	    console.log(allResults);
 
 		$scope.filtered = allResults;
+		$scope.$apply();
 	});
 });
