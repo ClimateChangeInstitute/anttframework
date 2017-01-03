@@ -103,7 +103,7 @@
 						to display only those types of samples.
 					</div>
 					<div
-						ng-repeat="sample in filtered | filter:searchText | checkboxFilters:Filters:this">
+						ng-repeat="sample in filtered | filter:searchText">
 						<a class="special"
 							href="{{sample.sampleType}}.html?id={{sample.sampleID}}">
 							<div class="panel panel-default selectpanelhover">
