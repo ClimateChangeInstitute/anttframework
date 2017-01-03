@@ -296,13 +296,13 @@
 
 					if (v !== '') {
 						if (url_param_count == 0) {
-							url += '?'
+							url += '?s=';
 							url_param_count = 1;
 						}
 						var n = $e.attr('id').split('-')[1];
 						elements.push(n);
 						values[n] = v;
-						url += (n + '=' + v + '&');
+						url += (n + ':' + v + '&');
 					}
 				})
 
