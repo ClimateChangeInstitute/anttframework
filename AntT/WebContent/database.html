@@ -282,7 +282,37 @@
 						.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>');
 
 		$(document).ready(function() {
-			$("#search-confirm").click(antt.searchButtonClicked);
+			$("#search-confirm").click(searchButtonClicked);
+
+			function searchButtonClicked() {
+				
+				var elements = [];
+				var values = {};
+				var url = '';
+				var url_param_count = 0;
+				// also create url here
+				$("input[id^='element-'").each(function(i,e){
+					var $e = $(e);
+					var v = $e.val();
+
+					if (v !== '') {
+						if (url_param_count == 0) {
+							url += '?'
+							url_param_count = 1;
+						}
+						var n = $e.attr('id').split('-')[1];
+						elements.push(n);
+						values[n] = v;
+						url += (n + '=' + v + '&'); 
+					}
+				})
+
+				if (url.slice(-1) == '&') {
+					url = url.slice(0, -1);
+				}
+
+				window.location = 'results.html' + url;
+			}
 		});
 	</script>
 	<script src='./lib/lodash.js'></script>
