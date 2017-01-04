@@ -16,7 +16,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Arrays;
@@ -143,7 +142,7 @@ public class DBImporter {
 
 		copyFileToTable(dbName, "refs", dataDir);
 
-		// importImageFiles(dataDir);
+		importImageFiles(dataDir);
 
 		Connection conn = DBProperties.getJDBCConnection(props);
 
@@ -159,7 +158,7 @@ public class DBImporter {
 				dataDir);
 
 		// @formatter:off
-		int res = st.executeUpdate(
+		st.executeUpdate(
 				  "UPDATE images "
 				+ "SET comments = t.comments "
 				+ "FROM images_tmp t "
@@ -167,62 +166,52 @@ public class DBImporter {
 		// @formatter:on
 
 		st.executeUpdate("DROP TABLE images_tmp");
-		
-		loadSampleData(dataDir, dbName, "icecore_samples", 
+
+		loadSampleData(dataDir, dbName, "icecore_samples",
 				"volcano_number INTEGER,drilled_by TEXT,drilling_date DATE,core_diameter REAL,max_core_depth REAL,core_age REAL,core_age_range TEXT,topdepth_m REAL,bottomdepth_m REAL,topyear_bp REAL,bottomyear_bp REAL",
 				"I",
 				"sample_id, volcano_number, drilled_by, drilling_date,core_diameter,max_core_depth,core_age,core_age_range,topdepth_m,bottomdepth_m,topyear_bp,bottomyear_bp",
 				conn);
-		
-		loadSampleData(dataDir, dbName, "bia_samples", 
+
+		loadSampleData(dataDir, dbName, "bia_samples",
 				"volcano_number INTEGER,deep TEXT,	sample_description TEXT,sample_media TEXT,unit_name TEXT,thickness_cm TEXT,trend TEXT",
 				"B",
 				"sample_id, volcano_number, deep, sample_description,sample_media,unit_name,thickness_cm,trend",
 				conn);
 
-
 		copyFileToTable(dbName, "corer_types", dataDir);
 
 		copyFileToTable(dbName, "method_types", dataDir);
-		
 
-		loadSampleData(dataDir, dbName, "lake_samples", 
+		loadSampleData(dataDir, dbName, "lake_samples",
 				"volcano_number INTEGER,corer_type TEXT,age TEXT,core_length_m REAL,sampling_date DATE,depth_m REAL,top_m REAL,thickness_cm REAL",
 				"L",
 				"sample_id, volcano_number,corer_type,age,core_length_m,sampling_date,depth_m,top_m,thickness_cm",
 				conn);
-		
-		loadSampleData(dataDir, dbName, "marine_samples", 
+
+		loadSampleData(dataDir, dbName, "marine_samples",
 				"volcano_number INTEGER,corer_type TEXT,age TEXT,core_length_m REAL,sampling_date DATE,depth_m REAL,top_m REAL,thickness_cm REAL",
 				"M",
 				"sample_id, volcano_number,corer_type,age,core_length_m,sampling_date,depth_m,top_m,thickness_cm",
 				conn);
-		
-		
-		loadSampleData(dataDir, dbName, "outcrop_samples", 
-				"volcano_number INTEGER",
-				"O",
-				"sample_id, volcano_number",
+
+		loadSampleData(dataDir, dbName, "outcrop_samples",
+				"volcano_number INTEGER", "O", "sample_id, volcano_number",
 				conn);
 
-		// copyFileToTable(dbName, "samples_images", dataDir);
+		copyFileToTable(dbName, "samples_images", dataDir);
 
-		// TODO This will be handled by samples subtypes
-		// copyFileToTable(dbName, "samples_refs", dataDir);
+		copyFileToTable(dbName, "samples_refs", dataDir);
 
-		// TODO grain sizes should be fine after samples are imported
-		// copyFileToTable(dbName, "grain_sizes", dataDir);
-		// copyFileToTable(dbName, "grain_sizes_refs", dataDir);
+		copyFileToTable(dbName, "grain_sizes", dataDir);
+		copyFileToTable(dbName, "grain_sizes_refs", dataDir);
 
-
-		// TODO Must be written after samples are loaded
-		// copyFileToTable(dbName, "mm_elements", dataDir);
+		copyFileToTable(dbName, "mm_elements", dataDir);
 
 		copyFileToTable(dbName, "elements", dataDir);
 		copyFileToTable(dbName, "units", dataDir);
 
-		// TODO link mm_elements_data after samples
-		// copyFileToTable(dbName, "mm_elements_data", dataDir);
+		copyFileToTable(dbName, "mm_elements_data", dataDir);
 
 		System.out.printf(
 				"File import completed.  Data can be found in the '%s' database.\n",
@@ -237,8 +226,8 @@ public class DBImporter {
 	 * @throws IOException
 	 */
 	private void loadSampleData(File dataDir, String dbName, String tableName,
-			String extraColumnsWithTypes, String typeChar, String extraColumns, Connection conn)
-			throws SQLException, IOException {
+			String extraColumnsWithTypes, String typeChar, String extraColumns,
+			Connection conn) throws SQLException, IOException {
 
 		Statement st = conn.createStatement();
 
@@ -256,10 +245,8 @@ public class DBImporter {
 						+ "SELECT sample_id, long_name, sampled_by, collection_date, comments, site_id, iid, '%s' AS sample_type FROM %s",
 				typeChar, tmpTable));
 
-		st.executeUpdate(
-				"INSERT INTO " + tableName + " (" + extraColumns + ") "
-						+ "SELECT " + extraColumns
-						+ "  FROM " + tmpTable);
+		st.executeUpdate("INSERT INTO " + tableName + " (" + extraColumns + ") "
+				+ "SELECT " + extraColumns + "  FROM " + tmpTable);
 
 		st.execute("DROP TABLE " + tmpTable);
 	}
