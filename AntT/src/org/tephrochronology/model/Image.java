@@ -28,7 +28,7 @@ public class Image implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	
 	@Id
 	@Column(name = "image_id")
 	private String imageID;

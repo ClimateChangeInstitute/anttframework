@@ -8,14 +8,24 @@ import static org.eclipse.persistence.config.PersistenceUnitProperties.JDBC_USER
 import static org.tephrochronology.DBProperties.dBExists;
 import static org.tephrochronology.DBProperties.setupProperties;
 
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileFilter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
+
+import javax.imageio.ImageIO;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
+import org.tephrochronology.model.Image;
 
 /**
  * A collection of functions to import data to the database from a collection of
@@ -72,10 +82,10 @@ public class DBImporter {
 		} else {
 
 			if (dBExists(props)) {
-				
+
 				System.out.printf(
 						"The '%s' database exists and the contents will be overwritten.\n"
-						+ "Data found in the '%s' directory will be used.  Continue? (y/N):",
+								+ "Data found in the '%s' directory will be used.  Continue? (y/N):",
 						dbName, dataDir.getAbsolutePath());
 				Scanner scan = new Scanner(System.in);
 				String ans = scan.nextLine();
@@ -84,9 +94,9 @@ public class DBImporter {
 					System.out.println("Exiting");
 					System.exit(-1);
 				} else {
-					dropDatabase();	
+					dropDatabase();
 				}
-				
+
 			}
 
 			createDatabase();
@@ -123,9 +133,44 @@ public class DBImporter {
 
 		copyFileToTable(dbName, "refs", dataDir);
 
-//		 copyFileToTable(dbName, "grain_sizes", dataDir);
-//		 copyFileToTable(dbName, "grain_sizes_refs", dataDir);
+		File imageFolder = new File(dataDir, "images");
 
+		File[] images = imageFolder.listFiles(new FileFilter() {
+
+			private String[] accepted = { "jpg", "jpeg" };
+
+			@Override
+			public boolean accept(File pathname) {
+				return !pathname.getName().isEmpty()
+						&& Arrays.stream(accepted).anyMatch(e -> pathname
+								.getName().toLowerCase().endsWith(e));
+			}
+		});
+		
+		EntityManagerFactory emf = Persistence
+				.createEntityManagerFactory("antt", props);
+		EntityManager em = emf.createEntityManager();
+
+		em.getTransaction().begin();
+		
+		System.out.printf("Processing %d images (This may take a while).", images.length);
+		for (File f : images) {
+			BufferedImage fullSizeImage = ImageIO.read(f);
+			BufferedImage thumbImage = Images.scaleAndCrop(fullSizeImage,
+					Images.DEFAULT_THUMB_SIZE);
+
+			Image image = new Image(f.getName(), "",
+					Images.asOutputStream(fullSizeImage).toByteArray(),
+					Images.asOutputStream(thumbImage).toByteArray(), null);
+			
+			em.persist(image);
+			System.out.print(".");
+
+		}
+		
+		em.getTransaction().commit();
+		System.out.println();
+		
 		// TODO Import images properly
 		// copyTableToFile(dbName, "(SELECT image_id, comments FROM images)",
 		// "images.csv", dataDir);
@@ -181,6 +226,10 @@ public class DBImporter {
 //				"outcrop_samples.csv", dataDir);
 
 // @formatter:on
+
+		// TODO grain sizes should be fine after samples are imported
+		// copyFileToTable(dbName, "grain_sizes", dataDir);
+		// copyFileToTable(dbName, "grain_sizes_refs", dataDir);
 
 		copyFileToTable(dbName, "corer_types", dataDir);
 
