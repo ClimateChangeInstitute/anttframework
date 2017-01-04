@@ -138,7 +138,8 @@
 												</thead>
 												<tbody>
 													<tr ng-repeat="o in search.searchRes">
-														<td>{{o.simVal | number:3}}</td>
+														<!-- Change the number of significant figures here -->
+														<td>{{o.simVal | number:2}}</td>
 														<td><a class="special"
 															href="{{o.mme.sampleType}}.html?id={{o.mme.sampleID}}">{{o.mme.sampleID}}</a>
 														</td>
