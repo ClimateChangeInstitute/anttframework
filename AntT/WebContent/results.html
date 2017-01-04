@@ -66,9 +66,22 @@
 	<!-- Begin page content -->
 	<div class="container">
 		<br> <br>
-		<div class="text-center">
-			<button class="btn btn-lg btn-block btn-primary" data-toggle="modal"
-				data-target="#search">Search database by chemical makeup</button>
+		<div class="row">
+			<div class="col-md-12">
+				<button class="btn btn-lg btn-block btn-primary" data-toggle="modal"
+					data-target="#search">Search database by chemical makeup</button>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="pull-right">
+					<div class="checkbox">
+						<label> <input id="choice" type="checkbox" value="">
+							Show multiple searches on this page
+						</label>
+					</div>
+				</div>
+			</div>
 		</div>
 		<br> <br>
 
@@ -102,41 +115,40 @@
 						information about it or tick one or more of the checkboxes above
 						to display only those types of samples.
 					</div>
-					<div
-						ng-repeat="search in filtered | filter:searchText">
-							<div class="panel panel-default selectpanelhover">
-								<div class="panel-body">
-									
-									<div class="row">
-										<div class="col-sm-12">
-											<h3>Search title</h3>
-										</div>
+					<div ng-repeat="search in filtered | filter:searchText">
+						<div class="panel panel-default selectpanelhover">
+							<div class="panel-body">
+
+								<div class="row">
+									<div class="col-sm-12">
+										<h3>Search title</h3>
 									</div>
-									<hr>
-									<div class="row">
-										<div class="col-md-12 table-responsive">
-											<table class="table table-hover table-condensed">
-												<thead>
-													<tr>
-														<th>Coefficient</th>
-														<th>MME</th>
-														<th>save</th>
-													</tr>
-												</thead>
-												<tbody>
-													<tr ng-repeat="o in search">
-														<td>{{o.simVal | number:4}}</td>
-														<td>
-															<a class="special" href="{{o.mme.sampleType}}.html?id={{o.mme.sampleID}}">{{o.mme.sampleID}}</a>
-														</td>
-														<td><input type="checkbox"></td>
-													</tr>
-												</tbody>
-											</table>
-										</div>
+								</div>
+								<hr>
+								<div class="row">
+									<div class="col-md-12 table-responsive">
+										<table class="table table-hover table-condensed">
+											<thead>
+												<tr>
+													<th>Coefficient</th>
+													<th>MME</th>
+													<th>save</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr ng-repeat="o in search">
+													<td>{{o.simVal | number:4}}</td>
+													<td><a class="special"
+														href="{{o.mme.sampleType}}.html?id={{o.mme.sampleID}}">{{o.mme.sampleID}}</a>
+													</td>
+													<td><input type="checkbox"></td>
+												</tr>
+											</tbody>
+										</table>
 									</div>
 								</div>
 							</div>
+						</div>
 						</a>
 					</div>
 				</div>
@@ -239,8 +251,8 @@
 						<div class="modal-footer">
 							<button type="button" class="btn btn-default"
 								data-dismiss="modal">Close</button>
-							<button onclick="searchCall()" id="search-confirm" type="button" class="btn btn-primary"
-								data-dismiss="modal">Search</button>
+							<button onclick="searchCall()" id="search-confirm" type="button"
+								class="btn btn-primary" data-dismiss="modal">Search</button>
 
 						</div>
 					</form>
@@ -272,7 +284,7 @@
 						.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>');
 
 		function searchCall() {
-			antt.builtUrl(false);
+			antt.builtUrl($("#choice").is(':checked'));
 		}
 	</script>
 	<script src='./lib/lodash.js'></script>
