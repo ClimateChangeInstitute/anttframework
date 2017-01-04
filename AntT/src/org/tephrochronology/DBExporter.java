@@ -145,7 +145,7 @@ public class DBExporter {
 
 		copyTableToFile(dbName,
   "(SELECT s.sample_id, long_name, sampled_by, collection_date, comments, site_id, iid,"
-	    + "volcano_number,core_type,age,core_length_m,sampling_date,depth_m,top_m,thickness_cm "
+	    + "volcano_number,corer_type,age,core_length_m,sampling_date,depth_m,top_m,thickness_cm "
  + "FROM samples s, lake_samples l "
  + "WHERE s.sample_id = l.sample_id	"
  + "ORDER BY s.sample_id)",
@@ -153,7 +153,7 @@ public class DBExporter {
 		
 		copyTableToFile(dbName,
  "(SELECT s.sample_id, long_name, sampled_by, collection_date, comments, site_id, iid,"
-      + " volcano_number,core_type,age,core_length_m,sampling_date,depth_m,top_m,thickness_cm "
+      + " volcano_number,corer_type,age,core_length_m,sampling_date,depth_m,top_m,thickness_cm "
 + "FROM samples s, marine_samples m "
 + "WHERE s.sample_id = m.sample_id "
 + "ORDER BY s.sample_id)",
@@ -169,7 +169,7 @@ public class DBExporter {
 
 // @formatter:on
 
-		copyTableToFile(dbName, "core_types", dataDir);
+		copyTableToFile(dbName, "corer_types", dataDir);
 
 		copyTableToFile(dbName, "method_types", dataDir);
 
