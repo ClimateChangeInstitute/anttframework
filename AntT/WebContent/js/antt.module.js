@@ -49,9 +49,7 @@ app.controller('results', function($scope, dataSource) {
 		    allResults.push(searchRes);
 		});
 
-	    console.log(allResults);
-
-		$scope.filtered = allResults;
+	    $scope.filtered = allResults;
 		$scope.$apply();
 	});
 });

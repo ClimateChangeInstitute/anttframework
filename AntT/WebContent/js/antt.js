@@ -422,7 +422,7 @@
 
 	 	if (choice == false) {
 	 		// always start with fresh url
-	 		existingUrl = "?";
+	 		existingUrl = "";
 	 	}
 	 	else {
 	 		// start with next search
@@ -456,7 +456,7 @@
 	 		fullUrl = fullUrl.slice(0, -1);
 	 	}
 
-	 	window.location = 'results.html' + fullUrl;
+	 	window.location = 'results.html?' + fullUrl;
 	}
 	scope.builtUrl = builtUrl;
 
