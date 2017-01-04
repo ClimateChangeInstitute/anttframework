@@ -76,7 +76,7 @@
 			<div class="col-md-12">
 				<div class="pull-right">
 					<div class="checkbox">
-						<label> <input id="choice" type="checkbox" value="">
+						<label> <input onclick="check()" id="choice" type="checkbox" value="">
 							Show multiple searches on this page
 						</label>
 					</div>
@@ -286,6 +286,18 @@
 		function searchCall() {
 			antt.builtUrl($("#choice").is(':checked'));
 		}
+		function check() {
+			if(document.getElementById('choice').checked) {
+	            localStorage.setItem('choice', "true");
+	        } else {
+	            localStorage.setItem('choice', "false");
+	        }
+		}
+		
+		getStatus = localStorage.getItem('choice');
+	    if (getStatus == "true") {
+	        document.getElementById("choice").checked = true;
+	    }
 	</script>
 	<script src='./lib/lodash.js'></script>
 
