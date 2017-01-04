@@ -105,7 +105,6 @@
 				<hr>
 
 				<div cg-busy="{promise:promise,message:message}">
-					
 					<div ng-hide="filtered[0].length == 0">
 						
 						<div class="alert alert-info alert-dismissible" role="alert">
@@ -123,7 +122,7 @@
 
 									<div class="row">
 										<div class="col-sm-12">
-											<h3>Search title</h3>
+											<h3>Search for {{search.s}}</h3>
 										</div>
 									</div>
 									<hr>
@@ -138,8 +137,8 @@
 													</tr>
 												</thead>
 												<tbody>
-													<tr ng-repeat="o in search">
-														<td>{{o.simVal | number:4}}</td>
+													<tr ng-repeat="o in search.searchRes">
+														<td>{{o.simVal | number:3}}</td>
 														<td><a class="special"
 															href="{{o.mme.sampleType}}.html?id={{o.mme.sampleID}}">{{o.mme.sampleID}}</a>
 														</td>

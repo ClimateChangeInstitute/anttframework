@@ -46,8 +46,9 @@ app.controller('results', function($scope, dataSource) {
 		    	return b.simVal - a.simVal;
 		    });
 
-		    allResults.push(searchRes);
+		    allResults.push({searchRes: searchRes, s: s});
 		});
+		console.log(allResults);
 
 	    $scope.filtered = allResults;
 		$scope.$apply();
