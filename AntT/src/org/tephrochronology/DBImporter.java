@@ -15,6 +15,10 @@ import java.io.FileFilter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Scanner;
@@ -69,8 +73,10 @@ public class DBImporter {
 	 * 
 	 * @param dataDir
 	 * @throws IOException
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
 	 */
-	public void importData(File dataDir) throws IOException {
+	public void importData(File dataDir) throws IOException, ClassNotFoundException, SQLException {
 
 		String dbName = DBProperties.getDB(props);
 
@@ -115,8 +121,10 @@ public class DBImporter {
 	 *            The name of the database to import to (Not null)
 	 * @throws IOException
 	 *             Thrown if unable to read from files in the specified folder
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
 	 */
-	private void importFiles(File dataDir, String dbName) throws IOException {
+	private void importFiles(File dataDir, String dbName) throws IOException, SQLException, ClassNotFoundException {
 
 		copyFileToTable(dbName, "countries", dataDir);
 		copyFileToTable(dbName, "subregions", dataDir);
@@ -133,50 +141,30 @@ public class DBImporter {
 
 		copyFileToTable(dbName, "refs", dataDir);
 
-		File imageFolder = new File(dataDir, "images");
+		Connection conn = DBProperties.getJDBCConnection(props);
 
-		File[] images = imageFolder.listFiles(new FileFilter() {
-
-			private String[] accepted = { "jpg", "jpeg" };
-
-			@Override
-			public boolean accept(File pathname) {
-				return !pathname.getName().isEmpty()
-						&& Arrays.stream(accepted).anyMatch(e -> pathname
-								.getName().toLowerCase().endsWith(e));
-			}
-		});
+		Statement st = conn.createStatement();
 		
-		EntityManagerFactory emf = Persistence
-				.createEntityManagerFactory("antt", props);
-		EntityManager em = emf.createEntityManager();
-
-		em.getTransaction().begin();
+		// @formatter:off
+		st.execute("CREATE TABLE images_tmp("
+				 + "image_id TEXT PRIMARY KEY, "
+				 + "comments TEXT)");
+		// @formatter:on
 		
-		System.out.printf("Processing %d images (This may take a while).", images.length);
-		for (File f : images) {
-			BufferedImage fullSizeImage = ImageIO.read(f);
-			BufferedImage thumbImage = Images.scaleAndCrop(fullSizeImage,
-					Images.DEFAULT_THUMB_SIZE);
-
-			Image image = new Image(f.getName(), "",
-					Images.asOutputStream(fullSizeImage).toByteArray(),
-					Images.asOutputStream(thumbImage).toByteArray(), null);
-			
-			em.persist(image);
-			System.out.print(".");
-
-		}
 		
-		em.getTransaction().commit();
-		System.out.println();
-		
-		// TODO Import images properly
-		// copyTableToFile(dbName, "(SELECT image_id, comments FROM images)",
-		// "images.csv", dataDir);
-		//
-		// writeImages(dbName, dataDir);
+		copyFileToTable(dbName, "images_tmp", new File(dataDir, "images.csv"),
+				dataDir);
 
+		// @formatter:off
+		int res = st.executeUpdate(
+				  "UPDATE images "
+				+ "SET comments = t.comments "
+				+ "FROM images_tmp t "
+				+ "WHERE images.image_id = t.image_id");
+		// @formatter:on
+		
+		st.executeUpdate("DROP TABLE images_tmp");
+		
 		// copyFileToTable(dbName, "samples_images", dataDir);
 
 		// TODO This will be handled by samples subtypes
@@ -247,6 +235,51 @@ public class DBImporter {
 		System.out.printf(
 				"File import completed.  Data can be found in the '%s' database.\n",
 				dbName);
+	}
+
+	/**
+	 * @param dataDir
+	 * @throws IOException
+	 */
+	private void importImageFiles(File dataDir) throws IOException {
+		File imageFolder = new File(dataDir, "images");
+
+		File[] images = imageFolder.listFiles(new FileFilter() {
+
+			private String[] accepted = { "jpg", "jpeg" };
+
+			@Override
+			public boolean accept(File pathname) {
+				return !pathname.getName().isEmpty()
+						&& Arrays.stream(accepted).anyMatch(e -> pathname
+								.getName().toLowerCase().endsWith(e));
+			}
+		});
+
+		EntityManagerFactory emf = Persistence
+				.createEntityManagerFactory("antt", props);
+		EntityManager em = emf.createEntityManager();
+
+		em.getTransaction().begin();
+
+		System.out.printf("Processing %d images (This may take a while).",
+				images.length);
+		for (File f : images) {
+			BufferedImage fullSizeImage = ImageIO.read(f);
+			BufferedImage thumbImage = Images.scaleAndCrop(fullSizeImage,
+					Images.DEFAULT_THUMB_SIZE);
+
+			Image image = new Image(f.getName(), "",
+					Images.asOutputStream(fullSizeImage).toByteArray(),
+					Images.asOutputStream(thumbImage).toByteArray(), null);
+
+			em.persist(image);
+			System.out.print(".");
+
+		}
+
+		em.getTransaction().commit();
+		System.out.println();
 	}
 
 	/**
@@ -361,10 +394,23 @@ public class DBImporter {
 	private void copyFileToTable(String dbName, String table, File dir)
 			throws IOException {
 
+		File csvFile = new File(dir, table + ".csv");
+
+		copyFileToTable(dbName, table, csvFile, dir);
+
+	}
+
+	/**
+	 * @param dbName
+	 * @param table
+	 * @param csvFile
+	 * @throws IOException
+	 */
+	private void copyFileToTable(String dbName, String table, File csvFile,
+			File parentDir) throws IOException {
+
 		String user = props.get(JDBC_USER);
 		String pass = props.get(JDBC_PASSWORD);
-
-		File csvFile = new File(dir, table + ".csv");
 
 		String pgCommand = String.format(
 				"\\copy %s FROM '%s' DELIMITER ',' CSV HEADER", table,
@@ -399,6 +445,5 @@ public class DBImporter {
 			throw new IOException(
 					"Copy exited with nonzero value.  It's likely the write did not succeed.");
 		}
-
 	}
 }
