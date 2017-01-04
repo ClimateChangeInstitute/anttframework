@@ -21,7 +21,7 @@
 		<class>org.tephrochronology.model.Image</class>
 		<class>org.tephrochronology.model.IceCoreSample</class>
 		<class>org.tephrochronology.model.BIASample</class>
-		<class>org.tephrochronology.model.CoreType</class>
+		<class>org.tephrochronology.model.CorerType</class>
 		<class>org.tephrochronology.model.AquaticSample</class>
 		<class>org.tephrochronology.model.LakeSample</class>
 		<class>org.tephrochronology.model.MarineSample</class>

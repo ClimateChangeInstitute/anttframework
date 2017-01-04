@@ -30,8 +30,8 @@ public abstract class AquaticSample extends Sample {
 	@JoinColumn(name = "volcano_number", nullable = true)
 	private Volcano volcano;
 
-	@JoinColumn(name = "core_type")
-	private CoreType coreType;
+	@JoinColumn(name = "corer_type")
+	private CorerType corerType;
 
 	@Column(name = "age")
 	private String age;
@@ -77,7 +77,7 @@ public abstract class AquaticSample extends Sample {
 	 * @param refs
 	 * @param images
 	 * @param volcano
-	 * @param coreType
+	 * @param corerType
 	 * @param age
 	 * @param coreLength
 	 * @param samplingDate
@@ -88,12 +88,12 @@ public abstract class AquaticSample extends Sample {
 	public AquaticSample(String sampleID, String longName, String sampledBy,
 			LocalDate collectionDate, String comments, Site site,
 			Instrument instrument, List<Ref> refs, List<Image> images,
-			Volcano volcano, CoreType coreType, String age, float coreLength,
+			Volcano volcano, CorerType corerType, String age, float coreLength,
 			LocalDate samplingDate, float depth, float top, float thickness) {
 		super(sampleID, longName, sampledBy, collectionDate, comments, site,
 				instrument, refs, images);
 		this.volcano = volcano;
-		this.coreType = coreType;
+		this.corerType = corerType;
 		this.age = age;
 		this.coreLength = coreLength;
 		this.samplingDate = samplingDate;
@@ -110,12 +110,12 @@ public abstract class AquaticSample extends Sample {
 		this.volcano = volcano;
 	}
 
-	public CoreType getCoreType() {
-		return coreType;
+	public CorerType getCorerType() {
+		return corerType;
 	}
 
-	public void setCoreType(CoreType coreType) {
-		this.coreType = coreType;
+	public void setCorerType(CorerType corerType) {
+		this.corerType = corerType;
 	}
 
 	public String getAge() {

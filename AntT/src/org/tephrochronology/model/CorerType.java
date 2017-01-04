@@ -15,8 +15,8 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name="core_types")
-public class CoreType implements Serializable {
+@Table(name="corer_types")
+public class CorerType implements Serializable {
 
 	/**
 	 * 
@@ -24,15 +24,15 @@ public class CoreType implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name = "core_type")
+	@Column(name = "corer_type")
 	private String type;
 
-	public CoreType(String type) {
+	public CorerType(String type) {
 		super();
 		this.type = type;
 	}
 
-	public CoreType() {
+	public CorerType() {
 		super();
 		type = "";
 	}

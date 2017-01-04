@@ -26,7 +26,7 @@ import javax.persistence.Persistence;
 
 import org.tephrochronology.model.AquaticSample;
 import org.tephrochronology.model.BIASample;
-import org.tephrochronology.model.CoreType;
+import org.tephrochronology.model.CorerType;
 import org.tephrochronology.model.Element;
 import org.tephrochronology.model.GrainSize;
 import org.tephrochronology.model.IceCoreSample;
@@ -56,7 +56,7 @@ public class TestDataGenerator {
 
 	List<SiteType> siteTypes;
 
-	List<CoreType> coreTypes;
+	List<CorerType> coreTypes;
 
 	List<MethodType> methodTypes;
 
@@ -534,7 +534,7 @@ public class TestDataGenerator {
 
 		int n = 20;
 		siteTypes = createAndPersistType(em, SiteType.class, n);
-		coreTypes = createAndPersistType(em, CoreType.class, n);
+		coreTypes = createAndPersistType(em, CorerType.class, n);
 		methodTypes = createAndPersistType(em, MethodType.class, n);
 
 	}
