@@ -73,10 +73,11 @@ public class DBImporter {
 	 * 
 	 * @param dataDir
 	 * @throws IOException
-	 * @throws SQLException 
-	 * @throws ClassNotFoundException 
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
 	 */
-	public void importData(File dataDir) throws IOException, ClassNotFoundException, SQLException {
+	public void importData(File dataDir)
+			throws IOException, ClassNotFoundException, SQLException {
 
 		String dbName = DBProperties.getDB(props);
 
@@ -121,10 +122,11 @@ public class DBImporter {
 	 *            The name of the database to import to (Not null)
 	 * @throws IOException
 	 *             Thrown if unable to read from files in the specified folder
-	 * @throws SQLException 
-	 * @throws ClassNotFoundException 
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
 	 */
-	private void importFiles(File dataDir, String dbName) throws IOException, SQLException, ClassNotFoundException {
+	private void importFiles(File dataDir, String dbName)
+			throws IOException, SQLException, ClassNotFoundException {
 
 		copyFileToTable(dbName, "countries", dataDir);
 		copyFileToTable(dbName, "subregions", dataDir);
@@ -141,17 +143,18 @@ public class DBImporter {
 
 		copyFileToTable(dbName, "refs", dataDir);
 
+		// importImageFiles(dataDir);
+
 		Connection conn = DBProperties.getJDBCConnection(props);
 
 		Statement st = conn.createStatement();
-		
+
 		// @formatter:off
 		st.execute("CREATE TABLE images_tmp("
 				 + "image_id TEXT PRIMARY KEY, "
 				 + "comments TEXT)");
 		// @formatter:on
-		
-		
+
 		copyFileToTable(dbName, "images_tmp", new File(dataDir, "images.csv"),
 				dataDir);
 
@@ -162,66 +165,55 @@ public class DBImporter {
 				+ "FROM images_tmp t "
 				+ "WHERE images.image_id = t.image_id");
 		// @formatter:on
-		
+
 		st.executeUpdate("DROP TABLE images_tmp");
 		
+		loadSampleData(dataDir, dbName, "icecore_samples", 
+				"volcano_number INTEGER,drilled_by TEXT,drilling_date DATE,core_diameter REAL,max_core_depth REAL,core_age REAL,core_age_range TEXT,topdepth_m REAL,bottomdepth_m REAL,topyear_bp REAL,bottomyear_bp REAL",
+				"I",
+				"sample_id, volcano_number, drilled_by, drilling_date,core_diameter,max_core_depth,core_age,core_age_range,topdepth_m,bottomdepth_m,topyear_bp,bottomyear_bp",
+				conn);
+		
+		loadSampleData(dataDir, dbName, "bia_samples", 
+				"volcano_number INTEGER,deep TEXT,	sample_description TEXT,sample_media TEXT,unit_name TEXT,thickness_cm TEXT,trend TEXT",
+				"B",
+				"sample_id, volcano_number, deep, sample_description,sample_media,unit_name,thickness_cm,trend",
+				conn);
+
+
+		copyFileToTable(dbName, "corer_types", dataDir);
+
+		copyFileToTable(dbName, "method_types", dataDir);
+		
+
+		loadSampleData(dataDir, dbName, "lake_samples", 
+				"volcano_number INTEGER,corer_type TEXT,age TEXT,core_length_m REAL,sampling_date DATE,depth_m REAL,top_m REAL,thickness_cm REAL",
+				"L",
+				"sample_id, volcano_number,corer_type,age,core_length_m,sampling_date,depth_m,top_m,thickness_cm",
+				conn);
+		
+		loadSampleData(dataDir, dbName, "marine_samples", 
+				"volcano_number INTEGER,corer_type TEXT,age TEXT,core_length_m REAL,sampling_date DATE,depth_m REAL,top_m REAL,thickness_cm REAL",
+				"M",
+				"sample_id, volcano_number,corer_type,age,core_length_m,sampling_date,depth_m,top_m,thickness_cm",
+				conn);
+		
+		
+		loadSampleData(dataDir, dbName, "outcrop_samples", 
+				"volcano_number INTEGER",
+				"O",
+				"sample_id, volcano_number",
+				conn);
+
 		// copyFileToTable(dbName, "samples_images", dataDir);
 
 		// TODO This will be handled by samples subtypes
 		// copyFileToTable(dbName, "samples_refs", dataDir);
 
-		// TODO Make sure each sample type is loaded properly
-
-// @formatter:off
-//		copyTableToFile(dbName, 
-//  "(SELECT s.sample_id, long_name, sampled_by, collection_date, comments, site_id, iid,"
-//		+ "drilled_by, drilling_date,core_diameter,max_core_depth,core_age,core_age_range,topdepth_m,bottomdepth_m,topyear_bp,bottomyear_bp "
-// + "FROM samples s, icecore_samples i "
-// + "WHERE s.sample_id = i.sample_id "
-// + "ORDER BY s.sample_id)",
-//				"icecore_samples.csv", dataDir);
-//				
-//		copyTableToFile(dbName, 
-// "(SELECT s.sample_id, long_name, sampled_by, collection_date, comments, site_id, iid, "
-//   + "volcano_number, deep, sample_description,sample_media,unit_name,thickness_cm,trend "
-//+ "FROM samples s, bia_samples b "
-//+ "WHERE s.sample_id = b.sample_id "
-//+ "ORDER BY s.sample_id)",				
-//				"bia_samples.csv", dataDir);
-//
-//		copyTableToFile(dbName,
-//  "(SELECT s.sample_id, long_name, sampled_by, collection_date, comments, site_id, iid,"
-//		+ "volcano_number,corer_type,age,core_length_m,sampling_date,depth_m,top_m,thickness_cm "
-// + "FROM samples s, lake_samples l "
-// + "WHERE s.sample_id = l.sample_id	"
-// + "ORDER BY s.sample_id)",
-//				"lake_samples.csv", dataDir);
-//		
-//		copyTableToFile(dbName,
-// "(SELECT s.sample_id, long_name, sampled_by, collection_date, comments, site_id, iid,"
-//     + " volcano_number,corer_type,age,core_length_m,sampling_date,depth_m,top_m,thickness_cm "
-//+ "FROM samples s, marine_samples m "
-//+ "WHERE s.sample_id = m.sample_id "
-//+ "ORDER BY s.sample_id)",
-//				"marine_samples.csv", dataDir);
-//		
-//		copyTableToFile(dbName,
-// "(SELECT s.sample_id, long_name, sampled_by, collection_date, comments, site_id, iid,"
-//     + " volcano_number "
-//+ "FROM samples s, outcrop_samples o "
-//+ "WHERE s.sample_id = o.sample_id "
-//+ "ORDER BY s.sample_id)",				
-//				"outcrop_samples.csv", dataDir);
-
-// @formatter:on
-
 		// TODO grain sizes should be fine after samples are imported
 		// copyFileToTable(dbName, "grain_sizes", dataDir);
 		// copyFileToTable(dbName, "grain_sizes_refs", dataDir);
 
-		copyFileToTable(dbName, "corer_types", dataDir);
-
-		copyFileToTable(dbName, "method_types", dataDir);
 
 		// TODO Must be written after samples are loaded
 		// copyFileToTable(dbName, "mm_elements", dataDir);
@@ -235,6 +227,41 @@ public class DBImporter {
 		System.out.printf(
 				"File import completed.  Data can be found in the '%s' database.\n",
 				dbName);
+	}
+
+	/**
+	 * @param dataDir
+	 * @param dbName
+	 * @param st
+	 * @throws SQLException
+	 * @throws IOException
+	 */
+	private void loadSampleData(File dataDir, String dbName, String tableName,
+			String extraColumnsWithTypes, String typeChar, String extraColumns, Connection conn)
+			throws SQLException, IOException {
+
+		Statement st = conn.createStatement();
+
+		String tmpTable = String.format("%s_tmp", tableName);
+
+		st.execute(String.format(
+				"CREATE TABLE %s(sample_id TEXT PRIMARY KEY,long_name TEXT,sampled_by TEXT,collection_date DATE,comments TEXT,site_id TEXT,iid TEXT,",
+				tmpTable) + extraColumnsWithTypes + ")");
+
+		copyFileToTable(dbName, tmpTable, new File(dataDir, tableName + ".csv"),
+				dataDir);
+
+		st.executeUpdate(String.format(
+				"INSERT INTO samples (sample_id, long_name, sampled_by, collection_date, comments, site_id, iid, sample_type) "
+						+ "SELECT sample_id, long_name, sampled_by, collection_date, comments, site_id, iid, '%s' AS sample_type FROM %s",
+				typeChar, tmpTable));
+
+		st.executeUpdate(
+				"INSERT INTO " + tableName + " (" + extraColumns + ") "
+						+ "SELECT " + extraColumns
+						+ "  FROM " + tmpTable);
+
+		st.execute("DROP TABLE " + tmpTable);
 	}
 
 	/**
