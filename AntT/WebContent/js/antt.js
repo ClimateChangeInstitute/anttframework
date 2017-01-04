@@ -410,6 +410,56 @@
 	};
 	scope.valuesArray = valuesArray;
 
+	/**
+	 * Builds url based on search submission
+	 *
+	 * @param 
+	 * @return none but do a redirect
+	 *
+	 */
+	 var builtUrl = function builtUrl(choice) {
+	 	var fullUrl = "", existingUrl = decodeURIComponent(window.location.search.substring(1));
+
+	 	if (choice == false) {
+	 		// always start with fresh url
+	 		existingUrl = "?";
+	 	}
+	 	else {
+	 		// start with next search
+	 		existingUrl += "&";
+	 	}
+
+	 	fullUrl += existingUrl;
+
+	 	var elements = [];
+	 	var values = {};
+
+	 	var urlParamCount = 0;
+
+	 	$("input[id^='element-'").each(function(i, e) {
+	 		var $e = $(e);
+	 		var v = $e.val();
+
+	 		if (v !== '') {
+	 			if (urlParamCount == 0) {
+	 				fullUrl += 's=';
+	 				urlParamCount = 1;
+	 			}
+	 			var n = $e.attr('id').split('-')[1];
+	 			elements.push(n);
+	 			values[n] = v;
+	 			fullUrl += (n + ':' + v + ':');
+	 		}
+	 	})
+
+	 	if (fullUrl.slice(-1) == ':') {
+	 		fullUrl = fullUrl.slice(0, -1);
+	 	}
+
+	 	window.location = 'results.html' + fullUrl;
+	}
+	scope.builtUrl = builtUrl;
+
 
 
 	// Perform common page functionality

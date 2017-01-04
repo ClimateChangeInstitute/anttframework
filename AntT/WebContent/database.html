@@ -203,7 +203,7 @@
 							<div class="form-group row">
 								<label class="col-xs-2 col-form-label" for="">MnO:</label>
 								<div class="input-group col-xs-9">
-									<input type="text" class="form-control" id="element-mro">
+									<input type="text" class="form-control" id="element-mno">
 									<div class="input-group-addon">%</div>
 								</div>
 							</div>
@@ -249,7 +249,7 @@
 						<div class="modal-footer">
 							<button type="button" class="btn btn-default"
 								data-dismiss="modal">Close</button>
-							<button id="search-confirm" type="button" class="btn btn-primary"
+							<button onclick="searchCall()" id="search-confirm" type="button" class="btn btn-primary"
 								data-dismiss="modal">Search</button>
 
 						</div>
@@ -275,44 +275,15 @@
 	================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
 	<script src="index_files/jquery.js"></script>
+	<script src="js/antt.js"></script>
 	<script>
 		window.jQuery
 				|| document
 						.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>');
 
-		$(document).ready(function() {
-			$("#search-confirm").click(searchButtonClicked);
-
-			function searchButtonClicked() {
-
-				var elements = [];
-				var values = {};
-				var url = '';
-				var url_param_count = 0;
-				// also create url here
-				$("input[id^='element-'").each(function(i, e) {
-					var $e = $(e);
-					var v = $e.val();
-
-					if (v !== '') {
-						if (url_param_count == 0) {
-							url += '?s=';
-							url_param_count = 1;
-						}
-						var n = $e.attr('id').split('-')[1];
-						elements.push(n);
-						values[n] = v;
-						url += (n + ':' + v + '&');
-					}
-				})
-
-				if (url.slice(-1) == '&') {
-					url = url.slice(0, -1);
-				}
-
-				window.location = 'results.html' + url;
-			}
-		});
+		function searchCall() {
+			antt.builtUrl(false);
+		}
 	</script>
 	<script src='./lib/lodash.js'></script>
 

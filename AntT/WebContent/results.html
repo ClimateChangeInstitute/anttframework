@@ -193,7 +193,7 @@
 							<div class="form-group row">
 								<label class="col-xs-2 col-form-label" for="">MnO:</label>
 								<div class="input-group col-xs-9">
-									<input type="text" class="form-control" id="element-mro">
+									<input type="text" class="form-control" id="element-mno">
 									<div class="input-group-addon">%</div>
 								</div>
 							</div>
@@ -239,7 +239,7 @@
 						<div class="modal-footer">
 							<button type="button" class="btn btn-default"
 								data-dismiss="modal">Close</button>
-							<button id="search-confirm" type="button" class="btn btn-primary"
+							<button onclick="searchCall()" id="search-confirm" type="button" class="btn btn-primary"
 								data-dismiss="modal">Search</button>
 
 						</div>
@@ -270,6 +270,10 @@
 		window.jQuery
 				|| document
 						.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>');
+
+		function searchCall() {
+			antt.builtUrl(false);
+		}
 	</script>
 	<script src='./lib/lodash.js'></script>
 

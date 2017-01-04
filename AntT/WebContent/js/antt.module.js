@@ -22,43 +22,6 @@ app.controller('results', function($scope, dataSource) {
 	// $scope.backdrop = true;
 	// $scope.promise = null;
 
-	$(document).ready(function() {
-		$("#search-confirm").click(searchButtonClicked);
-	});
-
-	var searchButtonClicked = function(event) {
-		
-		var elements = [];
-		var values = {};
-		var url = '';
-		var url_param_count = 0;
-		// also create url here
-		$("input[id^='element-'").each(function(i,e){
-			var $e = $(e);
-			var v = $e.val();
-
-			if (v !== '') {
-				if (url_param_count == 0) {
-					url += '?'
-					url_param_count = 1;
-				}
-				var n = $e.attr('id').split('-')[1];
-				elements.push(n);
-				values[n] = v;
-				url += (n + '=' + v + '&'); 
-			}
-		})
-
-		if (url.slice(-1) == '&') {
-			url = url.slice(0, -1);
-		}
-
-		console.log(elements);
-		console.log(url);
-
-		window.location = 'results.html' + url;
-	}
-
 	$scope.promise = antt.loadMMElements('generated/allMMElements.xml', function(allMMElements){
 
 	 	var values = antt.getUrlParameters();
