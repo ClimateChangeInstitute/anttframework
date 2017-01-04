@@ -129,7 +129,7 @@ public class DBExporter {
 // @formatter:off
 		copyTableToFile(dbName, 
   "(SELECT s.sample_id, long_name, sampled_by, collection_date, comments, site_id, iid,"
-	    + "drilled_by, drilling_date,core_diameter,max_core_depth,core_age,core_age_range,topdepth_m,bottomdepth_m,topyear_bp,bottomyear_bp "
+	    + "volcano_number, drilled_by, drilling_date,core_diameter,max_core_depth,core_age,core_age_range,topdepth_m,bottomdepth_m,topyear_bp,bottomyear_bp "
  + "FROM samples s, icecore_samples i "
  + "WHERE s.sample_id = i.sample_id "
  + "ORDER BY s.sample_id)",
