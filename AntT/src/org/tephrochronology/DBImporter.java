@@ -123,8 +123,8 @@ public class DBImporter {
 
 		copyFileToTable(dbName, "refs", dataDir);
 
-		// copyFileToTable(dbName, "grain_sizes", dataDir);
-		// copyFileToTable(dbName, "grain_sizes_refs", dataDir);
+//		 copyFileToTable(dbName, "grain_sizes", dataDir);
+//		 copyFileToTable(dbName, "grain_sizes_refs", dataDir);
 
 		// TODO Import images properly
 		// copyTableToFile(dbName, "(SELECT image_id, comments FROM images)",
@@ -158,7 +158,7 @@ public class DBImporter {
 //
 //		copyTableToFile(dbName,
 //  "(SELECT s.sample_id, long_name, sampled_by, collection_date, comments, site_id, iid,"
-//		+ "volcano_number,core_type,age,core_length_m,sampling_date,depth_m,top_m,thickness_cm "
+//		+ "volcano_number,corer_type,age,core_length_m,sampling_date,depth_m,top_m,thickness_cm "
 // + "FROM samples s, lake_samples l "
 // + "WHERE s.sample_id = l.sample_id	"
 // + "ORDER BY s.sample_id)",
@@ -166,7 +166,7 @@ public class DBImporter {
 //		
 //		copyTableToFile(dbName,
 // "(SELECT s.sample_id, long_name, sampled_by, collection_date, comments, site_id, iid,"
-//     + " volcano_number,core_type,age,core_length_m,sampling_date,depth_m,top_m,thickness_cm "
+//     + " volcano_number,corer_type,age,core_length_m,sampling_date,depth_m,top_m,thickness_cm "
 //+ "FROM samples s, marine_samples m "
 //+ "WHERE s.sample_id = m.sample_id "
 //+ "ORDER BY s.sample_id)",
@@ -182,7 +182,7 @@ public class DBImporter {
 
 // @formatter:on
 
-		copyFileToTable(dbName, "core_types", dataDir);
+		copyFileToTable(dbName, "corer_types", dataDir);
 
 		copyFileToTable(dbName, "method_types", dataDir);
 
@@ -192,7 +192,7 @@ public class DBImporter {
 		copyFileToTable(dbName, "elements", dataDir);
 		copyFileToTable(dbName, "units", dataDir);
 
-		// TOOD link mm_elements_data after samples
+		// TODO link mm_elements_data after samples
 		// copyFileToTable(dbName, "mm_elements_data", dataDir);
 
 		System.out.printf(
