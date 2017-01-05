@@ -71,6 +71,7 @@ CREATE TABLE site_types(
 	
 CREATE TABLE sites(
 	site_id TEXT PRIMARY KEY,
+	long_name TEXT NOT NULL,
 	site_type TEXT REFERENCES site_types(site_type) NOT NULL,
 	latitude REAL NOT NULL CONSTRAINT valid_latitude_range CHECK (-90 <= latitude AND latitude <= 90),
 	longitude REAL NOT NULL CONSTRAINT valid_longitude_range CHECK (-180 <= longitude AND longitude <= 180),
@@ -141,7 +142,7 @@ CREATE TABLE icecore_samples(
 	sample_id TEXT PRIMARY KEY REFERENCES samples(sample_id),
 	volcano_number INTEGER REFERENCES volcanoes(volcano_number), -- Volcano not required
 	drilled_by TEXT NOT NULL,
-	drilling_date DATE NOT NULL,
+	drilling_date TEXT NOT NULL,
 	core_diameter REAL NOT NULL,
 	max_core_depth REAL NOT NULL,
 	core_age REAL NOT NULL,

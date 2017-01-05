@@ -301,7 +301,7 @@ public class TestDataGenerator {
 					"comment " + i, sites.get(i % sites.size()),
 					instruments.get(i % instruments.size()), getRefs(i),
 					getImages(i), volcanoes.get(i % volcanoes.size()),
-					"drilled by " + i, LocalDate.now(), i, i * 10, i * 100,
+					"drilled by " + i, LocalDate.now().toString(), i, i * 10, i * 100,
 					"0 - " + i, 0, i, 2016 - i, 1900 - i);
 			iceCoreSamples.add(ics);
 			em.persist(ics);
@@ -419,8 +419,6 @@ public class TestDataGenerator {
 		return bi;
 	}
 
-	
-
 	private void generateReferenceData(EntityManager em) {
 		System.out.printf("Generating %s data.\n", Ref.class.getSimpleName());
 
@@ -461,6 +459,7 @@ public class TestDataGenerator {
 
 		range(0, n).forEach(i -> {
 			Site s = new Site(Site.class.getSimpleName() + i,
+					Site.class.getName() + i,
 					siteTypes.get(i % siteTypes.size()), (i * n) % 90,
 					(i * n) % 180, i * n * 100, "Comment " + i);
 			sites.add(s);

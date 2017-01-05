@@ -30,6 +30,9 @@ public class Site implements Serializable {
 	@Id
 	@Column(name = "site_id")
 	private String siteID;
+	
+	@Column(name = "long_name")
+	private String longName;
 
 	@JoinColumn(name = "site_type")
 	@OneToOne(cascade=PERSIST)
@@ -58,16 +61,18 @@ public class Site implements Serializable {
 
 	/**
 	 * @param siteID
+	 * @param longName
 	 * @param siteType
 	 * @param latitude
 	 * @param longitude
 	 * @param elevation
 	 * @param comment
 	 */
-	public Site(String siteID, SiteType siteType, float latitude,
+	public Site(String siteID, String longName, SiteType siteType, float latitude,
 			float longitude, float elevation, String comment) {
 		super();
 		this.siteID = siteID;
+		this.longName = longName;
 		this.siteType = siteType;
 		this.latitude = latitude;
 		this.longitude = longitude;
@@ -124,6 +129,14 @@ public class Site implements Serializable {
 
 	public void setComment(String comment) {
 		this.comment = comment;
+	}
+
+	public String getLongName() {
+		return longName;
+	}
+
+	public void setLongName(String longName) {
+		this.longName = longName;
 	}
 
 }

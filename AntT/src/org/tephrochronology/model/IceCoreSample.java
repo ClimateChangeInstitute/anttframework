@@ -36,7 +36,7 @@ public class IceCoreSample extends Sample {
 	private String drilledBy;
 
 	@Column(name = "drilling_date")
-	private LocalDate drillingDate;
+	private String drillingDate; // Possibly LocalDate in future?
 
 	@Column(name = "core_diameter")
 	private float coreDiameter;
@@ -105,7 +105,7 @@ public class IceCoreSample extends Sample {
 	public IceCoreSample(String sampleID, String longName, String sampledBy,
 			LocalDate collectionDate, String comments, Site site,
 			Instrument instrument, List<Ref> refs, List<Image> images,
-			Volcano volcano, String drilledBy, LocalDate drillingDate,
+			Volcano volcano, String drilledBy, String drillingDate,
 			float coreDiameter, float maxCoreDepth, float coreAge,
 			String coreAgeRange, float topDepth, float bottomDepth,
 			float topYear, float bottomYear) {
@@ -140,11 +140,11 @@ public class IceCoreSample extends Sample {
 		this.drilledBy = drilledBy;
 	}
 
-	public LocalDate getDrillingDate() {
+	public String getDrillingDate() {
 		return drillingDate;
 	}
 
-	public void setDrillingDate(LocalDate drillingDate) {
+	public void setDrillingDate(String drillingDate) {
 		this.drillingDate = drillingDate;
 	}
 
