@@ -419,8 +419,6 @@ public class TestDataGenerator {
 		return bi;
 	}
 
-	
-
 	private void generateReferenceData(EntityManager em) {
 		System.out.printf("Generating %s data.\n", Ref.class.getSimpleName());
 
@@ -461,6 +459,7 @@ public class TestDataGenerator {
 
 		range(0, n).forEach(i -> {
 			Site s = new Site(Site.class.getSimpleName() + i,
+					Site.class.getName() + i,
 					siteTypes.get(i % siteTypes.size()), (i * n) % 90,
 					(i * n) % 180, i * n * 100, "Comment " + i);
 			sites.add(s);
