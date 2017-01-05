@@ -12,6 +12,9 @@ import static org.eclipse.persistence.config.PersistenceUnitProperties.TARGET_SE
 import static org.eclipse.persistence.config.PersistenceUnitProperties.TRANSACTION_TYPE;
 import static org.eclipse.persistence.logging.SessionLog.OFF_LABEL;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -19,6 +22,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
 import javax.persistence.spi.PersistenceUnitTransactionType;
 
@@ -31,6 +35,9 @@ import org.eclipse.persistence.config.TargetServer;
  *
  */
 public class DBProperties {
+
+	public static final File DEFAULT_PASSWORD_FILE = new File(
+			"./etc/sql/admin.py");
 
 	/**
 	 * Returns a JDBC connection to the database. The JDBC_URL, JDBC_USER, and
@@ -115,7 +122,7 @@ public class DBProperties {
 			while (rs.next()) {
 				result = rs.getBoolean(1);
 			}
-			
+
 		} catch (ClassNotFoundException | SQLException e) {
 			// Ignore the result will be false
 		}
@@ -143,6 +150,44 @@ public class DBProperties {
 			return parts[3];
 		else
 			return null;
+	}
+
+	/**
+	 * Attempt to load the THE_ADMIN, THE_ADMIN_PASS strings from the given
+	 * password file. The file must exist and be a valid properties file.
+	 * 
+	 * @param defaultPasswordFile
+	 *            The file containing the user and password (Not null)
+	 * @return The user name and password or null if not found.
+	 */
+	public static String[] findUserPassword(File defaultPasswordFile) {
+
+		Properties props = new Properties();
+	
+		String[] result = null;
+
+		try {
+			props.load(new FileInputStream(defaultPasswordFile));
+			result = new String[] { stripQuote(props.getProperty("THE_ADMIN")),
+					stripQuote(props.getProperty("THE_ADMIN_PASS")) };
+		} catch (IOException e) {
+			System.err.println("Unable to find user and password file.");
+		}
+
+		return result;
+	}
+
+	/**
+	 * @param str
+	 *            Possibly quoted string (Null allowed)
+	 * @return The given string with leading and ending quotes removed or the
+	 *         same value if no leading and trailing quotes (May be null)
+	 */
+	private static String stripQuote(String str) {
+		if (str.startsWith("\"") && str.endsWith("\""))
+			return str.substring(1, str.length() - 1);
+		else
+			return str;
 	}
 
 }
