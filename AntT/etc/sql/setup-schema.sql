@@ -87,7 +87,8 @@ CREATE TABLE instruments(
 -- Can't name the table references because it's a reserved word!
 -- TODO This table will likely need additional info columns
 CREATE TABLE refs(
-	doi TEXT PRIMARY KEY); 
+	doi TEXT PRIMARY KEY,
+	ref TEXT); 
 	
 -- Represents all samples
 -- sample_type must be I,B,L,M, or O
