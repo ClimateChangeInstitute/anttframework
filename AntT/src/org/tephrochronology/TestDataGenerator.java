@@ -4,6 +4,7 @@
 package org.tephrochronology;
 
 import static java.util.stream.IntStream.range;
+import static org.tephrochronology.DBProperties.DEFAULT_PASSWORD_FILE;
 import static org.tephrochronology.DBProperties.setupProperties;
 import static org.tephrochronology.Images.scaleAndCrop;
 
@@ -89,9 +90,14 @@ public class TestDataGenerator {
 	public static void main(String[] args) {
 
 		if (args.length != 2) {
-			System.err.printf("Usage: java %s USER PASS\n",
-					TestDataGenerator.class.getName());
-			System.exit(-1);
+			args = DBProperties.findUserPassword(DEFAULT_PASSWORD_FILE);
+			if (args.length != 2) {
+				System.err.printf("Usage: java %s USER PASS\n",
+						TestDataGenerator.class.getName());
+				System.err.printf("Optionally, create the %s file.\n",
+						DEFAULT_PASSWORD_FILE.getPath());
+				System.exit(-1);
+			}
 		}
 
 		new TestDataGenerator().execute(args);
@@ -373,7 +379,7 @@ public class TestDataGenerator {
 		images = new ArrayList<>();
 
 		System.out.print(
-				"Generating image data (This may take a moment, or maybe an hour).");
+				"Generating image data (This may take a few minutes).");
 
 		for (int i = 0; i < n; i++) {
 			System.out.print(".");
