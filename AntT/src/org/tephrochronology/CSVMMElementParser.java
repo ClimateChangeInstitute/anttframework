@@ -4,6 +4,7 @@
 package org.tephrochronology;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
 import org.supercsv.io.CsvListReader;
 import org.supercsv.io.CsvListWriter;
@@ -26,41 +28,72 @@ import org.supercsv.prefs.CsvPreference;
  */
 public class CSVMMElementParser {
 
+	private static class Headers {
+
+		String[] select;
+
+		String[] rename;
+
+		Map<String, String> toRenameMap;
+
+		Map<String, String> toSelectMap;
+		
+		public Headers(String[] select, String[] rename) {
+			this.select = select;
+			this.rename = rename;
+			toRenameMap = new HashMap<>();
+			for (int i = 0; i < select.length; i++) {
+				toRenameMap.put(select[i], rename[i]);
+			}
+			toSelectMap = new HashMap<>();
+			for (int i = 0; i < select.length; i++) {
+				toSelectMap.put(rename[i], select[i]);
+			}
+		}
+
+		public String getRename(String header) {
+			return toRenameMap.get(header);
+		}
+		
+		public String getSelect(String header) {
+			return toSelectMap.get(header);
+		}
+
+		public String[] getSelect() {
+			return select;
+		}
+
+		public String[] getRename() {
+			return rename;
+		}
+
+		public int length() {
+			return select.length;
+		}
+
+	}
+
 	/**
 	 * @param args
 	 * @throws Exception
 	 */
 	public static void main(String[] args) throws Exception {
 
-		File inputFile = new File(args[0]);//"/home/mroyer/Desktop/MMElementExample.csv");
+		File inputFile = new File(args[0]);
+		// Two line file
+		// First line: columns to select
+		// Second line: rename of columns
+		File inputSelectFile = new File(args[1]);
+		// Multiple line file containing a row for each selection
+		// longsample_id, element, unit , val, std, me
+		// The element and unit will be used as a literal
+		File inputMMElementSelectFile = new File(args[2]);
 
-		File outputMMElementFile = new File(args[1]);//				"/home/mroyer/Desktop/MMElementExampleFilterd.csv");
+		File outputMMElementFile = new File(args[3]);
 
-		File outputMMElementDataFile = new File(args[2]); // 				"/home/mroyer/Desktop/MMElementExampleDataFilterd.csv");
+		File outputMMElementDataFile = new File(args[4]);
 
-		// SampleID,Extended Sample ID,Comments about samples,METHOD,Instrument,
-		// P2O5,std_P2O5,me_P2O5,
-		// SiO2,std_SiO2,me_SiO2,
-		// SO2,std_SO2,me_SO2,
-		// TiO2,std_TiO2,me_TiO2,
-		// Al2O3,std_Al2O3,me_Al2O3,
-		// MgO,std_MgO,me_MgO,
-		// CaO,std_CaO,me_CaO,
-		// MnO,std_MnO,me_MnO,
-		// FeO,std_FeO,me_FeO,
-		// Na2O,std_Na2O,me_Na2O,
-		// K2O,std_K2O,me_K2O,
-		// F,std_F,me_F,
-		// Cl,std_Cl,me_Cl,
-		// Number of measurements,CalculatedTotal,EMPA
-		// notes,DatabaseInfo::DataBaseName
-
-		String[] headers = new String[] { "SampleID", "Extended Sample ID",
-				"Comments about samples", "METHOD", "Instrument",
-				"Number of measurements", "CalculatedTotal", "EMPA notes" };
-		String[] outputHeaders = new String[] { "sample_id", "longsample_id",
-				"comments", "method_type", "iid", "number_of_measurements",
-				"calculated_total", "instrument_settings" };
+		Headers headers = getSelectAndRenameHeaders(inputSelectFile);
 
 		String[] expectedHeaders = new String[] { "longsample_id", "sample_id",
 				"comments", "method_type", "iid", "date_measured",
@@ -68,27 +101,23 @@ public class CSVMMElementParser {
 				"instrument_settings", "h2o_plus", "h2o_minus", "loi" };
 
 		List<Map<String, String>> rows = new CSVMMElementParser()
-				.partialReadCSV(inputFile, headers);
+				.partialReadCSV(inputFile, headers.getSelect());
 
 		ICsvListWriter mapWriter = new CsvListWriter(
 				new FileWriter(outputMMElementFile),
 				CsvPreference.STANDARD_PREFERENCE);
 
 		mapWriter.writeHeader(expectedHeaders);
-		Map<String, String> headersToOutputName = new HashMap<>(
-				outputHeaders.length);
-		for (int i = 0; i < outputHeaders.length; i++) {
-			headersToOutputName.put(outputHeaders[i], headers[i]);
-		}
+
 		for (Map<String, String> r : rows) {
+			
 			Object[] arr = Arrays.stream(expectedHeaders)
-					.map(e -> r.get(headersToOutputName.get(e))).toArray();
+					.map(e -> r.get(headers.getSelect(e))).toArray();
 			mapWriter.write(arr);
-			System.out.println(arr);
+			System.out.println(Arrays.toString(arr));
 		}
 		mapWriter.flush();
 		mapWriter.close();
-
 
 		// Required columns for mm_elements_data
 		//
@@ -97,11 +126,11 @@ public class CSVMMElementParser {
 		//
 		// Extended Sample ID, "p2o5" , "%", P2O5 ,std_P2O5,me_P2O5
 
-		headers = new String[] { "Extended Sample ID", "p2o5", null, "P2O5",
-				"std_P2O5", "me_P2O5" };
+		String[] mmElementDataHeaders = new String[] { "Extended Sample ID",
+				"p2o5", null, "P2O5", "std_P2O5", "me_P2O5" };
 
 		List<List<String>> rowData = new CSVMMElementParser()
-				.readMMElementData(inputFile, headers);
+				.readMMElementData(inputFile, mmElementDataHeaders);
 
 		ICsvListWriter dataWriter = new CsvListWriter(
 				new FileWriter(outputMMElementDataFile),
@@ -112,11 +141,34 @@ public class CSVMMElementParser {
 
 		for (List<String> r : rowData) {
 			dataWriter.write(r);
-			System.out.println(r);
+//			System.out.println(r);
 		}
 		dataWriter.flush();
 		dataWriter.close();
 
+	}
+
+	private static Headers getSelectAndRenameHeaders(File inputSelectFile)
+			throws FileNotFoundException {
+
+		Headers result = null;
+
+		try (Scanner in = new Scanner(inputSelectFile)) {
+
+			String[] vals = trim(in.nextLine().split(","));
+			String[] newVals = trim(in.nextLine().split(","));
+			result = new Headers(vals, newVals);
+		}
+
+		return result;
+	}
+
+	private static String[] trim(String[] split) {
+		String[] result = new String[split.length];
+		for (int i = 0; i < split.length; i++) {
+			result[i] = split[i].trim();
+		}
+		return result;
 	}
 
 	public List<Map<String, String>> partialReadCSV(final File csvFile,
