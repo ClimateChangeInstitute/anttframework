@@ -29,7 +29,13 @@ import org.supercsv.prefs.CsvPreference;
  */
 public class CSVMMElementParser {
 
-	private static class Headers {
+	/**
+	 * Represents the headers to be read and what they will be written out as.  The 
+	 * 
+	 * @author Mark Royer
+	 *
+	 */
+	static class Headers {
 
 		String[] select;
 
