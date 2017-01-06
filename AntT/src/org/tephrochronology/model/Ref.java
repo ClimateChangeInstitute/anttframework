@@ -35,6 +35,9 @@ public class Ref implements Serializable {
 	@Column(name = "doi")
 	private String doi;
 
+	@Column(name = "ref")
+	private String ref;
+
 	/**
 	 * A sample may have many references, and a reference may be used by many
 	 * samples.
@@ -43,7 +46,7 @@ public class Ref implements Serializable {
 	@JoinTable(name = "samples_refs", joinColumns = {
 			@JoinColumn(name = "doi") }, inverseJoinColumns = {
 					@JoinColumn(name = "sample_id") })
-	@XmlInverseReference(mappedBy="refs")
+	@XmlInverseReference(mappedBy = "refs")
 	private List<Sample> samples;
 
 	@ManyToMany
@@ -51,7 +54,7 @@ public class Ref implements Serializable {
 			@JoinColumn(name = "doi") }, inverseJoinColumns = {
 					@JoinColumn(name = "sample_id", referencedColumnName = "sample_id"),
 					@JoinColumn(name = "iid", referencedColumnName = "iid") })
-	@XmlInverseReference(mappedBy="refs")
+	@XmlInverseReference(mappedBy = "refs")
 	private List<GrainSize> grainSizes;
 
 	public Ref() {
@@ -59,10 +62,15 @@ public class Ref implements Serializable {
 
 	/**
 	 * @param doi
+	 * @param ref
+	 * @param samples
+	 * @param grainSizes
 	 */
-	public Ref(String doi, List<Sample> samples, List<GrainSize> grainSizes) {
+	public Ref(String doi, String ref, List<Sample> samples,
+			List<GrainSize> grainSizes) {
 		super();
 		this.doi = doi;
+		this.ref = ref;
 		this.samples = samples;
 		this.grainSizes = grainSizes;
 	}
@@ -89,6 +97,14 @@ public class Ref implements Serializable {
 
 	public void setGrainSizes(List<GrainSize> grainSizes) {
 		this.grainSizes = grainSizes;
+	}
+
+	public String getRef() {
+		return ref;
+	}
+
+	public void setRef(String ref) {
+		this.ref = ref;
 	}
 
 }

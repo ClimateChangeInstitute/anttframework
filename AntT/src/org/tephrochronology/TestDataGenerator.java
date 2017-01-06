@@ -378,8 +378,8 @@ public class TestDataGenerator {
 		int n = 500;
 		images = new ArrayList<>();
 
-		System.out.print(
-				"Generating image data (This may take a few minutes).");
+		System.out
+				.print("Generating image data (This may take a few minutes).");
 
 		for (int i = 0; i < n; i++) {
 			System.out.print(".");
@@ -434,7 +434,11 @@ public class TestDataGenerator {
 		refs = new ArrayList<>();
 
 		range(0, n).forEach(i -> {
-			Ref ref = new Ref(Ref.class.getSimpleName() + i, null, null);
+			Ref ref = new Ref(Ref.class.getSimpleName() + i,
+					"Smith, John, Swift, Jonathan. " + (2003 + i)
+							+ ". \"Tephra Layers in the testing Ice Cores " + i
+							+ ".\" Journal of Geophysical Research: 2374" + i,
+					null, null);
 			refs.add(ref);
 			em.persist(ref);
 		});
