@@ -54,7 +54,8 @@ app.controller('results', function($scope, dataSource) {
 
 		    allResults.push({searchRes: searchRes, s: s, count: i});
 		});
-		
+
+		// reverse array so most recent search is displayed first
 		allResults.reverse();
 
 	    $scope.filtered = allResults;

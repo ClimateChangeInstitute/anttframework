@@ -117,7 +117,7 @@
 						</div>
 
 						<div ng-repeat="search in filtered | filter:searchText">
-							<div class="panel panel-default selectpanelhover">
+							<div class="panel panel-default">
 								<div class="panel-body">
 
 									<div class="row">
@@ -149,7 +149,7 @@
 										<div class="col-md-12">
 											<div ng-repeat="o in search.searchRes">
 												<div class="panel-samples panel panel-default">
-													<div class="panel-heading">
+													<div class="q panel-heading remove-color">
 														<div class="row">
 															<div class="col-md-1">
 																<span class="collapsed" data-parent="#accordion" data-toggle="collapse" data-target="#{{search.count}}-{{o.mme.sampleID}}"></span>
