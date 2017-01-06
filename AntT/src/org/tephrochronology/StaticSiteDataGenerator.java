@@ -19,13 +19,13 @@ import org.tephrochronology.model.OutcropSample;
  * @author Willie Stevenson
  *
  */
-public class Runner {
+public class StaticSiteDataGenerator {
 
 	public static void main(String[] args)
 			throws IOException, PropertyException, JAXBException {
 		
 		if (args.length != 2) {
-			System.err.println("Usage: java Runner USER PASS");
+			System.err.println("Usage: java StaticSiteDataGenerator USER PASS");
 			System.exit(-1);
 		}
 		
