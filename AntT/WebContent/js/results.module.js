@@ -54,7 +54,8 @@ app.controller('results', function($scope, dataSource) {
 
 		    allResults.push({searchRes: searchRes, s: s, count: i});
 		});
-		console.log(allResults);
+		
+		allResults.reverse();
 
 	    $scope.filtered = allResults;
 		$scope.$apply();
