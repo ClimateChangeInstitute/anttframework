@@ -138,7 +138,7 @@
 									<div class="row">
 										<div class="col-sm-12">
 											<div class="pull-right">
-												
+												<button type="button" class="btn btn-primary">Download selected</button>
 											</div>
 										</div>
 									</div>
@@ -179,7 +179,7 @@
 													<div class="q panel-heading remove-color">
 														<div class="row">
 															<div class="col-md-1">
-																<span class="collapsed" data-parent="#accordion" data-toggle="collapse" data-target="#s-{{search.count}}-{{o.mme.sampleID}}"></span>
+																<span class="collapsed" data-parent="#accordion" data-toggle="collapse" data-target="#{{search.count}}-{{o.mme.sampleID}}"></span>
 															</div>
 															<div class="col-md-4">
 																{{o.simVal | number:2}}
@@ -192,7 +192,7 @@
 															</div>
 														</div>
 													</div>
-													<div id="s-{{search.count}}-{{o.mme.sampleID}}" class="panel-body collapse">
+													<div id="{{search.count}}-{{o.mme.sampleID}}" class="panel-body collapse">
 														<div class="row">
 															<div class="col-sm-9">
 																<p>
