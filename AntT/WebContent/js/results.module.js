@@ -10,6 +10,12 @@ app.factory('dataSource', [ '$http', function($http) {
 	return factory;
 } ]);
 
+app.filter('unsafe', function($sce) {
+    return function(val) {
+        return $sce.trustAsHtml(val);
+    };
+});
+
 app.controller('results', function($scope, dataSource) {
 
 	$scope.AppController = [];
@@ -46,7 +52,7 @@ app.controller('results', function($scope, dataSource) {
 		    	return b.simVal - a.simVal;
 		    });
 
-		    allResults.push({searchRes: searchRes, s: s});
+		    allResults.push({searchRes: searchRes, s: s, count: i});
 		});
 		console.log(allResults);
 

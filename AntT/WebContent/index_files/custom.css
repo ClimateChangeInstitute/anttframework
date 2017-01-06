@@ -40,3 +40,7 @@ ul {
 .filterSection label {
     font-weight: normal;
 }
+
+.panel-samples {
+    margin-bottom: 5px;
+}

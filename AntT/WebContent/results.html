@@ -113,8 +113,7 @@
 								aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
-							<strong>Heads up!</strong> Click on a sample below to see more
-							information about it.
+							<strong>Heads up!</strong> Click on a smpleID below to see the full inofrmation about the sample or click the black arrow to see element data.
 						</div>
 
 						<div ng-repeat="search in filtered | filter:searchText">
@@ -128,26 +127,96 @@
 									</div>
 									<hr>
 									<div class="row">
-										<div class="col-md-12 table-responsive">
-											<table class="table table-hover table-condensed">
-												<thead>
-													<tr>
-														<th>Similarity Coefficient</th>
-														<th>MME</th>
-														<th>Save</th>
-													</tr>
-												</thead>
-												<tbody>
-													<tr ng-repeat="o in search.searchRes">
-														<!-- Change the number of significant figures here -->
-														<td>{{o.simVal | number:2}}</td>
-														<td><a class="special"
-															href="{{o.mme.sampleType}}.html?id={{o.mme.sampleID}}">{{o.mme.sampleID}}</a>
-														</td>
-														<td><input type="checkbox"></td>
-													</tr>
-												</tbody>
-											</table>
+										<div class="col-md-12">
+											<div class="row">
+												<div class="col-md-1">
+													
+												</div>
+												<div class="col-md-4">
+													Similirarity Coefficient
+												</div>
+												<div class="col-md-4">
+													Sample ID 
+												</div>
+												<div class="col-md-3">
+													Save
+												</div>
+											</div>
+										</div>
+									</div>
+									<hr>
+									<div class="row">
+										<div class="col-md-12">
+											<div ng-repeat="o in search.searchRes">
+												<div class="panel-samples panel panel-default">
+													<div class="panel-heading">
+														<div class="row">
+															<div class="col-md-1">
+																<span class="glyphicon glyphicon-triangle-right collapsed" data-parent="#accordion" data-toggle="collapse" data-target="#{{search.count}}-{{o.mme.sampleID}}"></span>
+															</div>
+															<div class="col-md-4">
+																{{o.simVal | number:2}}
+															</div>
+															<div class="col-md-4">
+																<a class="special" href="{{o.mme.sampleType}}.html?id={{o.mme.sampleID}}"> {{o.mme.sampleID}}</a>
+															</div>
+															<div class="col-md-3">
+																<td><input type="checkbox"></td>
+															</div>
+														</div>
+													</div>
+													<div id="{{search.count}}-{{o.mme.sampleID}}" class="panel-body collapse">
+														<div class="row">
+															<div class="col-sm-9">
+																<p>
+																	<strong>Sample ID: </strong>{{o.mme.sampleID}}
+																</p>
+																<p>
+																	<strong>Sample Type: </strong>{{o.mme.longsampleID}}
+																</p>
+															</div>
+															<div class="col-sm-3">
+																<p>
+																	<strong>Collection Date: </strong>{{o.mme.dateMeasured}}
+																</p>
+																<p>
+																	<strong>Collected By: </strong>{{o.mme.measuredBy}}
+																</p>
+															</div>
+														</div>
+														<div class="row">
+															<div class="col-sm-12">
+																<h3>Geochemical Data</h3>
+															</div>
+														</div>
+														<hr>
+														<div class="row" ng-hide="o.mme.elementData == null">
+															<div class="col-md-12 table-responsive">
+																<table class="table table-hover table-condensed">
+																	<thead>
+																		<tr>
+																			<th>Element</th>
+																			<th>%</th>
+																			<th>std</th>
+																			<th>unit</th>
+																			<th>me</th>
+																		</tr>
+																	</thead>
+																	<tbody>
+																		<tr ng-repeat="e in o.mme.elementData">
+																			<td ng-bind-html="e.format | unsafe"></td>
+																			<td>{{e.value | number:3}}</td>
+																			<td>{{e.std}}</td>
+																			<td>{{e.unit}}</td>
+																			<td>{{e.me}}</td>
+																		</tr>
+																	</tbody>
+																</table>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
 										</div>
 									</div>
 								</div>
