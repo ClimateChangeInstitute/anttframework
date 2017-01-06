@@ -4,6 +4,7 @@
 package org.tephrochronology;
 
 import static java.util.stream.IntStream.range;
+import static org.tephrochronology.DBProperties.DEFAULT_PASSWORD_FILE;
 import static org.tephrochronology.DBProperties.setupProperties;
 import static org.tephrochronology.Images.scaleAndCrop;
 
@@ -89,9 +90,14 @@ public class TestDataGenerator {
 	public static void main(String[] args) {
 
 		if (args.length != 2) {
-			System.err.printf("Usage: java %s USER PASS\n",
-					TestDataGenerator.class.getName());
-			System.exit(-1);
+			args = DBProperties.findUserPassword(DEFAULT_PASSWORD_FILE);
+			if (args.length != 2) {
+				System.err.printf("Usage: java %s USER PASS\n",
+						TestDataGenerator.class.getName());
+				System.err.printf("Optionally, create the %s file.\n",
+						DEFAULT_PASSWORD_FILE.getPath());
+				System.exit(-1);
+			}
 		}
 
 		new TestDataGenerator().execute(args);
@@ -301,8 +307,10 @@ public class TestDataGenerator {
 					"comment " + i, sites.get(i % sites.size()),
 					instruments.get(i % instruments.size()), getRefs(i),
 					getImages(i), volcanoes.get(i % volcanoes.size()),
-					"drilled by " + i, LocalDate.now().toString(), i, i * 10, i * 100,
-					"0 - " + i, 0, i, 2016 - i, 1900 - i);
+					"drilled by " + i, LocalDate.now().toString(),
+					String.valueOf(i), String.valueOf(i * 10),
+					String.valueOf(i * 100), "0 - " + i, 0, i, 2016 - i,
+					1900 - i);
 			iceCoreSamples.add(ics);
 			em.persist(ics);
 		});
@@ -370,8 +378,8 @@ public class TestDataGenerator {
 		int n = 500;
 		images = new ArrayList<>();
 
-		System.out.print(
-				"Generating image data (This may take a moment, or maybe an hour).");
+		System.out
+				.print("Generating image data (This may take a few minutes).");
 
 		for (int i = 0; i < n; i++) {
 			System.out.print(".");
@@ -426,7 +434,11 @@ public class TestDataGenerator {
 		refs = new ArrayList<>();
 
 		range(0, n).forEach(i -> {
-			Ref ref = new Ref(Ref.class.getSimpleName() + i, null, null);
+			Ref ref = new Ref(Ref.class.getSimpleName() + i,
+					"Smith, John, Swift, Jonathan. " + (2003 + i)
+							+ ". \"Tephra Layers in the testing Ice Cores " + i
+							+ ".\" Journal of Geophysical Research: 2374" + i,
+					null, null);
 			refs.add(ref);
 			em.persist(ref);
 		});

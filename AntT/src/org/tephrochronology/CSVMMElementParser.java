@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -28,7 +29,13 @@ import org.supercsv.prefs.CsvPreference;
  */
 public class CSVMMElementParser {
 
-	private static class Headers {
+	/**
+	 * Represents the headers to be read and what they will be written out as.  The 
+	 * 
+	 * @author Mark Royer
+	 *
+	 */
+	static class Headers {
 
 		String[] select;
 
@@ -37,7 +44,7 @@ public class CSVMMElementParser {
 		Map<String, String> toRenameMap;
 
 		Map<String, String> toSelectMap;
-		
+
 		public Headers(String[] select, String[] rename) {
 			this.select = select;
 			this.rename = rename;
@@ -54,7 +61,7 @@ public class CSVMMElementParser {
 		public String getRename(String header) {
 			return toRenameMap.get(header);
 		}
-		
+
 		public String getSelect(String header) {
 			return toSelectMap.get(header);
 		}
@@ -87,7 +94,7 @@ public class CSVMMElementParser {
 		// Multiple line file containing a row for each selection
 		// longsample_id, element, unit , val, std, me
 		// The element and unit will be used as a literal
-		File inputMMElementSelectFile = new File(args[2]);
+		File inputMMElementDataSelectFile = new File(args[2]);
 
 		File outputMMElementFile = new File(args[3]);
 
@@ -95,6 +102,7 @@ public class CSVMMElementParser {
 
 		Headers headers = getSelectAndRenameHeaders(inputSelectFile);
 
+		// These are from the database specification for mm_elements
 		String[] expectedHeaders = new String[] { "longsample_id", "sample_id",
 				"comments", "method_type", "iid", "date_measured",
 				"measured_by", "original_total", "calculated_total",
@@ -110,7 +118,7 @@ public class CSVMMElementParser {
 		mapWriter.writeHeader(expectedHeaders);
 
 		for (Map<String, String> r : rows) {
-			
+
 			Object[] arr = Arrays.stream(expectedHeaders)
 					.map(e -> r.get(headers.getSelect(e))).toArray();
 			mapWriter.write(arr);
@@ -126,11 +134,27 @@ public class CSVMMElementParser {
 		//
 		// Extended Sample ID, "p2o5" , "%", P2O5 ,std_P2O5,me_P2O5
 
-		String[] mmElementDataHeaders = new String[] { "Extended Sample ID",
-				"p2o5", null, "P2O5", "std_P2O5", "me_P2O5" };
+		writeMMElementDataFile(inputFile, inputMMElementDataSelectFile,
+				outputMMElementDataFile);
 
-		List<List<String>> rowData = new CSVMMElementParser()
-				.readMMElementData(inputFile, mmElementDataHeaders);
+	}
+
+	/**
+	 * @param inputFile
+	 * @param inputMMElementDataSelectFile
+	 * @param outputMMElementDataFile
+	 * @throws Exception
+	 * @throws IOException
+	 */
+	private static void writeMMElementDataFile(File inputFile,
+			File inputMMElementDataSelectFile, File outputMMElementDataFile)
+			throws Exception, IOException {
+
+		Scanner in = new Scanner(inputMMElementDataSelectFile);
+		String nextLine = in.nextLine();
+		while (nextLine.startsWith("#") && in.hasNextLine()) {
+			nextLine = in.nextLine();
+		}
 
 		ICsvListWriter dataWriter = new CsvListWriter(
 				new FileWriter(outputMMElementDataFile),
@@ -139,13 +163,25 @@ public class CSVMMElementParser {
 		dataWriter.writeHeader(new String[] { "longsample_id", "element",
 				"unit", "val", "std", "me" });
 
-		for (List<String> r : rowData) {
-			dataWriter.write(r);
-//			System.out.println(r);
+		while (nextLine != null && !nextLine.isEmpty()) {
+
+			String[] mmElementDataHeaders = trim(nextLine.split(","));
+			// new String[] { "Extended Sample ID",
+			// "p2o5", null, "P2O5", "std_P2O5", "me_P2O5" };
+
+			List<List<String>> rowData = new CSVMMElementParser()
+					.readMMElementData(inputFile, mmElementDataHeaders);
+
+			for (List<String> r : rowData) {
+				dataWriter.write(r);
+				// System.out.println(r);
+			}
+
+			nextLine = in.hasNextLine() ? in.nextLine() : null;
 		}
 		dataWriter.flush();
 		dataWriter.close();
-
+		in.close();
 	}
 
 	private static Headers getSelectAndRenameHeaders(File inputSelectFile)

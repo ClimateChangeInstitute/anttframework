@@ -39,13 +39,13 @@ public class IceCoreSample extends Sample {
 	private String drillingDate; // Possibly LocalDate in future?
 
 	@Column(name = "core_diameter")
-	private float coreDiameter;
+	private String coreDiameter;
 
 	@Column(name = "max_core_depth")
-	private float maxCoreDepth;
+	private String maxCoreDepth;
 
 	@Column(name = "core_age")
-	private float coreAge;
+	private String coreAge;
 
 	/**
 	 * Years
@@ -106,7 +106,7 @@ public class IceCoreSample extends Sample {
 			LocalDate collectionDate, String comments, Site site,
 			Instrument instrument, List<Ref> refs, List<Image> images,
 			Volcano volcano, String drilledBy, String drillingDate,
-			float coreDiameter, float maxCoreDepth, float coreAge,
+			String coreDiameter, String maxCoreDepth, String coreAge,
 			String coreAgeRange, float topDepth, float bottomDepth,
 			float topYear, float bottomYear) {
 		super(sampleID, longName, sampledBy, collectionDate, comments, site,
@@ -148,27 +148,27 @@ public class IceCoreSample extends Sample {
 		this.drillingDate = drillingDate;
 	}
 
-	public float getCoreDiameter() {
+	public String getCoreDiameter() {
 		return coreDiameter;
 	}
 
-	public void setCoreDiameter(float coreDiameter) {
+	public void setCoreDiameter(String coreDiameter) {
 		this.coreDiameter = coreDiameter;
 	}
 
-	public float getMaxCoreDepth() {
+	public String getMaxCoreDepth() {
 		return maxCoreDepth;
 	}
 
-	public void setMaxCoreDepth(float maxCoreDepth) {
+	public void setMaxCoreDepth(String maxCoreDepth) {
 		this.maxCoreDepth = maxCoreDepth;
 	}
 
-	public float getCoreAge() {
+	public String getCoreAge() {
 		return coreAge;
 	}
 
-	public void setCoreAge(float coreAge) {
+	public void setCoreAge(String coreAge) {
 		this.coreAge = coreAge;
 	}
 
