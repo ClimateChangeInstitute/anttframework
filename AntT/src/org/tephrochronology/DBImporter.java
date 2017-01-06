@@ -5,6 +5,7 @@ package org.tephrochronology;
 
 import static org.eclipse.persistence.config.PersistenceUnitProperties.JDBC_PASSWORD;
 import static org.eclipse.persistence.config.PersistenceUnitProperties.JDBC_USER;
+import static org.tephrochronology.DBProperties.DEFAULT_PASSWORD_FILE;
 import static org.tephrochronology.DBProperties.dBExists;
 import static org.tephrochronology.DBProperties.setupProperties;
 
@@ -51,9 +52,14 @@ public class DBImporter {
 	public static void main(String[] args) throws Exception {
 
 		if (args.length != 2) {
-			System.err.printf("Usage: java %s USER PASS\n",
-					DBImporter.class.getName());
-			System.exit(-1);
+			args = DBProperties.findUserPassword(DEFAULT_PASSWORD_FILE);
+			if (args.length != 2) {
+				System.err.printf("Usage: java %s USER PASS\n",
+						DBImporter.class.getName());
+				System.err.printf("Optionally, create the %s file.\n",
+						DEFAULT_PASSWORD_FILE.getPath());
+				System.exit(-1);
+			}
 		}
 
 		Map<String, String> properties = setupProperties(args);
