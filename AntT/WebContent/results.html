@@ -33,6 +33,22 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+<script src="index_files/jquery.js"></script>
+<script type="text/javascript">
+	    function checkToDownload(e) {
+	    	
+	    	if (e.checked) {
+	    		$('input:checkbox[id^="' + e.id + '-' + '"]').each(function(i, j) {
+		    		$(j).prop( "checked", true );
+	 			});
+	    	}
+	    	else {
+	    		$('input:checkbox[id^="' + e.id + '-' + '"]').each(function(i, j) {
+		    		$(j).prop( "checked", false );
+	 			});
+	    	}
+	 	}
+</script>
 
 </head>
 
@@ -113,12 +129,19 @@
 								aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
-							<strong>Heads up!</strong> Click on a smpleID below to see the full information about the sample or click the black arrow to see element data.
+							<strong>Heads up!</strong> Click on a sampleID below to see the full information about the sample or click the black arrow to see element data.
 						</div>
 
 						<div ng-repeat="search in filtered | filter:searchText">
 							<div class="panel panel-default">
 								<div class="panel-body">
+									<div class="row">
+										<div class="col-sm-12">
+											<div class="pull-right">
+												
+											</div>
+										</div>
+									</div>
 
 									<div class="row">
 										<div class="col-sm-12">
@@ -139,7 +162,11 @@
 													<strong>Sample ID</strong> 
 												</div>
 												<div class="col-md-3">
-													<strong>Download</strong>
+													<strong>Download</strong> 
+													<div class="do-inline checkbox">
+													(<label> <input id="s-{{search.count}}" onclick="checkToDownload(this)" type="checkbox" value=""> select all
+													</label>)
+												</div>
 												</div>
 											</div>
 										</div>
@@ -152,7 +179,7 @@
 													<div class="q panel-heading remove-color">
 														<div class="row">
 															<div class="col-md-1">
-																<span class="collapsed" data-parent="#accordion" data-toggle="collapse" data-target="#{{search.count}}-{{o.mme.sampleID}}"></span>
+																<span class="collapsed" data-parent="#accordion" data-toggle="collapse" data-target="#s-{{search.count}}-{{o.mme.sampleID}}"></span>
 															</div>
 															<div class="col-md-4">
 																{{o.simVal | number:2}}
@@ -161,11 +188,11 @@
 																<a class="special" href="{{o.mme.sampleType}}.html?id={{o.mme.sampleID}}"> {{o.mme.sampleID}}</a>
 															</div>
 															<div class="col-md-3">
-																<td><input type="checkbox"></td>
+																<td><input type="checkbox" id="s-{{search.count}}-{{o.mme.sampleID}}"></td>
 															</div>
 														</div>
 													</div>
-													<div id="{{search.count}}-{{o.mme.sampleID}}" class="panel-body collapse">
+													<div id="s-{{search.count}}-{{o.mme.sampleID}}" class="panel-body collapse">
 														<div class="row">
 															<div class="col-sm-9">
 																<p>
@@ -362,7 +389,6 @@
 	<!-- Bootstrap core JavaScript
 	================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
-	<script src="index_files/jquery.js"></script>
 	<script src="./js/antt.js" type="text/javascript"></script>
 	<script>
 		window.jQuery
@@ -384,6 +410,8 @@
 	    if (getStatus == "true") {
 	        document.getElementById("choice").checked = true;
 	    }
+
+
 	</script>
 	<script src="index_files/bootstrap/js/bootstrap.js"></script>
 	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
