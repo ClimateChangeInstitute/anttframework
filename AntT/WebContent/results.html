@@ -113,7 +113,7 @@
 								aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
-							<strong>Heads up!</strong> Click on a smpleID below to see the full inofrmation about the sample or click the black arrow to see element data.
+							<strong>Heads up!</strong> Click on a smpleID below to see the full information about the sample or click the black arrow to see element data.
 						</div>
 
 						<div ng-repeat="search in filtered | filter:searchText">
@@ -133,7 +133,7 @@
 													
 												</div>
 												<div class="col-md-4">
-													Similirarity Coefficient
+													Similarity Coefficient
 												</div>
 												<div class="col-md-4">
 													Sample ID 
@@ -152,7 +152,7 @@
 													<div class="panel-heading">
 														<div class="row">
 															<div class="col-md-1">
-																<span class="glyphicon glyphicon-triangle-right collapsed" data-parent="#accordion" data-toggle="collapse" data-target="#{{search.count}}-{{o.mme.sampleID}}"></span>
+																<span class="collapsed" data-parent="#accordion" data-toggle="collapse" data-target="#{{search.count}}-{{o.mme.sampleID}}"></span>
 															</div>
 															<div class="col-md-4">
 																{{o.simVal | number:2}}
