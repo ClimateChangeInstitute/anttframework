@@ -38,14 +38,14 @@ public class GrainSize implements Serializable {
 	@JoinColumn(name = "iid")
 	private Instrument instrument;
 
-	@Column(name = "name")
-	private String name;
+	@Column(name = "comments")
+	private String comments;
 
 	@Column(name = "range")
 	private String range;
 
-	@Column(name = "grain_date")
-	private LocalDate date;
+	@Column(name = "sample_date")
+	private LocalDate sampleDate;
 
 	@ManyToMany
 	@JoinTable(name = "grain_sizes_refs", joinColumns = {
@@ -60,9 +60,9 @@ public class GrainSize implements Serializable {
 	/**
 	 * @param sample
 	 * @param instrument
-	 * @param name
+	 * @param comments
 	 * @param range
-	 * @param date
+	 * @param sampleDate
 	 * @param refs
 	 */
 	public GrainSize(Sample sample, Instrument instrument, String name,
@@ -70,9 +70,9 @@ public class GrainSize implements Serializable {
 		super();
 		this.sample = sample;
 		this.instrument = instrument;
-		this.name = name;
+		this.comments = name;
 		this.range = range;
-		this.date = date;
+		this.sampleDate = date;
 		this.refs = refs;
 	}
 
@@ -93,11 +93,11 @@ public class GrainSize implements Serializable {
 	}
 
 	public String getName() {
-		return name;
+		return comments;
 	}
 
 	public void setName(String name) {
-		this.name = name;
+		this.comments = name;
 	}
 
 	public String getRange() {
@@ -108,12 +108,12 @@ public class GrainSize implements Serializable {
 		this.range = range;
 	}
 
-	public LocalDate getDate() {
-		return date;
+	public LocalDate getSampleDate() {
+		return sampleDate;
 	}
 
-	public void setDate(LocalDate date) {
-		this.date = date;
+	public void setSampleDate(LocalDate sampleDate) {
+		this.sampleDate = sampleDate;
 	}
 
 	public List<Ref> getRefs() {
