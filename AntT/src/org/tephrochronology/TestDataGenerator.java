@@ -280,9 +280,7 @@ public class TestDataGenerator {
 					c.getName() + i, "first last" + i, LocalDate.now(),
 					"comment " + i, sites.get(i % sites.size()),
 					instruments.get(i % instruments.size()), getRefs(i),
-					getImages(i), volcanoes.get(i % volcanoes.size()),
-					"deep " + i, "sample description " + i, "sample media " + i,
-					"unit " + i, i, "trend " + i);
+					getImages(i), volcanoes.get(i % volcanoes.size()));
 			biaSamples.add(bias);
 			em.persist(bias);
 		});
