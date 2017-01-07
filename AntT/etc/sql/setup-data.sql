@@ -2173,6 +2173,9 @@ INSERT INTO elements (element_name, format) VALUES ('k2o', 'K<sub>2</sub>O');
 INSERT INTO elements (element_name, format) VALUES ('p2o5', 'P<sub>2</sub>O<sub>5</sub>');
 INSERT INTO elements (element_name, format) VALUES ('cl', 'Cl');
 INSERT INTO elements (element_name, format) VALUES ('co2', 'CO<sub>2</sub>');
+INSERT INTO elements (element_name, format) VALUES ('h2oplus', 'H<sub>2</sub>O<super>+</super>');
+INSERT INTO elements (element_name, format) VALUES ('h2ominus', 'H<sub>2</sub>O<super>-</super>');
+INSERT INTO elements (element_name, format) VALUES ('loi', 'LOI');
 
 
 --
