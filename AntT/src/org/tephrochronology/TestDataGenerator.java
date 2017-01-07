@@ -40,7 +40,6 @@ import org.tephrochronology.model.MethodType;
 import org.tephrochronology.model.OutcropSample;
 import org.tephrochronology.model.Ref;
 import org.tephrochronology.model.Site;
-import org.tephrochronology.model.SiteType;
 import org.tephrochronology.model.Unit;
 import org.tephrochronology.model.Volcano;
 
@@ -53,8 +52,6 @@ import org.tephrochronology.model.Volcano;
 public class TestDataGenerator {
 
 	List<Volcano> volcanoes;
-
-	List<SiteType> siteTypes;
 
 	List<CorerType> coreTypes;
 
@@ -471,8 +468,7 @@ public class TestDataGenerator {
 
 		range(0, n).forEach(i -> {
 			Site s = new Site(Site.class.getSimpleName() + i,
-					Site.class.getName() + i,
-					siteTypes.get(i % siteTypes.size()), (i * n) % 90,
+					Site.class.getName() + i, (i * n) % 90,
 					(i * n) % 180, i * n * 100, "Comment " + i);
 			sites.add(s);
 			em.persist(s);
@@ -490,7 +486,6 @@ public class TestDataGenerator {
 			throws ReflectiveOperationException {
 
 		int n = 20;
-		siteTypes = createAndPersistType(em, SiteType.class, n);
 		coreTypes = createAndPersistType(em, CorerType.class, n);
 		methodTypes = createAndPersistType(em, MethodType.class, n);
 

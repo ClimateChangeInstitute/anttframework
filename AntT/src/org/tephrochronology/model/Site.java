@@ -3,15 +3,11 @@
  */
 package org.tephrochronology.model;
 
-import static javax.persistence.CascadeType.PERSIST;
-
 import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -33,10 +29,6 @@ public class Site implements Serializable {
 	
 	@Column(name = "long_name")
 	private String longName;
-
-	@JoinColumn(name = "site_type")
-	@OneToOne(cascade=PERSIST)
-	private SiteType siteType;
 
 	/**
 	 * -90 <= latitude <= 90
@@ -62,18 +54,16 @@ public class Site implements Serializable {
 	/**
 	 * @param siteID
 	 * @param longName
-	 * @param siteType
 	 * @param latitude
 	 * @param longitude
 	 * @param elevation
 	 * @param comment
 	 */
-	public Site(String siteID, String longName, SiteType siteType, float latitude,
+	public Site(String siteID, String longName, float latitude,
 			float longitude, float elevation, String comment) {
 		super();
 		this.siteID = siteID;
 		this.longName = longName;
-		this.siteType = siteType;
 		this.latitude = latitude;
 		this.longitude = longitude;
 		this.elevation = elevation;
@@ -89,14 +79,6 @@ public class Site implements Serializable {
 
 	public void setSiteID(String siteID) {
 		this.siteID = siteID;
-	}
-
-	public SiteType getSiteType() {
-		return siteType;
-	}
-
-	public void setSiteType(SiteType siteType) {
-		this.siteType = siteType;
 	}
 
 	public float getLatitude() {
