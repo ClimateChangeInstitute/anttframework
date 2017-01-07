@@ -300,11 +300,8 @@ public class TestDataGenerator {
 					c.getName() + i, "first last" + i, LocalDate.now(),
 					"comment " + i, sites.get(i % sites.size()),
 					instruments.get(i % instruments.size()), getRefs(i),
-					getImages(i), volcanoes.get(i % volcanoes.size()),
-					"drilled by " + i, LocalDate.now().toString(),
-					String.valueOf(i), String.valueOf(i * 10),
-					String.valueOf(i * 100), "0 - " + i, 0, i, 2016 - i,
-					1900 - i);
+					getImages(i), volcanoes.get(i % volcanoes.size()), 0, i,
+					2016 - i, 1900 - i);
 			iceCoreSamples.add(ics);
 			em.persist(ics);
 		});

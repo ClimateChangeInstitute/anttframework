@@ -33,5 +33,6 @@
 		<class>org.tephrochronology.model.MMElementData</class>
 		<class>org.tephrochronology.model.Category</class>
 		<class>org.tephrochronology.model.BIACategory</class>
+		<class>org.tephrochronology.model.IceCoreCategory</class>
 	</persistence-unit>
 </persistence>
