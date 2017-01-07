@@ -142,7 +142,6 @@ public class DBImporter {
 
 		copyFileToTable(dbName, "volcanoes", dataDir);
 
-		copyFileToTable(dbName, "site_types", dataDir);
 		copyFileToTable(dbName, "sites", dataDir);
 		copyFileToTable(dbName, "instruments", dataDir);
 
@@ -174,31 +173,34 @@ public class DBImporter {
 		st.executeUpdate("DROP TABLE images_tmp");
 
 		loadSampleData(dataDir, dbName, "icecore_samples",
-				"volcano_number INTEGER,drilled_by TEXT,drilling_date DATE,core_diameter REAL,max_core_depth REAL,core_age REAL,core_age_range TEXT,topdepth_m REAL,bottomdepth_m REAL,topyear_bp REAL,bottomyear_bp REAL",
+				"volcano_number INTEGER,topdepth_m REAL,bottomdepth_m REAL,topyear_bp REAL,bottomyear_bp REAL",
 				"I",
-				"sample_id, volcano_number, drilled_by, drilling_date,core_diameter,max_core_depth,core_age,core_age_range,topdepth_m,bottomdepth_m,topyear_bp,bottomyear_bp",
+				"sample_id,secondary_id,sampled_by,collection_date,comments,category_id,iid,volcano_number,topdepth_m,bottomdepth_m,topyear_bp,bottomyear_bp",
 				conn);
-
+		
+		// ,deep TEXT,	sample_description TEXT,sample_media TEXT,unit_name TEXT,thickness_cm TEXT,trend TEXT
 		loadSampleData(dataDir, dbName, "bia_samples",
-				"volcano_number INTEGER,deep TEXT,	sample_description TEXT,sample_media TEXT,unit_name TEXT,thickness_cm TEXT,trend TEXT",
+				"volcano_number INTEGER ",
 				"B",
-				"sample_id, volcano_number, deep, sample_description,sample_media,unit_name,thickness_cm,trend",
+				"sample_id, volcano_number ",
 				conn);
 
 		copyFileToTable(dbName, "corer_types", dataDir);
 
 		copyFileToTable(dbName, "method_types", dataDir);
 
+//		sample_id,secondary_id,sampled_by,collection_date,comments,category_id,iid,volcano_number,depth_m,thickness_cm
+		// ,corer_type TEXT,age TEXT,core_length_m REAL,sampling_date DATE
 		loadSampleData(dataDir, dbName, "lake_samples",
-				"volcano_number INTEGER,corer_type TEXT,age TEXT,core_length_m REAL,sampling_date DATE,depth_m REAL,top_m REAL,thickness_cm REAL",
+				"volcano_number INTEGER,depth_m REAL, thickness_cm REAL",
 				"L",
-				"sample_id, volcano_number,corer_type,age,core_length_m,sampling_date,depth_m,top_m,thickness_cm",
+				"sample_id, volcano_number, depth_m, thickness_cm",
 				conn);
 
 		loadSampleData(dataDir, dbName, "marine_samples",
-				"volcano_number INTEGER,corer_type TEXT,age TEXT,core_length_m REAL,sampling_date DATE,depth_m REAL,top_m REAL,thickness_cm REAL",
+				"volcano_number INTEGER, depth_m REAL, thickness_cm REAL",
 				"M",
-				"sample_id, volcano_number,corer_type,age,core_length_m,sampling_date,depth_m,top_m,thickness_cm",
+				"sample_id, volcano_number, depth_m, thickness_cm",
 				conn);
 
 		loadSampleData(dataDir, dbName, "outcrop_samples",
@@ -240,15 +242,15 @@ public class DBImporter {
 		String tmpTable = String.format("%s_tmp", tableName);
 
 		st.execute(String.format(
-				"CREATE TABLE %s(sample_id TEXT PRIMARY KEY,long_name TEXT,sampled_by TEXT,collection_date DATE,comments TEXT,site_id TEXT,iid TEXT,",
+				"CREATE TABLE %s(sample_id TEXT PRIMARY KEY,secondary_id TEXT,sampled_by TEXT,collection_date DATE,comments TEXT,category_id TEXT,iid TEXT,",
 				tmpTable) + extraColumnsWithTypes + ")");
 
 		copyFileToTable(dbName, tmpTable, new File(dataDir, tableName + ".csv"),
 				dataDir);
 
 		st.executeUpdate(String.format(
-				"INSERT INTO samples (sample_id, long_name, sampled_by, collection_date, comments, site_id, iid, sample_type) "
-						+ "SELECT sample_id, long_name, sampled_by, collection_date, comments, site_id, iid, '%s' AS sample_type FROM %s",
+				"INSERT INTO samples (sample_id, secondary_id, sampled_by, collection_date, comments, category_id, iid, sample_type) "
+						+ "SELECT sample_id, secondary_id, sampled_by, collection_date, comments, category_id, iid, '%s' AS sample_type FROM %s",
 				typeChar, tmpTable));
 
 		st.executeUpdate("INSERT INTO " + tableName + " (" + extraColumns + ") "
