@@ -66,43 +66,6 @@ CREATE TABLE volcanoes(
 -- Start Sample Related Tables
 ------------------------------------------------------------------------------
 
--- Categories are collections of samples
-CREATE TABLE categories(
-	category_id TEXT PRIMARY KEY,
-	category_id TEXT REFERENCES sites(site_id) NOT NULL,
-	category_type CHAR NOT NULL);
-
-CREATE TABLE bia_category(
-	category_id TEXT PRIMARY KEY REFERENCES categories(category_id),
-	deep TEXT,
-	thickness_cm TEXT,
-	trend TEXT);
-
-CREATE TABLE icecore_category(
-	category_id TEXT PRIMARY KEY REFERENCES categories(category_id),
-	drilled_by TEXT,
-	drilling_dates TEXT,
-	core_diameter TEXT,
-	max_core_depth TEXT,
-	core_age_range TEXT);
-	
-CREATE TABLE lake_category(
-	category_id TEXT PRIMARY KEY REFERENCES categories(category_id),
-	corer_type TEXT REFERENCES corer_types(corer_type),
-	age TEXT,
-	core_length_m REAL,
-	collection_date DATE);
-	
-CREATE TABLE marine_category(
-	category_id TEXT PRIMARY KEY REFERENCES categories(category_id),
-	corer_type TEXT REFERENCES corer_types(corer_type),
-	age TEXT,
-	core_length_m REAL,
-	collection_date DATE);
-	
--- Outcrop categories don't have any additional columns, but might in the future
-CREATE TABLE outcrop_category(
-	category_id TEXT PRIMARY KEY REFERENCES categories(category_id));
 	
 CREATE TABLE sites(
 	site_id TEXT PRIMARY KEY,
@@ -112,6 +75,50 @@ CREATE TABLE sites(
 	elevation_m REAL NOT NULL,
 	comment TEXT);
 
+
+-- Categories are collections of samples
+-- For example, a category might be an icecore.
+CREATE TABLE categories(
+	category_id TEXT PRIMARY KEY,
+	site_id TEXT REFERENCES sites(site_id) NOT NULL,
+	category_type CHAR NOT NULL);
+
+CREATE TABLE bia_categories(
+	category_id TEXT PRIMARY KEY REFERENCES categories(category_id),
+	deep TEXT,
+	thickness_cm TEXT,
+	trend TEXT);
+
+CREATE TABLE icecore_categories(
+	category_id TEXT PRIMARY KEY REFERENCES categories(category_id),
+	drilled_by TEXT,
+	drilling_dates TEXT,
+	core_diameter TEXT,
+	max_core_depth TEXT,
+	core_age_range TEXT);
+	
+-- The type of machine that created the core
+CREATE TABLE corer_types(
+       corer_type TEXT PRIMARY KEY);
+	
+CREATE TABLE lake_categories(
+	category_id TEXT PRIMARY KEY REFERENCES categories(category_id),
+	corer_type TEXT REFERENCES corer_types(corer_type),
+	age TEXT,
+	core_length_m REAL,
+	collection_date DATE);
+	
+CREATE TABLE marine_categories(
+	category_id TEXT PRIMARY KEY REFERENCES categories(category_id),
+	corer_type TEXT REFERENCES corer_types(corer_type),
+	age TEXT,
+	core_length_m REAL,
+	collection_date DATE);
+	
+-- Outcrop categories don't have any additional columns, but might in the future
+CREATE TABLE outcrop_categories(
+	category_id TEXT PRIMARY KEY REFERENCES categories(category_id));
+	
 CREATE TABLE instruments(
 	iid TEXT PRIMARY KEY, -- instrument id
 	long_name TEXT,
@@ -190,9 +197,6 @@ CREATE TABLE bia_samples(
 
 -- Lake and Marine could be combined into aquatic table?
 
--- The type of machine that created the core
-CREATE TABLE corer_types(
-       corer_type TEXT PRIMARY KEY);
        
 CREATE TABLE lake_samples(
 	sample_id TEXT PRIMARY KEY REFERENCES samples(sample_id),
@@ -302,7 +306,16 @@ GRANT ALL PRIVILEGES ON rock_types TO :ADMIN;
 GRANT ALL PRIVILEGES ON tectonic_settings TO :ADMIN;
 GRANT ALL PRIVILEGES ON volcanoes TO :ADMIN;
 
-GRANT ALL PRIVILEGES ON site_types TO :ADMIN;
+GRANT ALL PRIVILEGES ON categories  TO :ADMIN;
+GRANT ALL PRIVILEGES ON bia_categories  TO :ADMIN;
+GRANT ALL PRIVILEGES ON icecore_categories TO :ADMIN;
+
+GRANT ALL PRIVILEGES ON corer_types TO :ADMIN;
+
+GRANT ALL PRIVILEGES ON lake_categories TO :ADMIN;
+GRANT ALL PRIVILEGES ON marine_categories TO :ADMIN;
+GRANT ALL PRIVILEGES ON outcrop_categories TO :ADMIN;
+
 GRANT ALL PRIVILEGES ON sites TO :ADMIN;
 GRANT ALL PRIVILEGES ON instruments TO :ADMIN;
 
@@ -320,7 +333,6 @@ GRANT ALL PRIVILEGES ON samples_images TO :ADMIN;
 GRANT ALL PRIVILEGES ON icecore_samples TO :ADMIN;
 GRANT ALL PRIVILEGES ON bia_samples TO :ADMIN;
 
-GRANT ALL PRIVILEGES ON corer_types TO :ADMIN;
 
 GRANT ALL PRIVILEGES ON lake_samples TO :ADMIN;
 GRANT ALL PRIVILEGES ON marine_samples TO :ADMIN;
