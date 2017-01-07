@@ -168,8 +168,7 @@ public class TestDataGenerator {
 					outcropSamples.get(i % outcropSamples.size()),
 					"Comment " + i, methodTypes.get(i % methodTypes.size()),
 					instruments.get(i % instruments.size()), LocalDate.now(),
-					"Mark", 5, 3f, 2f, "instrument settings for " + i, 1f, -2f,
-					1f, data);
+					"Mark", 5, 3f, 2f, "instrument settings for " + i, data);
 			range(0, i % elements.size()).forEach(j -> {
 				Element elem = elements.get(j % elements.size());
 				data.add(new MMElementData(el, elem, j * 10f, j * 2f, j * 1f,
@@ -468,8 +467,8 @@ public class TestDataGenerator {
 
 		range(0, n).forEach(i -> {
 			Site s = new Site(Site.class.getSimpleName() + i,
-					Site.class.getName() + i, (i * n) % 90,
-					(i * n) % 180, i * n * 100, "Comment " + i);
+					Site.class.getName() + i, (i * n) % 90, (i * n) % 180,
+					i * n * 100, "Comment " + i);
 			sites.add(s);
 			em.persist(s);
 		});

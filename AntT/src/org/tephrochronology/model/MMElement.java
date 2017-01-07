@@ -58,15 +58,6 @@ public class MMElement {
 	@Column(name = "instrument_settings")
 	private String instrumentSettings;
 
-	@Column(name = "h2o_plus")
-	private Float h2o_plus;
-
-	@Column(name = "h2o_minus")
-	private Float h2o_minus;
-
-	@Column(name = "loi")
-	private Float loi;
-
 	@OneToMany(mappedBy = "mmElement", cascade = { CascadeType.PERSIST })
 	private List<MMElementData> elementData;
 
@@ -82,17 +73,13 @@ public class MMElement {
 	 * @param originalTotal
 	 * @param calculatedTotal
 	 * @param instrumentSettings
-	 * @param h2o_plus
-	 * @param h2o_minus
-	 * @param loi
 	 * @param elementData
 	 */
 	public MMElement(String longsampleID, Sample sample, String comments,
 			MethodType methodType, Instrument instrument,
 			LocalDate dateMeasured, String measuredBy, int numberOfMeasurements,
 			float originalTotal, float calculatedTotal,
-			String instrumentSettings, Float h2o_plus, Float h2o_minus,
-			Float loi, List<MMElementData> elementData) {
+			String instrumentSettings, List<MMElementData> elementData) {
 		super();
 		this.longsampleID = longsampleID;
 		this.sample = sample;
@@ -105,9 +92,6 @@ public class MMElement {
 		this.originalTotal = originalTotal;
 		this.calculatedTotal = calculatedTotal;
 		this.instrumentSettings = instrumentSettings;
-		this.h2o_plus = h2o_plus;
-		this.h2o_minus = h2o_minus;
-		this.loi = loi;
 		this.elementData = elementData;
 	}
 
@@ -200,30 +184,6 @@ public class MMElement {
 
 	public void setInstrumentSettings(String instrumentSettings) {
 		this.instrumentSettings = instrumentSettings;
-	}
-
-	public Float getH2o_plus() {
-		return h2o_plus;
-	}
-
-	public void setH2o_plus(Float h2o_plus) {
-		this.h2o_plus = h2o_plus;
-	}
-
-	public Float getH2o_minus() {
-		return h2o_minus;
-	}
-
-	public void setH2o_minus(Float h2o_minus) {
-		this.h2o_minus = h2o_minus;
-	}
-
-	public Float getLoi() {
-		return loi;
-	}
-
-	public void setLoi(Float loi) {
-		this.loi = loi;
 	}
 
 	public List<MMElementData> getElementData() {

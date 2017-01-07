@@ -50,8 +50,7 @@ public class MMElementInfo {
 	public MMElementInfo(String longsampleID, String sampleID, String comments,
 			MethodType methodType, String iid, LocalDate dateMeasured,
 			String measuredBy, int numberOfMeasurements, float originalTotal,
-			float calculatedTotal, String instrumentSettings, Float h2o_plus,
-			Float h2o_minus, Float loi,
+			float calculatedTotal, String instrumentSettings,
 			List<MMElementData> elementData) {
 		super();
 		this.longsampleID = longsampleID;
@@ -65,9 +64,6 @@ public class MMElementInfo {
 		this.originalTotal = originalTotal;
 		this.calculatedTotal = calculatedTotal;
 		this.instrumentSettings = instrumentSettings;
-		this.h2o_plus = h2o_plus;
-		this.h2o_minus = h2o_minus;
-		this.loi = loi;
 		this.elementData = elementData;
 	}
 
@@ -77,7 +73,6 @@ public class MMElementInfo {
 				e.getDateMeasured(), e.getMeasuredBy(),
 				e.getNumberOfMeasurements(), e.getOriginalTotal(),
 				e.getCalculatedTotal(), e.getInstrumentSettings(),
-				e.getH2o_plus(), e.getH2o_minus(), e.getLoi(),
 				e.getElementData());
 	}
 
