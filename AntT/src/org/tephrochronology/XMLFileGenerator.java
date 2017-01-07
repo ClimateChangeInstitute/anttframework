@@ -85,15 +85,15 @@ public class XMLFileGenerator {
 		//@formatter:off
 		TypedQuery<SampleInfo> q = em.createQuery(
 				  "SELECT NEW org.tephrochronology.model.SampleInfo(TYPE(s), "
-				+ "s.sampleID, s.longName, s.sampledBy, s.comments, "
-				+ "s.collectionDate, s.site.siteID, s.instrument.id) "
+				+ "s.sampleID, s.secondaryID, s.sampledBy, s.comments, "
+				+ "s.collectionDate, s.category.categoryID, s.instrument.id) "
 				+ "FROM Sample s "
 				+ "ORDER BY TYPE(s), s.sampleID, s.collectionDate"
 				, SampleInfo.class);
 		//@formatter:on
 
 		List<SampleInfo> samples = q.getResultList();// new ArrayList<>();
-		
+
 		PrintStream out = new PrintStream(new FileOutputStream(
 				outputLocation + File.separator + ALLSAMPLES_FILENAME));
 
@@ -105,7 +105,7 @@ public class XMLFileGenerator {
 
 		out.flush();
 		out.close();
-	
+
 	}
 
 	public void writeAllMMElementXMLFile(Path outputLocation)
