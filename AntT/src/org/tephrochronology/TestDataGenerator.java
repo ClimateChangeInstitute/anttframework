@@ -208,7 +208,7 @@ public class TestDataGenerator {
 						outcropSamples.get(i % outcropSamples.size()),
 						instruments.get(j % instruments.size()),
 						GrainSize.class.getSimpleName() + i + " " + j,
-						"range " + i, LocalDate.now(), getRefs(i));
+						"range " + i, LocalDate.now().toString(), getRefs(i));
 				grainSizes.add(gs);
 				em.persist(gs);
 			});
@@ -306,14 +306,12 @@ public class TestDataGenerator {
 	private void generateBIASampleData(EntityManager em) {
 
 		Class<BIASample> c = BIASample.class;
-		
-		System.out.printf("Generating %s data.\n",
-				c.getSimpleName());
+
+		System.out.printf("Generating %s data.\n", c.getSimpleName());
 
 		List<BIACategory> biaCategories = new ArrayList<>();
 		for (int i = 0; i < 10; i++) {
-			BIACategory newCat = new BIACategory(
-					c.getSimpleName() + i,
+			BIACategory newCat = new BIACategory(c.getSimpleName() + i,
 					sites.get(i % sites.size()), "deep " + i, i, "trend " + i);
 			em.persist(newCat);
 			biaCategories.add(newCat);
