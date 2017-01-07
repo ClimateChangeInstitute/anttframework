@@ -66,13 +66,47 @@ CREATE TABLE volcanoes(
 -- Start Sample Related Tables
 ------------------------------------------------------------------------------
 
-CREATE TABLE site_types(
-	site_type TEXT PRIMARY KEY);
+-- Categories are collections of samples
+CREATE TABLE categories(
+	category_id TEXT PRIMARY KEY,
+	category_id TEXT REFERENCES sites(site_id) NOT NULL,
+	category_type CHAR NOT NULL);
+
+CREATE TABLE bia_category(
+	category_id TEXT PRIMARY KEY REFERENCES categories(category_id),
+	deep TEXT,
+	thickness_cm TEXT,
+	trend TEXT);
+
+CREATE TABLE icecore_category(
+	category_id TEXT PRIMARY KEY REFERENCES categories(category_id),
+	drilled_by TEXT,
+	drilling_dates TEXT,
+	core_diameter TEXT,
+	max_core_depth TEXT,
+	core_age_range TEXT);
+	
+CREATE TABLE lake_category(
+	category_id TEXT PRIMARY KEY REFERENCES categories(category_id),
+	corer_type TEXT REFERENCES corer_types(corer_type),
+	age TEXT,
+	core_length_m REAL,
+	collection_date DATE);
+	
+CREATE TABLE marine_category(
+	category_id TEXT PRIMARY KEY REFERENCES categories(category_id),
+	corer_type TEXT REFERENCES corer_types(corer_type),
+	age TEXT,
+	core_length_m REAL,
+	collection_date DATE);
+	
+-- Outcrop categories don't have any additional columns, but might in the future
+CREATE TABLE outcrop_category(
+	category_id TEXT PRIMARY KEY REFERENCES categories(category_id));
 	
 CREATE TABLE sites(
 	site_id TEXT PRIMARY KEY,
 	long_name TEXT NOT NULL,
-	site_type TEXT REFERENCES site_types(site_type) NOT NULL,
 	latitude REAL NOT NULL CONSTRAINT valid_latitude_range CHECK (-90 <= latitude AND latitude <= 90),
 	longitude REAL NOT NULL CONSTRAINT valid_longitude_range CHECK (-180 <= longitude AND longitude <= 180),
 	elevation_m REAL NOT NULL,
@@ -81,7 +115,7 @@ CREATE TABLE sites(
 CREATE TABLE instruments(
 	iid TEXT PRIMARY KEY, -- instrument id
 	long_name TEXT,
-	location TEXT,
+	lab_id TEXT,
 	comments TEXT);
 	
 -- Can't name the table references because it's a reserved word!
@@ -96,7 +130,7 @@ CREATE TABLE refs(
 -- marine_samples, or outcrop_samples to get all sample information. 
 CREATE TABLE samples(
 	sample_id TEXT PRIMARY KEY,
-	long_name TEXT,
+	secondary_id TEXT,
 	sampled_by TEXT,
 	collection_date DATE NOT NULL,
 	comments TEXT,
@@ -113,9 +147,9 @@ CREATE TABLE samples_refs(
 CREATE TABLE grain_sizes(
 	sample_id TEXT REFERENCES samples(sample_id) NOT NULL,
 	iid TEXT REFERENCES instruments(iid) NOT NULL,
-	name TEXT NOT NULL,
+	comments TEXT,
 	range TEXT NOT NULL,
-	grain_date DATE NOT NULL,
+	sample_date TEXT,
 	PRIMARY KEY (sample_id, iid));
 	
 -- A grain size may have many refs, and a ref may be used by many grain sizes.
@@ -142,12 +176,6 @@ CREATE TABLE samples_images(
 CREATE TABLE icecore_samples(
 	sample_id TEXT PRIMARY KEY REFERENCES samples(sample_id),
 	volcano_number INTEGER REFERENCES volcanoes(volcano_number), -- Volcano not required
-	drilled_by TEXT,
-	drilling_date TEXT,
-	core_diameter TEXT,
-	max_core_depth TEXT,
-	core_age TEXT,
-	core_age_range TEXT, -- years
 	topdepth_m REAL NOT NULL,
 	bottomdepth_m REAL NOT NULL,
 	topyear_bp REAL NOT NULL,
@@ -157,46 +185,31 @@ CREATE TABLE icecore_samples(
 -- Blue Ice Area samples
 CREATE TABLE bia_samples(
 	sample_id TEXT PRIMARY KEY REFERENCES samples(sample_id),
-	volcano_number INTEGER REFERENCES volcanoes(volcano_number), -- Volcano not required
-	deep TEXT,
-	sample_description TEXT,
-	sample_media TEXT,
-	unit_name TEXT,
-	thickness_cm TEXT,
-	trend TEXT);	
+	volcano_number INTEGER REFERENCES volcanoes(volcano_number) -- Volcano not required
+);	
 
 -- Lake and Marine could be combined into aquatic table?
 
 -- The type of machine that created the core
 CREATE TABLE corer_types(
        corer_type TEXT PRIMARY KEY);
-	
+       
 CREATE TABLE lake_samples(
 	sample_id TEXT PRIMARY KEY REFERENCES samples(sample_id),
 	volcano_number INTEGER REFERENCES volcanoes(volcano_number), -- Volcano not required
 	-- start inherited from aquatic samples
-	corer_type TEXT REFERENCES corer_types(corer_type),
-	age TEXT,
-	core_length_m REAL,
-	sampling_date DATE,
 	depth_m REAL,
-	top_m REAL,
 	thickness_cm REAL
 	-- end inherited from aquatic samples
 	);
-	
+
 	
 -- Mostly the same (actually is for now!) as lake_samples
 CREATE TABLE marine_samples(
 	sample_id TEXT PRIMARY KEY REFERENCES samples(sample_id),
 	volcano_number INTEGER REFERENCES volcanoes(volcano_number), -- Volcano not required
 	-- start inherited from aquatic samples
-	corer_type TEXT REFERENCES corer_types(corer_type),
-	age TEXT,
-	core_length_m REAL,
-	sampling_date DATE,
 	depth_m REAL,
-	top_m REAL,
 	thickness_cm REAL
 	-- end inherited from aquatic samples
 	);
@@ -222,10 +235,7 @@ CREATE TABLE mm_elements(
 	number_of_measurements INTEGER NOT NULL,
 	original_total REAL NOT NULL,
 	calculated_total REAL NOT NULL,
-	instrument_settings TEXT,
-	h2o_plus REAL,
-	h2o_minus REAL,
-	loi REAL);
+	instrument_settings TEXT);
 
 --  ***** Example elements *****
 --	sio2,tio2,so2,al2o3,cr2o3,fe2o3,feo,mno,mgo,cao,na2o,k2o,p2o5,p2o5,cl,co2
