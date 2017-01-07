@@ -41,8 +41,8 @@ public abstract class Sample implements Serializable {
 	@Column(name = "sample_id")
 	private String sampleID;
 
-	@Column(name = "long_name")
-	private String longName;
+	@Column(name = "secondary_id")
+	private String secondaryID;
 
 	@Column(name = "sampled_by")
 	private String sampledBy;
@@ -81,23 +81,12 @@ public abstract class Sample implements Serializable {
 	public Sample() {
 	}
 
-	/**
-	 * @param sampleID
-	 * @param longName
-	 * @param sampledBy
-	 * @param collectionDate
-	 * @param comments
-	 * @param site
-	 * @param instrument
-	 * @param refs
-	 * @param images
-	 */
-	public Sample(String sampleID, String longName, String sampledBy,
+	public Sample(String sampleID, String secondaryID, String sampledBy,
 			LocalDate collectionDate, String comments, Site site,
 			Instrument instrument, List<Ref> refs, List<Image> images) {
 		super();
 		this.sampleID = sampleID;
-		this.longName = longName;
+		this.secondaryID = secondaryID;
 		this.sampledBy = sampledBy;
 		this.collectionDate = collectionDate;
 		this.comments = comments;
@@ -115,12 +104,12 @@ public abstract class Sample implements Serializable {
 		this.sampleID = sampleID;
 	}
 
-	public String getLongName() {
-		return longName;
+	public String getSecondaryID() {
+		return secondaryID;
 	}
 
-	public void setLongName(String longName) {
-		this.longName = longName;
+	public void setSecondaryID(String secondaryID) {
+		this.secondaryID = secondaryID;
 	}
 
 	public String getSampledBy() {
