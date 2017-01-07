@@ -30,32 +30,11 @@ public abstract class AquaticSample extends Sample {
 	@JoinColumn(name = "volcano_number", nullable = true)
 	private Volcano volcano;
 
-	@JoinColumn(name = "corer_type")
-	private CorerType corerType;
-
-	@Column(name = "age")
-	private String age;
-
-	/**
-	 * Meters
-	 */
-	@Column(name = "core_length_m")
-	private float coreLength;
-
-	@Column(name = "sampling_date")
-	private LocalDate samplingDate;
-
 	/**
 	 * Meters
 	 */
 	@Column(name = "depth_m")
 	private float depth;
-
-	/**
-	 * Meters
-	 */
-	@Column(name = "top_m")
-	private float top;
 
 	/**
 	 * Centimeters
@@ -66,39 +45,14 @@ public abstract class AquaticSample extends Sample {
 	public AquaticSample() {
 	}
 
-	/**
-	 * @param sampleID
-	 * @param longName
-	 * @param sampledBy
-	 * @param collectionDate
-	 * @param comments
-	 * @param site
-	 * @param instrument
-	 * @param refs
-	 * @param images
-	 * @param volcano
-	 * @param corerType
-	 * @param age
-	 * @param coreLength
-	 * @param samplingDate
-	 * @param depth
-	 * @param top
-	 * @param thickness
-	 */
 	public AquaticSample(String sampleID, String longName, String sampledBy,
 			LocalDate collectionDate, String comments, Site site,
 			Instrument instrument, List<Ref> refs, List<Image> images,
-			Volcano volcano, CorerType corerType, String age, float coreLength,
-			LocalDate samplingDate, float depth, float top, float thickness) {
+			Volcano volcano, float depth, float thickness) {
 		super(sampleID, longName, sampledBy, collectionDate, comments, site,
 				instrument, refs, images);
 		this.volcano = volcano;
-		this.corerType = corerType;
-		this.age = age;
-		this.coreLength = coreLength;
-		this.samplingDate = samplingDate;
 		this.depth = depth;
-		this.top = top;
 		this.thickness = thickness;
 	}
 
@@ -110,52 +64,12 @@ public abstract class AquaticSample extends Sample {
 		this.volcano = volcano;
 	}
 
-	public CorerType getCorerType() {
-		return corerType;
-	}
-
-	public void setCorerType(CorerType corerType) {
-		this.corerType = corerType;
-	}
-
-	public String getAge() {
-		return age;
-	}
-
-	public void setAge(String age) {
-		this.age = age;
-	}
-
-	public float getCoreLength() {
-		return coreLength;
-	}
-
-	public void setCoreLength(float coreLength) {
-		this.coreLength = coreLength;
-	}
-
-	public LocalDate getSamplingDate() {
-		return samplingDate;
-	}
-
-	public void setSamplingDate(LocalDate samplingDate) {
-		this.samplingDate = samplingDate;
-	}
-
 	public float getDepth() {
 		return depth;
 	}
 
 	public void setDepth(float depth) {
 		this.depth = depth;
-	}
-
-	public float getTop() {
-		return top;
-	}
-
-	public void setTop(float top) {
-		this.top = top;
 	}
 
 	public float getThickness() {
