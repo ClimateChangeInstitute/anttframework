@@ -60,11 +60,11 @@ public class IceCoreSample extends Sample {
 	}
 
 	public IceCoreSample(String sampleID, String longName, String sampledBy,
-			LocalDate collectionDate, String comments, Site site,
+			LocalDate collectionDate, String comments, Category category,
 			Instrument instrument, List<Ref> refs, List<Image> images,
-			Volcano volcano, float topDepth, float bottomDepth,
-			float topYear, float bottomYear) {
-		super(sampleID, longName, sampledBy, collectionDate, comments, site,
+			Volcano volcano, float topDepth, float bottomDepth, float topYear,
+			float bottomYear) {
+		super(sampleID, longName, sampledBy, collectionDate, comments, category,
 				instrument, refs, images);
 		this.volcano = volcano;
 		this.topDepth = topDepth;

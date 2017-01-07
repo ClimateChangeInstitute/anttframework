@@ -28,10 +28,10 @@ public class LakeSample extends AquaticSample {
 	}
 
 	public LakeSample(String sampleID, String longName, String sampledBy,
-			LocalDate collectionDate, String comments, Site site,
+			LocalDate collectionDate, String comments, Category category,
 			Instrument instrument, List<Ref> refs, List<Image> images,
 			Volcano volcano, float depth, float thickness) {
-		super(sampleID, longName, sampledBy, collectionDate, comments, site,
+		super(sampleID, longName, sampledBy, collectionDate, comments, category,
 				instrument, refs, images, volcano, depth, thickness);
 	}
 

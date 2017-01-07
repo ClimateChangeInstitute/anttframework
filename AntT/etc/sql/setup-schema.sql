@@ -141,7 +141,7 @@ CREATE TABLE samples(
 	sampled_by TEXT,
 	collection_date DATE NOT NULL,
 	comments TEXT,
-	site_id TEXT REFERENCES sites(site_id) NOT NULL,
+	category_id TEXT REFERENCES categories(category_id) NOT NULL,
 	iid TEXT REFERENCES instruments(iid) NOT NULL,
 	sample_type CHAR NOT NULL);
 

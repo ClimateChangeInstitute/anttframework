@@ -25,18 +25,23 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 import org.tephrochronology.model.AquaticSample;
+import org.tephrochronology.model.BIACategory;
 import org.tephrochronology.model.BIASample;
 import org.tephrochronology.model.CorerType;
 import org.tephrochronology.model.Element;
 import org.tephrochronology.model.GrainSize;
+import org.tephrochronology.model.IceCoreCategory;
 import org.tephrochronology.model.IceCoreSample;
 import org.tephrochronology.model.Image;
 import org.tephrochronology.model.Instrument;
+import org.tephrochronology.model.LakeCategory;
 import org.tephrochronology.model.LakeSample;
 import org.tephrochronology.model.MMElement;
 import org.tephrochronology.model.MMElementData;
+import org.tephrochronology.model.MarineCategory;
 import org.tephrochronology.model.MarineSample;
 import org.tephrochronology.model.MethodType;
+import org.tephrochronology.model.OutcropCategory;
 import org.tephrochronology.model.OutcropSample;
 import org.tephrochronology.model.Ref;
 import org.tephrochronology.model.Site;
@@ -215,6 +220,15 @@ public class TestDataGenerator {
 		System.out.printf("Generating %s data.\n",
 				OutcropSample.class.getSimpleName());
 
+		List<OutcropCategory> outcropCategories = new ArrayList<>();
+		for (int i = 0; i < 10; i++) {
+			OutcropCategory newCat = new OutcropCategory(
+					OutcropCategory.class.toString() + i,
+					sites.get(i % sites.size()));
+			em.persist(newCat);
+			outcropCategories.add(newCat);
+		}
+
 		int n = 100;
 		outcropSamples = new ArrayList<>();
 
@@ -222,7 +236,8 @@ public class TestDataGenerator {
 		range(0, n).forEach(i -> {
 			OutcropSample ls = new OutcropSample(c.getSimpleName() + i,
 					c.getName() + i, "first last" + i, LocalDate.now(),
-					"comment " + i, sites.get(i % sites.size()),
+					"comment " + i,
+					outcropCategories.get(i % outcropCategories.size()),
 					instruments.get(i % instruments.size()), getRefs(i),
 					getImages(i), volcanoes.get(i % volcanoes.size()));
 			outcropSamples.add(ls);
@@ -235,6 +250,17 @@ public class TestDataGenerator {
 		System.out.printf("Generating %s data.\n",
 				AquaticSample.class.getSimpleName());
 
+		List<LakeCategory> lakeCategories = new ArrayList<>();
+		for (int i = 0; i < 10; i++) {
+			LakeCategory newCat = new LakeCategory(
+					LakeSample.class.getSimpleName() + i,
+					sites.get(i % sites.size()),
+					coreTypes.get(i % coreTypes.size()), "age " + i, i,
+					LocalDate.now());
+			em.persist(newCat);
+			lakeCategories.add(newCat);
+		}
+
 		int n = 100;
 		lakeSamples = new ArrayList<>();
 		marineSamples = new ArrayList<>();
@@ -243,7 +269,8 @@ public class TestDataGenerator {
 		range(0, n).forEach(i -> {
 			LakeSample ls = new LakeSample(lakeClazz.getSimpleName() + i,
 					lakeClazz.getName() + i, "first last" + i, LocalDate.now(),
-					"comment " + i, sites.get(i % sites.size()),
+					"comment " + i,
+					lakeCategories.get(i % lakeCategories.size()),
 					instruments.get(i % instruments.size()), getRefs(i),
 					getImages(i), volcanoes.get(i % volcanoes.size()), i * 10f,
 					i);
@@ -251,12 +278,23 @@ public class TestDataGenerator {
 			em.persist(ls);
 		});
 
+		List<MarineCategory> marineCategories = new ArrayList<>();
+		for (int i = 0; i < 10; i++) {
+			MarineCategory newCat = new MarineCategory(
+					MarineSample.class.getSimpleName() + i,
+					sites.get(i % sites.size()),
+					coreTypes.get(i % coreTypes.size()), "age " + i, i,
+					LocalDate.now());
+			em.persist(newCat);
+			marineCategories.add(newCat);
+		}
+
 		Class<MarineSample> marineClazz = MarineSample.class;
 		range(0, n).forEach(i -> {
 			MarineSample ms = new MarineSample(marineClazz.getSimpleName() + i,
 					marineClazz.getName() + i, "first last" + i,
 					LocalDate.now(), "comment " + i,
-					sites.get(i % sites.size()),
+					marineCategories.get(i % marineCategories.size()),
 					instruments.get(i % instruments.size()), getRefs(i),
 					getImages(i), volcanoes.get(i % volcanoes.size()), i * 10f,
 					i);
@@ -266,17 +304,28 @@ public class TestDataGenerator {
 	}
 
 	private void generateBIASampleData(EntityManager em) {
+
+		Class<BIASample> c = BIASample.class;
+		
 		System.out.printf("Generating %s data.\n",
-				BIASample.class.getSimpleName());
+				c.getSimpleName());
+
+		List<BIACategory> biaCategories = new ArrayList<>();
+		for (int i = 0; i < 10; i++) {
+			BIACategory newCat = new BIACategory(
+					c.getSimpleName() + i,
+					sites.get(i % sites.size()), "deep " + i, i, "trend " + i);
+			em.persist(newCat);
+			biaCategories.add(newCat);
+		}
 
 		int n = 100;
 		biaSamples = new ArrayList<>();
 
-		Class<BIASample> c = BIASample.class;
 		range(0, n).forEach(i -> {
 			BIASample bias = new BIASample(c.getSimpleName() + i,
 					c.getName() + i, "first last" + i, LocalDate.now(),
-					"comment " + i, sites.get(i % sites.size()),
+					"comment " + i, biaCategories.get(i % biaCategories.size()),
 					instruments.get(i % instruments.size()), getRefs(i),
 					getImages(i), volcanoes.get(i % volcanoes.size()));
 			biaSamples.add(bias);
@@ -286,17 +335,28 @@ public class TestDataGenerator {
 	}
 
 	private void generateIceCoreSampleData(EntityManager em) {
-		System.out.printf("Generating %s data.\n",
-				IceCoreSample.class.getSimpleName());
+		Class<IceCoreSample> c = IceCoreSample.class;
+
+		System.out.printf("Generating %s data.\n", c.getSimpleName());
+
+		List<IceCoreCategory> iceCoreCategories = new ArrayList<>();
+		for (int i = 0; i < 10; i++) {
+			IceCoreCategory newCat = new IceCoreCategory(c.getSimpleName() + i,
+					sites.get(i % sites.size()), "drilled by " + i,
+					2010 + "-" + (2010 + i), i + " cm", i * 10 + " m",
+					1900 + "-" + i * 10);
+			em.persist(newCat);
+			iceCoreCategories.add(newCat);
+		}
 
 		int n = 100;
 		iceCoreSamples = new ArrayList<>();
 
-		Class<IceCoreSample> c = IceCoreSample.class;
 		range(0, n).forEach(i -> {
 			IceCoreSample ics = new IceCoreSample(c.getSimpleName() + i,
 					c.getName() + i, "first last" + i, LocalDate.now(),
-					"comment " + i, sites.get(i % sites.size()),
+					"comment " + i,
+					iceCoreCategories.get(i % iceCoreCategories.size()),
 					instruments.get(i % instruments.size()), getRefs(i),
 					getImages(i), volcanoes.get(i % volcanoes.size()), 0, i,
 					2016 - i, 1900 - i);

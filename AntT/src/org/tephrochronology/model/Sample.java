@@ -53,8 +53,8 @@ public abstract class Sample implements Serializable {
 	@Column(name = "comments")
 	private String comments;
 
-	@JoinColumn(name = "site_id")
-	private Site site;
+	@JoinColumn(name = "category_id")
+	private Category category;
 
 	@JoinColumn(name = "iid")
 	private Instrument instrument;
@@ -82,7 +82,7 @@ public abstract class Sample implements Serializable {
 	}
 
 	public Sample(String sampleID, String secondaryID, String sampledBy,
-			LocalDate collectionDate, String comments, Site site,
+			LocalDate collectionDate, String comments, Category category,
 			Instrument instrument, List<Ref> refs, List<Image> images) {
 		super();
 		this.sampleID = sampleID;
@@ -90,7 +90,7 @@ public abstract class Sample implements Serializable {
 		this.sampledBy = sampledBy;
 		this.collectionDate = collectionDate;
 		this.comments = comments;
-		this.site = site;
+		this.category = category;
 		this.instrument = instrument;
 		this.refs = refs;
 		this.images = images;
@@ -136,12 +136,12 @@ public abstract class Sample implements Serializable {
 		this.comments = comments;
 	}
 
-	public Site getSite() {
-		return site;
+	public Category getCategory() {
+		return category;
 	}
 
-	public void setSite(Site site) {
-		this.site = site;
+	public void setCategory(Category category) {
+		this.category = category;
 	}
 
 	public Instrument getInstrument() {

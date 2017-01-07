@@ -37,5 +37,6 @@
 		<class>org.tephrochronology.model.AquaticCategory</class>
 		<class>org.tephrochronology.model.LakeCategory</class>
 		<class>org.tephrochronology.model.MarineCategory</class>
+		<class>org.tephrochronology.model.OutcropCategory</class>
 	</persistence-unit>
 </persistence>
