@@ -132,6 +132,49 @@ public class DBExporter {
 		copyTableToFile(dbName, "samples_images", dataDir);
 
 // @formatter:off
+// WRITE OUT CATEGORIES !!!!!!!
+		copyTableToFile(dbName, 
+  "(SELECT c.category_id, site_id, "
+	    + "drilled_by, drilling_dates, core_diameter, max_core_depth, core_age_range "
+ + "FROM categories c, icecore_categories i "
+ + "WHERE c.category_id = i.category_id "
+ + "ORDER BY c.category_id)",
+				"icecore_categories.csv", dataDir);
+				
+		copyTableToFile(dbName, 
+  "(SELECT c.category_id, site_id, "
+	    + "deep, thickness_cm, trend "
+ + "FROM categories c, bia_categories b "
+ + "WHERE c.category_id = b.category_id "
+ + "ORDER BY c.category_id)",
+				"bia_categories.csv", dataDir);
+
+		copyTableToFile(dbName,
+  "(SELECT c.category_id, site_id, "
+	    + "corer_type, age, core_length_m, collection_date "
+ + "FROM categories c, lake_categories l "
+ + "WHERE c.category_id = l.category_id "
+ + "ORDER BY c.category_id)",
+				"lake_categories.csv", dataDir);
+		
+		copyTableToFile(dbName,
+  "(SELECT c.category_id, site_id, "
+	    + "corer_type, age, core_length_m, collection_date "
+ + "FROM categories c, marine_categories m "
+ + "WHERE c.category_id = m.category_id "
+ + "ORDER BY c.category_id)",
+				"marine_categories.csv", dataDir);
+		
+		copyTableToFile(dbName,
+  "(SELECT c.category_id, site_id "
+	    + " " // No additional properties right now
+ + "FROM categories c, outcrop_categories o "
+ + "WHERE c.category_id = o.category_id "
+ + "ORDER BY c.category_id)",
+				"outcrop_categories.csv", dataDir);
+
+		
+// WRITE OUT SAMPLES !!!!!!!!!!		
 		copyTableToFile(dbName, 
   "(SELECT s.sample_id, secondary_id, sampled_by, collection_date, comments, category_id, iid,"
 	    + "volcano_number, topdepth_m,bottomdepth_m,topyear_bp,bottomyear_bp "
