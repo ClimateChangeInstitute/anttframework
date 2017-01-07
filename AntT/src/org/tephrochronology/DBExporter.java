@@ -114,7 +114,6 @@ public class DBExporter {
 
 		copyTableToFile(dbName, "volcanoes", dataDir);
 
-		copyTableToFile(dbName, "site_types", dataDir);
 		copyTableToFile(dbName, "sites", dataDir);
 		copyTableToFile(dbName, "instruments", dataDir);
 
@@ -134,39 +133,39 @@ public class DBExporter {
 
 // @formatter:off
 		copyTableToFile(dbName, 
-  "(SELECT s.sample_id, long_name, sampled_by, collection_date, comments, site_id, iid,"
-	    + "volcano_number, drilled_by, drilling_date,core_diameter,max_core_depth,core_age,core_age_range,topdepth_m,bottomdepth_m,topyear_bp,bottomyear_bp "
+  "(SELECT s.sample_id, secondary_id, sampled_by, collection_date, comments, category_id, iid,"
+	    + "volcano_number, topdepth_m,bottomdepth_m,topyear_bp,bottomyear_bp "
  + "FROM samples s, icecore_samples i "
  + "WHERE s.sample_id = i.sample_id "
  + "ORDER BY s.sample_id)",
 				"icecore_samples.csv", dataDir);
 				
 		copyTableToFile(dbName, 
- "(SELECT s.sample_id, long_name, sampled_by, collection_date, comments, site_id, iid, "
-	   + "volcano_number, deep, sample_description,sample_media,unit_name,thickness_cm,trend "
+ "(SELECT s.sample_id, secondary_id, sampled_by, collection_date, comments, category_id, iid, "
+	   + "volcano_number "
 + "FROM samples s, bia_samples b "
 + "WHERE s.sample_id = b.sample_id "
 + "ORDER BY s.sample_id)",				
 				"bia_samples.csv", dataDir);
 
 		copyTableToFile(dbName,
-  "(SELECT s.sample_id, long_name, sampled_by, collection_date, comments, site_id, iid,"
-	    + "volcano_number,corer_type,age,core_length_m,sampling_date,depth_m,top_m,thickness_cm "
+  "(SELECT s.sample_id, secondary_id, sampled_by, collection_date, comments, category_id, iid,"
+	    + "volcano_number,depth_m,thickness_cm "
  + "FROM samples s, lake_samples l "
  + "WHERE s.sample_id = l.sample_id	"
  + "ORDER BY s.sample_id)",
 				"lake_samples.csv", dataDir);
 		
 		copyTableToFile(dbName,
- "(SELECT s.sample_id, long_name, sampled_by, collection_date, comments, site_id, iid,"
-      + " volcano_number,corer_type,age,core_length_m,sampling_date,depth_m,top_m,thickness_cm "
+ "(SELECT s.sample_id, secondary_id, sampled_by, collection_date, comments, category_id, iid,"
+      + " volcano_number,depth_m,thickness_cm "
 + "FROM samples s, marine_samples m "
 + "WHERE s.sample_id = m.sample_id "
 + "ORDER BY s.sample_id)",
 				"marine_samples.csv", dataDir);
 		
 		copyTableToFile(dbName,
- "(SELECT s.sample_id, long_name, sampled_by, collection_date, comments, site_id, iid,"
+ "(SELECT s.sample_id, secondary_id, sampled_by, collection_date, comments, category_id, iid,"
       + " volcano_number "
 + "FROM samples s, outcrop_samples o "
 + "WHERE s.sample_id = o.sample_id "
