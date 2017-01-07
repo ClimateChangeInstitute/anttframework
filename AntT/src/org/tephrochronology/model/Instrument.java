@@ -29,9 +29,9 @@ public class Instrument implements Serializable {
 
 	@Column(name = "long_name")
 	private String longName;
-
-	@Column(name = "location")
-	private String location;
+	
+	@Column(name = "lab_id")
+	private String labID;
 
 	@Column(name = "comments")
 	private String comment;
@@ -42,7 +42,7 @@ public class Instrument implements Serializable {
 	/**
 	 * @param id
 	 * @param longName
-	 * @param location
+	 * @param labID
 	 * @param comment
 	 */
 	public Instrument(String id, String longName, String location,
@@ -50,7 +50,7 @@ public class Instrument implements Serializable {
 		super();
 		this.id = id;
 		this.longName = longName;
-		this.location = location;
+		this.labID = location;
 		this.comment = comment;
 	}
 
@@ -70,12 +70,12 @@ public class Instrument implements Serializable {
 		this.longName = longName;
 	}
 
-	public String getLocation() {
-		return location;
+	public String getLabID() {
+		return labID;
 	}
 
-	public void setLocation(String location) {
-		this.location = location;
+	public void setLabID(String labID) {
+		this.labID = labID;
 	}
 
 	public String getComment() {
