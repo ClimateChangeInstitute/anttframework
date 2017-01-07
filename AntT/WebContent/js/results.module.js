@@ -43,7 +43,7 @@ app.controller('results', function($scope, dataSource) {
 
 		    $.each(filtered, function(i, e) {
 
-		    	var simVal = antt.statistics.similarityCoefficientListList(Object.values(s), antt.valuesArray(Object.keys(s), e));
+		    	var simVal = antt.statistics.similarityCoefficientListList($.map(s, function(val, key) { return val; }), antt.valuesArray(Object.keys(s), e));
 
 		    	searchRes.push({simVal: simVal, mme: e});
 		    })
