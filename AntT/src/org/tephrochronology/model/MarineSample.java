@@ -27,33 +27,12 @@ public class MarineSample extends AquaticSample {
 	public MarineSample() {
 	}
 
-	/**
-	 * @param sampleID
-	 * @param longName
-	 * @param sampledBy
-	 * @param collectionDate
-	 * @param comments
-	 * @param site
-	 * @param instrument
-	 * @param refs
-	 * @param images
-	 * @param volcano
-	 * @param coreType
-	 * @param age
-	 * @param coreLength
-	 * @param samplingDate
-	 * @param depth
-	 * @param top
-	 * @param thickness
-	 */
 	public MarineSample(String sampleID, String longName, String sampledBy,
 			LocalDate collectionDate, String comments, Site site,
 			Instrument instrument, List<Ref> refs, List<Image> images,
-			Volcano volcano, CorerType coreType, String age, float coreLength,
-			LocalDate samplingDate, float depth, float top, float thickness) {
+			Volcano volcano, float depth, float thickness) {
 		super(sampleID, longName, sampledBy, collectionDate, comments, site,
-				instrument, refs, images, volcano, coreType, age, coreLength,
-				samplingDate, depth, top, thickness);
+				instrument, refs, images, volcano, depth, thickness);
 	}
 
 }

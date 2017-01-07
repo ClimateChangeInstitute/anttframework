@@ -27,27 +27,27 @@ public class AquaticCategory extends Category {
 	@Column(name = "age")
 	private String age;
 
-	public AquaticCategory() {
-		super();
-	}
-
-	public AquaticCategory(String categoryID, Site site, CorerType corerType,
-			String age, float coreLength, LocalDate samplingDate) {
-		super(categoryID, site);
-		this.corerType = corerType;
-		this.age = age;
-		this.coreLength = coreLength;
-		this.samplingDate = samplingDate;
-	}
-
 	/**
 	 * Meters
 	 */
 	@Column(name = "core_length_m")
 	private float coreLength;
 
-	@Column(name = "")
-	private LocalDate samplingDate; // collectionDate
+	@Column(name = "collection_date")
+	private LocalDate collectionDate;
+	
+	public AquaticCategory() {
+		super();
+	}
+
+	public AquaticCategory(String categoryID, Site site, CorerType corerType,
+			String age, float coreLength, LocalDate collectionDate) {
+		super(categoryID, site);
+		this.corerType = corerType;
+		this.age = age;
+		this.coreLength = coreLength;
+		this.collectionDate = collectionDate;
+	}
 
 	public CorerType getCorerType() {
 		return corerType;
@@ -73,12 +73,12 @@ public class AquaticCategory extends Category {
 		this.coreLength = coreLength;
 	}
 
-	public LocalDate getSamplingDate() {
-		return samplingDate;
+	public LocalDate getCollectionDate() {
+		return collectionDate;
 	}
 
-	public void setSamplingDate(LocalDate samplingDate) {
-		this.samplingDate = samplingDate;
+	public void setCollectionDate(LocalDate collectionDate) {
+		this.collectionDate = collectionDate;
 	}
 
 }

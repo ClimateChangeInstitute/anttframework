@@ -35,5 +35,7 @@
 		<class>org.tephrochronology.model.BIACategory</class>
 		<class>org.tephrochronology.model.IceCoreCategory</class>
 		<class>org.tephrochronology.model.AquaticCategory</class>
+		<class>org.tephrochronology.model.LakeCategory</class>
+		<class>org.tephrochronology.model.MarineCategory</class>
 	</persistence-unit>
 </persistence>

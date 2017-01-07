@@ -245,9 +245,8 @@ public class TestDataGenerator {
 					lakeClazz.getName() + i, "first last" + i, LocalDate.now(),
 					"comment " + i, sites.get(i % sites.size()),
 					instruments.get(i % instruments.size()), getRefs(i),
-					getImages(i), volcanoes.get(i % volcanoes.size()),
-					coreTypes.get(i % coreTypes.size()), "age " + i, i,
-					LocalDate.now(), i * 10f, 0, i);
+					getImages(i), volcanoes.get(i % volcanoes.size()), i * 10f,
+					i);
 			lakeSamples.add(ls);
 			em.persist(ls);
 		});
@@ -259,9 +258,8 @@ public class TestDataGenerator {
 					LocalDate.now(), "comment " + i,
 					sites.get(i % sites.size()),
 					instruments.get(i % instruments.size()), getRefs(i),
-					getImages(i), volcanoes.get(i % volcanoes.size()),
-					coreTypes.get(i % coreTypes.size()), "age " + i, i,
-					LocalDate.now(), i * 10f, 0, i);
+					getImages(i), volcanoes.get(i % volcanoes.size()), i * 10f,
+					i);
 			marineSamples.add(ms);
 			em.persist(ms);
 		});
