@@ -36,26 +36,24 @@
 <script src="index_files/jquery.js"></script>
 <script src="index_files/bootstrap/js/bootstrap.js"></script>
 <script type="text/javascript">
-	    function checkToDownload(e) {
-	    	
-	    	if (e.checked) {
-	    		$('input:checkbox[id^="' + e.id + '-' + '"]').each(function(i, j) {
-		    		$(j).prop( "checked", true );
-	 			});
-	    	}
-	    	else {
-	    		$('input:checkbox[id^="' + e.id + '-' + '"]').each(function(i, j) {
-		    		$(j).prop( "checked", false );
-	 			});
-	    	}
-	 	}
+	function checkToDownload(e) {
 
-	 	$(document).ready(function(){
-	 		if (decodeURIComponent(window.location.search.substring(1)) == "") {
-        		$('#search-modal').modal('show'); 
-	   		}
-	 	});
+		if (e.checked) {
+			$('input:checkbox[id^="' + e.id + '-' + '"]').each(function(i, j) {
+				$(j).prop("checked", true);
+			});
+		} else {
+			$('input:checkbox[id^="' + e.id + '-' + '"]').each(function(i, j) {
+				$(j).prop("checked", false);
+			});
+		}
+	}
 
+	$(document).ready(function() {
+		if (decodeURIComponent(window.location.search.substring(1)) == "") {
+			$('#search-modal').modal('show');
+		}
+	});
 </script>
 
 </head>
@@ -101,8 +99,9 @@
 			<div class="col-md-12">
 				<div class="pull-right">
 					<div class="checkbox">
-						<label> <input onclick="check()" id="choice" type="checkbox" value="" checked>
-							Preserve old search results
+						<label> <input onclick="check()" id="choice"
+							type="checkbox" value="" checked> Preserve old search
+							results
 						</label>
 					</div>
 				</div>
@@ -131,13 +130,15 @@
 
 				<div cg-busy="{promise:promise,message:message}">
 					<div ng-hide="filtered[0].length == 0">
-						
+
 						<div class="alert alert-info alert-dismissible" role="alert">
 							<button type="button" class="close" data-dismiss="alert"
 								aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
-							<strong>Heads up!</strong> Click on a sampleID below to see the full information about the sample or click the black arrow to see element data.
+							<strong>Heads up!</strong> Click on a sampleID below to see the
+							full information about the sample or click the black arrow to see
+							element data.
 						</div>
 
 						<div ng-repeat="search in filtered | filter:searchText">
@@ -146,7 +147,8 @@
 									<div class="row">
 										<div class="col-sm-12">
 											<div class="pull-right">
-												<button type="button" class="btn btn-primary">Download selected</button>
+												<button type="button" class="btn btn-primary">Download
+													selected</button>
 											</div>
 										</div>
 									</div>
@@ -160,21 +162,21 @@
 									<div class="row">
 										<div class="col-md-12">
 											<div class="row">
-												<div class="col-md-1">
-													
-												</div>
+												<div class="col-md-1"></div>
 												<div class="col-md-4">
 													<strong>Similarity Coefficient</strong>
 												</div>
 												<div class="col-md-4">
-													<strong>Sample ID</strong> 
+													<strong>Sample ID</strong>
 												</div>
 												<div class="col-md-3">
-													<strong>Download</strong> 
+													<strong>Download</strong>
 													<div class="do-inline checkbox">
-													(<label> <input id="s-{{search.count}}" onclick="checkToDownload(this)" type="checkbox" value=""> select all
-													</label>)
-												</div>
+														(<label> <input id="s-{{search.count}}"
+															onclick="checkToDownload(this)" type="checkbox" value="">
+															select all
+														</label>)
+													</div>
 												</div>
 											</div>
 										</div>
@@ -187,20 +189,24 @@
 													<div class="q panel-heading remove-color">
 														<div class="row">
 															<div class="col-md-1">
-																<span class="collapsed" data-parent="#accordion" data-toggle="collapse" data-target="#{{search.count}}-{{o.mme.sampleID}}"></span>
+																<span class="collapsed" data-parent="#accordion"
+																	data-toggle="collapse"
+																	data-target="#{{search.count}}-{{o.mme.sampleID}}"></span>
 															</div>
+															<div class="col-md-4">{{o.simVal | number:2}}</div>
 															<div class="col-md-4">
-																{{o.simVal | number:2}}
-															</div>
-															<div class="col-md-4">
-																<a class="special" href="{{o.mme.sampleType}}.html?id={{o.mme.sampleID}}"> {{o.mme.sampleID}}</a>
+																<a class="special"
+																	href="{{o.mme.sampleType}}.html?id={{o.mme.sampleID}}">
+																	{{o.mme.sampleID}}</a>
 															</div>
 															<div class="col-md-3">
-																<td><input type="checkbox" id="s-{{search.count}}-{{o.mme.sampleID}}"></td>
+																<td><input type="checkbox"
+																	id="s-{{search.count}}-{{o.mme.sampleID}}"></td>
 															</div>
 														</div>
 													</div>
-													<div id="{{search.count}}-{{o.mme.sampleID}}" class="panel-body collapse">
+													<div id="{{search.count}}-{{o.mme.sampleID}}"
+														class="panel-body collapse">
 														<div class="row">
 															<div class="col-sm-9">
 																<p>
@@ -230,11 +236,11 @@
 																<table class="table table-hover table-condensed">
 																	<thead>
 																		<tr>
-																			<th>Element</th>
-																			<th>%</th>
-																			<th>std</th>
-																			<th>unit</th>
-																			<th>me</th>
+																			<th></th>
+																			<th>Value</th>
+																			<th>&sigma;</th>
+																			<th>Unit</th>
+																			<th>Method Error</th>
 																		</tr>
 																	</thead>
 																	<tbody>
@@ -260,9 +266,8 @@
 						</div>
 					</div>
 					<div ng-show="filtered[0].length == 0" class="row">
-						<div class="col-md-12 text-center">
-							There are no search results to display.
-						</div>
+						<div class="col-md-12 text-center">There are no search
+							results to display.</div>
 					</div>
 				</div>
 			</div>
@@ -282,7 +287,8 @@
 					</div>
 					<form class="form-horizontal">
 						<div class="modal-body">
-							<p>Fill in any of the following (Please normalize data to 100%):</p>
+							<p>Fill in any of the following (Please normalize data to
+								100%):</p>
 							<br>
 							<div class="form-group row">
 								<label class="col-xs-2 col-form-label" for="">SiO<sub>2</sub>:
@@ -383,12 +389,12 @@
 				<img class="footer-img" alt="NMT" src="./images/nmtLogo.svg">
 			</p>
 			<p>
-				Copyright &copy; 
+				Copyright &copy;
 				<script>
 					var d = new Date();
 					document.write(d.getFullYear());
 				</script>
-				 Antarctic Tephra Database
+				Antarctic Tephra Database
 			</p>
 		</div>
 	</footer>
@@ -400,26 +406,23 @@
 	<script src="./js/antt.js" type="text/javascript"></script>
 	<script>
 		window.jQuery
-				|| document
-						.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>');
+				|| document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>');
 
 		function searchCall() {
 			antt.builtUrl($("#choice").is(':checked'));
 		}
 		function check() {
-			if(document.getElementById('choice').checked) {
-	            localStorage.setItem('choice', "true");
-	        } else {
-	            localStorage.setItem('choice', "false");
-	        }
+			if (document.getElementById('choice').checked) {
+				localStorage.setItem('choice', "true");
+			} else {
+				localStorage.setItem('choice', "false");
+			}
 		}
-		
-		getStatus = localStorage.getItem('choice');
-	    if (getStatus == "true") {
-	        document.getElementById("choice").checked = true;
-	    }
-	  
 
+		getStatus = localStorage.getItem('choice');
+		if (getStatus == "true") {
+			document.getElementById("choice").checked = true;
+		}
 	</script>
 	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 	<script src="index_files/ie10-viewport-bug-workaround.js"></script>
