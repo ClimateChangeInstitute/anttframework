@@ -172,36 +172,52 @@ public class DBImporter {
 
 		st.executeUpdate("DROP TABLE images_tmp");
 
+		loadCategoryData(dataDir, dbName, "icecore_categories",
+				"drilled_by TEXT, drilling_dates TEXT,core_diameter TEXT,max_core_depth TEXT,core_age_range TEXT",
+				"I",
+				"category_id,drilled_by,drilling_dates,core_diameter,max_core_depth,core_age_range",
+				conn);
+
 		loadSampleData(dataDir, dbName, "icecore_samples",
 				"volcano_number INTEGER,topdepth_m REAL,bottomdepth_m REAL,topyear_bp REAL,bottomyear_bp REAL",
 				"I",
-				"sample_id,secondary_id,sampled_by,collection_date,comments,category_id,iid,volcano_number,topdepth_m,bottomdepth_m,topyear_bp,bottomyear_bp",
+				"sample_id,volcano_number,topdepth_m,bottomdepth_m,topyear_bp,bottomyear_bp",
 				conn);
-		
-		// ,deep TEXT,	sample_description TEXT,sample_media TEXT,unit_name TEXT,thickness_cm TEXT,trend TEXT
+
+		loadCategoryData(dataDir, dbName, "bia_categories",
+				"deep TEXT,thickness_cm TEXT,trend TEXT", "B",
+				"category_id,deep,thickness_cm,trend", conn);
+
 		loadSampleData(dataDir, dbName, "bia_samples",
-				"volcano_number INTEGER ",
-				"B",
-				"sample_id, volcano_number ",
+				"volcano_number INTEGER ", "B", "sample_id, volcano_number ",
 				conn);
 
 		copyFileToTable(dbName, "corer_types", dataDir);
 
 		copyFileToTable(dbName, "method_types", dataDir);
 
-//		sample_id,secondary_id,sampled_by,collection_date,comments,category_id,iid,volcano_number,depth_m,thickness_cm
-		// ,corer_type TEXT,age TEXT,core_length_m REAL,sampling_date DATE
-		loadSampleData(dataDir, dbName, "lake_samples",
-				"volcano_number INTEGER,depth_m REAL, thickness_cm REAL",
+		loadCategoryData(dataDir, dbName, "lake_categories",
+				"corer_type TEXT,age TEXT,core_length_m REAL,collection_date DATE",
 				"L",
-				"sample_id, volcano_number, depth_m, thickness_cm",
+				"category_id,corer_type,age,core_length_m,collection_date",
+				conn);
+
+		loadSampleData(dataDir, dbName, "lake_samples",
+				"volcano_number INTEGER,depth_m REAL, thickness_cm REAL", "L",
+				"sample_id, volcano_number, depth_m, thickness_cm", conn);
+
+		loadCategoryData(dataDir, dbName, "marine_categories",
+				"corer_type TEXT,age TEXT,core_length_m REAL,collection_date DATE",
+				"M",
+				"category_id,corer_type,age,core_length_m,collection_date",
 				conn);
 
 		loadSampleData(dataDir, dbName, "marine_samples",
-				"volcano_number INTEGER, depth_m REAL, thickness_cm REAL",
-				"M",
-				"sample_id, volcano_number, depth_m, thickness_cm",
-				conn);
+				"volcano_number INTEGER, depth_m REAL, thickness_cm REAL", "M",
+				"sample_id, volcano_number, depth_m, thickness_cm", conn);
+
+		loadCategoryData(dataDir, dbName, "outcrop_categories", "", "O",
+				"category_id", conn);
 
 		loadSampleData(dataDir, dbName, "outcrop_samples",
 				"volcano_number INTEGER", "O", "sample_id, volcano_number",
@@ -224,6 +240,41 @@ public class DBImporter {
 		System.out.printf(
 				"File import completed.  Data can be found in the '%s' database.\n",
 				dbName);
+	}
+
+	/**
+	 * @param dataDir
+	 * @param dbName
+	 * @param st
+	 * @throws SQLException
+	 * @throws IOException
+	 */
+	private void loadCategoryData(File dataDir, String dbName, String tableName,
+			String extraColumnsWithTypes, String typeChar, String extraColumns,
+			Connection conn) throws SQLException, IOException {
+
+		Statement st = conn.createStatement();
+
+		String tmpTable = String.format("%s_tmp", tableName);
+
+		String str = String.format(
+				"CREATE TABLE %s(category_id TEXT PRIMARY KEY,site_id TEXT ",
+				tmpTable) + (extraColumnsWithTypes.isEmpty() ? "" : ", ") + extraColumnsWithTypes + ")";
+		System.out.println(str);
+		st.execute(str);
+
+		copyFileToTable(dbName, tmpTable, new File(dataDir, tableName + ".csv"),
+				dataDir);
+
+		st.executeUpdate(String.format(
+				"INSERT INTO categories (category_id, site_id, category_type) "
+						+ "SELECT category_id, site_id, '%s' AS sample_type FROM %s",
+				typeChar, tmpTable));
+
+		st.executeUpdate("INSERT INTO " + tableName + " (" + extraColumns + ") "
+				+ "SELECT " + extraColumns + "  FROM " + tmpTable);
+
+		st.execute("DROP TABLE " + tmpTable);
 	}
 
 	/**
