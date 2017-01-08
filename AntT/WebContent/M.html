@@ -75,58 +75,6 @@
 				</div>
 
 				<div class="row">
-					<div class="col-sm-12">
-						<h3>Volcano ({{sample.volcano.name}} -
-							{{sample.volcano.volcanoNumber}})</h3>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-sm-6">
-						<h4>Location Data</h4>
-						<hr>
-						<div>
-							<p>
-								<strong>Country: </strong>{{sample.volcano.region.subRegion.country.name}}
-							</p>
-							<p>
-								<strong>Region: </strong>{{sample.volcano.region.name}}
-							</p>
-							<p>
-								<strong>Sub-region: </strong>{{sample.volcano.region.subRegion.name}}
-							</p>
-							<p>
-								<strong>(Latitude,Longitude): </strong>({{sample.volcano.latitude}}N,{{sample.volcano.longitude}}E)
-							</p>
-							<p>
-								<strong>Elevation: </strong>{{sample.volcano.elevation}} M
-							</p>
-						</div>
-					</div>
-					<div class="col-sm-6">
-						<h4>Tectonic Data</h4>
-						<hr>
-						<div>
-							<p>
-								<strong>Primary Volcano Type: </strong>{{sample.volcano.primaryVolcanoType.type}}
-							</p>
-							<p>
-								<strong>Tectonic Setting: </strong>{{sample.volcano.tectonicSetting.type}}
-							</p>
-							<p>
-								<strong>Dominant Rock Type: </strong>{{sample.volcano.dominantRockType.type}}
-							</p>
-							<p>
-								<strong>Last Known Eruption: </strong>{{sample.volcano.lastKnownEruption}}
-							</p>
-							<p>
-								<strong>Old Volcano Number: </strong>{{sample.volcano.oldVolcanoNumber}}
-							</p>
-						</div>
-					</div>
-
-				</div>
-				<hr>
-				<div class="row">
 					<div class="col-sm-4">
 						<h4>Sample Data:</h4>
 						<hr>
@@ -210,6 +158,61 @@
 						</div>
 					</div>
 				</div>
+
+
+				<div class="row">
+					<div class="col-sm-12">
+						<h3>Volcano ({{sample.volcano.name}} -
+							{{sample.volcano.volcanoNumber}})</h3>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-6">
+						<h4>Location Data</h4>
+						<hr>
+						<div>
+							<p>
+								<strong>Country: </strong>{{sample.volcano.region.subRegion.country.name}}
+							</p>
+							<p>
+								<strong>Region: </strong>{{sample.volcano.region.name}}
+							</p>
+							<p>
+								<strong>Sub-region: </strong>{{sample.volcano.region.subRegion.name}}
+							</p>
+							<p>
+								<strong>(Latitude,Longitude): </strong>({{sample.volcano.latitude}}N,{{sample.volcano.longitude}}E)
+							</p>
+							<p>
+								<strong>Elevation: </strong>{{sample.volcano.elevation}} M
+							</p>
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<h4>Tectonic Data</h4>
+						<hr>
+						<div>
+							<p>
+								<strong>Primary Volcano Type: </strong>{{sample.volcano.primaryVolcanoType.type}}
+							</p>
+							<p>
+								<strong>Tectonic Setting: </strong>{{sample.volcano.tectonicSetting.type}}
+							</p>
+							<p>
+								<strong>Dominant Rock Type: </strong>{{sample.volcano.dominantRockType.type}}
+							</p>
+							<p>
+								<strong>Last Known Eruption: </strong>{{sample.volcano.lastKnownEruption}}
+							</p>
+							<p>
+								<strong>Old Volcano Number: </strong>{{sample.volcano.oldVolcanoNumber}}
+							</p>
+						</div>
+					</div>
+
+				</div>
+
+
 				<hr>
 				<div class="row">
 					<div class="col-sm-12">
