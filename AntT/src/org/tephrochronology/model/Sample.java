@@ -19,6 +19,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlSeeAlso;
 
 /**
  * All samples in the database extend this type.
@@ -30,6 +31,8 @@ import javax.persistence.Table;
 @Table(name = "samples")
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "sample_type", discriminatorType = CHAR)
+@XmlSeeAlso({ BIASample.class, IceCoreSample.class, LakeSample.class,
+	MarineSample.class, OutcropSample.class })
 public abstract class Sample implements Serializable {
 
 	/**
