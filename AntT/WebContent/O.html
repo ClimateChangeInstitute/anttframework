@@ -251,9 +251,12 @@
 			<hr>
 			<div class="row">
 				<div class="col-sm-6">
-					<h4>Sample Data</h4>
+					<h4>Data</h4>
 					<hr>
 					<div>
+						<p>
+							<strong>Sample ID: </strong>{{mmElements.sampleID}}
+						</p>
 						<p>
 							<strong>Date Measured: </strong>{{mmElements.dateMeasured}}
 						</p>
@@ -264,22 +267,16 @@
 							<strong>Long Sample ID: </strong>{{mmElements.longsampleID}}
 						</p>
 						<p>
-							<strong>Method Type: </strong>{{mmElenets.methodType.type}}
+							<strong>Method Type: </strong>{{mmElements.methodType}}
 						</p>
 						<p>
-							<strong>Number of Measurements: </strong>{{mmElenets.numberOfMeasurements}}
+							<strong>Number of Measurements: </strong>{{mmElements.numberOfMeasurements}}
 						</p>
 						<p>
-							<strong>Original Total: </strong>{{mmElenets.calculatedTotal}}
+							<strong>Original Total: </strong>{{mmElements.originalTotal}}
 						</p>
 						<p>
-							<strong>Calculated Total: </strong>{{mmElenets.methodType.type}}
-						</p>
-						<p>
-							<strong>H2O Minus: </strong>{{mmElenets.h2o_minus}}
-						</p>
-						<p>
-							<strong>H2O Plus: </strong>{{mmElenets.h2o_plus}}
+							<strong>Calculated Total: </strong>{{mmElements.calculatedTotal}}
 						</p>
 						<p>
 							<strong>Comments: </strong>{{mmElements.comments}}
@@ -295,9 +292,6 @@
 						</p>
 						<p>
 							<strong>Instrument Setting: </strong>{{mmElements.instrumentSettings}}
-						</p>
-						<p>
-							<strong>LOI: </strong>{{mmElements.loi}}
 						</p>
 					</div>
 				</div>

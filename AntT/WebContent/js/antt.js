@@ -35,11 +35,8 @@
 				that.elementData.push(new MMElementData(e));
 			});
 		}
-		this.h2o_minus = parseFloat(e.h2o_minus);
-		this.h2o_plus = parseFloat(e.h2o_plus);
 		this.iid = e.iid;
 		this.instrumentSettings = e.instrumentSettings;
-		this.loi = parseFloat(e.loi);
 		this.longsampleID = e.longsampleID;
 		this.measuredBy = e.measuredBy;
 		this.methodType = e.methodType.type;
