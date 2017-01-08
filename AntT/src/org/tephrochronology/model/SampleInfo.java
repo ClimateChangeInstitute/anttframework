@@ -14,7 +14,7 @@ public class SampleInfo {
 
 	private String sampleType;
 
-	private String longName;
+	private String secondaryID;
 
 	private String sampledBy;
 
@@ -35,7 +35,7 @@ public class SampleInfo {
 		super();
 		this.sampleType = sampleType;
 		this.sampleID = sampleID;
-		this.longName = longName;
+		this.secondaryID = longName;
 		this.sampledBy = sampledBy;
 		this.comments = comments;
 		this.collectionDate = collectionDate;
@@ -51,12 +51,12 @@ public class SampleInfo {
 		this.sampleID = sampleID;
 	}
 
-	public String getLongName() {
-		return longName;
+	public String getSecondaryID() {
+		return secondaryID;
 	}
 
-	public void setLongName(String longName) {
-		this.longName = longName;
+	public void setSecondaryID(String secondaryID) {
+		this.secondaryID = secondaryID;
 	}
 
 	public String getSampledBy() {

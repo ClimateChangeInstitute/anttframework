@@ -36,11 +36,11 @@ public class BIASample extends Sample {
 	public BIASample() {
 	}
 
-	public BIASample(String sampleID, String longName, String sampledBy,
+	public BIASample(String sampleID, String secondaryID, String sampledBy,
 			LocalDate collectionDate, String comments, Category category,
 			Instrument instrument, List<Ref> refs, List<Image> images,
 			Volcano volcano) {
-		super(sampleID, longName, sampledBy, collectionDate, comments, category,
+		super(sampleID, secondaryID, sampledBy, collectionDate, comments, category,
 				instrument, refs, images);
 		this.volcano = volcano;
 	}
