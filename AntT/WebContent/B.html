@@ -136,6 +136,7 @@
 							</p>
 							<p>
 								<strong>(Latitude,Longitude): </strong>({{sample.category.site.latitude}}N,{{sample.category.site.longitude}}E)
+
 							
 							<p>
 								<strong>Elevation: </strong>{{sample.category.site.elevation}} M
@@ -227,7 +228,9 @@
 					<div class="col-sm-12">
 						<h4>References:</h4>
 						<div ng-repeat="ref in sample.refs">
-							<p><b>{{ref.doi}}</b> : {{ref.ref}}</p>
+							<p>
+								<b>{{ref.doi}}</b> : {{ref.ref}}
+							</p>
 						</div>
 					</div>
 				</div>
@@ -242,12 +245,12 @@
 				<img class="footer-img" alt="NMT" src="./images/nmtLogo.svg">
 			</p>
 			<p>
-				Copyright &copy; 
+				Copyright &copy;
 				<script>
 					var d = new Date();
 					document.write(d.getFullYear());
 				</script>
-				 Antarctic Tephra Database
+				Antarctic Tephra Database
 			</p>
 		</div>
 	</footer>
@@ -259,8 +262,7 @@
 	<script src="index_files/jquery.js"></script>
 	<script>
 		window.jQuery
-				|| document
-						.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>');
+				|| document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>');
 	</script>
 	<script src="index_files/bootstrap/js/bootstrap.js"></script>
 	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
