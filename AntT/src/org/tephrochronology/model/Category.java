@@ -15,6 +15,7 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlSeeAlso;
 
 /**
  * Represents a collection of samples, for example, an ice core.
@@ -26,6 +27,8 @@ import javax.persistence.Table;
 @Table(name = "categories")
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "category_type", discriminatorType = CHAR)
+@XmlSeeAlso({ BIACategory.class, IceCoreCategory.class, LakeCategory.class,
+		MarineCategory.class, OutcropCategory.class })
 public abstract class Category implements Serializable {
 
 	/**
@@ -34,13 +37,13 @@ public abstract class Category implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="category_id")
+	@Column(name = "category_id")
 	private String categoryID;
-	
+
 	@JoinColumn(name = "site_id")
 	private Site site;
-	
-	public Category(){
+
+	public Category() {
 	}
 
 	/**
