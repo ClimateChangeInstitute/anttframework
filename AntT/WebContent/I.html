@@ -87,28 +87,22 @@
 								: "longDate"}}
 							</p>
 							<p>
-								<strong>Long Name: </strong>{{sample.longName}}
+								<strong>Secondary ID: </strong>{{sample.secondaryID}}
 							</p>
 							<p>
 								<strong>Sampled By: </strong>{{sample.sampledBy}}
 							</p>
 							<p>
-								<strong>Deep: </strong>{{sample.deep}}
+								<strong>Top Depth: </strong>{{sample.topDepth}}
 							</p>
 							<p>
-								<strong>Description: </strong>{{sample.sampleDescription}}
+								<strong>Bottom Depth: </strong>{{sample.bottomDepth}}
 							</p>
 							<p>
-								<strong>Media: </strong>{{sample.sampleMedia}}
+								<strong>Top Year: </strong>{{sample.topYear}}
 							</p>
 							<p>
-								<strong>Thickness: </strong>{{sample.thickness}}
-							</p>
-							<p>
-								<strong>Trend: </strong>{{sample.trend}}
-							</p>
-							<p>
-								<strong>Unit Name: </strong>{{sample.unitName}}
+								<strong>Bottom Year: </strong>{{sample.bottomYear}}
 							</p>
 							<p>
 								<strong>Comments: </strong>{{sample.comments}}
@@ -146,12 +140,6 @@
 
 							<p>
 								<strong>(Latitude,Longitude): </strong>({{sample.site.latitude}}N,{{sample.site.longitude}}E)
-
-
-
-
-
-
 							
 							<p>
 								<strong>Elevation: </strong>{{sample.site.elevation}} M
@@ -171,34 +159,22 @@
 						<hr>
 						<div>
 							<p>
-								<strong>Bottom Year: </strong>{{sample.bottomYear}}
+								<strong>Core ID: </strong>{{sample.category.categoryID}}
 							</p>
 							<p>
-								<strong>Bottom Depth: </strong>{{sample.bottomDepth}}
+								<strong>Core Age Range: </strong>{{sample.category.coreAgeRange}}
 							</p>
 							<p>
-								<strong>Core Age: </strong>{{sample.coreAge}}
+								<strong>Core Diameter: </strong>{{sample.category.coreDiameter}}
 							</p>
 							<p>
-								<strong>Core Age Range: </strong>{{sample.coreAgeRange}}
+								<strong>Drilled By: </strong>{{sample.category.drilledBy}}
 							</p>
 							<p>
-								<strong>Core Diameter: </strong>{{sample.coreDiameter}}
+								<strong>Drilling Dates: </strong>{{sample.category.drillingDates}}
 							</p>
 							<p>
-								<strong>Drilled By: </strong>{{sample.drilledBy}}
-							</p>
-							<p>
-								<strong>Drilling Date: </strong>{{sample.drillingDate}}
-							</p>
-							<p>
-								<strong>Max Core Depth: </strong>{{sample.maxCoreDepth}}
-							</p>
-							<p>
-								<strong>Top Depth: </strong>{{sample.topDepth}}
-							</p>
-							<p>
-								<strong>Top Year: </strong>{{sample.topYear}}
+								<strong>Max Core Depth: </strong>{{sample.category.maxCoreDepth}}
 							</p>
 						</div>
 					</div>
