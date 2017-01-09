@@ -91,12 +91,12 @@
 		<br> <br>
 		<div class="row">
 			<div class="col-md-4">
-				<button class="btn btn-lg btn-block btn-primary" data-toggle="modal"
+				<button style="margin-bottom: 10px;" class="btn btn-lg btn-block btn-primary" data-toggle="modal"
 					data-target="#search-modal">Click to compare with your
 					data</button>
 			</div>
 			<div class="col-md-4">
-				<a class="btn btn-lg btn-warning btn-block" href="results.html">Clear all searches</a>
+				<a style="margin-bottom: 10px;" class="btn btn-lg btn-warning btn-block" href="results.html">Clear all searches</a>
 			</div>
 			<div class="col-md-4">
 				<div class="checkbox">
@@ -400,7 +400,7 @@
 						<div class="modal-footer">
 							<button type="button" class="btn btn-default"
 								data-dismiss="modal">Close</button>
-							<button onclick="searchCall()" id="search-confirm" type="button"
+							<button onclick="searchCall()" id="search-confirm" type="submit"
 								class="btn btn-primary" data-dismiss="modal">Search</button>
 
 						</div>
@@ -448,6 +448,15 @@
 				localStorage.setItem('choice', "false");
 			}
 		}
+
+		// get [enter] key to work for  modal submission hack
+		$(function(){
+		  $('.modal-content').keypress(function(e){
+		    if(e.which == 13) {
+		      antt.builtUrl($("#choice").is(':checked'));
+		    }
+		  })
+		})
 
 		getStatus = localStorage.getItem('choice');
 		if (getStatus == "true") {

@@ -118,8 +118,6 @@ app.controller('results', function($scope, dataSource) {
 			
 		});
 
-		console.log(allResults);
-
 		// reverse array so most recent search is displayed first
 		allResults.reverse();
 
