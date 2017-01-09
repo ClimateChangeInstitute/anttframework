@@ -401,7 +401,7 @@
 
 		$.each(keys, function(i, k) {
 			$.each(mmelement.elementData, function(j, e) {
-				if (e.element === k && e.unit === '%') {
+				if (e.symbol === k && e.unit === '%') {
 					result.push(e.value);
 				}
 			});
