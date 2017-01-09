@@ -9,12 +9,15 @@
 	 * @returns {MMElementData} Fully typed MMEelementData object
 	 */
 	function MMElementData(mme) {
-		this.name = mme.symbol.name;
-		this.format = mme.symbol.format;
 		this.me = parseFloat(mme.me);
 		this.std = parseFloat(mme.std);
 		this.unit = mme.unit;
 		this.value = parseFloat(mme.value);
+		// chemistry information
+		this.name = mme.symbol.name;
+		this.format = mme.symbol.format;
+		this.atomicNumber = mme.symbol.atomicNumber;
+        this.molecularMass = mme.symbol.molecularMass;
 	};
 	scope.MMElementData = MMElementData;
 
