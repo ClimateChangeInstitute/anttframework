@@ -39,7 +39,7 @@
 		this.instrumentSettings = e.instrumentSettings;
 		this.longsampleID = e.longsampleID;
 		this.measuredBy = e.measuredBy;
-		this.methodType = e.methodType.type;
+		this.methodType = e.methodType;
 		this.numberOfMeasurements = parseInt(e.numberOfMeasurements);
 		this.originalTotal = parseFloat(e.originalTotal);
 		this.sampleID = e.sampleID;
