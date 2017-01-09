@@ -239,10 +239,11 @@
 						<tbody>
 							<tr ng-repeat="e in mmElements.elementData">
 								<td ng-bind-html="e.format | unsafe"></td>
-								<td>{{e.value | number:3}}</td>
-								<td>{{e.std}}</td>
+								<td ng-if="e.unit == '%'">{{e.value | number:2}}</td>
+								<td ng-if="e.unit != '%'">{{e.value | number:0}}</td>
+								<td>{{e.std | number:1}}</td>
 								<td>{{e.unit}}</td>
-								<td>{{e.me}}</td>
+								<td>{{e.me | number:1}}</td>
 							</tr>
 						</tbody>
 					</table>
