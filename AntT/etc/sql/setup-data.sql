@@ -2143,28 +2143,27 @@ INSERT INTO volcanoes (volcano_number, old_volcano_number, volcano_name, country
 INSERT INTO volcanoes (volcano_number, old_volcano_number, volcano_name, country, primary_volcano_type, last_known_eruption, region, subregion, latitude, longitude, elevation_m, dominant_rock_type, tectonic_setting) VALUES (390140, '1900-14-', 'Protector Shoal', 'United Kingdom', 'Submarine', '1962 CE', 'Antarctica', 'Antarctica and South Sandwich Islands', -55.9199982, -28.0799999, -27, 'Rhyolite', 'Compressional Oceanic');
 
 --
--- Data for elements
+-- Data for chemistries
 --
 
-
-INSERT INTO elements (element_name, format) VALUES ('sio2', 'SIO<sub>2</sub>');
-INSERT INTO elements (element_name, format) VALUES ('tio2', 'TiO<sub>2</sub>');
-INSERT INTO elements (element_name, format) VALUES ('so2', 'SO<sub>2</sub>');
-INSERT INTO elements (element_name, format) VALUES ('al2o3', 'Al<sub>2</sub>O<sub>3</sub>');
-INSERT INTO elements (element_name, format) VALUES ('cr2o3', 'Cr<sub>2</sub>O<sub>3</sub>');
-INSERT INTO elements (element_name, format) VALUES ('fe2o3', 'Fe<sub>2</sub>O<sub>3</sub>');
-INSERT INTO elements (element_name, format) VALUES ('feo', 'FeO');
-INSERT INTO elements (element_name, format) VALUES ('mno', 'MnO');
-INSERT INTO elements (element_name, format) VALUES ('mgo', 'MgO');
-INSERT INTO elements (element_name, format) VALUES ('cao', 'CaO');
-INSERT INTO elements (element_name, format) VALUES ('na2o', 'Na<sub>2</sub>O');
-INSERT INTO elements (element_name, format) VALUES ('k2o', 'K<sub>2</sub>O');
-INSERT INTO elements (element_name, format) VALUES ('p2o5', 'P<sub>2</sub>O<sub>5</sub>');
-INSERT INTO elements (element_name, format) VALUES ('cl', 'Cl');
-INSERT INTO elements (element_name, format) VALUES ('co2', 'CO<sub>2</sub>');
-INSERT INTO elements (element_name, format) VALUES ('h2oplus', 'H<sub>2</sub>O<super>+</super>');
-INSERT INTO elements (element_name, format) VALUES ('h2ominus', 'H<sub>2</sub>O<super>-</super>');
-INSERT INTO elements (element_name, format) VALUES ('loi', 'LOI');
+INSERT INTO chemistries (symbol, name, format, molecular_mass) VALUES ('SiO2','Silicon dioxide','SIO<sub>2</sub>',60.08);
+INSERT INTO chemistries (symbol, name, format, molecular_mass) VALUES ('TiO2','Titanium dioxide','TiO<sub>2</sub>',79.866);
+INSERT INTO chemistries (symbol, name, format, molecular_mass) VALUES ('SO2','Sulfur dioxide','SO<sub>2</sub>',64.066);
+INSERT INTO chemistries (symbol, name, format, molecular_mass) VALUES ('Al2O3','Aluminium oxide','Al<sub>2</sub>O<sub>3</sub>',101.96);
+INSERT INTO chemistries (symbol, name, format, molecular_mass) VALUES ('Cr2O3','Chromium(III) oxide','Cr<sub>2</sub>O<sub>3</sub>',151.99);
+INSERT INTO chemistries (symbol, name, format, molecular_mass) VALUES ('Fe2O3','Iron(III) oxide','Fe<sub>2</sub>O<sub>3</sub>',159.69);
+INSERT INTO chemistries (symbol, name, format, molecular_mass) VALUES ('FeO','Iron(II) oxide','FeO',71.844);
+INSERT INTO chemistries (symbol, name, format, molecular_mass) VALUES ('MnO','Manganese(II) oxide','MnO',70.9374);
+INSERT INTO chemistries (symbol, name, format, molecular_mass) VALUES ('MgO','Magnesium oxide','MgO',40.3044);
+INSERT INTO chemistries (symbol, name, format, molecular_mass) VALUES ('CaO','Calcium oxide','CaO',56.0774);
+INSERT INTO chemistries (symbol, name, format, molecular_mass) VALUES ('Na2O','Sodium oxide','Na<sub>2</sub>O',61.9789);
+INSERT INTO chemistries (symbol, name, format, molecular_mass) VALUES ('K2O','Potassium oxide','K<sub>2</sub>O',94.2);
+INSERT INTO chemistries (symbol, name, format, molecular_mass) VALUES ('P2O5','Phosphorus pentoxide','P<sub>2</sub>O<sub>5</sub>',283.89);
+INSERT INTO chemistries (symbol, name, format, molecular_mass) VALUES ('CO2','Carbon dioxide','CO<sub>2</sub>',44.01);
+INSERT INTO chemistries (symbol, name, format, molecular_mass) VALUES ('H2O+','H2O+','H<sub>2</sub>O<super>+</super>',18.0147);
+INSERT INTO chemistries (symbol, name, format, molecular_mass) VALUES ('H2O-','H2O-','H<sub>2</sub>O<super>-</super>',18.0153);
+INSERT INTO chemistries (symbol, name, format) VALUES ('LOI','Loss on Ignition','LOI');
+--INSERT INTO chemistries (symbol, name, format, molecular_mass) VALUES ('Cl', 'Cl');
 
 
 --

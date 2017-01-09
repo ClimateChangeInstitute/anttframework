@@ -243,9 +243,13 @@ CREATE TABLE mm_elements(
 
 --  ***** Example elements *****
 --	sio2,tio2,so2,al2o3,cr2o3,fe2o3,feo,mno,mgo,cao,na2o,k2o,p2o5,p2o5,cl,co2
-CREATE TABLE elements(
-	element_name TEXT PRIMARY KEY,
-	format TEXT NOT NULL -- HTML formatted string
+-- atomic number,atomic symbol,element name,atomic mass
+CREATE TABLE chemistries(
+	symbol TEXT PRIMARY KEY, -- Example, He
+	name TEXT NOT NULL, -- Example, Helium
+	format TEXT NOT NULL, -- HTML formatted string
+	molecular_mass REAL,
+	atomic_number INTEGER -- Only for elements
 );
 
 CREATE TABLE units(
@@ -255,12 +259,12 @@ CREATE TABLE units(
 -- Major/Minor Elements Data
 CREATE TABLE mm_elements_data(
 	longsample_id TEXT REFERENCES mm_elements(longsample_id) NOT NULL,
-	element TEXT REFERENCES elements(element_name) NOT NULL,
+	symbol TEXT REFERENCES chemistries(symbol) NOT NULL,
 	unit TEXT REFERENCES units(unit) NOT NULL,
 	val REAL NOT NULL,
 	std REAL NOT NULL,
 	me REAL NOT NULL,
-	PRIMARY KEY(longsample_id, element, unit));
+	PRIMARY KEY(longsample_id, symbol, unit));
 
 	
 ------------------------------------------------------------------------------
@@ -341,7 +345,7 @@ GRANT ALL PRIVILEGES ON outcrop_samples TO :ADMIN;
 GRANT ALL PRIVILEGES ON method_types TO :ADMIN;
 
 GRANT ALL PRIVILEGES ON mm_elements TO :ADMIN;
-GRANT ALL PRIVILEGES ON elements TO :ADMIN;
+GRANT ALL PRIVILEGES ON chemistries TO :ADMIN;
 GRANT ALL PRIVILEGES ON units TO :ADMIN;
 GRANT ALL PRIVILEGES ON mm_elements_data TO :ADMIN;
 ------------------------------------------------------------------------------
