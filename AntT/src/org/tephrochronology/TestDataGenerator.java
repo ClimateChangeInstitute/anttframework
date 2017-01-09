@@ -123,8 +123,13 @@ public class TestDataGenerator {
 					"SELECT v FROM Volcano v ORDER BY v.volcanoNumber",
 					Volcano.class).getResultList();
 
-			elements = em.createQuery("SELECT e FROM Chemistry e ORDER BY e.name",
+			// @formatter:off
+			elements = em.createQuery(
+					  "SELECT e "
+					+ "FROM Chemistry e "
+					+ "ORDER BY e.molecularMass DESC, e.name",
 					Chemistry.class).getResultList();
+			// @formatter:on
 
 			generateTypeData(em);
 
