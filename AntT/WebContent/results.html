@@ -228,10 +228,9 @@
 														</div>
 														<div class="row">
 															<div class="col-sm-12">
-																<h3>Geochemical Data</h3>
+																<h3>Primary Geochemical Data</h3>
 															</div>
 														</div>
-														<hr>
 														<div class="row" ng-hide="o.mme.elementData == null">
 															<div class="col-md-12 table-responsive">
 																<table class="table table-hover table-condensed">
@@ -245,7 +244,37 @@
 																		</tr>
 																	</thead>
 																	<tbody>
-																		<tr ng-repeat="e in o.mme.elementData | orderBy: '-molecularMass'">
+																		<tr ng-repeat="e in o.mme.primaryElementData | orderBy: 'order'">
+																			<td ng-bind-html="e.format | unsafe"></td>
+																			<td ng-if="e.unit == '%'">{{e.value | number:2}}</td>
+																			<td ng-if="e.unit != '%'">{{e.value | number:0}}</td>
+																			<td>{{e.std | number:1}}</td>
+																			<td>{{e.unit}}</td>
+																			<td>{{e.me | number:1}}</td>
+																		</tr>
+																	</tbody>
+																</table>
+															</div>
+														</div>
+														<div class="row">
+															<div class="col-sm-12">
+																<h3>Secondary Geochemical Data</h3>
+															</div>
+														</div>
+														<div class="row" ng-hide="o.mme.elementData == null">
+															<div class="col-md-12 table-responsive">
+																<table class="table table-hover table-condensed">
+																	<thead>
+																		<tr>
+																			<th></th>
+																			<th>Value</th>
+																			<th>&sigma;</th>
+																			<th>Unit</th>
+																			<th>Method Error</th>
+																		</tr>
+																	</thead>
+																	<tbody>
+																		<tr ng-repeat="e in o.mme.secondaryElementData | orderBy: '-molecularMass'">
 																			<td ng-bind-html="e.format | unsafe"></td>
 																			<td ng-if="e.unit == '%'">{{e.value | number:2}}</td>
 																			<td ng-if="e.unit != '%'">{{e.value | number:0}}</td>
