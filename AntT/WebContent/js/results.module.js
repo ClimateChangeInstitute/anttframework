@@ -1,4 +1,4 @@
-var app = angular.module('exampleApp', ['cgBusy']);
+var app = angular.module('exampleApp', [ 'cgBusy' ]);
 
 app.factory('dataSource', [ '$http', function($http) {
 	var factory = [];
@@ -11,16 +11,17 @@ app.factory('dataSource', [ '$http', function($http) {
 } ]);
 
 app.filter('unsafe', function($sce) {
-    return function(val) {
-        return $sce.trustAsHtml(val);
-    };
+	return function(val) {
+		return $sce.trustAsHtml(val);
+	};
 });
 
 app.controller('results', function($scope, dataSource) {
 
 	$scope.AppController = [];
 
-	// If we decide not to use default behavior, let's use this alternative behavior
+	// If we decide not to use default behavior, let's use this alternative
+	// behavior
 	// $scope.delay = 0;
 	// $scope.minDuration = 500;
 	$scope.message = 'Loading samples. Please wait...';
@@ -28,37 +29,48 @@ app.controller('results', function($scope, dataSource) {
 	// $scope.backdrop = true;
 	// $scope.promise = null;
 
-	$scope.promise = antt.loadMMElements('generated/allMMElements.xml', function(allMMElements){
+	$scope.promise = antt.loadMMElements('generated/allMMElements.xml', function(
+			allMMElements) {
 
-	 	var values = antt.getUrlParameters();
-	 	var searches = antt.getQueriedElements(values, 's');
+		var values = antt.getUrlParameters();
+		var searches = antt.getQueriedElements(values, 's');
 
-	 	var allResults = [];
+		var allResults = [];
 
-	 	$.each(searches, function(i, s) {
+		$.each(searches, function(i, s) {
 
-		    var filtered = antt.filterMMElements(Object.keys(s), allMMElements, '%');
+			var filtered = antt.filterMMElements(Object.keys(s), allMMElements, '%');
 
-		    var searchRes = [];
+			var searchRes = [];
 
-		    $.each(filtered, function(i, e) {
+			$.each(filtered, function(i, e) {
 
-		    	var simVal = antt.statistics.similarityCoefficientListList($.map(s, function(val, key) { return val; }), antt.valuesArray(Object.keys(s), e));
+				var simVal = antt.statistics.similarityCoefficientListList($.map(s, function(
+						val, key) {
+					return val;
+				}), antt.valuesArray(Object.keys(s), e));
 
-		    	searchRes.push({simVal: simVal, mme: e});
-		    })
+				searchRes.push({
+					simVal : simVal,
+					mme : e
+				});
+			})
 
-		    searchRes.sort(function(a,b) {
-		    	return b.simVal - a.simVal;
-		    });
+			searchRes.sort(function(a, b) {
+				return b.simVal - a.simVal;
+			});
 
-		    allResults.push({searchRes: searchRes, s: s, count: i});
+			allResults.push({
+				searchRes : searchRes,
+				s : s,
+				count : i
+			});
 		});
 
 		// reverse array so most recent search is displayed first
 		allResults.reverse();
 
-	    $scope.filtered = allResults;
+		$scope.filtered = allResults;
 		$scope.$apply();
 	});
 });
