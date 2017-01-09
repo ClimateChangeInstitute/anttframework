@@ -90,21 +90,20 @@
 	<div class="container">
 		<br> <br>
 		<div class="row">
-			<div class="col-md-12">
+			<div class="col-md-4">
 				<button class="btn btn-lg btn-block btn-primary" data-toggle="modal"
 					data-target="#search-modal">Click to compare with your
 					data</button>
 			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-12">
-				<div class="pull-right">
-					<div class="checkbox">
-						<label> <input onclick="check()" id="choice"
-							type="checkbox" value="" checked> Preserve old search
-							results
-						</label>
-					</div>
+			<div class="col-md-4">
+				<a class="btn btn-lg btn-warning btn-block" href="results.html">Clear all searches</a>
+			</div>
+			<div class="col-md-4">
+				<div class="checkbox">
+					<label> <input onclick="check()" id="choice"
+						type="checkbox" value="" checked> Preserve old search
+						results
+					</label>
 				</div>
 			</div>
 		</div>
@@ -423,6 +422,12 @@
 		if (getStatus == "true") {
 			document.getElementById("choice").checked = true;
 		}
+
+		$(document).ready(function() {
+			if (decodeURIComponent(window.location.search.substring(1)) == "") {
+				$('#search-modal').modal('show');
+			}
+		});
 	</script>
 	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 	<script src="index_files/ie10-viewport-bug-workaround.js"></script>
