@@ -60,9 +60,17 @@ app.controller('results', function($scope, dataSource) {
 				return b.simVal - a.simVal;
 			});
 
+			searchQuery = "";
+
+			$.each(s, function(a, b) {
+				searchQuery += a + " = " + b + ",";
+			});
+
+			searchQuery = searchQuery.slice(0, -1);
+
 			allResults.push({
 				searchRes : searchRes,
-				s : s,
+				searchQuery : searchQuery,
 				count : i
 			});
 		});
