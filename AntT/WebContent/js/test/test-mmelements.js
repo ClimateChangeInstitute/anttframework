@@ -10,37 +10,35 @@
 
 	function createMMED(i) {
 
-		var entry = [];
+		var result = [];
 
-		var cur = {
-			element : 'ca',
+		result.push({
+			symbol : {
+				symbol : 'Ca',
+				name : "Calcium",
+				format : 'Ca',
+				molecularMass : 40.08,
+				atomicNumber : 20
+			},
 			me : '' + i,
 			std : '1' + i,
 			unit : 'ppb',
 			value : '' + i * 10
-		};
-
-		entry.push({
-			'key' : cur.element,
-			'value' : cur
 		});
 
-		cur = {
-			element : 'k',
+		result.push({
+			symbol : {
+				symbol : 'K',
+				name : "Potassium",
+				format : 'K',
+				molecularMass : 39.1,
+				atomicNumber : 19
+			},
 			me : '' + i,
 			std : '1' + i,
 			unit : 'ppb',
 			value : '' + i * 10
-		};
-
-		entry.push({
-			'key' : cur.element,
-			'value' : cur
 		});
-
-		var result = {};
-
-		result.entry = entry;
 
 		return result;
 	}
@@ -57,17 +55,14 @@
 				comments : 'comment ' + i,
 				dateMeasured : d,
 				elementData : createMMED(i),
-				h2o_minus : i * -1,
-				h2o_plus : i,
 				iid : 'iid ' + i,
 				instrumentSettings : 'instrumentSettings ' + i,
-				loi : 'loi ' + i,
 				longsampleID : 'longsampleID ' + i,
 				measuredBy : 'measuredBy ' + i,
 				methodType : 'methodType ' + i,
 				numberOfMeasurements : i,
 				originalTotal : i * 10,
-				sampleID : i
+				sampleID : '' + i
 			}));
 		}
 
