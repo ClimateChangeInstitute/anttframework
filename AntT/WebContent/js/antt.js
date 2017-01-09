@@ -14,6 +14,7 @@
 		this.unit = mme.unit;
 		this.value = parseFloat(mme.value);
 		// chemistry information
+		this.symbol = mme.symbol.symbol;
 		this.name = mme.symbol.name;
 		this.format = mme.symbol.format;
 		this.atomicNumber = mme.symbol.atomicNumber;
@@ -277,7 +278,7 @@
 			for (var i = 0; i < keys.length; i++) {
 				var found = false;
 				for (var j = 0; j < e.elementData.length; j++) {
-					if (keys[i] === e.elementData[j].element) {
+					if (keys[i] === e.elementData[j].symbol) {
 						found = true;
 						break;
 					}
