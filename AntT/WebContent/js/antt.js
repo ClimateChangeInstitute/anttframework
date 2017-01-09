@@ -18,7 +18,7 @@
 		this.name = mme.symbol.name;
 		this.format = mme.symbol.format;
 		this.atomicNumber = mme.symbol.atomicNumber;
-        this.molecularMass = mme.symbol.molecularMass;
+        this.molecularMass = parseFloat(mme.symbol.molecularMass);
 	};
 	scope.MMElementData = MMElementData;
 

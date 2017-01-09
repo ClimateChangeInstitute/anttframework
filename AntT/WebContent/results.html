@@ -245,13 +245,14 @@
 																		</tr>
 																	</thead>
 																	<tbody>
-																		<tr ng-repeat="e in o.mme.elementData">
+																		<tr ng-repeat="e in o.mme.elementData | orderBy: '-molecularMass'">
 																			<td ng-bind-html="e.format | unsafe"></td>
 																			<td ng-if="e.unit == '%'">{{e.value | number:2}}</td>
 																			<td ng-if="e.unit != '%'">{{e.value | number:0}}</td>
 																			<td>{{e.std | number:1}}</td>
 																			<td>{{e.unit}}</td>
 																			<td>{{e.me | number:1}}</td>
+																			<td>{{e.molecularMass}}</td>
 																		</tr>
 																	</tbody>
 																</table>

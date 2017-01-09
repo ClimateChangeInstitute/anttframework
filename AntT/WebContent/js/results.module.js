@@ -54,7 +54,7 @@ app.controller('results', function($scope, dataSource) {
 					simVal : simVal,
 					mme : e
 				});
-			})
+			});
 
 			searchRes.sort(function(a, b) {
 				return b.simVal - a.simVal;
@@ -77,6 +77,8 @@ app.controller('results', function($scope, dataSource) {
 
 		// reverse array so most recent search is displayed first
 		allResults.reverse();
+
+		console.log(allResults);
 
 		$scope.filtered = allResults;
 		$scope.$apply();
