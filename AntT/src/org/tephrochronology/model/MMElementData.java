@@ -29,8 +29,8 @@ public class MMElementData {
 	protected MMElement mmElement;
 
 	@Id
-	@JoinColumn(name = "element")
-	protected Element element;
+	@JoinColumn(name = "symbol")
+	protected Chemistry symbol;
 
 	@Id
 	@JoinColumn(name = "unit")
@@ -51,11 +51,11 @@ public class MMElementData {
 	 * @param me
 	 * @param unit
 	 */
-	public MMElementData(MMElement mmElement, Element element, Float value,
+	public MMElementData(MMElement mmElement, Chemistry element, Float value,
 			Float std, Float me, Unit unit) {
 		super();
 		this.mmElement = mmElement;
-		this.element = element;
+		this.symbol = element;
 		this.value = value;
 		this.std = std;
 		this.me = me;
@@ -73,12 +73,12 @@ public class MMElementData {
 		this.mmElement = mmElement;
 	}
 
-	public Element getElement() {
-		return element;
+	public Chemistry getSymbol() {
+		return symbol;
 	}
 
-	public void setElement(Element element) {
-		this.element = element;
+	public void setSymbol(Chemistry symbol) {
+		this.symbol = symbol;
 	}
 
 	public Float getValue() {

@@ -18,14 +18,14 @@ public class MMElementDataID implements Serializable {
 
 	protected String mmElement;
 
-	protected String element;
+	protected String symbol;
 	
 	protected String unit;
 
-	public MMElementDataID(String mmElement, String element, String unit) {
+	public MMElementDataID(String mmElement, String symbol, String unit) {
 		super();
 		this.mmElement = mmElement;
-		this.element = element;
+		this.symbol = symbol;
 		this.unit = unit;
 	}
 
@@ -40,12 +40,12 @@ public class MMElementDataID implements Serializable {
 		this.mmElement = mmElement;
 	}
 
-	public String getElement() {
-		return element;
+	public String getSymbol() {
+		return symbol;
 	}
 
-	public void setElement(String element) {
-		this.element = element;
+	public void setSymbol(String symbol) {
+		this.symbol = symbol;
 	}
 	
 	public String getUnit() {
@@ -60,9 +60,9 @@ public class MMElementDataID implements Serializable {
 	public boolean equals(Object obj) {
 		if (obj instanceof MMElementDataID) {
 			MMElementDataID other = (MMElementDataID) obj;
-			return mmElement != null && element != null
+			return mmElement != null && symbol != null
 					&& mmElement.equals(other.mmElement)
-					&& element.equals(other.element) && unit.equals(other.unit);
+					&& symbol.equals(other.symbol) && unit.equals(other.unit);
 		} else
 			return false;
 	}

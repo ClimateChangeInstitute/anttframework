@@ -28,7 +28,7 @@ import org.tephrochronology.model.AquaticSample;
 import org.tephrochronology.model.BIACategory;
 import org.tephrochronology.model.BIASample;
 import org.tephrochronology.model.CorerType;
-import org.tephrochronology.model.Element;
+import org.tephrochronology.model.Chemistry;
 import org.tephrochronology.model.GrainSize;
 import org.tephrochronology.model.IceCoreCategory;
 import org.tephrochronology.model.IceCoreSample;
@@ -82,7 +82,7 @@ public class TestDataGenerator {
 
 	List<GrainSize> grainSizes;
 
-	List<Element> elements;
+	List<Chemistry> elements;
 
 	List<MMElement> mmElements;
 
@@ -123,8 +123,8 @@ public class TestDataGenerator {
 					"SELECT v FROM Volcano v ORDER BY v.volcanoNumber",
 					Volcano.class).getResultList();
 
-			elements = em.createQuery("SELECT e FROM Element e ORDER BY e.name",
-					Element.class).getResultList();
+			elements = em.createQuery("SELECT e FROM Chemistry e ORDER BY e.name",
+					Chemistry.class).getResultList();
 
 			generateTypeData(em);
 
@@ -175,7 +175,7 @@ public class TestDataGenerator {
 					instruments.get(i % instruments.size()), LocalDate.now(),
 					"Mark", 5, 3f, 2f, "instrument settings for " + i, data);
 			range(0, i % elements.size()).forEach(j -> {
-				Element elem = elements.get(j % elements.size());
+				Chemistry elem = elements.get(j % elements.size());
 				data.add(new MMElementData(el, elem, j * 10f, j * 2f, j * 1f,
 						new Unit("ppb")));
 			});
@@ -185,7 +185,7 @@ public class TestDataGenerator {
 			List<MMElementData> percents = new ArrayList<>();
 			data.stream()
 					.forEach(e -> percents.add(new MMElementData(el,
-							e.getElement(), (float) (100 * e.getValue() / sum),
+							e.getSymbol(), (float) (100 * e.getValue() / sum),
 							e.getStd(), e.getMe(), new Unit("%"))));
 
 			data.addAll(percents);

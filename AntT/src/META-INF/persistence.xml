@@ -27,7 +27,7 @@
 		<class>org.tephrochronology.model.OutcropSample</class>
 		<class>org.tephrochronology.model.MethodType</class>
 		<class>org.tephrochronology.model.LocalDateAttributeConverter</class>
-		<class>org.tephrochronology.model.Element</class>
+		<class>org.tephrochronology.model.Chemistry</class>
 		<class>org.tephrochronology.model.Unit</class>
 		<class>org.tephrochronology.model.MMElement</class>
 		<class>org.tephrochronology.model.MMElementData</class>

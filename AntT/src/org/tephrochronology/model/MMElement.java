@@ -15,7 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
- * Major/Minor element data measurements.
+ * Major/Minor symbol data measurements.
  * 
  * @author Mark Royer
  *

@@ -55,7 +55,7 @@ public class Unit implements Serializable, Comparable<Unit> {
 
 	@Override
 	public boolean equals(Object obj) {
-		return unit.equals(((Element) obj).name);
+		return unit.equals(((Chemistry) obj).name);
 	}
 
 }

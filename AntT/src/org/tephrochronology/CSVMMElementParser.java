@@ -92,8 +92,8 @@ public class CSVMMElementParser {
 		// Second line: rename of columns
 		File inputSelectFile = new File(args[1]);
 		// Multiple line file containing a row for each selection
-		// longsample_id, element, unit , val, std, me
-		// The element and unit will be used as a literal
+		// longsample_id, symbol, unit , val, std, me
+		// The symbol and unit will be used as a literal
 		File inputMMElementDataSelectFile = new File(args[2]);
 
 		File outputMMElementFile = new File(args[3]);
@@ -129,7 +129,7 @@ public class CSVMMElementParser {
 
 		// Required columns for mm_elements_data
 		//
-		// longsample_id, element, unit , val, std, me
+		// longsample_id, symbol, unit , val, std, me
 		//
 		//
 		// Extended Sample ID, "p2o5" , "%", P2O5 ,std_P2O5,me_P2O5
@@ -160,7 +160,7 @@ public class CSVMMElementParser {
 				new FileWriter(outputMMElementDataFile),
 				CsvPreference.STANDARD_PREFERENCE);
 
-		dataWriter.writeHeader(new String[] { "longsample_id", "element",
+		dataWriter.writeHeader(new String[] { "longsample_id", "symbol",
 				"unit", "val", "std", "me" });
 
 		while (nextLine != null && !nextLine.isEmpty()) {

@@ -27,7 +27,7 @@ public class Statistics {
 			List<Double> xb) {
 		List<Double> stderr = xa.stream().map(f -> 0.0)
 				.collect(Collectors.toList());
-		// Setting standard error to 0 for each element makes them be
+		// Setting standard error to 0 for each symbol makes them be
 		// considered equally. Detection limit is ignored.
 		return similarityCoefficient(xa, stderr, xb, stderr,
 				1 /* Doesn't matter */);
@@ -124,11 +124,11 @@ public class Statistics {
 	 * Weighting coefficient between 0 and 1 which reflects precision.
 	 * 
 	 * @param xai
-	 *            Concentration of element i in A
+	 *            Concentration of symbol i in A
 	 * @param stderrai
 	 *            Standard error for xai
 	 * @param xbi
-	 *            Concentration of element i in B
+	 *            Concentration of symbol i in B
 	 * @param stderrbi
 	 *            Standard error for xbi
 	 * @param detectionLimit

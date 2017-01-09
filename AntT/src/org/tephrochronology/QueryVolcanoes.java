@@ -14,7 +14,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
-import org.tephrochronology.model.Element;
+import org.tephrochronology.model.Chemistry;
 import org.tephrochronology.model.Instrument;
 import org.tephrochronology.model.MMElement;
 import org.tephrochronology.model.MMElementData;
@@ -109,11 +109,14 @@ public class QueryVolcanoes {
 						""),
 				LocalDate.now(), "Mark", 5, 3f, 2f, "instrument settings",
 				data);
-		Element elem = new Element("sio2", "SiO<sub>2</sub>");
+		Chemistry elem = new Chemistry("SiO2", "Silicon dioxide",
+				"SIO<sub>2</sub>", 60.08f, null);
 		data.add(new MMElementData(el, elem, 10f, 2f, 1f, new Unit("ppb")));
-		elem = new Element("tio2", "TiO<sub>2</sub>");
+		elem = new Chemistry("TiO2", "Titanium dioxide", "TiO<sub>2</sub>",
+				79.866f, null);
 		data.add(new MMElementData(el, elem, 20f, 4f, 2f, new Unit("ppb")));
-		elem = new Element("so2", "SO<sub>2</sub>");
+		elem = new Chemistry("SO2", "Sulfur dioxide", "SO<sub>2</sub>", 64.066f,
+				null);
 		data.add(new MMElementData(el, elem, 30f, 8f, 3f, new Unit("ppb")));
 
 		em.persist(el);
