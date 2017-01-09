@@ -222,7 +222,7 @@ public class DBExporter {
 		copyTableToFile(dbName, "method_types", dataDir);
 
 		copyTableToFile(dbName, "mm_elements", dataDir);
-		copyTableToFile(dbName, "elements", dataDir);
+		copyTableToFile(dbName, "chemistries", dataDir);
 		copyTableToFile(dbName, "units", dataDir);
 		copyTableToFile(dbName, "mm_elements_data", dataDir);
 

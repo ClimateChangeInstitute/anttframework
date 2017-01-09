@@ -232,7 +232,7 @@ public class DBImporter {
 
 		copyFileToTable(dbName, "mm_elements", dataDir);
 
-		copyFileToTable(dbName, "elements", dataDir);
+		copyFileToTable(dbName, "chemistries", dataDir);
 		copyFileToTable(dbName, "units", dataDir);
 
 		copyFileToTable(dbName, "mm_elements_data", dataDir);
