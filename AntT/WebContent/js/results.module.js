@@ -25,9 +25,12 @@ app.directive('tephraDownload', function() {
 			function download(evt) {
 				// Find out which sample ids are selected for download
 				var selectedIds = [];
+				var simCoefficients = [];
 				$.each($(this).parents(".panel").find(
 						"input.sample-select-box:checked"), function(i, e) {
-					selectedIds.push($(e).attr("id").split('-')[2]);
+					var id = $(e).attr("id").split('-')[2];
+					selectedIds.push(id);
+					simCoefficients.push($(e).parents(".panel-samples").find(".simCoefficient")[0].innerHTML);
 				});
 
 				// Go get the matching MMElements
@@ -39,16 +42,17 @@ app.directive('tephraDownload', function() {
 				
 				var finalStr = '';
 				
-				finalStr += '"sample id","long sample id",'
+				finalStr += '"sample id","long sample id","similarity coefficient",'
 						+ antt.MMElementData.getHeader();
 				finalStr += '\n';
 
 				$.each(selectedMMElements, function(i, mme) {
 					
 					// Write out the row data for this MMElement
-					$.each(mme.elementData, function(i, e) {
+					$.each(mme.elementData, function(j, e) {
 						finalStr += (JSON.stringify(mme.sampleID) + ','
 								+ JSON.stringify(mme.longsampleID) + ','
+								+ simCoefficients[i] + ','
 								+ e.row());
 						finalStr += '\n';
 					});
@@ -58,7 +62,7 @@ app.directive('tephraDownload', function() {
 				 
 				var defaultDownload = "samples_data.csv";
 				if (selectedIds.length < 5) {
-					defaultDownload += (JSON.stringify(selectedIds.join('_')).slice(1,-1) + ".csv");
+					defaultDownload = (JSON.stringify(selectedIds.join('_')).slice(1,-1) + ".csv");
 				}
 				
 				saveAs(blob, defaultDownload);
