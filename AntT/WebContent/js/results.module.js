@@ -56,7 +56,12 @@ app.directive('tephraDownload', function() {
 				
 				var blob = new Blob([finalStr], {type: "text/plain;charset=utf-8"});
 				 
-				saveAs(blob, "mmelement_data.csv");
+				var defaultDownload = "samples_data.csv";
+				if (selectedIds.length < 5) {
+					defaultDownload += (JSON.stringify(selectedIds.join('_')).slice(1,-1) + ".csv");
+				}
+				
+				saveAs(blob, defaultDownload);
 
 			}
 
