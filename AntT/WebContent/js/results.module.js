@@ -16,32 +16,47 @@ app.filter('unsafe', function($sce) {
 	};
 });
 
-app.directive('tephraDownload', function () {
-    return {
-        restrict: 'A',
-        scope: true,
-        link: function (scope, element, attrs) {
+app.directive('tephraDownload', function() {
+	return {
+		restrict : 'A',
+		scope : true,
+		link : function(scope, element, attrs) {
 
-            function download (evt) {
-            	// Find out which sample ids are selected for download
-            	var selectedIds = [];
-                $.each($(this).parents(".panel").find("input.sample-select-box:checked"), function(i,e) {
-                	selectedIds.push($(e).attr("id").split('-')[2]);
-                });
-                
-                // Go get the matching MMElements
-                var selectedMMElements = [];
-                $.each(app.allMMElements, function(i,e){
-            		if (selectedIds.indexOf(e.sampleID) >= 0)
-            			selectedMMElements.push(e);
-                });
-                
-                console.log(selectedMMElements);
-            }
+			function download(evt) {
+				// Find out which sample ids are selected for download
+				var selectedIds = [];
+				$.each($(this).parents(".panel").find(
+						"input.sample-select-box:checked"), function(i, e) {
+					selectedIds.push($(e).attr("id").split('-')[2]);
+				});
 
-            element.on('click', download);
-        }
-    };
+				// Go get the matching MMElements
+				var selectedMMElements = [];
+				$.each(app.allMMElements, function(i, e) {
+					if (selectedIds.indexOf(e.sampleID) >= 0)
+						selectedMMElements.push(e);
+				});
+
+				console.log(selectedMMElements);
+
+				console.log('"sample id","long sample id",'
+						+ antt.MMElementData.getHeader());
+
+				$.each(selectedMMElements, function(i, mme) {
+					
+					// Write out the row data for this MMElement
+					$.each(mme.elementData, function(i, e) {
+						console.log(JSON.stringify(mme.sampleID) + ','
+								+ JSON.stringify(mme.longsampleID) + ','
+								+ e.row());
+					});
+				});
+
+			}
+
+			element.on('click', download);
+		}
+	};
 });
 
 app.controller('results', function($scope, dataSource) {

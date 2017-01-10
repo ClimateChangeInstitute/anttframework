@@ -21,6 +21,31 @@
         this.molecularMass = parseFloat(mme.symbol.molecularMass);
 	};
 	scope.MMElementData = MMElementData;
+	
+	/**
+	 * Static method is the same for all instances.
+	 * 
+	 * @return CSV header
+	 */
+	MMElementData.getHeader = function(){
+		
+		var headers = ["symbol", "name", "value", "unit", "std", "me", "format", "molecular mass", "atomic number"];
+		
+		for(var i=0; i< headers.length; i++){
+			headers[i] = JSON.stringify(headers[i]);
+		}
+		
+		return headers.join(','); 
+	};
+	
+	/**
+	 * @return CSV row format of this element data
+	 */
+	MMElementData.prototype.row = function(){
+		return JSON.stringify(this.symbol) + ',' + JSON.stringify(this.name)+ ',' + this.value+ ',' + 
+		JSON.stringify(this.unit)+ ',' +this.std + ',' +this.me+ ',' + JSON.stringify(this.format) + ',' + 
+		this.molecularMass + ',' + this.atomicNumber; 
+	};
 
 	/**
 	 * @param e
@@ -62,7 +87,7 @@
 			this.sampleTypeLong = "Marine";
 	};
 	scope.MMElement = MMElement;
-
+		
 	scope.statistics = {};
 	
 	/**
@@ -310,7 +335,7 @@
 		
 		loadMMElements('generated/allMMElements.xml', function(allMMElements){
 			var filtered = filterMMElements(elements, allMMElements, '%');
-			//console.log(filtered);	
+			// console.log(filtered);
 		});
 		
 	};
@@ -353,19 +378,23 @@
 	scope.getUrlParameters = getUrlParameters;
 
 	/**
-	 * Return search query parameter array 
+	 * Return search query parameter array
 	 * 
 	 * ex. url -> ?s=sio2:3:tio:40&s=sio2:10:tio:40:ko:1
-	 *     
-	 *     function param -> [{"key":"s","value":"sio2:3:tio:40"},{"key":"s","value":"sio2:10:tio:40:ko:1"}]
-	 *     returned -> [{"sio2":"3","tio":"40"},{"sio2":"10","tio":"40","ko":"1"}] 
-	 *
-	 * @param arr {{key:value}[]} GET url of keys and values (Not null)
-	 * @param key only url keys matching this are used (Not null)
-	 * @param delim key:val separator; default is colon
+	 * 
+	 * function param ->
+	 * [{"key":"s","value":"sio2:3:tio:40"},{"key":"s","value":"sio2:10:tio:40:ko:1"}]
+	 * returned -> [{"sio2":"3","tio":"40"},{"sio2":"10","tio":"40","ko":"1"}]
+	 * 
+	 * @param arr
+	 *            {{key:value}[]} GET url of keys and values (Not null)
+	 * @param key
+	 *            only url keys matching this are used (Not null)
+	 * @param delim
+	 *            key:val separator; default is colon
 	 * @return {object[]} Search query parameter array (Never null)
-	 *
-	 *
+	 * 
+	 * 
 	 */
 	var getQueriedElements = function(arr, key, delim = ':') {
 
@@ -389,8 +418,8 @@
 	
 
 	/**
-	 * Takes MMElement type and returns and array of values that match each key 
-	 *
+	 * Takes MMElement type and returns and array of values that match each key
+	 * 
 	 * @param keys
 	 * @param MMElement
 	 * @return arr array of values that match each in keys
@@ -413,10 +442,10 @@
 
 	/**
 	 * Builds url based on search submission
-	 *
-	 * @param 
+	 * 
+	 * @param
 	 * @return none but do a redirect
-	 *
+	 * 
 	 */
 	 var builtUrl = function builtUrl(choice) {
 	 	var fullUrl = "", existingUrl = decodeURIComponent(window.location.search.substring(1));
