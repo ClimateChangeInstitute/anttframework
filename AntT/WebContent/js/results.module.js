@@ -16,6 +16,25 @@ app.filter('unsafe', function($sce) {
 	};
 });
 
+app.directive('tephraDownload', function () {
+    return {
+        restrict: 'A',
+        scope: true,
+        link: function (scope, element, attrs) {
+
+            function download (evt) {
+            	var selected = [];
+                $.each($(this).parents(".panel").find("input.sample-select-box:checked"), function(i,e) {
+                	selected.push($(e).attr("id").split('-')[2]);
+                });
+                console.log(selected);
+            }
+
+            element.on('click', download);
+        }
+    };
+});
+
 app.controller('results', function($scope, dataSource) {
 
 	$scope.AppController = [];
@@ -36,7 +55,7 @@ app.controller('results', function($scope, dataSource) {
 
 	$scope.promise = antt.loadMMElements('generated/allMMElements.xml',
 			function(allMMElements) {
-
+		
 				var values = antt.getUrlParameters();
 				var searches = antt.getQueriedElements(values, 's');
 
