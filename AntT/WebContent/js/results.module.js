@@ -36,21 +36,27 @@ app.directive('tephraDownload', function() {
 					if (selectedIds.indexOf(e.sampleID) >= 0)
 						selectedMMElements.push(e);
 				});
-
-				console.log(selectedMMElements);
-
-				console.log('"sample id","long sample id",'
-						+ antt.MMElementData.getHeader());
+				
+				var finalStr = '';
+				
+				finalStr += '"sample id","long sample id",'
+						+ antt.MMElementData.getHeader();
+				finalStr += '\n';
 
 				$.each(selectedMMElements, function(i, mme) {
 					
 					// Write out the row data for this MMElement
 					$.each(mme.elementData, function(i, e) {
-						console.log(JSON.stringify(mme.sampleID) + ','
+						finalStr += (JSON.stringify(mme.sampleID) + ','
 								+ JSON.stringify(mme.longsampleID) + ','
 								+ e.row());
+						finalStr += '\n';
 					});
 				});
+				
+				var blob = new Blob([finalStr], {type: "text/plain;charset=utf-8"});
+				 
+				saveAs(blob, "mmelement_data.csv");
 
 			}
 
