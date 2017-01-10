@@ -244,7 +244,7 @@
 																		</tr>
 																	</thead>
 																	<tbody>
-																		<tr ng-repeat="e in o.mme.primaryElementData | orderBy: 'order'">
+																		<tr ng-repeat="e in o.mme.primaryElementData | orderBy: 'unit' | orderBy: 'order'">
 																			<td ng-bind-html="e.format | unsafe"></td>
 																			<td ng-if="e.unit == '%'">{{e.value | number:2}}</td>
 																			<td ng-if="e.unit != '%'">{{e.value | number:0}}</td>
