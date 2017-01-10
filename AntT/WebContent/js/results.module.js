@@ -33,6 +33,11 @@ app.directive('tephraDownload', function() {
 					simCoefficients.push($(e).parents(".panel-samples").find(".simCoefficient")[0].innerHTML);
 				});
 
+				if(selectedIds.length <= 0) {
+					alert("No sample results selected.");
+					return;
+				}
+				
 				// Go get the matching MMElements
 				var selectedMMElements = [];
 				$.each(app.allMMElements, function(i, e) {
