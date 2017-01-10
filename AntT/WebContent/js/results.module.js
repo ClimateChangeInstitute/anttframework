@@ -23,11 +23,20 @@ app.directive('tephraDownload', function () {
         link: function (scope, element, attrs) {
 
             function download (evt) {
-            	var selected = [];
+            	// Find out which sample ids are selected for download
+            	var selectedIds = [];
                 $.each($(this).parents(".panel").find("input.sample-select-box:checked"), function(i,e) {
-                	selected.push($(e).attr("id").split('-')[2]);
+                	selectedIds.push($(e).attr("id").split('-')[2]);
                 });
-                console.log(selected);
+                
+                // Go get the matching MMElements
+                var selectedMMElements = [];
+                $.each(app.allMMElements, function(i,e){
+            		if (selectedIds.indexOf(e.sampleID) >= 0)
+            			selectedMMElements.push(e);
+                });
+                
+                console.log(selectedMMElements);
             }
 
             element.on('click', download);
@@ -55,7 +64,8 @@ app.controller('results', function($scope, dataSource) {
 
 	$scope.promise = antt.loadMMElements('generated/allMMElements.xml',
 			function(allMMElements) {
-		
+				app.allMMElements = allMMElements;
+
 				var values = antt.getUrlParameters();
 				var searches = antt.getQueriedElements(values, 's');
 
