@@ -86,7 +86,7 @@ app.controller('results', function($scope, dataSource) {
 	// These are the Elements that will presented in the primary section.
 	// They will appear in the order listed in this array.
 	var primaryElementOrder = [ "SiO2", "TiO2", "Al2O3", "TiO2", "FeO", "MnO",
-			"MgO", "CaO", "Na2O", "K2O", "P2O5" ];
+			"MgO", "CaO", "Na2O", "K2O", "P2O5", "Fe2O3", "Cr2O3"];
 
 	// If we decide not to use default behavior, let's use this alternative
 	// behavior
