@@ -80,3 +80,19 @@ ul {
 .do-inline {
     display: inline;
 }
+
+/* In order to hide spinners of input of type number. */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+.help-block {
+	margin: 0px;
+}
+
+.help-block > ul {
+	margin: 0px;
+	line-height: 1em;
+}

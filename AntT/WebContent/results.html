@@ -91,12 +91,15 @@
 		<br> <br>
 		<div class="row">
 			<div class="col-md-4">
-				<button style="margin-bottom: 10px;" class="btn btn-lg btn-block btn-primary" data-toggle="modal"
+				<button style="margin-bottom: 10px;"
+					class="btn btn-lg btn-block btn-primary" data-toggle="modal"
 					data-target="#search-modal">Click to compare with your
 					data</button>
 			</div>
 			<div class="col-md-4">
-				<a style="margin-bottom: 10px;" class="btn btn-lg btn-warning btn-block" href="results.html">Clear all searches</a>
+				<a style="margin-bottom: 10px;"
+					class="btn btn-lg btn-warning btn-block" href="results.html">Clear
+					all searches</a>
 			</div>
 			<div class="col-md-4">
 				<div class="checkbox">
@@ -147,16 +150,15 @@
 									<div class="row">
 										<div class="col-sm-12">
 											<div class="pull-right">
-												<button type="button" class="btn btn-primary" tephra-download>Download
-													selected</button>
+												<button type="button" class="btn btn-primary"
+													tephra-download>Download selected</button>
 											</div>
 										</div>
 									</div>
 
 									<div class="row">
 										<div class="col-sm-12">
-											<h3>Search for {{search.searchQuery}}
-											</h3>
+											<h3>Search for {{search.searchQuery}}</h3>
 										</div>
 									</div>
 									<hr>
@@ -194,7 +196,8 @@
 																	data-toggle="collapse"
 																	data-target="#{{search.count}}-{{o.mme.sampleID}}"></span>
 															</div>
-															<div class="col-md-4 simCoefficient">{{o.simVal | number:2}}</div>
+															<div class="col-md-4 simCoefficient">{{o.simVal |
+																number:2}}</div>
 															<div class="col-md-4">
 																<a class="special"
 																	href="{{o.mme.sampleType}}.html?id={{o.mme.sampleID}}">
@@ -244,7 +247,8 @@
 																		</tr>
 																	</thead>
 																	<tbody>
-																		<tr ng-repeat="e in o.mme.primaryElementData | orderBy: 'unit' | orderBy: 'order'">
+																		<tr
+																			ng-repeat="e in o.mme.primaryElementData | orderBy: 'unit' | orderBy: 'order'">
 																			<td ng-bind-html="e.format | unsafe"></td>
 																			<td ng-if="e.unit == '%'">{{e.value | number:2}}</td>
 																			<td ng-if="e.unit != '%'">{{e.value | number:0}}</td>
@@ -274,7 +278,8 @@
 																		</tr>
 																	</thead>
 																	<tbody>
-																		<tr ng-repeat="e in o.mme.secondaryElementData | orderBy: '-molecularMass'">
+																		<tr
+																			ng-repeat="e in o.mme.secondaryElementData | orderBy: '-molecularMass'">
 																			<td ng-bind-html="e.format | unsafe"></td>
 																			<td ng-if="e.unit == '%'">{{e.value | number:2}}</td>
 																			<td ng-if="e.unit != '%'">{{e.value | number:0}}</td>
@@ -315,113 +320,313 @@
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
 						<h4 class="modal-title">Tephra Database Search</h4>
 					</div>
-					<form class="form-horizontal">
-						<div class="modal-body">
-							<p>Fill in any of the following (Please normalize data to
-								100%):</p>
-							<br>
-							<div class="form-group row">
-								<label class="col-xs-2 col-form-label" for="element-SiO2">SiO<sub>2</sub>:
-								</label>
-								<div class="input-group col-xs-9">
-									<input type="text" class="form-control" id="element-SiO2" autofocus>
-									<div class="input-group-addon">%</div>
-								</div>
-							</div>
-							<div class="form-group row">
-								<label class="col-xs-2 col-form-label" for="element-TiO2">TiO<sub>2</sub>:
-								</label>
-								<div class="input-group col-xs-9">
-									<input type="text" class="form-control" id="element-TiO2">
-									<div class="input-group-addon">%</div>
-								</div>
-							</div>
-							<div class="form-group row">
-								<label class="col-xs-2 col-form-label" for="element-Al2O3">Al<sub>2</sub>O<sub>3</sub>:
-								</label>
-								<div class="input-group col-xs-9">
-									<input type="text" class="form-control" id="element-Al2O3">
-									<div class="input-group-addon">%</div>
-								</div>
-							</div>
-							<div class="form-group row">
-								<label class="col-xs-2 col-form-label" for="element-FeO">FeO:</label>
-								<div class="input-group col-xs-9">
-									<input type="text" class="form-control" id="element-FeO">
-									<div class="input-group-addon">%</div>
-								</div>
-							</div>
-							<div class="form-group row">
-								<label class="col-xs-2 col-form-label" for="element-MnO">MnO:</label>
-								<div class="input-group col-xs-9">
-									<input type="text" class="form-control" id="element-MnO">
-									<div class="input-group-addon">%</div>
-								</div>
-							</div>
-							<div class="form-group row">
-								<label class="col-xs-2 col-form-label" for="element-MgO">MgO:</label>
-								<div class="input-group col-xs-9">
-									<input type="text" class="form-control" id="element-MgO">
-									<div class="input-group-addon">%</div>
-								</div>
-							</div>
-							<div class="form-group row">
-								<label class="col-xs-2 col-form-label" for="element-CaO">CaO:</label>
-								<div class="input-group col-xs-9">
-									<input type="text" class="form-control" id="element-CaO">
-									<div class="input-group-addon">%</div>
-								</div>
-							</div>
-							<div class="form-group row">
-								<label class="col-xs-2 col-form-label" for="element-Na2O">Na<sub>2</sub>O:
-								</label>
-								<div class="input-group col-xs-9">
-									<input type="text" class="form-control" id="element-Na2O">
-									<div class="input-group-addon">%</div>
-								</div>
-							</div>
-							<div class="form-group row">
-								<label class="col-xs-2 col-form-label" for="element-K2O">K<sub>2</sub>O:
-								</label>
-								<div class="input-group col-xs-9">
-									<input type="text" class="form-control" id="element-K2O">
-									<div class="input-group-addon">%</div>
-								</div>
-							</div>
-							<div class="form-group row">
-								<label class="col-xs-2 col-form-label" for="element-P2O5">P<sub>2</sub>O<sub>5</sub>:
-								</label>
-								<div class="input-group col-xs-9">
-									<input type="text" class="form-control" id="element-P2O5">
-									<div class="input-group-addon">%</div>
-								</div>
-							</div>
-							<div class="form-group row">
-								<label class="col-xs-2 col-form-label" for="element-Fe2O3">Fe<sub>2</sub>O<sub>3</sub>:
-								</label>
-								<div class="input-group col-xs-9">
-									<input type="text" class="form-control" id="element-Fe2O3">
-									<div class="input-group-addon">%</div>
-								</div>
-							</div>
-							<div class="form-group row">
-								<label class="col-xs-2 col-form-label" for="element-Cr2O3">Cr<sub>2</sub>O<sub>3</sub>:
-								</label>
-								<div class="input-group col-xs-9">
-									<input type="text" class="form-control" id="element-Cr2O3">
-									<div class="input-group-addon">%</div>
-								</div>
-							</div>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-default"
-								data-dismiss="modal">Close</button>
-							<button onclick="searchCall()" id="search-confirm" type="submit"
-								class="btn btn-primary" data-dismiss="modal">Search</button>
 
-						</div>
+
+					<form id="search-form" class="form-horizontal"
+						data-toggle="validator">
+						<fieldset>
+
+							<div class="modal-body">
+
+								<p>Fill in any of the following (Please normalize data to
+									100%)</p>
+
+								<!-- ********************************************** -->
+								<!-- ***************** First row ****************** -->
+								<!-- ********************************************** -->
+								<div class="row">
+									<div class="col-sm-6">
+
+										<div class="form-group has-feedback">
+											<label for="element-SiO2"
+												class="control-label col-sm-2 col-sm-offset-1">SiO<sub>2</sub></label>
+											<div class="col-sm-8">
+												<div class="input-group">
+													<span class="input-group-addon">%</span> <input
+														id="element-SiO2" name="element-SiO2" class="form-control"
+														placeholder="" type="number" min="0" max="100"
+														data-error="Input value must be between 0 and 100 inclusively" autofocus>
+												</div>
+												<span class="glyphicon form-control-feedback"
+													aria-hidden="true"></span> <span
+													class="help-block with-errors"></span>
+											</div>
+										</div>
+
+									</div>
+									<div class="col-sm-6">
+
+										<div class="form-group has-feedback">
+											<label for="element-TiO2"
+												class="control-label col-sm-2 col-sm-offset-1">TiO<sub>2</sub></label>
+											<div class="col-sm-8">
+												<div class="input-group">
+													<span class="input-group-addon">%</span> <input
+														id="element-TiO2" name="element-TiO2" class="form-control"
+														placeholder="" type="number" min="0" max="100"
+														data-error="Input value must be between 0 and 100 inclusively">
+												</div>
+												<span class="glyphicon form-control-feedback"
+													aria-hidden="true"></span> <span
+													class="help-block with-errors"></span>
+											</div>
+										</div>
+
+									</div>
+								</div>
+
+
+								<!-- ********************************************** -->
+								<!-- ***************** Second row ***************** -->
+								<!-- ********************************************** -->
+								<div class="row">
+									<div class="col-sm-6">
+
+										<div class="form-group has-feedback">
+											<label for="element-Al2O3"
+												class="control-label col-sm-2 col-sm-offset-1">Al<sub>2</sub>O<sub>3</sub></label>
+											<div class="col-sm-8">
+												<div class="input-group">
+													<span class="input-group-addon">%</span> <input
+														id="element-Al2O3" name="element-Al2O3"
+														class="form-control" placeholder="" type="number" min="0"
+														max="100"
+														data-error="Input value must be between 0 and 100 inclusively">
+												</div>
+												<span class="glyphicon form-control-feedback"
+													aria-hidden="true"></span> <span
+													class="help-block with-errors"></span>
+											</div>
+										</div>
+
+									</div>
+									<div class="col-sm-6">
+
+										<div class="form-group has-feedback">
+											<label for="element-FeO"
+												class="control-label col-sm-2 col-sm-offset-1">FeO</label>
+											<div class="col-sm-8">
+												<div class="input-group">
+													<span class="input-group-addon">%</span> <input
+														id="element-FeO" name="element-FeO" class="form-control"
+														placeholder="" type="number" min="0" max="100"
+														data-error="Input value must be between 0 and 100 inclusively">
+												</div>
+												<span class="glyphicon form-control-feedback"
+													aria-hidden="true"></span> <span
+													class="help-block with-errors"></span>
+											</div>
+										</div>
+
+									</div>
+								</div>
+
+
+								<!-- ********************************************** -->
+								<!-- ***************** Third row ****************** -->
+								<!-- ********************************************** -->
+								<div class="row">
+									<div class="col-sm-6">
+
+										<div class="form-group has-feedback">
+											<label for="element-MnO"
+												class="control-label col-sm-2 col-sm-offset-1">MnO</label>
+											<div class="col-sm-8">
+												<div class="input-group">
+													<span class="input-group-addon">%</span> <input
+														id="element-MnO" name="element-MnO" class="form-control"
+														placeholder="" type="number" min="0" max="100"
+														data-error="Input value must be between 0 and 100 inclusively">
+												</div>
+												<span class="glyphicon form-control-feedback"
+													aria-hidden="true"></span> <span
+													class="help-block with-errors"></span>
+											</div>
+										</div>
+
+									</div>
+									<div class="col-sm-6">
+
+										<div class="form-group has-feedback">
+											<label for="element-MgO"
+												class="control-label col-sm-2 col-sm-offset-1">MgO</label>
+											<div class="col-sm-8">
+												<div class="input-group">
+													<span class="input-group-addon">%</span> <input
+														id="element-MgO" name="element-MgO" class="form-control"
+														placeholder="" type="number" min="0" max="100"
+														data-error="Input value must be between 0 and 100 inclusively">
+												</div>
+												<span class="glyphicon form-control-feedback"
+													aria-hidden="true"></span> <span
+													class="help-block with-errors"></span>
+											</div>
+										</div>
+
+									</div>
+								</div>
+
+
+
+								<!-- ********************************************** -->
+								<!-- **************** Fourth row ****************** -->
+								<!-- ********************************************** -->
+								<div class="row">
+									<div class="col-sm-6">
+
+										<div class="form-group has-feedback">
+											<label for="element-CaO"
+												class="control-label col-sm-2 col-sm-offset-1">CaO</label>
+											<div class="col-sm-8">
+												<div class="input-group">
+													<span class="input-group-addon">%</span> <input
+														id="element-CaO" name="element-CaO" class="form-control"
+														placeholder="" type="number" min="0" max="100"
+														data-error="Input value must be between 0 and 100 inclusively">
+												</div>
+												<span class="glyphicon form-control-feedback"
+													aria-hidden="true"></span> <span
+													class="help-block with-errors"></span>
+											</div>
+										</div>
+
+									</div>
+									<div class="col-sm-6">
+
+										<div class="form-group has-feedback">
+											<label for="element-Na2O"
+												class="control-label col-sm-2 col-sm-offset-1">Na<sub>2</sub>O
+											</label>
+											<div class="col-sm-8">
+												<div class="input-group">
+													<span class="input-group-addon">%</span> <input
+														id="element-Na2O" name="element-Na2O" class="form-control"
+														placeholder="" type="number" min="0" max="100"
+														data-error="Input value must be between 0 and 100 inclusively">
+												</div>
+												<span class="glyphicon form-control-feedback"
+													aria-hidden="true"></span> <span
+													class="help-block with-errors"></span>
+											</div>
+										</div>
+
+									</div>
+								</div>
+
+
+
+								<!-- ********************************************** -->
+								<!-- ***************** Fifth row ****************** -->
+								<!-- ********************************************** -->
+								<div class="row">
+									<div class="col-sm-6">
+
+										<div class="form-group has-feedback">
+											<label for="element-K2O"
+												class="control-label col-sm-2 col-sm-offset-1">K<sub>2</sub>O
+											</label>
+											<div class="col-sm-8">
+												<div class="input-group">
+													<span class="input-group-addon">%</span> <input
+														id="element-K2O" name="element-K2O" class="form-control"
+														placeholder="" type="number" min="0" max="100"
+														data-error="Input value must be between 0 and 100 inclusively">
+												</div>
+												<span class="glyphicon form-control-feedback"
+													aria-hidden="true"></span> <span
+													class="help-block with-errors"></span>
+											</div>
+										</div>
+
+									</div>
+									<div class="col-sm-6">
+
+										<div class="form-group has-feedback">
+											<label for="element-P2O5"
+												class="control-label col-sm-2 col-sm-offset-1">P<sub>2</sub>O<sub>5</sub></label>
+											<div class="col-sm-8">
+												<div class="input-group">
+													<span class="input-group-addon">%</span> <input
+														id="element-P2O5" name="element-P2O5" class="form-control"
+														placeholder="" type="number" min="0" max="100"
+														data-error="Input value must be between 0 and 100 inclusively">
+												</div>
+												<span class="glyphicon form-control-feedback"
+													aria-hidden="true"></span> <span
+													class="help-block with-errors"></span>
+											</div>
+										</div>
+
+									</div>
+								</div>
+
+
+
+								<!-- ********************************************** -->
+								<!-- ***************** Fifth row ****************** -->
+								<!-- ********************************************** -->
+								<div class="row">
+									<div class="col-sm-6">
+
+										<div class="form-group has-feedback">
+											<label for="element-Fe2O3"
+												class="control-label col-sm-2 col-sm-offset-1">Fe<sub>2</sub>O<sub>3</label>
+											<div class="col-sm-8">
+												<div class="input-group">
+													<span class="input-group-addon">%</span> <input
+														id="element-Fe2O3" name="element-Fe2O3"
+														class="form-control" placeholder="" type="number" min="0"
+														max="100"
+														data-error="Input value must be between 0 and 100 inclusively">
+												</div>
+												<span class="glyphicon form-control-feedback"
+													aria-hidden="true"></span> <span
+													class="help-block with-errors"></span>
+											</div>
+										</div>
+
+									</div>
+									<div class="col-sm-6">
+
+										<div class="form-group has-feedback">
+											<label for="element-Cr2O3"
+												class="control-label col-sm-2 col-sm-offset-1">Cr<sub>2</sub>O<sub>3</sub></label>
+											<div class="col-sm-8">
+												<div class="input-group">
+													<span class="input-group-addon">%</span> <input
+														id="element-Cr2O3" name="element-Cr2O3"
+														class="form-control" placeholder="" type="number" min="0"
+														max="100"
+														data-error="Input value must be between 0 and 100 inclusively">
+												</div>
+												<span class="glyphicon form-control-feedback"
+													aria-hidden="true"></span> <span
+													class="help-block with-errors"></span>
+											</div>
+										</div>
+
+									</div>
+								</div>
+
+							</div>
+							<!-- End modal-body -->
+
+
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default"
+									data-dismiss="modal">Close</button>
+								<button id="search-confirm" type="submit"
+									class="btn btn-primary">Search</button>
+
+							</div>
+
+
+						</fieldset>
 					</form>
+
+
 				</div>
+				<!-- End modal-content -->
 
 			</div>
 		</div>
@@ -452,11 +657,9 @@
 	<script src="./js/antt.js" type="text/javascript"></script>
 	<script>
 		window.jQuery
-				|| document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>');
+				|| document
+						.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>');
 
-		function searchCall() {
-			antt.builtUrl($("#choice").is(':checked'));
-		}
 		function check() {
 			if (document.getElementById('choice').checked) {
 				localStorage.setItem('choice', "true");
@@ -466,12 +669,12 @@
 		}
 
 		// get [enter] key to work for  modal submission hack
-		$(function(){
-		  $('.modal-content').keypress(function(e){
-		    if(e.which == 13) {
-		      antt.builtUrl($("#choice").is(':checked'));
-		    }
-		  })
+		$(function() {
+			$('.modal-content').keypress(function(e) {
+				if (e.which == 13) {
+					antt.builtUrl($("#choice").is(':checked'));
+				}
+			})
 		})
 
 		getStatus = localStorage.getItem('choice');
@@ -480,6 +683,18 @@
 		}
 
 		$(document).ready(function() {
+			
+			$('#search-form').validator().on('submit', function(e) {
+				if (e.isDefaultPrevented()) {
+					// handle the invalid form...
+					alert("There are still invalid fields.");
+				} else {
+					// Go ahead and do the search
+					antt.builtUrl($("#choice").is(':checked'));
+				}
+				return false;
+			});
+			
 			if (decodeURIComponent(window.location.search.substring(1)) == "") {
 				$('#search-modal').modal('show');
 			}
@@ -495,6 +710,8 @@
 	<script src="./lib/angular-busy.js"></script>
 
 	<script src="./lib/xml2json.js"></script>
+
+	<script src="./lib/validator.min.js"></script>
 
 	<script src="./js/results.module.js"></script>
 
