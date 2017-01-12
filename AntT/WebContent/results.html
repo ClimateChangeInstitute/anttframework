@@ -668,15 +668,6 @@
 			}
 		}
 
-		// get [enter] key to work for  modal submission hack
-		$(function() {
-			$('.modal-content').keypress(function(e) {
-				if (e.which == 13) {
-					antt.builtUrl($("#choice").is(':checked'));
-				}
-			})
-		})
-
 		getStatus = localStorage.getItem('choice');
 		if (getStatus == "true") {
 			document.getElementById("choice").checked = true;
