@@ -47,6 +47,11 @@ app.directive('tephraDownload', function() {
 				
 				var finalStr = '';
 				
+				// Example headers for download file
+				// "sample id", "long sample id", "SiO2", "SiO2 std", "SiO2 me",
+				// Oxide always by percent followed by mm_element "original total"
+				// The rest of the fields are by ppb
+				
 				finalStr += '"sample id","long sample id","similarity coefficient",'
 						+ antt.MMElementData.getHeader();
 				finalStr += '\n';
@@ -65,12 +70,14 @@ app.directive('tephraDownload', function() {
 				
 				var blob = new Blob([finalStr], {type: "text/plain;charset=utf-8"});
 				 
-				var defaultDownload = "samples_data.csv";
-				if (selectedIds.length < 5) {
-					defaultDownload = (JSON.stringify(selectedIds.join('_')).slice(1,-1) + ".csv");
-				}
+				var now = new Date();
 				
-				saveAs(blob, defaultDownload);
+				var dateString = now.getFullYear() + '-' + (now.getMonth()+1)  + '-' + now.getDate() + '_' + now.getHours() + '-' + now.getMinutes();
+				
+				var downloadFileName = "anttSearch" + dateString + ".csv";
+				
+				// saveAs(data, fileName, prependBOM?) 
+				saveAs(blob, downloadFileName, true);
 
 			}
 
