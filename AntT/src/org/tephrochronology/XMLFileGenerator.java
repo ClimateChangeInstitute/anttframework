@@ -19,12 +19,9 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.PropertyException;
-import javax.xml.bind.SchemaOutputResolver;
-import javax.xml.namespace.QName;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 
@@ -58,7 +55,7 @@ public class XMLFileGenerator {
 
 	public <T extends Sample> void writeSampleXMLFiles(Path outputLocation,
 			Class<T> clazz)
-			throws PropertyException, JAXBException, FileNotFoundException {
+			throws PropertyException, JAXBException, IOException, SAXException {
 
 		System.out.printf("Generating %s sample files.", clazz.getSimpleName());
 
@@ -73,7 +70,10 @@ public class XMLFileGenerator {
 			System.out.print('.');
 			PrintStream out = new PrintStream(new FileOutputStream(
 					outputLocation + "/" + s.getSampleID() + ".xml"));
-			writeObjectToXML(s, clazz, out);
+
+			writeXMLAndXSDFiles(outputLocation, s.getSampleID() + ".xml",
+					clazz.getSimpleName() + ".xsd", s, clazz);
+
 			out.flush();
 			out.close();
 		}
@@ -85,8 +85,7 @@ public class XMLFileGenerator {
 			throws PropertyException, JAXBException, SAXException, IOException {
 
 		final String ALLSAMPLES_FILENAME = "allSamples.xml";
-		final String ALLSAMPLES_SCHEMA = "allSamples.xsd";
-		
+
 		System.out.printf("Generating %s file.\n", ALLSAMPLES_FILENAME);
 
 		//@formatter:off
@@ -99,34 +98,61 @@ public class XMLFileGenerator {
 				, SampleInfo.class);
 		//@formatter:on
 
-		List<SampleInfo> samples = q.getResultList();// new ArrayList<>();
+		List<SampleInfo> samples = q.getResultList();
 
-		PrintStream out = new PrintStream(new FileOutputStream(
-				outputLocation + File.separator + ALLSAMPLES_FILENAME));
-
-		JAXBContext jc = JAXBContext.newInstance(Samples.class);
-			
-//		File schemaFile = new File(outputLocation.toFile(), ALLSAMPLES_SCHEMA);
-//		jc.generateSchema(new TephraSchemaOutputResolver(schemaFile));
-			
-		
-		Marshaller marshaller = jc.createMarshaller();
-
-//		SchemaFactory factory = SchemaFactory.newInstance("http://www.w3.org/2001/XMLSchema");
-//		Schema schema = factory.newSchema(schemaFile);
-//		marshaller.setSchema(schema);
-//		
-//		marshaller.setProperty(Marshaller.JAXB_SCHEMA_LOCATION, "./" + schemaFile.getName());
-		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-		marshaller.marshal(new Samples(samples), out);
-
-		out.flush();
-		out.close();
+		writeXMLAndXSDFiles(outputLocation, ALLSAMPLES_FILENAME,
+				ALLSAMPLES_FILENAME.replace(".xml", ".xsd"),
+				new Samples(samples), Samples.class);
 
 	}
 
+	/**
+	 * @param outputLocation
+	 * @param xmlFileName
+	 * @param xsdFileName
+	 * @param obj
+	 * @param types
+	 * @throws FileNotFoundException
+	 * @throws JAXBException
+	 * @throws IOException
+	 * @throws SAXException
+	 * @throws PropertyException
+	 */
+	private void writeXMLAndXSDFiles(Path outputLocation,
+			final String xmlFileName, final String xsdFileName, Object obj,
+			Class<?>... types) throws FileNotFoundException, JAXBException,
+			IOException, SAXException, PropertyException {
+		PrintStream out = new PrintStream(new FileOutputStream(
+				outputLocation + File.separator + xmlFileName));
+
+		JAXBContext jc = JAXBContext.newInstance(types);
+
+		File schemaFile = new File(outputLocation.toFile(), xsdFileName);
+
+		// If the file doesn't exist, create it
+		if (!schemaFile.exists()) {
+			schemaFile = new File(outputLocation.toFile(), xsdFileName);
+			jc.generateSchema(new TephraSchemaOutputResolver(schemaFile));
+		}
+
+		Marshaller marshaller = jc.createMarshaller();
+
+		SchemaFactory factory = SchemaFactory
+				.newInstance("http://www.w3.org/2001/XMLSchema");
+		Schema schema = factory.newSchema(schemaFile);
+		marshaller.setSchema(schema);
+
+		marshaller.setProperty(Marshaller.JAXB_NO_NAMESPACE_SCHEMA_LOCATION,
+				"./" + schemaFile.getName());
+		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+		marshaller.marshal(obj, out);
+
+		out.flush();
+		out.close();
+	}
+
 	public void writeAllMMElementXMLFile(Path outputLocation)
-			throws FileNotFoundException, JAXBException {
+			throws JAXBException, IOException, SAXException {
 
 		final String ALLMMELEMENTS_FILENAME = "allMMElements.xml";
 
@@ -146,17 +172,21 @@ public class XMLFileGenerator {
 		queryResult.stream()
 				.forEachOrdered(e -> elementInfos.add(new MMElementInfo(e)));
 
-		PrintStream out = new PrintStream(new FileOutputStream(
-				outputLocation + File.separator + ALLMMELEMENTS_FILENAME));
+		writeXMLAndXSDFiles(outputLocation, ALLMMELEMENTS_FILENAME,
+				ALLMMELEMENTS_FILENAME.replace(".xml", ".xsd"),
+				new MMElements(elementInfos), MMElements.class);
 
-		JAXBContext jc = JAXBContext.newInstance(MMElements.class);
-
-		Marshaller marshaller = jc.createMarshaller();
-		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-		marshaller.marshal(new MMElements(elementInfos), out);
-		
-		out.flush();
-		out.close();
+		// PrintStream out = new PrintStream(new FileOutputStream(
+		// outputLocation + File.separator + ALLMMELEMENTS_FILENAME));
+		//
+		// JAXBContext jc = JAXBContext.newInstance(MMElements.class);
+		//
+		// Marshaller marshaller = jc.createMarshaller();
+		// marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+		// marshaller.marshal(new MMElements(elementInfos), out);
+		//
+		// out.flush();
+		// out.close();
 
 	}
 
@@ -167,17 +197,17 @@ public class XMLFileGenerator {
 	 * @throws JAXBException
 	 * @throws PropertyException
 	 */
-	private static <T> void writeObjectToXML(T o, Class<T> clazz,
-			PrintStream out) throws JAXBException, PropertyException {
-
-		JAXBContext jc = JAXBContext.newInstance(clazz);
-
-		JAXBElement<T> je = new JAXBElement<>(new QName(clazz.getSimpleName()),
-				clazz, o);
-
-		Marshaller marshaller = jc.createMarshaller();
-		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-		marshaller.marshal(je, out);
-	}
+	// private static <T> void writeObjectToXML(T o, Class<T> clazz,
+	// PrintStream out) throws JAXBException, PropertyException {
+	//
+	// JAXBContext jc = JAXBContext.newInstance(clazz);
+	//
+	// JAXBElement<T> je = new JAXBElement<>(new QName(clazz.getSimpleName()),
+	// clazz, o);
+	//
+	// Marshaller marshaller = jc.createMarshaller();
+	// marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+	// marshaller.marshal(je, out);
+	// }
 
 }

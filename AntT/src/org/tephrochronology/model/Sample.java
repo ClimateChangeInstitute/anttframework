@@ -19,6 +19,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
 
 /**
@@ -33,6 +34,7 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 @DiscriminatorColumn(name = "sample_type", discriminatorType = CHAR)
 @XmlSeeAlso({ BIASample.class, IceCoreSample.class, LakeSample.class,
 	MarineSample.class, OutcropSample.class })
+@XmlRootElement
 public abstract class Sample implements Serializable {
 
 	/**
