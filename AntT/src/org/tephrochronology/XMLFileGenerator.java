@@ -8,6 +8,7 @@ import static org.tephrochronology.DBProperties.setupProperties;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -22,7 +23,10 @@ import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.PropertyException;
+import javax.xml.bind.SchemaOutputResolver;
 import javax.xml.namespace.QName;
+import javax.xml.validation.Schema;
+import javax.xml.validation.SchemaFactory;
 
 import org.tephrochronology.model.MMElement;
 import org.tephrochronology.model.MMElementInfo;
@@ -30,6 +34,8 @@ import org.tephrochronology.model.MMElements;
 import org.tephrochronology.model.Sample;
 import org.tephrochronology.model.SampleInfo;
 import org.tephrochronology.model.Samples;
+import org.tephrochronology.model.TephraSchemaOutputResolver;
+import org.xml.sax.SAXException;
 
 /**
  * @author willie
@@ -76,10 +82,11 @@ public class XMLFileGenerator {
 	}
 
 	public void writeAllSamplesXMLFile(Path outputLocation)
-			throws FileNotFoundException, PropertyException, JAXBException {
+			throws PropertyException, JAXBException, SAXException, IOException {
 
 		final String ALLSAMPLES_FILENAME = "allSamples.xml";
-
+		final String ALLSAMPLES_SCHEMA = "allSamples.xsd";
+		
 		System.out.printf("Generating %s file.\n", ALLSAMPLES_FILENAME);
 
 		//@formatter:off
@@ -98,8 +105,18 @@ public class XMLFileGenerator {
 				outputLocation + File.separator + ALLSAMPLES_FILENAME));
 
 		JAXBContext jc = JAXBContext.newInstance(Samples.class);
-
+			
+//		File schemaFile = new File(outputLocation.toFile(), ALLSAMPLES_SCHEMA);
+//		jc.generateSchema(new TephraSchemaOutputResolver(schemaFile));
+			
+		
 		Marshaller marshaller = jc.createMarshaller();
+
+//		SchemaFactory factory = SchemaFactory.newInstance("http://www.w3.org/2001/XMLSchema");
+//		Schema schema = factory.newSchema(schemaFile);
+//		marshaller.setSchema(schema);
+//		
+//		marshaller.setProperty(Marshaller.JAXB_SCHEMA_LOCATION, "./" + schemaFile.getName());
 		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 		marshaller.marshal(new Samples(samples), out);
 
@@ -137,7 +154,7 @@ public class XMLFileGenerator {
 		Marshaller marshaller = jc.createMarshaller();
 		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 		marshaller.marshal(new MMElements(elementInfos), out);
-
+		
 		out.flush();
 		out.close();
 

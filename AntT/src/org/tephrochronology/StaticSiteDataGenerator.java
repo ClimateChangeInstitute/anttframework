@@ -14,6 +14,7 @@ import org.tephrochronology.model.IceCoreSample;
 import org.tephrochronology.model.LakeSample;
 import org.tephrochronology.model.MarineSample;
 import org.tephrochronology.model.OutcropSample;
+import org.xml.sax.SAXException;
 
 /**
  * Generate XML data from the database, and place the created files in the
@@ -25,7 +26,7 @@ import org.tephrochronology.model.OutcropSample;
 public class StaticSiteDataGenerator {
 
 	public static void main(String[] args)
-			throws IOException, PropertyException, JAXBException {
+			throws IOException, PropertyException, JAXBException, SAXException {
 
 		if (args.length != 2) {
 			args = DBProperties.findUserPassword(DEFAULT_PASSWORD_FILE);
