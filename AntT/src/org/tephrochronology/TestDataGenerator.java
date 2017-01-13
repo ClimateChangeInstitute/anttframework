@@ -82,7 +82,7 @@ public class TestDataGenerator {
 
 	List<GrainSize> grainSizes;
 
-	List<Chemistry> elements;
+	List<Chemistry> chemistries;
 
 	List<MMElement> mmElements;
 
@@ -124,7 +124,7 @@ public class TestDataGenerator {
 					Volcano.class).getResultList();
 
 			// @formatter:off
-			elements = em.createQuery(
+			chemistries = em.createQuery(
 					  "SELECT e "
 					+ "FROM Chemistry e "
 					+ "ORDER BY e.molecularMass DESC, e.name",
@@ -179,8 +179,8 @@ public class TestDataGenerator {
 					"Comment " + i, methodTypes.get(i % methodTypes.size()),
 					instruments.get(i % instruments.size()), LocalDate.now(),
 					"Mark", 5, 3f, 2f, "instrument settings for " + i, data);
-			range(0, i % elements.size()).forEach(j -> {
-				Chemistry elem = elements.get(j % elements.size());
+			range(i % chemistries.size(), (i+10) % chemistries.size()).forEach(j -> {
+				Chemistry elem = chemistries.get(j % chemistries.size());
 				data.add(new MMElementData(el, elem, j * 10f, j * 2f, j * 1f,
 						new Unit("ppb")));
 			});
