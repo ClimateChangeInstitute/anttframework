@@ -107,21 +107,30 @@ public class XMLFileGenerator {
 	}
 
 	/**
+	 * Write an XML file and XSD (if it does not exist) to the specified
+	 * locations.
+	 * 
 	 * @param outputLocation
+	 *            Folder location (Not null)
 	 * @param xmlFileName
+	 *            The name of the XML file (Not null)
 	 * @param xsdFileName
+	 *            The name of the XSD file (Not null)
 	 * @param obj
+	 *            The object to write as XML (Not null)
 	 * @param types
-	 * @throws FileNotFoundException
+	 *            The types of objects involved for XML generation (Requires at
+	 *            least 1)
 	 * @throws JAXBException
+	 *             If malformed XML
 	 * @throws IOException
+	 *             If problems writing to file
 	 * @throws SAXException
-	 * @throws PropertyException
+	 *             If malformed XML
 	 */
 	private void writeXMLAndXSDFiles(Path outputLocation,
 			final String xmlFileName, final String xsdFileName, Object obj,
-			Class<?>... types) throws FileNotFoundException, JAXBException,
-			IOException, SAXException, PropertyException {
+			Class<?>... types) throws JAXBException, IOException, SAXException {
 		PrintStream out = new PrintStream(new FileOutputStream(
 				outputLocation + File.separator + xmlFileName));
 
@@ -176,38 +185,6 @@ public class XMLFileGenerator {
 				ALLMMELEMENTS_FILENAME.replace(".xml", ".xsd"),
 				new MMElements(elementInfos), MMElements.class);
 
-		// PrintStream out = new PrintStream(new FileOutputStream(
-		// outputLocation + File.separator + ALLMMELEMENTS_FILENAME));
-		//
-		// JAXBContext jc = JAXBContext.newInstance(MMElements.class);
-		//
-		// Marshaller marshaller = jc.createMarshaller();
-		// marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-		// marshaller.marshal(new MMElements(elementInfos), out);
-		//
-		// out.flush();
-		// out.close();
-
 	}
-
-	/**
-	 * @param o
-	 * @param clazz
-	 * @param out
-	 * @throws JAXBException
-	 * @throws PropertyException
-	 */
-	// private static <T> void writeObjectToXML(T o, Class<T> clazz,
-	// PrintStream out) throws JAXBException, PropertyException {
-	//
-	// JAXBContext jc = JAXBContext.newInstance(clazz);
-	//
-	// JAXBElement<T> je = new JAXBElement<>(new QName(clazz.getSimpleName()),
-	// clazz, o);
-	//
-	// Marshaller marshaller = jc.createMarshaller();
-	// marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-	// marshaller.marshal(je, out);
-	// }
 
 }
