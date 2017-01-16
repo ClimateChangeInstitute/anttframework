@@ -44,6 +44,21 @@ in the `target` directory.
 To deploy the site contained by the war file to Tomcat, copy the war file into the Tomcat
 `webapps` directory.
 
+However, this assumes that the database has already been generated and populated with data.  If this has not ocurred, follow the following directions.
+
+### Deleting the database
+
+```bash
+cd anttframewrok/AntT/setup
+./deleteDB.sh
+```
+
+### Creating the database
+
+```bash
+cd anttframewrok/AntT/setup
+./createDB.sh
+```
 ## Other
 
 1. Will be linted with bootlint on every release (see https://github.com/twbs/bootlint)
