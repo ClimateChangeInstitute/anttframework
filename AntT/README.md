@@ -44,21 +44,30 @@ in the `target` directory.
 To deploy the site contained by the war file to Tomcat, copy the war file into the Tomcat
 `webapps` directory.
 
-However, this assumes that the database has already been generated and populated with data.  If this has not ocurred, follow the following directions.
+However, this assumes that the database has already been generated and populated with data.  If this has not ocurred, follow 
+the following directions.
+
+**NOTE** The following tasks require that the **USER** and **PASS** are set in the admin.py file.
+
 
 ### Deleting the database
 
 ```bash
-cd anttframewrok/AntT/setup
-./deleteDB.sh
+cd anttframewrok/AntT/setup && ./deleteDB.sh
 ```
 
 ### Creating the database
 
 ```bash
-cd anttframewrok/AntT/setup
-./createDB.sh
+cd anttframewrok/AntT/setup && ./createDB.sh
 ```
+
+### Populating the database with some **test** data
+
+```bash
+cd anttframewrok/AntT/setup && ./generateTestData.sh
+```
+
 ## Other
 
 1. Will be linted with bootlint on every release (see https://github.com/twbs/bootlint)
