@@ -68,6 +68,22 @@ cd anttframewrok/AntT/setup && ./createDB.sh
 cd anttframewrok/AntT/setup && ./generateTestData.sh
 ```
 
+### Importing and exporting data to the database
+
+You can generate database table CSV templates from an empty database by typing the following command.
+
+```bash
+cd anttframewrok/AntT/setup && ./exportDB.sh
+```
+
+The same command can be used to export the database to the same CSV files.  If these files exist, the data can be imported using the following command.
+
+```bash
+cd anttframewrok/AntT/setup && ./importDB.sh
+```
+
+Alternatively, the Postgres database can be backedup using standard `pg_dump` options.
+
 ## Other
 
 1. Will be linted with bootlint on every release (see https://github.com/twbs/bootlint)
