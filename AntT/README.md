@@ -53,19 +53,19 @@ the following directions.
 ### Deleting the database
 
 ```bash
-cd anttframewrok/AntT/setup && ./deleteDB.sh
+cd anttframework/AntT/setup && ./deleteDB.sh
 ```
 
 ### Creating the database
 
 ```bash
-cd anttframewrok/AntT/setup && ./createDB.sh
+cd anttframework/AntT/setup && ./createDB.sh
 ```
 
 ### Populating the database with some **test** data
 
 ```bash
-cd anttframewrok/AntT/setup && ./generateTestData.sh
+cd anttframework/AntT/setup && ./generateTestData.sh
 ```
 
 ### Importing and exporting data to the database
@@ -73,13 +73,13 @@ cd anttframewrok/AntT/setup && ./generateTestData.sh
 You can generate database table CSV templates from an empty database by typing the following command.
 
 ```bash
-cd anttframewrok/AntT/setup && ./exportDB.sh
+cd anttframework/AntT/setup && ./exportDB.sh
 ```
 
-The same command can be used to export the database to the same CSV files.  If these files exist, the data can be imported using the following command.
+This generates CSV files in the `AntT/antt-data` directory. The same command can be used to export the database to the same CSV files.  If the files exist in the `AntT/antt-data` directory, the data can be imported using the following command.
 
 ```bash
-cd anttframewrok/AntT/setup && ./importDB.sh
+cd anttframework/AntT/setup && ./importDB.sh
 ```
 
 Alternatively, the Postgres database can be backedup using standard `pg_dump` options.
