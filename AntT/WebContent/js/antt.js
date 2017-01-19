@@ -282,6 +282,30 @@
 		});
 	};
 	scope.loadMMElements = loadMMElements;
+
+	/**
+	 * @param callback
+	 *            {function} Called after the AJAX get request completes
+	 * @returns {string[]}
+	 */
+	var loadChemistriesOrder = function(fileURL, callback) {
+		$.ajax({
+			type : "GET",
+			url : fileURL,
+			dataType : "text",
+			success : function(strArray) {
+				console.log(strArray);
+				if (callback) {
+					// Remove Comment lines starting with #
+					// and remove empty lines
+					callback(strArray.split('\n').filter(function(str){
+						return !str.startsWith("#") && str.length > 0;
+					}));
+				}
+			}
+		});
+	};
+	scope.loadChemistriesOrder = loadChemistriesOrder;
 	
 	/**
 	 * Filter MMElements based on the given array of keys. Make sure the

@@ -23,7 +23,7 @@ app.directive('tephraDownload', function() {
 		link : function(scope, element, attrs) {
 
 			function download(evt) {
-				// Find out which sample ids are selected for download
+				// Find out which sample IDs are selected for download
 				var selectedIds = [];
 				var simCoefficients = [];
 				$.each($(this).parents(".panel").find(
@@ -45,6 +45,10 @@ app.directive('tephraDownload', function() {
 						selectedMMElements.push(e);
 				});
 				
+				antt.loadChemistriesOrder("chemistries_order.txt", function(order){
+					console.log(order);
+				});
+				
 				var finalStr = '';
 				
 				// Example headers for download file
@@ -55,7 +59,7 @@ app.directive('tephraDownload', function() {
 				finalStr += '"sample id","long sample id","similarity coefficient",'
 						+ antt.MMElementData.getHeader();
 				finalStr += '\n';
-
+				
 				$.each(selectedMMElements, function(i, mme) {
 					
 					// Write out the row data for this MMElement
