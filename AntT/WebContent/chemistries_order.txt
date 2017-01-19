@@ -3,7 +3,8 @@
 # in the order specified below.
 #
 # 1) Put a single symbol per line.
-# 2) Lines beginning with a hash symbol will be ignored and treated as comments.
+# 2) Lines beginning with a hash symbol or are left blank will be ignored and 
+#    treated as comments.
 # 3) All symbols will have an additional column for standard deviation (std)
 #    and measured error (me) automatically created during export if they exist.
 # 4) If the data being exported does not contain data for the symbol listed
