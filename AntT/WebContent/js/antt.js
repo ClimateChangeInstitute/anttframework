@@ -23,6 +23,13 @@
 	scope.MMElementData = MMElementData;
 	
 	/**
+	 * @return {string} A string formatted as 'SYMBOL (UNIT)' (Not null)
+	 */
+	MMElementData.prototype.symbolHeader = function(){
+		return this.symbol + ' (' + this.unit + ')';
+	}
+	
+	/**
 	 * Static method is the same for all instances.
 	 * 
 	 * @return CSV header
@@ -306,6 +313,47 @@
 	};
 	scope.loadChemistriesOrder = loadChemistriesOrder;
 	
+	/**
+	 * Returns an array of headers to write to file. The headers will be in the
+	 * specified order, with non percentage ordered secondarily, alphabetically.
+	 * 
+	 * @param mmElements
+	 *            {MMElement[]} Elements to create headers for (Not null)
+	 * @param order
+	 *            {string[]} Order that headers should appear (Not null)
+	 * @returns {string[]} The headers to create (Not null)
+	 */
+	function createSaveHeaders(mmElements, order) {
+		
+		var allHeaders = [];
+		$.each(mmElements, function(i, mme){
+			$.each(mme.elementData, function(j, d){
+				if (allHeaders.indexOf(d.symbolHeader()) < 0) {
+					allHeaders.push(d.symbolHeader());
+				}
+			});
+		});
+		
+		// We now have all of the elements that exist in the given element set.
+		// Order them according to the order
+		
+		// TODO finish
+		
+	};
+	
+	/**
+	 * @param downloadFileName
+	 *            {string} The file name (Not null)
+	 * @param selectedMMElements
+	 *            {MMElement[]} Chemistries to be saved (Not null)
+	 * @param simCoefficients
+	 *            {string[]} Similarity coefficients for the chemistries
+	 *            simCoefficiets[i] is the similarity coefficient for
+	 *            selectedMMElements[i] (Not null)
+	 * @param order
+	 *            {string[]} The order that the chemistries should be displayed
+	 *            (Not null)
+	 */
 	var saveSelectedData = function(downloadFileName, selectedMMElements, simCoefficients, order) {
 		var finalStr = '';
 		
@@ -313,6 +361,8 @@
 		// "sample id", "long sample id", "SiO2", "SiO2 std", "SiO2 me",
 		// Oxide always by percent followed by mm_element "original total"
 		// The rest of the fields are by ppb
+		
+		createSaveHeaders(selectedMMElements, order); // TODO finish
 		
 		finalStr += '"sample id","long sample id","similarity coefficient",'
 				+ antt.MMElementData.getHeader();
