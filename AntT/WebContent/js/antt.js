@@ -314,6 +314,17 @@
 	scope.loadChemistriesOrder = loadChemistriesOrder;
 	
 	/**
+	 * @param {string}
+	 *            Format of 'X (Y)'
+	 * @return {string[]} string[0] == the entire string, string[1] == the
+	 *         symbol, and string[2] == the unit
+	 */
+	function splitSymbolUnit(str) {
+		return str.match("(.+)\\s\\((.+)\\)")
+	}
+	
+	
+	/**
 	 * Returns an array of headers to write to file. The headers will be in the
 	 * specified order, with non percentage ordered secondarily, alphabetically.
 	 * 
@@ -336,9 +347,50 @@
 		
 		// We now have all of the elements that exist in the given element set.
 		// Order them according to the order
+		allHeaders.sort(function compare(a, b) {
+
+			var aParts = splitSymbolUnit(a);
+			var bParts = splitSymbolUnit(b);
+			
+			var aSymbol = aParts[1];
+			// Replace % with zzz so it comes after other units
+			var aUnit = (aParts[2] == '%' ? 'zzz' : aParts[2]);
+			var bSymbol = bParts[1];
+			var bUnit = (bParts[2] == '%' ? 'zzz' : bParts[2]);
+			
+			var aIndex = order.indexOf(aSymbol);
+			var bIndex = order.indexOf(bSymbol);
+			
+			if (aIndex < bIndex) {
+				return -1;
+			} else if (aIndex > bIndex) {
+				return 1;
+			} else { // They're equal compare the unit
+				return aUnit.localeCompare(bUnit);
+			}
+		});
 		
-		// TODO finish
+		return allHeaders;
+	};
+	
+	/**
+	 * @param strArr
+	 *            {string[]} String array to have 'std' and 'me' appended (Not
+	 *            null)
+	 * @returns {string} Comma separated array (Not null)
+	 */
+	function createRemainingHeaders(strArr) {
 		
+		var result = '';
+		
+		for(var i=0; i < strArr.length; i++) {
+			var cur = strArr[i];
+			result += ',"' + cur + '",';
+			result += '"' + cur + ' std",';
+			result += '"' + cur + ' me"';
+		}
+		
+		return result;
 	};
 	
 	/**
@@ -358,26 +410,30 @@
 		var finalStr = '';
 		
 		// Example headers for download file
-		// "sample id", "long sample id", "SiO2", "SiO2 std", "SiO2 me",
-		// Oxide always by percent followed by mm_element "original total"
-		// The rest of the fields are by ppb
+		// "sample id", "long sample id",  "original total", "SiO2", "SiO2 std", "SiO2 me", etc.
 		
-		createSaveHeaders(selectedMMElements, order); // TODO finish
+		var headersOrder = createSaveHeaders(selectedMMElements, order);
 		
-		finalStr += '"sample id","long sample id","similarity coefficient",'
-				+ antt.MMElementData.getHeader();
+		finalStr += '"sample id","long sample id","similarity coefficient","original total"'
+				+ createRemainingHeaders(headersOrder);
 		finalStr += '\n';
 		
 		$.each(selectedMMElements, function(i, mme) {
-			
-			// Write out the row data for this MMElement
-			$.each(mme.elementData, function(j, e) {
-				finalStr += (JSON.stringify(mme.sampleID) + ','
-						+ JSON.stringify(mme.longsampleID) + ','
-						+ simCoefficients[i] + ','
-						+ e.row());
-				finalStr += '\n';
+			finalStr += (JSON.stringify(mme.sampleID) + ','
+					+ JSON.stringify(mme.longsampleID) + ','
+					+ simCoefficients[i] + ',' + mme.originalTotal);
+			$.each(headersOrder, function(k, h) {
+				var hSplit = splitSymbolUnit(h);
+				var d = mme.elementData.find(function(e) {
+					return e.symbol == hSplit[1] && e.unit == hSplit[2];
+				});
+				if (d) {
+					finalStr += ','+d.value + ','+d.std+','+d.me;
+				} else {
+					finalStr += ",,,";
+				}
 			});
+			finalStr += '\n';
 		});
 		
 		var blob = new Blob([finalStr], {type: "text/plain;charset=utf-8"});
