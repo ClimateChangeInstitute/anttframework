@@ -410,7 +410,8 @@
 		var finalStr = '';
 		
 		// Example headers for download file
-		// "sample id", "long sample id",  "original total", "SiO2", "SiO2 std", "SiO2 me", etc.
+		// "sample id", "long sample id", "original total", "SiO2", "SiO2 std",
+		// "SiO2 me", etc.
 		
 		var headersOrder = createSaveHeaders(selectedMMElements, order);
 		
@@ -601,25 +602,16 @@
 	scope.valuesArray = valuesArray;
 
 	/**
-	 * Builds url based on search submission
+	 * Builds URL based on search submission
 	 * 
-	 * @param
-	 * @return none but do a redirect
+	 * @param {boolean}
+	 *            Preserve the previous URL? (Not null)
+	 * @return The string after the '?' or an empty string (Not null)
 	 * 
 	 */
-	 var builtUrl = function builtUrl(choice) {
-	 	var fullUrl = "", existingUrl = decodeURIComponent(window.location.search.substring(1));
-
-	 	if (choice == false) {
-	 		// always start with fresh url
-	 		existingUrl = "";
-	 	}
-	 	else {
-	 		// start with next search
-	 		existingUrl += "&";
-	 	}
-
-	 	fullUrl += existingUrl;
+	 var builtUrl = function builtUrl(preserveURL) {
+	 	var fullUrl = "";
+	 	var existingUrl = decodeURIComponent(window.location.search.substring(1));
 
 	 	var elements = [];
 	 	var values = {};
@@ -646,7 +638,14 @@
 	 		fullUrl = fullUrl.slice(0, -1);
 	 	}
 
-	 	window.location = 'results.html?' + fullUrl;
+	 	if (preserveURL && existingUrl.length > 0) {
+	 		existingUrl += "&";
+	 	}
+	 	if (preserveURL && fullUrl.length > 0) {
+	 		fullUrl = existingUrl += fullUrl; // start with next search
+	 	} 
+	 	
+	 	return fullUrl;
 	}
 	scope.builtUrl = builtUrl;
 

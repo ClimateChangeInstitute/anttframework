@@ -681,7 +681,13 @@
 					alert("There are still invalid fields.");
 				} else {
 					// Go ahead and do the search
-					antt.builtUrl($("#choice").is(':checked'));
+					var newURL = antt.builtUrl($("#choice").is(':checked'));
+					
+					if (newURL.length > 0) {
+				 		window.location = 'results.html?' + newURL;
+				 	} else {
+				 		alert("No element data was entered.");
+				 	}
 				}
 				return false;
 			});
