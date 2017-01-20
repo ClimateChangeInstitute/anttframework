@@ -46,42 +46,17 @@ app.directive('tephraDownload', function() {
 				});
 				
 				antt.loadChemistriesOrder("chemistries_order.txt", function(order){
-					console.log(order);
-				});
-				
-				var finalStr = '';
-				
-				// Example headers for download file
-				// "sample id", "long sample id", "SiO2", "SiO2 std", "SiO2 me",
-				// Oxide always by percent followed by mm_element "original total"
-				// The rest of the fields are by ppb
-				
-				finalStr += '"sample id","long sample id","similarity coefficient",'
-						+ antt.MMElementData.getHeader();
-				finalStr += '\n';
-				
-				$.each(selectedMMElements, function(i, mme) {
+					 
+					var now = new Date();
 					
-					// Write out the row data for this MMElement
-					$.each(mme.elementData, function(j, e) {
-						finalStr += (JSON.stringify(mme.sampleID) + ','
-								+ JSON.stringify(mme.longsampleID) + ','
-								+ simCoefficients[i] + ','
-								+ e.row());
-						finalStr += '\n';
-					});
+					var dateString = now.getFullYear() + '-' + (now.getMonth()+1)  + '-' 
+						+ now.getDate() + '_' + now.getHours() + '-' + now.getMinutes();
+					
+					var downloadFileName = "anttSearch" + dateString + ".csv";
+					antt.saveSelectedData(downloadFileName, selectedMMElements, simCoefficients, order);
 				});
 				
-				var blob = new Blob([finalStr], {type: "text/plain;charset=utf-8"});
-				 
-				var now = new Date();
-				
-				var dateString = now.getFullYear() + '-' + (now.getMonth()+1)  + '-' + now.getDate() + '_' + now.getHours() + '-' + now.getMinutes();
-				
-				var downloadFileName = "anttSearch" + dateString + ".csv";
-				
-				// saveAs(data, fileName, prependBOM?) 
-				saveAs(blob, downloadFileName, true);
+			
 
 			}
 

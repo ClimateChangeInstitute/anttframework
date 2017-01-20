@@ -294,7 +294,6 @@
 			url : fileURL,
 			dataType : "text",
 			success : function(strArray) {
-				console.log(strArray);
 				if (callback) {
 					// Remove Comment lines starting with #
 					// and remove empty lines
@@ -306,6 +305,37 @@
 		});
 	};
 	scope.loadChemistriesOrder = loadChemistriesOrder;
+	
+	var saveSelectedData = function(downloadFileName, selectedMMElements, simCoefficients, order) {
+		var finalStr = '';
+		
+		// Example headers for download file
+		// "sample id", "long sample id", "SiO2", "SiO2 std", "SiO2 me",
+		// Oxide always by percent followed by mm_element "original total"
+		// The rest of the fields are by ppb
+		
+		finalStr += '"sample id","long sample id","similarity coefficient",'
+				+ antt.MMElementData.getHeader();
+		finalStr += '\n';
+		
+		$.each(selectedMMElements, function(i, mme) {
+			
+			// Write out the row data for this MMElement
+			$.each(mme.elementData, function(j, e) {
+				finalStr += (JSON.stringify(mme.sampleID) + ','
+						+ JSON.stringify(mme.longsampleID) + ','
+						+ simCoefficients[i] + ','
+						+ e.row());
+				finalStr += '\n';
+			});
+		});
+		
+		var blob = new Blob([finalStr], {type: "text/plain;charset=utf-8"});
+		
+		// saveAs(data, fileName, prependBOM?)
+		saveAs(blob, downloadFileName, true);
+	};
+	scope.saveSelectedData = saveSelectedData;
 	
 	/**
 	 * Filter MMElements based on the given array of keys. Make sure the
