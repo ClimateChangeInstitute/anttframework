@@ -191,21 +191,19 @@
 												<div class="panel-samples panel panel-default">
 													<div class="q panel-heading remove-color">
 														<div class="row">
-															<div class="col-md-1">
+															<div class="col-xs-1">
 																<span class="collapsed" data-parent="#accordion"
 																	data-toggle="collapse"
 																	data-target="#{{search.count}}-{{o.mme.sampleID}}"></span>
 															</div>
-															<div class="col-md-4 simCoefficient">{{o.simVal |
+															<div class="col-xs-4 simCoefficient">{{o.simVal |
 																number:2}}</div>
-															<div class="col-md-4">
+															<div class="col-xs-7">
+																<input type="checkbox" class="sample-select-box"
+																	id="s-{{search.count}}-{{o.mme.sampleID}}">
 																<a class="special"
 																	href="{{o.mme.sampleType}}.html?id={{o.mme.sampleID}}">
 																	{{o.mme.sampleID}}</a>
-															</div>
-															<div class="col-md-3">
-																<input type="checkbox" class="sample-select-box"
-																	id="s-{{search.count}}-{{o.mme.sampleID}}">
 															</div>
 														</div>
 													</div>
