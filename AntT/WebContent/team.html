@@ -5,7 +5,6 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 <meta name="description" content="">
 <meta name="author" content="">
 <link rel="icon" href="images/favicon.ico">
@@ -76,10 +75,10 @@
 					<div class="col-md-7 col-md-push-5">
 						<h2 class="featurette-heading">{{member.name}}</h2>
 						<p class="lead">
-							<strong>URL: </strong>{{member.url}}
+							<strong>URL: </strong><a ng-href="{{member.url}}">{{member.url}}</a>
 						</p>
 						<p class="lead">
-							<strong>Email: </strong>{{member.email}}
+							<strong>Email: </strong><a ng-href="mailto:{{member.email}}">{{member.email}}</a>
 						</p>
 						<p class="lead">
 							<strong>Other: </strong>{{member.other}}
