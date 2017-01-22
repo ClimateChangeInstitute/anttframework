@@ -680,10 +680,11 @@
 					// handle the invalid form...
 					alert("There are still invalid fields.");
 				} else {
-					// Go ahead and do the search
+					// Form the new URL
 					var newURL = antt.builtUrl($("#choice").is(':checked'));
 					
-					if (newURL.length > 0) {
+					if (newURL.length > 0) { // Is there actually a new search?
+						// Go ahead and do the search
 				 		window.location = 'results.html?' + newURL;
 				 	} else {
 				 		alert("No element data was entered.");
