@@ -179,11 +179,13 @@ public class TestDataGenerator {
 					"Comment " + i, methodTypes.get(i % methodTypes.size()),
 					instruments.get(i % instruments.size()), LocalDate.now(),
 					"Mark", 5, 3f, 2f, "instrument settings for " + i, data);
-			range(i % chemistries.size(), (i+10) % chemistries.size()).forEach(j -> {
-				Chemistry elem = chemistries.get(j % chemistries.size());
-				data.add(new MMElementData(el, elem, j * 10f, j * 2f, j * 1f,
-						new Unit("ppb")));
-			});
+			range(i % chemistries.size(), (i + 10) % chemistries.size())
+					.forEach(j -> {
+						Chemistry elem = chemistries
+								.get(j % chemistries.size());
+						data.add(new MMElementData(el, elem, j * 10f, j * 2f,
+								j * 1f, new Unit("ppb")));
+					});
 
 			double sum = data.stream().mapToDouble(MMElementData::getValue)
 					.sum();
@@ -486,11 +488,27 @@ public class TestDataGenerator {
 		refs = new ArrayList<>();
 
 		range(0, n).forEach(i -> {
+
+			//@formatter:off
+			final String exampleBib = 
+					  "@article{article,\n"
+					+ "  author  = {Peter Adams},\n"
+					+ "  title   = {The title of the work},\n"
+					+ "  journal = {The name of the journal},\n"
+					+ "  year    = 1993,\n"
+					+ "  number  = 2,\n"
+					+ "  pages   = {201-213},\n"
+					+ "  month   = 7,\n"
+					+ "  note    = {An optional note},\n"
+					+ "  volume  = 4\n"
+					+ "}";
+			//@formatter:on
+
 			Ref ref = new Ref(Ref.class.getSimpleName() + i,
 					"Smith, John, Swift, Jonathan. " + (2003 + i)
 							+ ". \"Tephra Layers in the testing Ice Cores " + i
 							+ ".\" Journal of Geophysical Research: 2374" + i,
-					null, null);
+					exampleBib, null, null);
 			refs.add(ref);
 			em.persist(ref);
 		});
