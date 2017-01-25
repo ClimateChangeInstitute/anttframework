@@ -34,9 +34,7 @@ public class TephraSchemaOutputResolver extends SchemaOutputResolver {
 	@Override
 	public Result createOutput(String namespaceUri, String suggestedFileName)
 			throws IOException {
-//		File file = new File(suggestedFileName);
 		StreamResult result = new StreamResult(schemaFile);
-		System.out.println(suggestedFileName + " but using " + schemaFile);
 		result.setSystemId(schemaFile.toURI().toURL().toString());
 		return result;
 	}
