@@ -129,7 +129,8 @@ CREATE TABLE instruments(
 -- TODO This table will likely need additional info columns
 CREATE TABLE refs(
 	doi TEXT PRIMARY KEY,
-	ref TEXT); 
+	ref TEXT,
+	bibtex TEXT); 
 	
 -- Represents all samples
 -- sample_type must be I,B,L,M, or O
