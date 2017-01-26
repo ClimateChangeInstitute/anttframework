@@ -43,3 +43,15 @@ app.controller('iceCoreSample', function($location, $scope, dataSource) {
 		    blueimp.Gallery(links, options);
 		};
 });
+
+app.directive('clipboardText', [ '$document', function($document) {
+	return {
+		restrict: 'A',
+		link : function($scope, $element, $attr) {
+			var clipboard = new Clipboard($element.context);
+		    clipboard.on('success', function(e) {
+		    	alert("The BibTeX has been copied to the clipboard.");
+		    });
+		}
+	};
+} ]);
