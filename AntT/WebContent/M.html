@@ -255,7 +255,9 @@
 						<h4>References:</h4>
 						<div ng-repeat="ref in sample.refs">
 							<p>
-								<b>{{ref.doi}}</b> : {{ref.ref}}
+								<b>{{ref.doi}}</b> : {{ref.ref}} <a href="#"
+									onClick="return false;" data-clipboard-text="{{ref.bibtex}}">BibTeX<span
+									class="glyphicon glyphicon-copy"></span></a>
 							</p>
 						</div>
 					</div>
@@ -299,6 +301,8 @@
 	<script src="./lib/angular.min.js"></script>
 
 	<script src="./lib/xml2json.js"></script>
+
+	<script src="./lib/clipboard.min.js"></script>
 
 	<script src="./lib/blueimp-gallery.min.js"></script>
 
