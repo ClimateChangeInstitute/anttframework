@@ -1,10 +1,10 @@
 var app = angular.module('exampleApp', []);
 
 app.config(function($locationProvider) {
-  $locationProvider.html5Mode({
-	enabled: true,
-	requireBase: false
-  });
+	$locationProvider.html5Mode({
+		enabled : true,
+		requireBase : false
+	});
 });
 
 app.factory('dataSource', [ '$http', function($http) {
@@ -30,16 +30,37 @@ app.controller('biaSample', function($location, $scope, dataSource) {
 	});
 
 	// Hack to make blueimp image gallery work properly with base 64 images
-	$scope.handleClick = function (event) {
-		  event.preventDefault();
-		  event = event || window.event;
-		    var target = event.target || event.srcElement,
-		        link = target.src ? target.parentNode : target,
-		        options = {index: link, event: event},
-		        links = $('#links>a');
-		    links.each(function(i, e){
-		    	$(e).attr('href', $(e).attr('href').replace('unsafe:', ''));
-		    });
-		    blueimp.Gallery(links, options);
-		};
+	$scope.handleClick = function(event) {
+		event.preventDefault();
+		event = event || window.event;
+		var target = event.target || event.srcElement, link = target.src ? target.parentNode
+				: target, options = {
+			index : link,
+			event : event
+		}, links = $('#links>a');
+		links.each(function(i, e) {
+			$(e).attr('href', $(e).attr('href').replace('unsafe:', ''));
+		});
+		blueimp.Gallery(links, options);
+	};
+
 });
+
+app.directive('bibtex', [ '$document', function($document) {
+	return {
+		restrict : 'E',
+		template : function($elem, $attr) {
+			return '<a data-clipboard-text="{{ref.bibtex}}">BibTeX<span class="glyphicon glyphicon-copy"></span></a>';
+		},
+		link : function($scope, $element, $attr) {
+
+			var clipboard = new Clipboard($element.children()[0]);
+			
+		    clipboard.on('success', function(e) {
+		    	alert("The BibTeX has been copied to the clipboard.");
+		    });
+
+			
+		}
+	};
+} ]);

@@ -137,6 +137,9 @@
 							<p>
 								<strong>(Latitude,Longitude): </strong>({{sample.category.site.latitude}}N,{{sample.category.site.longitude}}E)
 
+
+
+
 							
 							<p>
 								<strong>Elevation: </strong>{{sample.category.site.elevation}} M
@@ -152,10 +155,10 @@
 						<div class="row">
 							<div class="col-md-1">
 								<span class="collapsed" data-parent="#accordion"
-									data-toggle="collapse"
-									data-target="#volcan"></span>
+									data-toggle="collapse" data-target="#volcan"></span>
 							</div>
-							<div class="col-md-11">Volcano ({{sample.volcano.name}} - {{sample.volcano.volcanoNumber}})</div>
+							<div class="col-md-11">Volcano ({{sample.volcano.name}} -
+								{{sample.volcano.volcanoNumber}})</div>
 						</div>
 					</div>
 					<div id="volcan" class="panel-body collapse">
@@ -234,7 +237,7 @@
 						<h4>References:</h4>
 						<div ng-repeat="ref in sample.refs">
 							<p>
-								<b>{{ref.doi}}</b> : {{ref.ref}}
+								<b>{{ref.doi}}</b> : {{ref.ref}} <bibtex></bibtex>
 							</p>
 						</div>
 					</div>
@@ -242,7 +245,6 @@
 			</div>
 		</div>
 	</div>
-
 	<footer class="footer">
 		<div class="container">
 			<p>
@@ -273,10 +275,11 @@
 	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 	<script src="index_files/ie10-viewport-bug-workaround.js"></script>
 
-
 	<script src="./lib/angular.min.js"></script>
 
 	<script src="./lib/xml2json.js"></script>
+
+	<script src="./lib/clipboard.min.js"></script>
 
 	<script src="./lib/blueimp-gallery.min.js"></script>
 
