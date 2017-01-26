@@ -46,21 +46,14 @@ app.controller('biaSample', function($location, $scope, dataSource) {
 
 });
 
-app.directive('bibtex', [ '$document', function($document) {
+app.directive('clipboardText', [ '$document', function($document) {
 	return {
-		restrict : 'E',
-		template : function($elem, $attr) {
-			return '<a data-clipboard-text="{{ref.bibtex}}">BibTeX<span class="glyphicon glyphicon-copy"></span></a>';
-		},
+		restrict: 'A',
 		link : function($scope, $element, $attr) {
-
-			var clipboard = new Clipboard($element.children()[0]);
-			
+			var clipboard = new Clipboard($element.context);
 		    clipboard.on('success', function(e) {
 		    	alert("The BibTeX has been copied to the clipboard.");
 		    });
-
-			
 		}
 	};
 } ]);

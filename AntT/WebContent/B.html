@@ -140,6 +140,8 @@
 
 
 
+
+
 							
 							<p>
 								<strong>Elevation: </strong>{{sample.category.site.elevation}} M
@@ -237,7 +239,9 @@
 						<h4>References:</h4>
 						<div ng-repeat="ref in sample.refs">
 							<p>
-								<b>{{ref.doi}}</b> : {{ref.ref}} <bibtex></bibtex>
+								<b>{{ref.doi}}</b> : {{ref.ref}} <a href="#"
+									onClick="return false;" data-clipboard-text="{{ref.bibtex}}">BibTeX<span
+									class="glyphicon glyphicon-copy"></span></a>
 							</p>
 						</div>
 					</div>
