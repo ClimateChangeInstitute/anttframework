@@ -17,7 +17,6 @@ app.factory('dataSource', [ '$http', function($http) {
 	return factory;
 } ]);
 
-
 /**
  * @param $location
  *            The URL
@@ -25,7 +24,8 @@ app.factory('dataSource', [ '$http', function($http) {
  *            The current scope
  * @param dataSource
  *            object to get data from
- * @param dir The directory to load the data from
+ * @param dir
+ *            The directory to load the data from
  */
 app.setupSampleController = function($location, $scope, dataSource, dir) {
 	$scope.AppController = [];
@@ -56,6 +56,14 @@ app.setupSampleController = function($location, $scope, dataSource, dir) {
 
 app.controller('biaSample', function($location, $scope, dataSource) {
 	app.setupSampleController($location, $scope, dataSource, "generated/XMLSamples/BIA/");
+});
+
+app.controller('lakeSample', function($location, $scope, dataSource) {
+	app.setupSampleController($location, $scope, dataSource, "generated/XMLSamples/Aquatic/Lake/");
+});
+
+app.controller('marineSample', function($location, $scope, dataSource) {
+	app.setupSampleController($location, $scope, dataSource, "generated/XMLSamples/Aquatic/Marine/");
 });
 
 app.directive('clipboardText', [ '$document', function($document) {
