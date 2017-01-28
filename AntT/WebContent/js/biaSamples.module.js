@@ -58,6 +58,10 @@ app.controller('biaSample', function($location, $scope, dataSource) {
 	app.setupSampleController($location, $scope, dataSource, "generated/XMLSamples/BIA/");
 });
 
+app.controller('iceCoreSample', function($location, $scope, dataSource) {
+	app.setupSampleController($location, $scope, dataSource, "generated/XMLSamples/IceCore/");
+});
+
 app.controller('lakeSample', function($location, $scope, dataSource) {
 	app.setupSampleController($location, $scope, dataSource, "generated/XMLSamples/Aquatic/Lake/");
 });

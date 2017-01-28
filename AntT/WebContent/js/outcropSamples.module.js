@@ -8,9 +8,9 @@ app.config(function($locationProvider) {
 });
 
 app.filter('unsafe', function($sce) {
-    return function(val) {
-        return $sce.trustAsHtml(val);
-    };
+	return function(val) {
+		return $sce.trustAsHtml(val);
+	};
 });
 
 app.factory('dataSource', [ '$http', function($http) {
@@ -79,12 +79,12 @@ app.controller('outcropSample', function($location, $scope, dataSource) {
 
 app.directive('clipboardText', [ '$document', function($document) {
 	return {
-		restrict: 'A',
+		restrict : 'A',
 		link : function($scope, $element, $attr) {
 			var clipboard = new Clipboard($element.context);
-		    clipboard.on('success', function(e) {
-		    	alert("The BibTeX has been copied to the clipboard.");
-		    });
+			clipboard.on('success', function(e) {
+				alert("The BibTeX has been copied to the clipboard.");
+			});
 		}
 	};
 } ]);
