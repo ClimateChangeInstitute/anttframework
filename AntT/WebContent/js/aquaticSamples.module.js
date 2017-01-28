@@ -1,29 +1,31 @@
 var app = angular.module('exampleApp', []);
 
 app.config(function($locationProvider) {
-  $locationProvider.html5Mode({
-	enabled: true,
-	requireBase: false
-  });
+	$locationProvider.html5Mode({
+		enabled : true,
+		requireBase : false
+	});
 });
 
-app.factory('dataSource', [ '$http', function($http) {
-	var factory = [];
+app.factory('dataSource', [
+		'$http',
+		function($http) {
+			var factory = [];
 
-	factory.getData = function(param) {
-		if (param.includes("Lake"))
-		{
-			return $http.get("generated/XMLSamples/Aquatic/Lake/" + param + ".xml");
-		}
-		if (param.includes("Marine"))
-		{
-			return $http.get("generated/XMLSamples/Aquatic/Marine/" + param + ".xml");
-		}
+			factory.getData = function(param) {
+				if (param.includes("Lake")) {
+					return $http.get("generated/XMLSamples/Aquatic/Lake/"
+							+ param + ".xml");
+				}
+				if (param.includes("Marine")) {
+					return $http.get("generated/XMLSamples/Aquatic/Marine/"
+							+ param + ".xml");
+				}
 
-	};
+			};
 
-	return factory;
-} ]);
+			return factory;
+		} ]);
 
 app.controller('aquaticSample', function($location, $scope, dataSource) {
 
@@ -38,28 +40,29 @@ app.controller('aquaticSample', function($location, $scope, dataSource) {
 	});
 
 	// Hack to make blueimp image gallery work properly with base 64 images
-	$scope.handleClick = function (event) {
-		  event.preventDefault();
-		  event = event || window.event;
-		    var target = event.target || event.srcElement,
-		        link = target.src ? target.parentNode : target,
-		        options = {index: link, event: event},
-		        links = $('#links>a');
-		    links.each(function(i, e){
-		    	$(e).attr('href', $(e).attr('href').replace('unsafe:', ''));
-		    });
-		    blueimp.Gallery(links, options);
-		};
+	$scope.handleClick = function(event) {
+		event.preventDefault();
+		event = event || window.event;
+		var target = event.target || event.srcElement, link = target.src ? target.parentNode
+				: target, options = {
+			index : link,
+			event : event
+		}, links = $('#links>a');
+		links.each(function(i, e) {
+			$(e).attr('href', $(e).attr('href').replace('unsafe:', ''));
+		});
+		blueimp.Gallery(links, options);
+	};
 });
 
 app.directive('clipboardText', [ '$document', function($document) {
 	return {
-		restrict: 'A',
+		restrict : 'A',
 		link : function($scope, $element, $attr) {
 			var clipboard = new Clipboard($element.context);
-		    clipboard.on('success', function(e) {
-		    	alert("The BibTeX has been copied to the clipboard.");
-		    });
+			clipboard.on('success', function(e) {
+				alert("The BibTeX has been copied to the clipboard.");
+			});
 		}
 	};
 } ]);
