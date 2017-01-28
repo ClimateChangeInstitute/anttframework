@@ -20,6 +20,10 @@ app.factory('dataSource', [ '$http', function($http) {
 		return $http.get(param);
 	};
 
+	factory.getMmelements = function() {
+		return $http.get("generated/allMMElements.xml");
+	};
+	
 	return factory;
 } ]);
 
