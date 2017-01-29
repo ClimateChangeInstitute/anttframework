@@ -11,6 +11,8 @@ interdisciplinary paleoclimate research.  This repository contains the
 source code for the framework.  The tephra data is hosted at the
 following URL: <http://www.tephrochronology.org/AntT/index.html>.
 
+An example test site is currently hosted at <https://lilac.umcs.maine.edu/AntT/>.
+
 ## Setup
 
 Developers may find detailed instructions to build the project in the
