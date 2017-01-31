@@ -23,7 +23,10 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "mm_elements")
-@NamedQuery(name = "mmElementsByID", query = "SELECT mme FROM MMElement mme ORDER BY mme.mmElementID")
+//@formatter:off
+@NamedQuery(name = "org.tephrochronology.model.MMElement.OrderByID", 
+            query = "SELECT mme FROM MMElement mme ORDER BY mme.mmElementID")
+//@formatter:on
 public class MMElement {
 
 	@Id

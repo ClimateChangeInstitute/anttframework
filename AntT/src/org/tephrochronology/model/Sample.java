@@ -37,7 +37,7 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 		MarineSample.class, OutcropSample.class })
 @XmlRootElement
 //@formatter:off
-@NamedQuery(name = "getSampleInfo", query = 
+@NamedQuery(name = "org.tephrochronology.model.Sample.getSampleInfo", query = 
   "SELECT NEW org.tephrochronology.model.SampleInfo(TYPE(s), "
 + "s.sampleID, s.secondaryID, s.sampledBy, s.comments, "
 + "s.collectionDate, s.category.categoryID, s.instrument.id) "

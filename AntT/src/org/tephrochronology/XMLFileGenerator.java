@@ -87,7 +87,8 @@ public class XMLFileGenerator {
 
 		System.out.printf("Generating %s file.\n", ALLSAMPLES_FILENAME);
 
-		TypedQuery<SampleInfo> q = em.createNamedQuery("getSampleInfo",
+		TypedQuery<SampleInfo> q = em.createNamedQuery(
+				"org.tephrochronology.model.Sample.getSampleInfo",
 				SampleInfo.class);
 
 		List<SampleInfo> samples = q.getResultList();
@@ -159,7 +160,8 @@ public class XMLFileGenerator {
 
 		System.out.printf("Generating %s file.\n", ALLMMELEMENTS_FILENAME);
 
-		TypedQuery<MMElement> q = em.createNamedQuery("mmElementsByID",
+		TypedQuery<MMElement> q = em.createNamedQuery(
+				"org.tephrochronology.model.MMElement.OrderByID",
 				MMElement.class);
 
 		List<MMElement> queryResult = q.getResultList();
