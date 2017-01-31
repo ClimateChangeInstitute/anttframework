@@ -128,13 +128,9 @@ public class TestDataGenerator {
 					"org.tephrochronology.model.Volcano.OrderByVolcanoNumber",
 					Volcano.class).getResultList();
 
-			// @formatter:off
-			chemistries = em.createQuery(
-					  "SELECT e "
-					+ "FROM Chemistry e "
-					+ "ORDER BY e.molecularMass DESC, e.name",
+			chemistries = em.createNamedQuery(
+					"org.tephrochronology.model.Chemistry.OrderByMolecularMassDescAndName",
 					Chemistry.class).getResultList();
-			// @formatter:on
 
 			generateTypeData(em);
 

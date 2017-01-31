@@ -8,6 +8,7 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
@@ -16,6 +17,12 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "chemistries")
+//@formatter:off
+@NamedQuery(name = "org.tephrochronology.model.Chemistry.OrderByMolecularMassDescAndName", 
+			query = "SELECT e "
+				  + "FROM Chemistry e "
+				  + "ORDER BY e.molecularMass DESC, e.name")
+//@formatter:on
 public class Chemistry implements Serializable, Comparable<Chemistry> {
 
 	/**
@@ -123,5 +130,4 @@ public class Chemistry implements Serializable, Comparable<Chemistry> {
 		this.atomicNumber = atomicNumber;
 	}
 
-	
 }
