@@ -13,6 +13,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import org.eclipse.persistence.oxm.annotations.XmlInverseReference;
+
 /**
  * Represents a location where multiple sites may appear. For example, Erebus.
  * 
@@ -38,6 +40,7 @@ public class Area {
 	@JoinTable(name = "areas_sites", joinColumns = {
 			@JoinColumn(name = "area") }, inverseJoinColumns = {
 					@JoinColumn(name = "site_id") })
+	@XmlInverseReference(mappedBy = "areas")
 	private List<Site> sites;
 
 	/**
