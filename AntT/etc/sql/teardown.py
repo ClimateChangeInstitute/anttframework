@@ -34,7 +34,7 @@ Deleting the %s database and removing the %s user account.
         check_call(["dropdb", DATABASE])
         check_call(["dropuser", ADMIN])
     except CalledProcessError :
-        stderr.write("Something went wrong.  Are you sure you have the proper permissions?\n")
+        stderr.write("Something went wrong.  Are you sure you have the proper permissions and that another process is not using the database?\n")
         exit(1)
 
 if __name__ == "__main__":
