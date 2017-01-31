@@ -57,7 +57,7 @@
 				elementData : createMMED(i),
 				iid : 'iid ' + i,
 				instrumentSettings : 'instrumentSettings ' + i,
-				longsampleID : 'longsampleID ' + i,
+				mmElementID : 'mmElementID ' + i,
 				measuredBy : 'measuredBy ' + i,
 				methodType : 'methodType ' + i,
 				numberOfMeasurements : i,

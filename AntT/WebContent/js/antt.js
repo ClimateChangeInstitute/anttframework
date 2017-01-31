@@ -73,7 +73,7 @@
 		}
 		this.iid = e.iid;
 		this.instrumentSettings = e.instrumentSettings;
-		this.longsampleID = e.longsampleID;
+		this.mmElementID = e.mmElementID;
 		this.measuredBy = e.measuredBy;
 		this.methodType = e.methodType;
 		this.numberOfMeasurements = parseInt(e.numberOfMeasurements);
@@ -421,7 +421,7 @@
 		
 		$.each(selectedMMElements, function(i, mme) {
 			finalStr += (JSON.stringify(mme.sampleID) + ','
-					+ JSON.stringify(mme.longsampleID) + ','
+					+ JSON.stringify(mme.mmElementID) + ','
 					+ simCoefficients[i] + ',' + mme.originalTotal);
 			$.each(headersOrder, function(k, h) {
 				var hSplit = splitSymbolUnit(h);
