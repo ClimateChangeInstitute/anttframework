@@ -12,14 +12,15 @@ import static org.tephrochronology.DBProperties.setupProperties;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileFilter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
@@ -143,10 +144,10 @@ public class DBImporter {
 		copyFileToTable(dbName, "volcanoes", dataDir);
 
 		copyFileToTable(dbName, "sites", dataDir);
-		
+
 		copyFileToTable(dbName, "areas", dataDir);
 		copyFileToTable(dbName, "areas_sites", dataDir);
-		
+
 		copyFileToTable(dbName, "instruments", dataDir);
 
 		copyFileToTable(dbName, "refs", dataDir);
@@ -202,8 +203,7 @@ public class DBImporter {
 
 		loadCategoryData(dataDir, dbName, "lake_categories",
 				"corer_type TEXT,age TEXT,core_length_m REAL,collection_date DATE",
-				"L",
-				"category_id,corer_type,age,core_length_m,collection_date",
+				"L", "category_id,corer_type,age,core_length_m,collection_date",
 				conn);
 
 		loadSampleData(dataDir, dbName, "lake_samples",
@@ -212,8 +212,7 @@ public class DBImporter {
 
 		loadCategoryData(dataDir, dbName, "marine_categories",
 				"corer_type TEXT,age TEXT,core_length_m REAL,collection_date DATE",
-				"M",
-				"category_id,corer_type,age,core_length_m,collection_date",
+				"M", "category_id,corer_type,age,core_length_m,collection_date",
 				conn);
 
 		loadSampleData(dataDir, dbName, "marine_samples",
@@ -263,7 +262,8 @@ public class DBImporter {
 
 		String str = String.format(
 				"CREATE TABLE %s(category_id TEXT PRIMARY KEY,site_id TEXT ",
-				tmpTable) + (extraColumnsWithTypes.isEmpty() ? "" : ", ") + extraColumnsWithTypes + ")";
+				tmpTable) + (extraColumnsWithTypes.isEmpty() ? "" : ", ")
+				+ extraColumnsWithTypes + ")";
 		System.out.println(str);
 		st.execute(str);
 
@@ -321,17 +321,7 @@ public class DBImporter {
 	private void importImageFiles(File dataDir) throws IOException {
 		File imageFolder = new File(dataDir, "images");
 
-		File[] images = imageFolder.listFiles(new FileFilter() {
-
-			private String[] accepted = { "jpg", "jpeg" };
-
-			@Override
-			public boolean accept(File pathname) {
-				return !pathname.getName().isEmpty()
-						&& Arrays.stream(accepted).anyMatch(e -> pathname
-								.getName().toLowerCase().endsWith(e));
-			}
-		});
+		List<File> images = getImages(imageFolder);
 
 		EntityManagerFactory emf = Persistence
 				.createEntityManagerFactory("antt", props);
@@ -340,7 +330,7 @@ public class DBImporter {
 		em.getTransaction().begin();
 
 		System.out.printf("Processing %d images (This may take a while).",
-				images.length);
+				images.size());
 		for (File f : images) {
 			BufferedImage fullSizeImage = ImageIO.read(f);
 			BufferedImage thumbImage = Images.scaleAndCrop(fullSizeImage,
@@ -357,6 +347,34 @@ public class DBImporter {
 
 		em.getTransaction().commit();
 		System.out.println();
+	}
+
+	/**
+	 * Recursively find image files in the specified folder and return them.
+	 * 
+	 * @param imageFolder
+	 *            The starting folder (Not null)
+	 * @return All of the images found (including subfolders) found in the given
+	 *         folder
+	 */
+	private List<File> getImages(File imageFolder) {
+
+		final String[] accepted = { "jpg", "jpeg" };
+
+		List<File> matchingFiles = new ArrayList<>();
+
+		if (imageFolder.isFile()) {
+			String fileName = imageFolder.getName();
+			if (!fileName.isEmpty() && Arrays.stream(accepted)
+					.anyMatch(e -> fileName.toLowerCase().endsWith(e))) {
+				matchingFiles.add(imageFolder); // It's an image File!
+			}
+		} else { // Add the files from subdirectories...
+			Arrays.stream(imageFolder.listFiles())
+					.forEach(f -> matchingFiles.addAll(getImages(f)));
+		}
+
+		return matchingFiles;
 	}
 
 	/**
