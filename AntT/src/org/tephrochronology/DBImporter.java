@@ -143,6 +143,10 @@ public class DBImporter {
 		copyFileToTable(dbName, "volcanoes", dataDir);
 
 		copyFileToTable(dbName, "sites", dataDir);
+		
+		copyFileToTable(dbName, "areas", dataDir);
+		copyFileToTable(dbName, "areas_sites", dataDir);
+		
 		copyFileToTable(dbName, "instruments", dataDir);
 
 		copyFileToTable(dbName, "refs", dataDir);
