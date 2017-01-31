@@ -37,7 +37,7 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 		MarineSample.class, OutcropSample.class })
 @XmlRootElement
 //@formatter:off
-@NamedQuery(name = "org.tephrochronology.model.Sample.getSampleInfo", query = 
+@NamedQuery(name = Sample.QUERY_GET_SAMPLE_INFO, query = 
   "SELECT NEW org.tephrochronology.model.SampleInfo(TYPE(s), "
 + "s.sampleID, s.secondaryID, s.sampledBy, s.comments, "
 + "s.collectionDate, s.category.categoryID, s.instrument.id) "
@@ -50,6 +50,8 @@ public abstract class Sample implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+
+	public static final String QUERY_GET_SAMPLE_INFO = "org.tephrochronology.model.Sample.getSampleInfo";
 
 	@Id
 	@Column(name = "sample_id")

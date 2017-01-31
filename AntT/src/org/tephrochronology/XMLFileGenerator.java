@@ -4,6 +4,8 @@
 package org.tephrochronology;
 
 import static org.tephrochronology.DBProperties.setupProperties;
+import static org.tephrochronology.model.MMElement.QUERY_MMElements_ORDER_BY_ID;
+import static org.tephrochronology.model.Sample.QUERY_GET_SAMPLE_INFO;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -87,8 +89,7 @@ public class XMLFileGenerator {
 
 		System.out.printf("Generating %s file.\n", ALLSAMPLES_FILENAME);
 
-		TypedQuery<SampleInfo> q = em.createNamedQuery(
-				"org.tephrochronology.model.Sample.getSampleInfo",
+		TypedQuery<SampleInfo> q = em.createNamedQuery(QUERY_GET_SAMPLE_INFO,
 				SampleInfo.class);
 
 		List<SampleInfo> samples = q.getResultList();
@@ -161,8 +162,7 @@ public class XMLFileGenerator {
 		System.out.printf("Generating %s file.\n", ALLMMELEMENTS_FILENAME);
 
 		TypedQuery<MMElement> q = em.createNamedQuery(
-				"org.tephrochronology.model.MMElement.OrderByID",
-				MMElement.class);
+				QUERY_MMElements_ORDER_BY_ID, MMElement.class);
 
 		List<MMElement> queryResult = q.getResultList();
 

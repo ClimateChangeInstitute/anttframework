@@ -20,7 +20,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "volcanoes")
 //@formatter:off
-@NamedQuery(name = "org.tephrochronology.model.Volcano.OrderByVolcanoNumber", 
+@NamedQuery(name = Volcano.QUERY_VOLCANOES_BY_NUMBER, 
             query = "SELECT v FROM Volcano v ORDER BY v.volcanoNumber")
 //@formatter:on
 public class Volcano implements Serializable {
@@ -29,6 +29,8 @@ public class Volcano implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+
+	public static final String QUERY_VOLCANOES_BY_NUMBER = "org.tephrochronology.model.Volcano.OrderByVolcanoNumber";
 
 	@Id
 	@Column(name = "volcano_number")

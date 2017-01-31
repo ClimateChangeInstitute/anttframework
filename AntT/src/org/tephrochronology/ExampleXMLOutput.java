@@ -51,9 +51,8 @@ public class ExampleXMLOutput {
 		List<IceCoreSample> ics = q.getResultList();
 
 		for (IceCoreSample iceCoreSample : ics) {
-			displayObjectXML(iceCoreSample, IceCoreSample.class);	
+			displayObjectXML(iceCoreSample, IceCoreSample.class);
 		}
-		
 
 		// displayObjectXML(em.find(IceCoreSample.class, "IceCoreSample9"),
 		// IceCoreSample.class);
