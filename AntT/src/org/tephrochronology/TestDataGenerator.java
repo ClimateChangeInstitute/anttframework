@@ -124,8 +124,8 @@ public class TestDataGenerator {
 
 			em.getTransaction().begin();
 
-			volcanoes = em.createQuery(
-					"SELECT v FROM Volcano v ORDER BY v.volcanoNumber",
+			volcanoes = em.createNamedQuery(
+					"org.tephrochronology.model.Volcano.OrderByVolcanoNumber",
 					Volcano.class).getResultList();
 
 			// @formatter:off

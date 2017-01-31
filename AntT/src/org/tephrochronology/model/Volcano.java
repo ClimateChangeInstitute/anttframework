@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
@@ -18,6 +19,10 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "volcanoes")
+//@formatter:off
+@NamedQuery(name = "org.tephrochronology.model.Volcano.OrderByVolcanoNumber", 
+            query = "SELECT v FROM Volcano v ORDER BY v.volcanoNumber")
+//@formatter:on
 public class Volcano implements Serializable {
 
 	/**
