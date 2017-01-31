@@ -87,15 +87,8 @@ public class XMLFileGenerator {
 
 		System.out.printf("Generating %s file.\n", ALLSAMPLES_FILENAME);
 
-		//@formatter:off
-		TypedQuery<SampleInfo> q = em.createQuery(
-				  "SELECT NEW org.tephrochronology.model.SampleInfo(TYPE(s), "
-				+ "s.sampleID, s.secondaryID, s.sampledBy, s.comments, "
-				+ "s.collectionDate, s.category.categoryID, s.instrument.id) "
-				+ "FROM Sample s "
-				+ "ORDER BY TYPE(s), s.sampleID, s.collectionDate"
-				, SampleInfo.class);
-		//@formatter:on
+		TypedQuery<SampleInfo> q = em.createNamedQuery("getSampleInfo",
+				SampleInfo.class);
 
 		List<SampleInfo> samples = q.getResultList();
 
@@ -166,7 +159,8 @@ public class XMLFileGenerator {
 
 		System.out.printf("Generating %s file.\n", ALLMMELEMENTS_FILENAME);
 
-		TypedQuery<MMElement> q = em.createNamedQuery("mmElementsByID", MMElement.class);
+		TypedQuery<MMElement> q = em.createNamedQuery("mmElementsByID",
+				MMElement.class);
 
 		List<MMElement> queryResult = q.getResultList();
 

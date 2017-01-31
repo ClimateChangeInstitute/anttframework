@@ -18,6 +18,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
@@ -33,8 +34,16 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "sample_type", discriminatorType = CHAR)
 @XmlSeeAlso({ BIASample.class, IceCoreSample.class, LakeSample.class,
-	MarineSample.class, OutcropSample.class })
+		MarineSample.class, OutcropSample.class })
 @XmlRootElement
+//@formatter:off
+@NamedQuery(name = "getSampleInfo", query = 
+  "SELECT NEW org.tephrochronology.model.SampleInfo(TYPE(s), "
++ "s.sampleID, s.secondaryID, s.sampledBy, s.comments, "
++ "s.collectionDate, s.category.categoryID, s.instrument.id) "
++ "FROM Sample s "
++ "ORDER BY TYPE(s), s.sampleID, s.collectionDate")
+//@formatter:on
 public abstract class Sample implements Serializable {
 
 	/**
