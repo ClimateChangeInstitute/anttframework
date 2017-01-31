@@ -25,6 +25,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 import org.tephrochronology.model.AquaticSample;
+import org.tephrochronology.model.Area;
 import org.tephrochronology.model.BIACategory;
 import org.tephrochronology.model.BIASample;
 import org.tephrochronology.model.CorerType;
@@ -48,6 +49,8 @@ import org.tephrochronology.model.Site;
 import org.tephrochronology.model.Unit;
 import org.tephrochronology.model.Volcano;
 
+import jersey.repackaged.com.google.common.collect.Lists;
+
 /**
  * Generates sample data for the database to use with testing.
  * 
@@ -61,6 +64,8 @@ public class TestDataGenerator {
 	List<CorerType> coreTypes;
 
 	List<MethodType> methodTypes;
+
+	List<Area> areas;
 
 	List<Site> sites;
 
@@ -132,6 +137,8 @@ public class TestDataGenerator {
 			// @formatter:on
 
 			generateTypeData(em);
+
+			generateAreaData(em);
 
 			generateSiteData(em);
 
@@ -533,6 +540,21 @@ public class TestDataGenerator {
 
 	}
 
+	private void generateAreaData(EntityManager em) {
+		System.out.printf("Generating %s data.\n", Area.class.getSimpleName());
+
+		int n = 20;
+		areas = new ArrayList<>();
+
+		range(0, n).forEach(i -> {
+			Area s = new Area(Area.class.getSimpleName() + i,
+					"Area comment " + i, new ArrayList<>());
+			areas.add(s);
+			em.persist(s);
+		});
+
+	}
+
 	private void generateSiteData(EntityManager em) {
 		System.out.printf("Generating %s data.\n", Site.class.getSimpleName());
 
@@ -542,7 +564,8 @@ public class TestDataGenerator {
 		range(0, n).forEach(i -> {
 			Site s = new Site(Site.class.getSimpleName() + i,
 					Site.class.getName() + i, (i * n) % 90, (i * n) % 180,
-					i * n * 100, "Comment " + i);
+					i * n * 100, "Comment " + i,
+					Lists.newArrayList(areas.get(i % areas.size())));
 			sites.add(s);
 			em.persist(s);
 		});
