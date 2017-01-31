@@ -241,7 +241,7 @@ CREATE TABLE method_types(
 	
 -- Major/Minor Elements
 CREATE TABLE mm_elements(
-	longsample_id TEXT PRIMARY KEY,
+	mm_element_id TEXT PRIMARY KEY,
 	sample_id TEXT REFERENCES samples(sample_id) NOT NULL,
 	comments TEXT,	
 	method_type TEXT REFERENCES method_types(method_type) NOT NULL,
@@ -270,13 +270,13 @@ CREATE TABLE units(
 
 -- Major/Minor Elements Data
 CREATE TABLE mm_elements_data(
-	longsample_id TEXT REFERENCES mm_elements(longsample_id) NOT NULL,
+	mm_element_id TEXT REFERENCES mm_elements(mm_element_id) NOT NULL,
 	symbol TEXT REFERENCES chemistries(symbol) NOT NULL,
 	unit TEXT REFERENCES units(unit) NOT NULL,
 	val REAL NOT NULL,
 	std REAL NOT NULL,
 	me REAL NOT NULL,
-	PRIMARY KEY(longsample_id, symbol, unit));
+	PRIMARY KEY(mm_element_id, symbol, unit));
 
 	
 ------------------------------------------------------------------------------
