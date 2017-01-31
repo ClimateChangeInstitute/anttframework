@@ -81,7 +81,7 @@ CREATE TABLE areas(
 	comment TEXT);
 
 -- Areas may have many sites.  If areas overlap, a site may be in multiple areas.
-CREATE TABLE area_sites(
+CREATE TABLE areas_sites(
 	area TEXT REFERENCES areas(area) NOT NULL,
 	site_id TEXT REFERENCES sites(site_id) NOT NULL
 );
@@ -335,7 +335,7 @@ GRANT ALL PRIVILEGES ON outcrop_categories TO :ADMIN;
 GRANT ALL PRIVILEGES ON sites TO :ADMIN;
 
 GRANT ALL PRIVILEGES ON areas TO :ADMIN;
-GRANT ALL PRIVILEGES ON area_sites TO :ADMIN;
+GRANT ALL PRIVILEGES ON areas_sites TO :ADMIN;
 
 GRANT ALL PRIVILEGES ON instruments TO :ADMIN;
 
