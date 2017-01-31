@@ -75,6 +75,17 @@ CREATE TABLE sites(
 	elevation_m REAL NOT NULL,
 	comment TEXT);
 
+-- Represents collections of sites.  For example, Erebus.
+CREATE TABLE areas(
+	area TEXT PRIMARY KEY,
+	comment TEXT);
+
+-- Areas may have many sites.  If areas overlap, a site may be in multiple areas.
+CREATE TABLE area_sites(
+	area TEXT REFERENCES areas(area) NOT NULL,
+	site_id TEXT REFERENCES sites(site_id) NOT NULL
+);
+	
 
 -- Categories are collections of samples
 -- For example, a category might be an icecore.
@@ -322,6 +333,10 @@ GRANT ALL PRIVILEGES ON marine_categories TO :ADMIN;
 GRANT ALL PRIVILEGES ON outcrop_categories TO :ADMIN;
 
 GRANT ALL PRIVILEGES ON sites TO :ADMIN;
+
+GRANT ALL PRIVILEGES ON areas TO :ADMIN;
+GRANT ALL PRIVILEGES ON area_sites TO :ADMIN;
+
 GRANT ALL PRIVILEGES ON instruments TO :ADMIN;
 
 GRANT ALL PRIVILEGES ON refs TO :ADMIN;
