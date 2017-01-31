@@ -13,6 +13,7 @@
 		<class>org.tephrochronology.model.Subregion</class>
 		<class>org.tephrochronology.model.TectonicType</class>
 		<class>org.tephrochronology.model.Site</class>
+		<class>org.tephrochronology.model.Area</class>
 		<class>org.tephrochronology.model.Instrument</class>
 		<class>org.tephrochronology.model.Ref</class>
 		<class>org.tephrochronology.model.Sample</class>

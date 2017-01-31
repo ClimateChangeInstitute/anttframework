@@ -4,10 +4,14 @@
 package org.tephrochronology.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 /**
@@ -26,7 +30,7 @@ public class Site implements Serializable {
 	@Id
 	@Column(name = "site_id")
 	private String siteID;
-	
+
 	@Column(name = "long_name")
 	private String longName;
 
@@ -52,15 +56,26 @@ public class Site implements Serializable {
 	private String comment;
 
 	/**
+	 * A site may be in multiple areas (if the overlap), and an area will
+	 * typically contain multiple sites.
+	 */
+	@ManyToMany
+	@JoinTable(name = "areas_sites", joinColumns = {
+			@JoinColumn(name = "site_id") }, inverseJoinColumns = {
+					@JoinColumn(name = "area") })
+	private List<Area> areas;
+
+	/**
 	 * @param siteID
 	 * @param longName
 	 * @param latitude
 	 * @param longitude
 	 * @param elevation
 	 * @param comment
+	 * @param areas
 	 */
-	public Site(String siteID, String longName, float latitude,
-			float longitude, float elevation, String comment) {
+	public Site(String siteID, String longName, float latitude, float longitude,
+			float elevation, String comment, List<Area> areas) {
 		super();
 		this.siteID = siteID;
 		this.longName = longName;
@@ -68,6 +83,7 @@ public class Site implements Serializable {
 		this.longitude = longitude;
 		this.elevation = elevation;
 		this.comment = comment;
+		this.areas = areas;
 	}
 
 	public Site() {
@@ -119,6 +135,14 @@ public class Site implements Serializable {
 
 	public void setLongName(String longName) {
 		this.longName = longName;
+	}
+
+	public List<Area> getAreas() {
+		return areas;
+	}
+
+	public void setAreas(List<Area> areas) {
+		this.areas = areas;
 	}
 
 }
