@@ -115,6 +115,10 @@ public class DBExporter {
 		copyTableToFile(dbName, "volcanoes", dataDir);
 
 		copyTableToFile(dbName, "sites", dataDir);
+		
+		copyTableToFile(dbName, "areas", dataDir);
+		copyTableToFile(dbName, "areas_sites", dataDir);		
+		
 		copyTableToFile(dbName, "instruments", dataDir);
 
 		copyTableToFile(dbName, "refs", dataDir);
