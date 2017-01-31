@@ -25,7 +25,7 @@ import javax.persistence.Table;
 public class MMElement {
 
 	@Id
-	@Column(name = "longsample_id")
+	@Column(name = "mm_element_id")
 	private String longsampleID;
 
 	@JoinColumn(name = "sample_id")

@@ -24,7 +24,7 @@ import org.eclipse.persistence.oxm.annotations.XmlInverseReference;
 public class MMElementData {
 
 	@Id
-	@JoinColumn(name = "longsample_id")
+	@JoinColumn(name = "mm_element_id")
 	@XmlInverseReference(mappedBy="elementData")
 	protected MMElement mmElement;
 
