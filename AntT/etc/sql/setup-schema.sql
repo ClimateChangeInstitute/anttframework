@@ -83,8 +83,8 @@ CREATE TABLE areas(
 -- Areas may have many sites.  If areas overlap, a site may be in multiple areas.
 CREATE TABLE areas_sites(
 	area TEXT REFERENCES areas(area) NOT NULL,
-	site_id TEXT REFERENCES sites(site_id) NOT NULL
-);
+	site_id TEXT REFERENCES sites(site_id) NOT NULL,
+	PRIMARY KEY (area, site_id));
 	
 
 -- Categories are collections of samples
