@@ -166,12 +166,7 @@ public class XMLFileGenerator {
 
 		System.out.printf("Generating %s file.\n", ALLMMELEMENTS_FILENAME);
 
-		//@formatter:off
-		TypedQuery<MMElement> q = em.createQuery(
-				  "SELECT mme "
-				+ "FROM MMElement mme "
-				+ "ORDER BY mme.longsampleID", MMElement.class);
-		//@formatter:on
+		TypedQuery<MMElement> q = em.createNamedQuery("mmElementsByID", MMElement.class);
 
 		List<MMElement> queryResult = q.getResultList();
 
