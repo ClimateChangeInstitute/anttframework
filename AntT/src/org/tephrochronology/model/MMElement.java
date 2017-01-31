@@ -26,7 +26,7 @@ public class MMElement {
 
 	@Id
 	@Column(name = "mm_element_id")
-	private String longsampleID;
+	private String mmElementID;
 
 	@JoinColumn(name = "sample_id")
 	private Sample sample;
@@ -62,7 +62,7 @@ public class MMElement {
 	private List<MMElementData> elementData;
 
 	/**
-	 * @param longsampleID
+	 * @param mmElementID
 	 * @param sample
 	 * @param comments
 	 * @param methodType
@@ -75,13 +75,13 @@ public class MMElement {
 	 * @param instrumentSettings
 	 * @param elementData
 	 */
-	public MMElement(String longsampleID, Sample sample, String comments,
+	public MMElement(String mmElementID, Sample sample, String comments,
 			MethodType methodType, Instrument instrument,
 			LocalDate dateMeasured, String measuredBy, int numberOfMeasurements,
 			float originalTotal, float calculatedTotal,
 			String instrumentSettings, List<MMElementData> elementData) {
 		super();
-		this.longsampleID = longsampleID;
+		this.mmElementID = mmElementID;
 		this.sample = sample;
 		this.comments = comments;
 		this.methodType = methodType;
@@ -98,12 +98,12 @@ public class MMElement {
 	public MMElement() {
 	}
 
-	public String getLongsampleID() {
-		return longsampleID;
+	public String getMmElementID() {
+		return mmElementID;
 	}
 
-	public void setLongsampleID(String longsampleID) {
-		this.longsampleID = longsampleID;
+	public void setMmElementID(String mmElementID) {
+		this.mmElementID = mmElementID;
 	}
 
 	public Sample getSample() {

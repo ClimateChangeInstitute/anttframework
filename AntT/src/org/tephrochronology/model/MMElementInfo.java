@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class MMElementInfo {
 
-	private String longsampleID;
+	private String mmElementID;
 
 	private String sampleID;
 
@@ -47,13 +47,13 @@ public class MMElementInfo {
 	public MMElementInfo() {
 	}
 
-	public MMElementInfo(String longsampleID, String sampleID, String comments,
+	public MMElementInfo(String mmElementID, String sampleID, String comments,
 			MethodType methodType, String iid, LocalDate dateMeasured,
 			String measuredBy, int numberOfMeasurements, float originalTotal,
 			float calculatedTotal, String instrumentSettings,
 			List<MMElementData> elementData) {
 		super();
-		this.longsampleID = longsampleID;
+		this.mmElementID = mmElementID;
 		this.sampleID = sampleID;
 		this.comments = comments;
 		this.methodType = methodType;
@@ -68,7 +68,7 @@ public class MMElementInfo {
 	}
 
 	public MMElementInfo(MMElement e) {
-		this(e.getLongsampleID(), e.getSample().getSampleID(), e.getComments(),
+		this(e.getMmElementID(), e.getSample().getSampleID(), e.getComments(),
 				e.getMethodType(), e.getInstrument().getId(),
 				e.getDateMeasured(), e.getMeasuredBy(),
 				e.getNumberOfMeasurements(), e.getOriginalTotal(),
@@ -76,14 +76,14 @@ public class MMElementInfo {
 				e.getElementData());
 	}
 
-	public String getLongsampleID() {
-		return longsampleID;
+	public String getMmElementID() {
+		return mmElementID;
 	}
 
-	public void setLongsampleID(String longsampleID) {
-		this.longsampleID = longsampleID;
+	public void setMmElementID(String mmElementID) {
+		this.mmElementID = mmElementID;
 	}
-
+	
 	public String getSampleID() {
 		return sampleID;
 	}
