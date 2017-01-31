@@ -7,6 +7,7 @@ import static org.eclipse.persistence.config.PersistenceUnitProperties.JDBC_PASS
 import static org.eclipse.persistence.config.PersistenceUnitProperties.JDBC_USER;
 import static org.tephrochronology.DBProperties.DEFAULT_PASSWORD_FILE;
 import static org.tephrochronology.DBProperties.setupProperties;
+import static org.tephrochronology.model.Image.QUERY_IMAGES_BY_ID;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -115,10 +116,10 @@ public class DBExporter {
 		copyTableToFile(dbName, "volcanoes", dataDir);
 
 		copyTableToFile(dbName, "sites", dataDir);
-		
+
 		copyTableToFile(dbName, "areas", dataDir);
-		copyTableToFile(dbName, "areas_sites", dataDir);		
-		
+		copyTableToFile(dbName, "areas_sites", dataDir);
+
 		copyTableToFile(dbName, "instruments", dataDir);
 
 		copyTableToFile(dbName, "refs", dataDir);
@@ -254,7 +255,7 @@ public class DBExporter {
 				.createEntityManagerFactory(dbName, props);
 		EntityManager em = emf.createEntityManager();
 
-		TypedQuery<Image> images = em.createQuery("SELECT i FROM Image i",
+		TypedQuery<Image> images = em.createNamedQuery(QUERY_IMAGES_BY_ID,
 				Image.class);
 
 		System.out.print("Writing image files");

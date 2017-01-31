@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import org.eclipse.persistence.oxm.annotations.XmlInverseReference;
@@ -22,13 +23,16 @@ import org.eclipse.persistence.oxm.annotations.XmlInverseReference;
  */
 @Entity
 @Table(name = "images")
+@NamedQuery(name = Image.QUERY_IMAGES_BY_ID, query = "SELECT i FROM Image i ORDER BY i.imageID")
 public class Image implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
+	public static final String QUERY_IMAGES_BY_ID = "org.tephrochronology.model.Image.OrderByID";
+
 	@Id
 	@Column(name = "image_id")
 	private String imageID;
@@ -62,8 +66,8 @@ public class Image implements Serializable {
 	 * @param thumbBytes
 	 * @param samplesUsedBy
 	 */
-	public Image(String imageID, String comments, byte[] bytes, byte[] thumbBytes,
-			List<Sample> samplesUsedBy) {
+	public Image(String imageID, String comments, byte[] bytes,
+			byte[] thumbBytes, List<Sample> samplesUsedBy) {
 		super();
 		this.imageID = imageID;
 		this.comments = comments;
