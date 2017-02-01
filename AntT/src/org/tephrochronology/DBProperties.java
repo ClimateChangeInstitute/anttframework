@@ -112,8 +112,6 @@ public class DBProperties {
 
 		try (Connection conn = DBProperties.getJDBCConnection(properties)) {
 
-			System.out.println(conn);
-
 			PreparedStatement st = conn.prepareStatement(
 					"SELECT EXISTS(SELECT 1 FROM pg_database WHERE datname=?)");
 			st.setString(1, getDB(properties));
