@@ -90,8 +90,8 @@ public class DBImporter {
 
 		if (!dataDir.exists()) {
 			System.out.printf(
-					"The folder '%s' does not exist.  "
-							+ "Please make sure that your data can be found at that location.",
+					"The folder '%s' does not exist.\n"
+							+ "Please make sure that your data can be found at that location.\n",
 					dataDir.getAbsolutePath());
 			System.out.println("Data has not been imported.");
 			System.exit(0);
@@ -190,7 +190,7 @@ public class DBImporter {
 					 + "comments TEXT)");
 			// @formatter:on
 
-			copyFileToTable2(conn, "images_tmp",
+			copyFileToTable(conn, "images_tmp",
 					new File(dataDir, "images.csv"));
 
 			// @formatter:off
@@ -302,7 +302,7 @@ public class DBImporter {
 				+ extraColumnsWithTypes + ")";
 		st.execute(str);
 
-		copyFileToTable2(conn, tmpTable, new File(dataDir, tableName + ".csv"));
+		copyFileToTable(conn, tmpTable, new File(dataDir, tableName + ".csv"));
 
 		st.executeUpdate(String.format(
 				"INSERT INTO categories (category_id, site_id, category_type) "
@@ -334,7 +334,7 @@ public class DBImporter {
 				"CREATE TABLE %s(sample_id TEXT PRIMARY KEY,secondary_id TEXT,sampled_by TEXT,collection_date DATE,comments TEXT,category_id TEXT,iid TEXT,",
 				tmpTable) + extraColumnsWithTypes + ")");
 
-		copyFileToTable2(conn, tmpTable, new File(dataDir, tableName + ".csv"));
+		copyFileToTable(conn, tmpTable, new File(dataDir, tableName + ".csv"));
 
 		st.executeUpdate(String.format(
 				"INSERT INTO samples (sample_id, secondary_id, sampled_by, collection_date, comments, category_id, iid, sample_type) "
@@ -353,6 +353,9 @@ public class DBImporter {
 	 */
 	private void importImageFiles(File dataDir) throws IOException {
 		File imageFolder = new File(dataDir, "images");
+		
+		if (!imageFolder.exists())
+			return;
 
 		List<File> images = getImages(imageFolder);
 
@@ -526,12 +529,14 @@ public class DBImporter {
 
 		File csvFile = new File(dir, table + ".csv");
 
-		copyFileToTable2(conn, table, csvFile);
+		copyFileToTable(conn, table, csvFile);
 
 	}
 
 	/**
-	 * Append the data in the CSV file to the specified database table.
+	 * Append the data in the CSV file to the specified database table. If the
+	 * given file does not exist, then nothing happens, and the import is
+	 * silently ignored.
 	 * 
 	 * @param conn
 	 *            A database connection (Not null)
@@ -545,8 +550,10 @@ public class DBImporter {
 	 * @throws SQLException
 	 *             Thrown if any SQL issues
 	 */
-	private void copyFileToTable2(Connection conn, String table, File csvFile)
+	private void copyFileToTable(Connection conn, String table, File csvFile)
 			throws IOException, SQLException {
+		if (!csvFile.exists())
+			return;
 
 		String pgCommand = String
 				.format("COPY %s FROM STDIN DELIMITER ',' CSV HEADER", table);
