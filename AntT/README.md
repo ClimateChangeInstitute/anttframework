@@ -19,7 +19,11 @@ project. Maven version >=3.3.9 is required to build the project.
 The project requires that a PostgreSQL is installed.  PostgreSQL
 version >= 9.4 is required by the project.
 
-These sample layouts utilize HTML5 and Bootstrap v3.3.7. These are to be used for templating only. These layouts will later be built automatically.
+These sample layouts utilize HTML5, Bootstrap, and AngularJS. The
+files found in the `WebContent` directory may be modified for content
+and style.  Content that is generated from data found in the
+PostgreSQL database are placed in the `WebContent/generated`
+directory.
 
 ## Building
 
@@ -41,13 +45,15 @@ AntT-0.0.1-SNAPSHOT.war
 
 in the `target` directory.
 
-To deploy the site contained by the war file to Tomcat, copy the war file into the Tomcat
-`webapps` directory.
+To deploy the site contained by the war file to Tomcat, copy the war
+file into the Tomcat `webapps` directory.
 
-However, this assumes that the database has already been generated and populated with data.  If this has not ocurred, follow 
-the following directions.
+However, this assumes that the database has already been generated and
+populated with data.  If this has not occurred, follow the following
+directions.
 
-**NOTE** The following tasks require that the **USER** and **PASS** are set in the admin.py file.
+**NOTE** The following tasks require that the **USER** and **PASS**
+  are set in the admin.py file.
 
 
 ### Deleting the database
@@ -70,26 +76,34 @@ cd anttframework/AntT/setup && ./generateTestData.sh
 
 ### Importing and exporting data to the database
 
-You can generate database table CSV templates from an empty database by typing the following command.
+You can generate database table CSV templates from an empty database
+by typing the following command.
 
 ```bash
 cd anttframework/AntT/setup && ./exportDB.sh
 ```
 
-This generates CSV files in the `AntT/antt-data` directory. The same command can be used to export the database to the same CSV files.  If the files exist in the `AntT/antt-data` directory, the data can be imported using the following command.
+This generates CSV files in the `AntT/antt-data` directory. The same
+command can be used to export the database to the same CSV files.  If
+the files exist in the `AntT/antt-data` directory, the data can be
+imported using the following command.
 
 ```bash
 cd anttframework/AntT/setup && ./importDB.sh
 ```
 
-Alternatively, the Postgres database can be backedup using standard `pg_dump` options.
+Alternatively, the PostgreSQL database can be backed up using standard
+`pg_dump` options.
 
 ## Other
 
-1. Will be linted with bootlint on every release (see https://github.com/twbs/bootlint)
+1. Developers should use some linter with every release (see
+   https://github.com/twbs/bootlint)
 
 
 <!--  LocalWords:  mvn AntT WebContent CSS JDK PostgreSQL README md
  -->
-<!--  LocalWords:  webapps
+<!--  LocalWords:  webapps AngularJS CSV cd anttframework antt py
+ -->
+<!--  LocalWords:  linter
  -->
