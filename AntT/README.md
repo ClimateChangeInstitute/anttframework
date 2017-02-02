@@ -25,35 +25,15 @@ and style.  Content that is generated from data found in the
 PostgreSQL database are placed in the `WebContent/generated`
 directory.
 
-## Building
 
-First, ensure that the database has been installed.  The `README.md`
-file in the `./etc/sql` directory describes the process.
+## Setup scripts
 
-The project can be built by running Maven from this (AntT) directory. Typing
-
-```bash
-mvn clean verify
-```
-
-will compile the source code, run all unit tests, and generate the web
-archive file
-
-```
-AntT-0.0.1-SNAPSHOT.war
-```
-
-in the `target` directory.
-
-To deploy the site contained by the war file to Tomcat, copy the war
-file into the Tomcat `webapps` directory.
-
-However, this assumes that the database has already been generated and
-populated with data.  If this has not occurred, follow the following
-directions.
+The following section describes a number of scripts that can be used
+to create the database, build the source code, import data, export
+data, and generate XML files for the website.
 
 **NOTE** The following tasks require that the **USER** and **PASS**
-  are set in the admin.py file.
+  are set in the `/AntT/etc/sql/admin.py` file.
 
 
 ### Deleting the database
@@ -94,6 +74,39 @@ cd anttframework/AntT/setup && ./importDB.sh
 
 Alternatively, the PostgreSQL database can be backed up using standard
 `pg_dump` options.
+
+## Building details
+
+This section describes the build process in a little more detail.  You
+should only need to refer to this section if there are problems using
+the scripts from the previous section.
+
+First, ensure that the database has been installed.  The `README.md`
+file in the `./etc/sql` directory describes the process.
+
+The project can be built by running Maven from this (AntT)
+directory. Typing
+
+```bash
+mvn clean verify
+```
+
+will compile the source code, run all unit tests, and generate the web
+archive file
+
+```
+AntT-0.0.1-SNAPSHOT.war
+```
+
+in the `target` directory.
+
+To deploy the site contained by the war file to Tomcat, copy the war
+file into the Tomcat `webapps` directory.
+
+However, this assumes that the database has already been generated and
+populated with data.  If this has not occurred, follow the following
+directions.
+
 
 ## Other
 
