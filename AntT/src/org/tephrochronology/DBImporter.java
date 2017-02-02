@@ -353,7 +353,7 @@ public class DBImporter {
 	 */
 	private void importImageFiles(File dataDir) throws IOException {
 		File imageFolder = new File(dataDir, "images");
-		
+
 		if (!imageFolder.exists())
 			return;
 
@@ -563,7 +563,11 @@ public class DBImporter {
 		FileReader fileReader = new FileReader(csvFile);
 
 		System.out.println(pgCommand);
-		copyManager.copyIn(pgCommand, fileReader);
+
+		long rowsInserted = copyManager.copyIn(pgCommand, fileReader);
+
+		System.out.printf("Inserted %d rows into the %s table.\n", rowsInserted,
+				table);
 
 		fileReader.close();
 
