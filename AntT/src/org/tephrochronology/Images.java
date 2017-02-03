@@ -3,6 +3,9 @@
  */
 package org.tephrochronology;
 
+import static java.lang.Math.min;
+import static java.lang.Math.round;
+
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
@@ -49,17 +52,28 @@ public class Images {
 
 		BufferedImage newImg = scale(img, newW, newH);
 
-		float extra = rat > 1 ? newW - MIN_SIZE : newH - MIN_SIZE;
+		float extra = rat > 1 ? newW - MIN_SIZE :  MIN_SIZE - newH;
 
+		int x = 0;
+		int y = 0;
+		int finalW = 0;
+		int finalH = 0;
+		
 		// Width greater than height crop sides
 		if (rat > 1) {
-			return newImg.getSubimage((int) extra / 2, 0,
-					Math.min(Math.round(newW - extra / 2), MIN_SIZE),
-					Math.round(newH));
+			x = (int) extra / 2;
+			y = 0;
+			finalW = min(round(newW - extra / 2), MIN_SIZE);
+			finalH = min(round(newH), MIN_SIZE);
 		} else {
-			return newImg.getSubimage(0, (int) extra / 2, Math.round(newW),
-					Math.min(Math.round(newH - extra / 2), MIN_SIZE));
+			x = 0;
+			y = (int) extra / 2;
+			finalW = min(round(newW), MIN_SIZE);
+			finalH = min(round(newH - extra / 2), MIN_SIZE);
 		}
+		
+		return newImg.getSubimage(x,y,finalW,finalH);
+
 	}
 	
 
