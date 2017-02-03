@@ -214,8 +214,8 @@ CREATE TABLE lake_samples(
 	sample_id TEXT PRIMARY KEY REFERENCES samples(sample_id),
 	volcano_number INTEGER REFERENCES volcanoes(volcano_number), -- Volcano not required
 	-- start inherited from aquatic samples
-	depth_m REAL,
-	thickness_cm REAL
+	depth_m TEXT, -- Can be a depth range
+	thickness_cm TEXT -- Can be range and units
 	-- end inherited from aquatic samples
 	);
 
@@ -225,8 +225,8 @@ CREATE TABLE marine_samples(
 	sample_id TEXT PRIMARY KEY REFERENCES samples(sample_id),
 	volcano_number INTEGER REFERENCES volcanoes(volcano_number), -- Volcano not required
 	-- start inherited from aquatic samples
-	depth_m REAL,
-	thickness_cm REAL
+	depth_m TEXT, -- Can be a depth range
+	thickness_cm TEXT -- Can be range and units
 	-- end inherited from aquatic samples
 	);
 
