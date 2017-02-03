@@ -274,8 +274,8 @@ CREATE TABLE mm_elements_data(
 	symbol TEXT REFERENCES chemistries(symbol) NOT NULL,
 	unit TEXT REFERENCES units(unit) NOT NULL,
 	val REAL NOT NULL,
-	std REAL NOT NULL,
-	me REAL NOT NULL,
+	std REAL,
+	me REAL,
 	PRIMARY KEY(mm_element_id, symbol, unit));
 
 	

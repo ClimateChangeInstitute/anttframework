@@ -39,10 +39,10 @@ public class MMElementData {
 	@Column(name = "val", nullable = false)
 	protected Float value;
 
-	@Column(name = "std", nullable = false)
+	@Column(name = "std")
 	protected Float std;
 
-	@Column(name = "me", nullable = false)
+	@Column(name = "me")
 	protected Float me;
 
 	/**
