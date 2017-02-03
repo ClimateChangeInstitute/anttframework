@@ -117,14 +117,14 @@ CREATE TABLE lake_categories(
 	corer_type TEXT REFERENCES corer_types(corer_type),
 	age TEXT,
 	core_length_m REAL,
-	collection_date DATE);
+	collection_date TEXT);
 	
 CREATE TABLE marine_categories(
 	category_id TEXT PRIMARY KEY REFERENCES categories(category_id),
 	corer_type TEXT REFERENCES corer_types(corer_type),
 	age TEXT,
 	core_length_m REAL,
-	collection_date DATE);
+	collection_date TEXT);
 	
 -- Outcrop categories don't have any additional columns, but might in the future
 CREATE TABLE outcrop_categories(
@@ -151,7 +151,7 @@ CREATE TABLE samples(
 	sample_id TEXT PRIMARY KEY,
 	secondary_id TEXT,
 	sampled_by TEXT,
-	collection_date DATE NOT NULL,
+	collection_date TEXT,
 	comments TEXT,
 	category_id TEXT REFERENCES categories(category_id) NOT NULL,
 	iid TEXT REFERENCES instruments(iid),
@@ -246,7 +246,7 @@ CREATE TABLE mm_elements(
 	comments TEXT,	
 	method_type TEXT REFERENCES method_types(method_type) NOT NULL,
 	iid TEXT REFERENCES instruments(iid),
-	date_measured DATE,
+	date_measured TEXT,
 	measured_by TEXT NOT NULL,
 	number_of_measurements INTEGER NOT NULL,
 	original_total REAL NOT NULL,
