@@ -196,9 +196,9 @@ CREATE TABLE icecore_samples(
 	sample_id TEXT PRIMARY KEY REFERENCES samples(sample_id),
 	volcano_number INTEGER REFERENCES volcanoes(volcano_number), -- Volcano not required
 	topdepth_m REAL NOT NULL,
-	bottomdepth_m REAL NOT NULL,
-	topyear_bp REAL NOT NULL,
-	bottomyear_bp REAL NOT NULL);
+	bottomdepth_m REAL,
+	topyear_bp REAL,
+	bottomyear_bp REAL);
 	
 	
 -- Blue Ice Area samples
