@@ -154,7 +154,7 @@ CREATE TABLE samples(
 	collection_date DATE NOT NULL,
 	comments TEXT,
 	category_id TEXT REFERENCES categories(category_id) NOT NULL,
-	iid TEXT REFERENCES instruments(iid) NOT NULL,
+	iid TEXT REFERENCES instruments(iid),
 	sample_type CHAR NOT NULL);
 
 -- A sample may have many refs, and a ref may be used by many samples.
@@ -165,7 +165,7 @@ CREATE TABLE samples_refs(
 
 CREATE TABLE grain_sizes(
 	sample_id TEXT REFERENCES samples(sample_id) NOT NULL,
-	iid TEXT REFERENCES instruments(iid) NOT NULL,
+	iid TEXT REFERENCES instruments(iid),
 	comments TEXT,
 	range TEXT NOT NULL,
 	sample_date TEXT,
@@ -245,7 +245,7 @@ CREATE TABLE mm_elements(
 	sample_id TEXT REFERENCES samples(sample_id) NOT NULL,
 	comments TEXT,	
 	method_type TEXT REFERENCES method_types(method_type) NOT NULL,
-	iid TEXT REFERENCES instruments(iid) NOT NULL,
+	iid TEXT REFERENCES instruments(iid),
 	date_measured DATE,
 	measured_by TEXT NOT NULL,
 	number_of_measurements INTEGER NOT NULL,
