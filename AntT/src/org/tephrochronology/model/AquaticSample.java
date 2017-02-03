@@ -3,7 +3,6 @@
  */
 package org.tephrochronology.model;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -46,7 +45,7 @@ public abstract class AquaticSample extends Sample {
 	}
 
 	public AquaticSample(String sampleID, String secondaryID, String sampledBy,
-			LocalDate collectionDate, String comments, Category category,
+			String collectionDate, String comments, Category category,
 			Instrument instrument, List<Ref> refs, List<Image> images,
 			Volcano volcano, Float depth, Float thickness) {
 		super(sampleID, secondaryID, sampledBy, collectionDate, comments, category,

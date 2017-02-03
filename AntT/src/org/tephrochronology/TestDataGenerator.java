@@ -248,8 +248,8 @@ public class TestDataGenerator {
 		Class<OutcropSample> c = OutcropSample.class;
 		range(0, n).forEach(i -> {
 			OutcropSample ls = new OutcropSample(c.getSimpleName() + i,
-					c.getName() + i, "first last" + i, LocalDate.now(),
-					"comment " + i,
+					c.getName() + i, "first last" + i,
+					LocalDate.now().toString(), "comment " + i,
 					outcropCategories.get(i % outcropCategories.size()),
 					instruments.get(i % instruments.size()), getRefs(i),
 					getImages(i), volcanoes.get(i % volcanoes.size()));
@@ -268,7 +268,7 @@ public class TestDataGenerator {
 			LakeCategory newCat = new LakeCategory(
 					LakeSample.class.getSimpleName() + i,
 					sites.get(i % sites.size()),
-					coreTypes.get(i % coreTypes.size()), "age " + i, (float)i,
+					coreTypes.get(i % coreTypes.size()), "age " + i, (float) i,
 					LocalDate.now().toString());
 			em.persist(newCat);
 			lakeCategories.add(newCat);
@@ -281,8 +281,8 @@ public class TestDataGenerator {
 		Class<LakeSample> lakeClazz = LakeSample.class;
 		range(0, n).forEach(i -> {
 			LakeSample ls = new LakeSample(lakeClazz.getSimpleName() + i,
-					lakeClazz.getName() + i, "first last" + i, LocalDate.now(),
-					"comment " + i,
+					lakeClazz.getName() + i, "first last" + i,
+					LocalDate.now().toString(), "comment " + i,
 					lakeCategories.get(i % lakeCategories.size()),
 					instruments.get(i % instruments.size()), getRefs(i),
 					getImages(i), volcanoes.get(i % volcanoes.size()), i * 10f,
@@ -296,7 +296,7 @@ public class TestDataGenerator {
 			MarineCategory newCat = new MarineCategory(
 					MarineSample.class.getSimpleName() + i,
 					sites.get(i % sites.size()),
-					coreTypes.get(i % coreTypes.size()), "age " + i, (float)i,
+					coreTypes.get(i % coreTypes.size()), "age " + i, (float) i,
 					LocalDate.now().toString());
 			em.persist(newCat);
 			marineCategories.add(newCat);
@@ -306,7 +306,7 @@ public class TestDataGenerator {
 		range(0, n).forEach(i -> {
 			MarineSample ms = new MarineSample(marineClazz.getSimpleName() + i,
 					marineClazz.getName() + i, "first last" + i,
-					LocalDate.now(), "comment " + i,
+					LocalDate.now().toString(), "comment " + i,
 					marineCategories.get(i % marineCategories.size()),
 					instruments.get(i % instruments.size()), getRefs(i),
 					getImages(i), volcanoes.get(i % volcanoes.size()), i * 10f,
@@ -335,8 +335,9 @@ public class TestDataGenerator {
 
 		range(0, n).forEach(i -> {
 			BIASample bias = new BIASample(c.getSimpleName() + i,
-					c.getName() + i, "first last" + i, LocalDate.now(),
-					"comment " + i, biaCategories.get(i % biaCategories.size()),
+					c.getName() + i, "first last" + i,
+					LocalDate.now().toString(), "comment " + i,
+					biaCategories.get(i % biaCategories.size()),
 					instruments.get(i % instruments.size()), getRefs(i),
 					getImages(i), volcanoes.get(i % volcanoes.size()));
 			biaSamples.add(bias);
@@ -365,8 +366,8 @@ public class TestDataGenerator {
 
 		range(0, n).forEach(i -> {
 			IceCoreSample ics = new IceCoreSample(c.getSimpleName() + i,
-					c.getName() + i, "first last" + i, LocalDate.now(),
-					"comment " + i,
+					c.getName() + i, "first last" + i,
+					LocalDate.now().toString(), "comment " + i,
 					iceCoreCategories.get(i % iceCoreCategories.size()),
 					instruments.get(i % instruments.size()), getRefs(i),
 					getImages(i), volcanoes.get(i % volcanoes.size()), 0, i,

@@ -6,7 +6,6 @@ package org.tephrochronology.model;
 import static javax.persistence.DiscriminatorType.CHAR;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -64,7 +63,7 @@ public abstract class Sample implements Serializable {
 	private String sampledBy;
 
 	@Column(name = "collection_date")
-	private LocalDate collectionDate;
+	private String collectionDate;
 
 	@Column(name = "comments")
 	private String comments;
@@ -98,7 +97,7 @@ public abstract class Sample implements Serializable {
 	}
 
 	public Sample(String sampleID, String secondaryID, String sampledBy,
-			LocalDate collectionDate, String comments, Category category,
+			String collectionDate, String comments, Category category,
 			Instrument instrument, List<Ref> refs, List<Image> images) {
 		super();
 		this.sampleID = sampleID;
@@ -136,11 +135,11 @@ public abstract class Sample implements Serializable {
 		this.sampledBy = sampledBy;
 	}
 
-	public LocalDate getCollectionDate() {
+	public String getCollectionDate() {
 		return collectionDate;
 	}
 
-	public void setCollectionDate(LocalDate collectionDate) {
+	public void setCollectionDate(String collectionDate) {
 		this.collectionDate = collectionDate;
 	}
 

@@ -3,7 +3,6 @@
  */
 package org.tephrochronology.model;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.DiscriminatorValue;
@@ -28,7 +27,7 @@ public class LakeSample extends AquaticSample {
 	}
 
 	public LakeSample(String sampleID, String secondaryID, String sampledBy,
-			LocalDate collectionDate, String comments, Category category,
+			String collectionDate, String comments, Category category,
 			Instrument instrument, List<Ref> refs, List<Image> images,
 			Volcano volcano, float depth, float thickness) {
 		super(sampleID, secondaryID, sampledBy, collectionDate, comments, category,

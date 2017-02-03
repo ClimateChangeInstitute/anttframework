@@ -3,7 +3,6 @@
  */
 package org.tephrochronology.model;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.DiscriminatorValue;
@@ -37,11 +36,11 @@ public class BIASample extends Sample {
 	}
 
 	public BIASample(String sampleID, String secondaryID, String sampledBy,
-			LocalDate collectionDate, String comments, Category category,
+			String collectionDate, String comments, Category category,
 			Instrument instrument, List<Ref> refs, List<Image> images,
 			Volcano volcano) {
-		super(sampleID, secondaryID, sampledBy, collectionDate, comments, category,
-				instrument, refs, images);
+		super(sampleID, secondaryID, sampledBy, collectionDate, comments,
+				category, instrument, refs, images);
 		this.volcano = volcano;
 	}
 
