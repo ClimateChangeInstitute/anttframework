@@ -31,7 +31,7 @@ public class AquaticCategory extends Category {
 	 * Meters
 	 */
 	@Column(name = "core_length_m")
-	private float coreLength;
+	private Float coreLength;
 
 	@Column(name = "collection_date")
 	private LocalDate collectionDate;
@@ -41,7 +41,7 @@ public class AquaticCategory extends Category {
 	}
 
 	public AquaticCategory(String categoryID, Site site, CorerType corerType,
-			String age, float coreLength, LocalDate collectionDate) {
+			String age, Float coreLength, LocalDate collectionDate) {
 		super(categoryID, site);
 		this.corerType = corerType;
 		this.age = age;
@@ -65,7 +65,7 @@ public class AquaticCategory extends Category {
 		this.age = age;
 	}
 
-	public float getCoreLength() {
+	public Float getCoreLength() {
 		return coreLength;
 	}
 
