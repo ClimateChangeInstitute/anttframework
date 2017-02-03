@@ -183,8 +183,9 @@ public class TestDataGenerator {
 			MMElement el = new MMElement(MMElement.class.getSimpleName() + i,
 					outcropSamples.get(i % outcropSamples.size()),
 					"Comment " + i, methodTypes.get(i % methodTypes.size()),
-					instruments.get(i % instruments.size()), LocalDate.now(),
-					"Mark", 5, 3f, 2f, "instrument settings for " + i, data);
+					instruments.get(i % instruments.size()),
+					LocalDate.now().toString(), "Mark", 5, 3f, 2f,
+					"instrument settings for " + i, data);
 			range(i % chemistries.size(), (i + 10) % chemistries.size())
 					.forEach(j -> {
 						Chemistry elem = chemistries

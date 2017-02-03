@@ -3,7 +3,6 @@
  */
 package org.tephrochronology.model;
 
-import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -24,7 +23,7 @@ public class MMElementInfo {
 
 	private String iid;
 
-	private LocalDate dateMeasured;
+	private String dateMeasured;
 
 	private String measuredBy;
 
@@ -48,7 +47,7 @@ public class MMElementInfo {
 	}
 
 	public MMElementInfo(String mmElementID, String sampleID, String comments,
-			MethodType methodType, String iid, LocalDate dateMeasured,
+			MethodType methodType, String iid, String dateMeasured,
 			String measuredBy, int numberOfMeasurements, float originalTotal,
 			float calculatedTotal, String instrumentSettings,
 			List<MMElementData> elementData) {
@@ -116,11 +115,11 @@ public class MMElementInfo {
 		this.iid = iid;
 	}
 
-	public LocalDate getDateMeasured() {
+	public String getDateMeasured() {
 		return dateMeasured;
 	}
 
-	public void setDateMeasured(LocalDate dateMeasured) {
+	public void setDateMeasured(String dateMeasured) {
 		this.dateMeasured = dateMeasured;
 	}
 

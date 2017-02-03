@@ -3,7 +3,6 @@
 */
 package org.tephrochronology.model;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -48,7 +47,7 @@ public class MMElement {
 	private Instrument instrument;
 
 	@Column(name = "date_measured")
-	private LocalDate dateMeasured;
+	private String dateMeasured;
 
 	@Column(name = "measured_by")
 	private String measuredBy;
@@ -83,10 +82,10 @@ public class MMElement {
 	 * @param elementData
 	 */
 	public MMElement(String mmElementID, Sample sample, String comments,
-			MethodType methodType, Instrument instrument,
-			LocalDate dateMeasured, String measuredBy, int numberOfMeasurements,
-			float originalTotal, float calculatedTotal,
-			String instrumentSettings, List<MMElementData> elementData) {
+			MethodType methodType, Instrument instrument, String dateMeasured,
+			String measuredBy, int numberOfMeasurements, float originalTotal,
+			float calculatedTotal, String instrumentSettings,
+			List<MMElementData> elementData) {
 		super();
 		this.mmElementID = mmElementID;
 		this.sample = sample;
@@ -145,11 +144,11 @@ public class MMElement {
 		this.instrument = instrument;
 	}
 
-	public LocalDate getDateMeasured() {
+	public String getDateMeasured() {
 		return dateMeasured;
 	}
 
-	public void setDateMeasured(LocalDate dateMeasured) {
+	public void setDateMeasured(String dateMeasured) {
 		this.dateMeasured = dateMeasured;
 	}
 

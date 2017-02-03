@@ -107,8 +107,8 @@ public class QueryVolcanoes {
 				osQ.getSingleResult(), "Comment", new MethodType("MethodType0"),
 				new Instrument(Instrument.class.getSimpleName() + "0", "", "",
 						""),
-				LocalDate.now(), "Mark", 5, 3f, 2f, "instrument settings",
-				data);
+				LocalDate.now().toString(), "Mark", 5, 3f, 2f,
+				"instrument settings", data);
 		Chemistry elem = new Chemistry("SiO2", "Silicon dioxide",
 				"SIO<sub>2</sub>", 60.08f, null);
 		data.add(new MMElementData(el, elem, 10f, 2f, 1f, new Unit("ppb")));

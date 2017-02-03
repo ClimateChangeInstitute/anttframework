@@ -1,7 +1,5 @@
 package org.tephrochronology.model;
 
-import java.time.LocalDate;
-
 /**
  * Simple {@link Sample} results.
  * 
@@ -18,7 +16,7 @@ public class SampleInfo {
 
 	private String sampledBy;
 
-	private LocalDate collectionDate;
+	private String collectionDate;
 
 	private String comments;
 
@@ -30,7 +28,7 @@ public class SampleInfo {
 	}
 
 	public SampleInfo(String sampleType, String sampleID, String longName,
-			String sampledBy, String comments, LocalDate collectionDate,
+			String sampledBy, String comments, String collectionDate,
 			String siteID, String iid) {
 		super();
 		this.sampleType = sampleType;
@@ -67,11 +65,11 @@ public class SampleInfo {
 		this.sampledBy = sampledBy;
 	}
 
-	public LocalDate getCollectionDate() {
+	public String getCollectionDate() {
 		return collectionDate;
 	}
 
-	public void setCollectionDate(LocalDate collectionDate) {
+	public void setCollectionDate(String collectionDate) {
 		this.collectionDate = collectionDate;
 	}
 
