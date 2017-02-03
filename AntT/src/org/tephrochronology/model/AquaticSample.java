@@ -34,13 +34,13 @@ public abstract class AquaticSample extends Sample {
 	 * Meters
 	 */
 	@Column(name = "depth_m")
-	private float depth;
+	private Float depth;
 
 	/**
 	 * Centimeters
 	 */
 	@Column(name = "thickness_cm")
-	private float thickness;
+	private Float thickness;
 
 	public AquaticSample() {
 	}
@@ -48,7 +48,7 @@ public abstract class AquaticSample extends Sample {
 	public AquaticSample(String sampleID, String secondaryID, String sampledBy,
 			LocalDate collectionDate, String comments, Category category,
 			Instrument instrument, List<Ref> refs, List<Image> images,
-			Volcano volcano, float depth, float thickness) {
+			Volcano volcano, Float depth, Float thickness) {
 		super(sampleID, secondaryID, sampledBy, collectionDate, comments, category,
 				instrument, refs, images);
 		this.volcano = volcano;
@@ -64,19 +64,19 @@ public abstract class AquaticSample extends Sample {
 		this.volcano = volcano;
 	}
 
-	public float getDepth() {
+	public Float getDepth() {
 		return depth;
 	}
 
-	public void setDepth(float depth) {
+	public void setDepth(Float depth) {
 		this.depth = depth;
 	}
 
-	public float getThickness() {
+	public Float getThickness() {
 		return thickness;
 	}
 
-	public void setThickness(float thickness) {
+	public void setThickness(Float thickness) {
 		this.thickness = thickness;
 	}
 
