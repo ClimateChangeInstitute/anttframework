@@ -286,8 +286,8 @@ public class TestDataGenerator {
 					LocalDate.now().toString(), "comment " + i,
 					lakeCategories.get(i % lakeCategories.size()),
 					instruments.get(i % instruments.size()), getRefs(i),
-					getImages(i), volcanoes.get(i % volcanoes.size()), i * 10f,
-					i);
+					getImages(i), volcanoes.get(i % volcanoes.size()),
+					String.valueOf(i * 10f), String.valueOf(i));
 			lakeSamples.add(ls);
 			em.persist(ls);
 		});
@@ -310,8 +310,8 @@ public class TestDataGenerator {
 					LocalDate.now().toString(), "comment " + i,
 					marineCategories.get(i % marineCategories.size()),
 					instruments.get(i % instruments.size()), getRefs(i),
-					getImages(i), volcanoes.get(i % volcanoes.size()), i * 10f,
-					i);
+					getImages(i), volcanoes.get(i % volcanoes.size()),
+					String.valueOf(i * 10f), String.valueOf(i));
 			marineSamples.add(ms);
 			em.persist(ms);
 		});
