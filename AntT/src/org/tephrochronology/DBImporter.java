@@ -244,7 +244,7 @@ public class DBImporter {
 					conn);
 
 			loadSampleData(dataDir, "marine_samples",
-					"volcano_number INTEGER, depth_m REAL, thickness_cm REAL",
+					"volcano_number INTEGER, depth_m TEXT, thickness_cm TEXT",
 					"M", "sample_id, volcano_number, depth_m, thickness_cm",
 					conn);
 

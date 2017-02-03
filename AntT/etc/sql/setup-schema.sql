@@ -247,7 +247,7 @@ CREATE TABLE mm_elements(
 	method_type TEXT REFERENCES method_types(method_type) NOT NULL,
 	iid TEXT REFERENCES instruments(iid),
 	date_measured TEXT,
-	measured_by TEXT NOT NULL,
+	measured_by TEXT,
 	number_of_measurements INTEGER NOT NULL,
 	original_total REAL NOT NULL,
 	calculated_total REAL NOT NULL,
