@@ -41,19 +41,19 @@ public class IceCoreSample extends Sample {
 	 * Meters
 	 */
 	@Column(name = "bottomdepth_m")
-	private float bottomDepth;
+	private Float bottomDepth;
 
 	/**
 	 * BP
 	 */
 	@Column(name = "topyear_bp")
-	private float topYear;
+	private Float topYear;
 
 	/**
 	 * BP
 	 */
 	@Column(name = "bottomyear_bp")
-	private float bottomYear;
+	private Float bottomYear;
 
 	public IceCoreSample() {
 	}
@@ -61,8 +61,8 @@ public class IceCoreSample extends Sample {
 	public IceCoreSample(String sampleID, String longName, String sampledBy,
 			String collectionDate, String comments, Category category,
 			Instrument instrument, List<Ref> refs, List<Image> images,
-			Volcano volcano, float topDepth, float bottomDepth, float topYear,
-			float bottomYear) {
+			Volcano volcano, float topDepth, Float bottomDepth, Float topYear,
+			Float bottomYear) {
 		super(sampleID, longName, sampledBy, collectionDate, comments, category,
 				instrument, refs, images);
 		this.volcano = volcano;
@@ -88,27 +88,27 @@ public class IceCoreSample extends Sample {
 		this.topDepth = topDepth;
 	}
 
-	public float getBottomDepth() {
+	public Float getBottomDepth() {
 		return bottomDepth;
 	}
 
-	public void setBottomDepth(float bottomDepth) {
+	public void setBottomDepth(Float bottomDepth) {
 		this.bottomDepth = bottomDepth;
 	}
 
-	public float getTopYear() {
+	public Float getTopYear() {
 		return topYear;
 	}
 
-	public void setTopYear(float topYear) {
+	public void setTopYear(Float topYear) {
 		this.topYear = topYear;
 	}
 
-	public float getBottomYear() {
+	public Float getBottomYear() {
 		return bottomYear;
 	}
 
-	public void setBottomYear(float bottomYear) {
+	public void setBottomYear(Float bottomYear) {
 		this.bottomYear = bottomYear;
 	}
 

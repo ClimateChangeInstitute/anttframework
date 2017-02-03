@@ -371,8 +371,8 @@ public class TestDataGenerator {
 					LocalDate.now().toString(), "comment " + i,
 					iceCoreCategories.get(i % iceCoreCategories.size()),
 					instruments.get(i % instruments.size()), getRefs(i),
-					getImages(i), volcanoes.get(i % volcanoes.size()), 0, i,
-					2016 - i, 1900 - i);
+					getImages(i), volcanoes.get(i % volcanoes.size()), 0f,
+					(float) i, 2016f - i, 1900f - i);
 			iceCoreSamples.add(ics);
 			em.persist(ics);
 		});
