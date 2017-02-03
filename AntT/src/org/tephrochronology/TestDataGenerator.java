@@ -565,7 +565,7 @@ public class TestDataGenerator {
 		range(0, n).forEach(i -> {
 			Site s = new Site(Site.class.getSimpleName() + i,
 					Site.class.getName() + i, (i * n) % 90, (i * n) % 180,
-					i * n * 100, "Comment " + i,
+					i * n * 100f, "Comment " + i,
 					Lists.newArrayList(areas.get(i % areas.size())));
 			sites.add(s);
 			em.persist(s);

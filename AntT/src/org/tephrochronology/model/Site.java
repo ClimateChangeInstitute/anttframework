@@ -50,7 +50,7 @@ public class Site implements Serializable {
 	 * Meters
 	 */
 	@Column(name = "elevation_m")
-	private float elevation;
+	private Float elevation;
 
 	@Column(name = "comment")
 	private String comment;
@@ -75,7 +75,7 @@ public class Site implements Serializable {
 	 * @param areas
 	 */
 	public Site(String siteID, String longName, float latitude, float longitude,
-			float elevation, String comment, List<Area> areas) {
+			Float elevation, String comment, List<Area> areas) {
 		super();
 		this.siteID = siteID;
 		this.longName = longName;
@@ -113,11 +113,11 @@ public class Site implements Serializable {
 		this.longitude = longitude;
 	}
 
-	public float getElevation() {
+	public Float getElevation() {
 		return elevation;
 	}
 
-	public void setElevation(float elevation) {
+	public void setElevation(Float elevation) {
 		this.elevation = elevation;
 	}
 
