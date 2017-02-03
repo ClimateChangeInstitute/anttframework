@@ -227,7 +227,7 @@ public class DBImporter {
 			copyFileToTable(conn, dataDir, "method_types");
 
 			loadCategoryData(dataDir, "lake_categories",
-					"corer_type TEXT,age TEXT,core_length_m REAL,collection_date DATE",
+					"corer_type TEXT,age TEXT,core_length_m REAL,collection_date TEXT",
 					"L",
 					"category_id,corer_type,age,core_length_m,collection_date",
 					conn);
@@ -238,7 +238,7 @@ public class DBImporter {
 					conn);
 
 			loadCategoryData(dataDir, "marine_categories",
-					"corer_type TEXT,age TEXT,core_length_m REAL,collection_date DATE",
+					"corer_type TEXT,age TEXT,core_length_m REAL,collection_date TEXT",
 					"M",
 					"category_id,corer_type,age,core_length_m,collection_date",
 					conn);
@@ -331,7 +331,7 @@ public class DBImporter {
 		String tmpTable = String.format("%s_tmp", tableName);
 
 		st.execute(String.format(
-				"CREATE TABLE %s(sample_id TEXT PRIMARY KEY,secondary_id TEXT,sampled_by TEXT,collection_date DATE,comments TEXT,category_id TEXT,iid TEXT,",
+				"CREATE TABLE %s(sample_id TEXT PRIMARY KEY,secondary_id TEXT,sampled_by TEXT,collection_date TEXT,comments TEXT,category_id TEXT,iid TEXT,",
 				tmpTable) + extraColumnsWithTypes + ")");
 
 		copyFileToTable(conn, tmpTable, new File(dataDir, tableName + ".csv"));
