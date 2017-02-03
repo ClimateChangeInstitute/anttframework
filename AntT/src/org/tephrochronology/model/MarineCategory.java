@@ -1,6 +1,4 @@
 package org.tephrochronology.model;
-import java.time.LocalDate;
-
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -38,7 +36,7 @@ public class MarineCategory extends AquaticCategory {
 	 * @param collectionDate
 	 */
 	public MarineCategory(String categoryID, Site site, CorerType corerType,
-			String age, float coreLength, LocalDate collectionDate) {
+			String age, Float coreLength, String collectionDate) {
 		super(categoryID, site, corerType, age, coreLength, collectionDate);
 	}
 

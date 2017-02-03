@@ -3,8 +3,6 @@
  */
 package org.tephrochronology.model;
 
-import java.time.LocalDate;
-
 import javax.persistence.Column;
 import javax.persistence.JoinColumn;
 import javax.persistence.MappedSuperclass;
@@ -34,14 +32,14 @@ public class AquaticCategory extends Category {
 	private Float coreLength;
 
 	@Column(name = "collection_date")
-	private LocalDate collectionDate;
+	private String collectionDate;
 	
 	public AquaticCategory() {
 		super();
 	}
 
 	public AquaticCategory(String categoryID, Site site, CorerType corerType,
-			String age, Float coreLength, LocalDate collectionDate) {
+			String age, Float coreLength, String collectionDate) {
 		super(categoryID, site);
 		this.corerType = corerType;
 		this.age = age;
@@ -73,11 +71,11 @@ public class AquaticCategory extends Category {
 		this.coreLength = coreLength;
 	}
 
-	public LocalDate getCollectionDate() {
+	public String getCollectionDate() {
 		return collectionDate;
 	}
 
-	public void setCollectionDate(LocalDate collectionDate) {
+	public void setCollectionDate(String collectionDate) {
 		this.collectionDate = collectionDate;
 	}
 

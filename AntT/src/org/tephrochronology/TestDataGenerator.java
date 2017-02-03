@@ -268,8 +268,8 @@ public class TestDataGenerator {
 			LakeCategory newCat = new LakeCategory(
 					LakeSample.class.getSimpleName() + i,
 					sites.get(i % sites.size()),
-					coreTypes.get(i % coreTypes.size()), "age " + i, i,
-					LocalDate.now());
+					coreTypes.get(i % coreTypes.size()), "age " + i, (float)i,
+					LocalDate.now().toString());
 			em.persist(newCat);
 			lakeCategories.add(newCat);
 		}
@@ -296,8 +296,8 @@ public class TestDataGenerator {
 			MarineCategory newCat = new MarineCategory(
 					MarineSample.class.getSimpleName() + i,
 					sites.get(i % sites.size()),
-					coreTypes.get(i % coreTypes.size()), "age " + i, i,
-					LocalDate.now());
+					coreTypes.get(i % coreTypes.size()), "age " + i, (float)i,
+					LocalDate.now().toString());
 			em.persist(newCat);
 			marineCategories.add(newCat);
 		}

@@ -1,13 +1,7 @@
 package org.tephrochronology.model;
-import java.time.LocalDate;
-
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-
-import org.tephrochronology.model.AquaticCategory;
-import org.tephrochronology.model.CorerType;
-import org.tephrochronology.model.Site;
 
 /**
  * 
@@ -42,7 +36,7 @@ public class LakeCategory extends AquaticCategory {
 	 * @param samplingDate
 	 */
 	public LakeCategory(String categoryID, Site site, CorerType corerType,
-			String age, float coreLength, LocalDate samplingDate) {
+			String age, Float coreLength, String samplingDate) {
 		super(categoryID, site, corerType, age, coreLength, samplingDate);
 	}
 
