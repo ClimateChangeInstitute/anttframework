@@ -68,7 +68,8 @@ public class MMElementInfo {
 
 	public MMElementInfo(MMElement e) {
 		this(e.getMmElementID(), e.getSample().getSampleID(), e.getComments(),
-				e.getMethodType(), e.getInstrument().getId(),
+				e.getMethodType(),
+				e.getInstrument() == null ? null : e.getInstrument().getId(),
 				e.getDateMeasured(), e.getMeasuredBy(),
 				e.getNumberOfMeasurements(), e.getOriginalTotal(),
 				e.getCalculatedTotal(), e.getInstrumentSettings(),
@@ -82,7 +83,7 @@ public class MMElementInfo {
 	public void setMmElementID(String mmElementID) {
 		this.mmElementID = mmElementID;
 	}
-	
+
 	public String getSampleID() {
 		return sampleID;
 	}
