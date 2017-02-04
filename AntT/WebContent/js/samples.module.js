@@ -23,7 +23,7 @@ app.factory('dataSource', [ '$http', function($http) {
 	factory.getMmelements = function() {
 		return $http.get("generated/allMMElements.xml");
 	};
-	
+
 	return factory;
 } ]);
 
@@ -45,7 +45,21 @@ app.setupSampleController = function($location, $scope, dataSource, dir) {
 	dataSource.getData(dir + param + ".xml").success(function(data) {
 		var x2js = new X2JS();
 		var json = x2js.xml_str2json(data);
-		$scope.dataSet = json;
+		var sample = json.sample;
+
+		// Have to make sure that arrays are actually arrays for Angular to work
+		// properly!
+		function ensureArray(obj, key) {
+			if (!Array.isArray(obj[key])) {
+				obj[key] = obj[key] ? [ obj[key] ] : [];
+			}
+		};
+		
+		// Samples must have arrays of images and references
+		ensureArray(sample, 'images');
+		ensureArray(sample, 'refs');
+
+		$scope.sample = json.sample;
 	});
 
 	// Hack to make blueimp image gallery work properly with base 64 images
@@ -65,27 +79,32 @@ app.setupSampleController = function($location, $scope, dataSource, dir) {
 };
 
 app.controller('biaSample', function($location, $scope, dataSource) {
-	app.setupSampleController($location, $scope, dataSource, "generated/XMLSamples/BIA/");
+	app.setupSampleController($location, $scope, dataSource,
+			"generated/XMLSamples/BIA/");
 });
 
 app.controller('iceCoreSample', function($location, $scope, dataSource) {
-	app.setupSampleController($location, $scope, dataSource, "generated/XMLSamples/IceCore/");
+	app.setupSampleController($location, $scope, dataSource,
+			"generated/XMLSamples/IceCore/");
 });
 
 app.controller('lakeSample', function($location, $scope, dataSource) {
-	app.setupSampleController($location, $scope, dataSource, "generated/XMLSamples/Aquatic/Lake/");
+	app.setupSampleController($location, $scope, dataSource,
+			"generated/XMLSamples/Aquatic/Lake/");
 });
 
 app.controller('marineSample', function($location, $scope, dataSource) {
-	app.setupSampleController($location, $scope, dataSource, "generated/XMLSamples/Aquatic/Marine/");
+	app.setupSampleController($location, $scope, dataSource,
+			"generated/XMLSamples/Aquatic/Marine/");
 });
 
 app.controller('outcropSample', function($location, $scope, dataSource) {
-	
+
 	var param = $location.search()['id'];
-	
-	app.setupSampleController($location, $scope, dataSource, "generated/XMLSamples/Outcrop/");
-	
+
+	app.setupSampleController($location, $scope, dataSource,
+			"generated/XMLSamples/Outcrop/");
+
 	/**
 	 * @param mmelements
 	 *            {MMElement[]} List of MMElements (Not null)
