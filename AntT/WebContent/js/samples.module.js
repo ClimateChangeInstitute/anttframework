@@ -58,9 +58,11 @@ app.setupSampleController = function($location, $scope, dataSource, dir) {
 		// Samples must have arrays of images and references
 		ensureArray(sample, 'images');
 		ensureArray(sample, 'refs');
-
-		$scope.sample = json.sample;
-	});
+		
+		$scope.sample = sample;
+	}).error(function(error) {
+        console.error('Unable to load file ' + param);
+    });
 
 	// Hack to make blueimp image gallery work properly with base 64 images
 	$scope.handleClick = function(event) {
