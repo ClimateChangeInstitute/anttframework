@@ -1,9 +1,10 @@
-a.special:hover{
+a.special:hover {
 	text-decoration: none;
 }
-.selectpanelhover:hover{
+
+.selectpanelhover:hover {
 	background-color: #f7f7f7;
-	box-shadow: 0 7px 7px rgba(0,0,0,.1);
+	box-shadow: 0 7px 7px rgba(0, 0, 0, .1);
 }
 
 .filter-header {
@@ -15,84 +16,94 @@ body {
 }
 
 ul {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 13pt;
-    line-height: 30px;
-    padding: 0px;
-}
-.filterSection li {
-    list-style: none;
-    margin: 0px;
-    padding: 5px;
-    display: inline;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 13pt;
+	line-height: 30px;
+	padding: 0px;
 }
 
-.filterSection li:first-letter{
-    text-transform: capitalize;
+.filterSection li {
+	list-style: none;
+	margin: 0px;
+	padding: 5px;
+	display: inline;
 }
+
+.filterSection li:first-letter {
+	text-transform: capitalize;
+}
+
 .filterSection li input {
-    margin-right: 6px;
+	margin-right: 6px;
 }
+
 .filterSection {
-    margin: 0px;
-    padding: 0px;
+	margin: 0px;
+	padding: 0px;
 }
+
 .filterSection label {
-    font-weight: normal;
+	font-weight: normal;
 }
 
 .panel-samples {
-    margin-bottom: 5px;
+	margin-bottom: 5px;
 }
 
-.panel-heading [data-toggle="collapse"]:after
-{
-    font-family: 'Glyphicons Halflings';
-    content: "\e250"; /* glyphicon-triangle-right */
-    float: left;
-    font-size: 18px;
-    line-height: 22px;
+.panel-heading [data-toggle="collapse"]:after {
+	font-family: 'Glyphicons Halflings';
+	content: "\e250"; /* glyphicon-triangle-right */
+	float: left;
+	font-size: 18px;
+	line-height: 22px;
+	/* rotate "play" icon from > (right arrow) to down arrow */
+	-webkit-transform: rotate(90deg);
+	-moz-transform: rotate(90deg);
+	-ms-transform: rotate(90deg);
+	-o-transform: rotate(90deg);
+	transform: rotate(90deg);
+}
 
-    /* rotate "play" icon from > (right arrow) to down arrow */
-    -webkit-transform: rotate(90deg);
-    -moz-transform:    rotate(90deg);
-    -ms-transform:     rotate(90deg);
-    -o-transform:      rotate(90deg);
-    transform:         rotate(90deg);
+.panel-heading [data-toggle="collapse"].collapsed:after {
+	/* rotate "play" icon from > (right arrow) to ^ (up arrow) */
+	-webkit-transform: rotate(0deg);
+	-moz-transform: rotate(0deg);
+	-ms-transform: rotate(0deg);
+	-o-transform: rotate(0deg);
+	transform: rotate(0deg);
 }
-.panel-heading [data-toggle="collapse"].collapsed:after
-{
-    /* rotate "play" icon from > (right arrow) to ^ (up arrow) */
-    -webkit-transform: rotate(0deg);
-    -moz-transform:    rotate(0deg);
-    -ms-transform:     rotate(0deg);
-    -o-transform:      rotate(0deg);
-    transform:         rotate(0deg);
-}
+
 .panel-heading.remove-color {
-    background-color: white;
+	background-color: white;
 }
 
 .q.panel-heading:hover {
-    background-color: #f7f7f7;
-    box-shadow: 0 7px 7px rgba(0,0,0,.1);
+	background-color: #f7f7f7;
+	box-shadow: 0 7px 7px rgba(0, 0, 0, .1);
 }
+
 .do-inline {
-    display: inline;
+	display: inline;
 }
 
 /* In order to hide spinners of input of type number. */
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+	/* <-- Apparently some margin are still there even though it's hidden */
 }
 
 .help-block {
 	margin: 0px;
 }
 
-.help-block > ul {
+.help-block>ul {
 	margin: 0px;
 	line-height: 1em;
+}
+
+#links a {
+	margin: 0px 2px 2px 0px;
+	display: inline-block;
+	vertical-align: middle;
 }
