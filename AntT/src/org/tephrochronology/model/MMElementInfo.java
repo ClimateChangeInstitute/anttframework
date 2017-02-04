@@ -5,6 +5,8 @@ package org.tephrochronology.model;
 
 import java.util.List;
 
+import javax.persistence.DiscriminatorValue;
+
 /**
  * Used for shallow {@link MMElement} query results.
  * 
@@ -43,6 +45,13 @@ public class MMElementInfo {
 
 	private List<MMElementData> elementData;
 
+	/**
+	 * sample_type from database: B, I, L, M, or O.
+	 * 
+	 * @see Sample
+	 */
+	private String sampleType;
+
 	public MMElementInfo() {
 	}
 
@@ -50,7 +59,7 @@ public class MMElementInfo {
 			MethodType methodType, String iid, String dateMeasured,
 			String measuredBy, int numberOfMeasurements, float originalTotal,
 			float calculatedTotal, String instrumentSettings,
-			List<MMElementData> elementData) {
+			List<MMElementData> elementData, String sampleType) {
 		super();
 		this.mmElementID = mmElementID;
 		this.sampleID = sampleID;
@@ -64,6 +73,7 @@ public class MMElementInfo {
 		this.calculatedTotal = calculatedTotal;
 		this.instrumentSettings = instrumentSettings;
 		this.elementData = elementData;
+		this.sampleType = sampleType;
 	}
 
 	public MMElementInfo(MMElement e) {
@@ -73,7 +83,8 @@ public class MMElementInfo {
 				e.getDateMeasured(), e.getMeasuredBy(),
 				e.getNumberOfMeasurements(), e.getOriginalTotal(),
 				e.getCalculatedTotal(), e.getInstrumentSettings(),
-				e.getElementData());
+				e.getElementData(), e.getSample().getClass()
+						.getAnnotation(DiscriminatorValue.class).value());
 	}
 
 	public String getMmElementID() {
@@ -194,6 +205,14 @@ public class MMElementInfo {
 
 	public void setElementData(List<MMElementData> elementData) {
 		this.elementData = elementData;
+	}
+
+	public String getSampleType() {
+		return sampleType;
+	}
+
+	public void setSampleType(String sampleType) {
+		this.sampleType = sampleType;
 	}
 
 }

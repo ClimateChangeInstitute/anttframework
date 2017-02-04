@@ -62,8 +62,8 @@
 	function MMElement(e) {
 		this.calculatedTotal = parseFloat(e.calculatedTotal);
 		this.comments = e.comments;
-		var parts = e.dateMeasured.split('-');
-		this.dateMeasured = new Date(parts[0], parts[1], parts[2]);
+		//var parts = e.dateMeasured.split('-');
+		this.dateMeasured = e.dateMeasured; //new Date(parts[0], parts[1], parts[2]);
 		this.elementData = [];
 		var that = this;
 		if (e.elementData) {
@@ -79,7 +79,7 @@
 		this.numberOfMeasurements = parseInt(e.numberOfMeasurements);
 		this.originalTotal = parseFloat(e.originalTotal);
 		this.sampleID = e.sampleID;
-		this.sampleType = (this.sampleID).charAt(0).toUpperCase();
+		this.sampleType = e.sampleType;
 		this.sampleTypeLong = '';
 
 		if (this.sampleType == 'B')
