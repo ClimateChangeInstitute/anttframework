@@ -29,7 +29,7 @@ public class BIACategory extends Category {
 	 * centimeters
 	 */
 	@Column(name = "thickness_cm")
-	private float thickness;
+	private String thickness;
 
 	@Column(name = "trend")
 	private String trend;
@@ -46,7 +46,7 @@ public class BIACategory extends Category {
 	 * @param trend
 	 */
 	public BIACategory(String categoryID, Site site, String deep,
-			float thickness, String trend) {
+			String thickness, String trend) {
 		super(categoryID, site);
 		this.deep = deep;
 		this.thickness = thickness;
@@ -61,11 +61,11 @@ public class BIACategory extends Category {
 		this.deep = deep;
 	}
 
-	public float getThickness() {
+	public String getThickness() {
 		return thickness;
 	}
 
-	public void setThickness(float thickness) {
+	public void setThickness(String thickness) {
 		this.thickness = thickness;
 	}
 

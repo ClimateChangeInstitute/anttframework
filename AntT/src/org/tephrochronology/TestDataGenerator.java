@@ -326,7 +326,8 @@ public class TestDataGenerator {
 		List<BIACategory> biaCategories = new ArrayList<>();
 		for (int i = 0; i < 10; i++) {
 			BIACategory newCat = new BIACategory(c.getSimpleName() + i,
-					sites.get(i % sites.size()), "deep " + i, i, "trend " + i);
+					sites.get(i % sites.size()), "deep " + i, String.valueOf(i),
+					"trend " + i);
 			em.persist(newCat);
 			biaCategories.add(newCat);
 		}
