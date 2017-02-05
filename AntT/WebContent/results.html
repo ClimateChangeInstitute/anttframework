@@ -194,7 +194,7 @@
 															<div class="col-xs-1">
 																<span class="collapsed" data-parent="#accordion"
 																	data-toggle="collapse"
-																	data-target="#{{search.count}}-{{o.mme.sampleID}}"></span>
+																	data-target="#{{search.count}}-{{o.mme.sampleID | makeID}}"></span>
 															</div>
 															<div class="col-xs-4 simCoefficient">{{o.simVal |
 																number:2}}</div>
@@ -202,12 +202,12 @@
 																<input type="checkbox" class="sample-select-box"
 																	id="s-{{search.count}}-{{o.mme.sampleID}}">
 																<a class="special"
-																	href="{{o.mme.sampleType}}.html?id={{o.mme.sampleID}}">
+																	href="{{o.mme.sampleType}}.html?id={{o.mme.sampleID | escape}}">
 																	{{o.mme.sampleID}}</a>
 															</div>
 														</div>
 													</div>
-													<div id="{{search.count}}-{{o.mme.sampleID}}"
+													<div id="{{search.count}}-{{o.mme.sampleID | makeID}}"
 														class="panel-body collapse">
 														<div class="row">
 															<div class="col-sm-9">
