@@ -78,6 +78,29 @@ app.setupSampleController = function($location, $scope, dataSource, dir) {
 		});
 		blueimp.Gallery(links, options);
 	};
+
+
+	/**
+	 * @param mmelements
+	 *            {MMElement[]} List of MMElements (Not null)
+	 * @param id
+	 *            {string} The id to match (Not null)
+	 * @returns An element with matching sampleID to the given id or null
+	 */
+	function getOutcropMMElements(mmelements, id) {
+		for (var i = 0; i < mmelements.length; i++) {
+			if (mmelements[i].sampleID === id) {
+				return mmelements[i];
+			}
+		}
+		return null; // No match!
+	}
+
+	dataSource.getMmelements().success(function(data) {
+		// Requires antt.js
+		var mmelements = antt.xmlToMMElements(data);
+		$scope.mmElements = getOutcropMMElements(mmelements, param);
+	});
 };
 
 app.controller('biaSample', function($location, $scope, dataSource) {
@@ -101,33 +124,8 @@ app.controller('marineSample', function($location, $scope, dataSource) {
 });
 
 app.controller('outcropSample', function($location, $scope, dataSource) {
-
-	var param = $location.search()['id'];
-
 	app.setupSampleController($location, $scope, dataSource,
 			"generated/XMLSamples/Outcrop/");
-
-	/**
-	 * @param mmelements
-	 *            {MMElement[]} List of MMElements (Not null)
-	 * @param id
-	 *            {string} The id to match (Not null)
-	 * @returns An element with matching sampleID to the given id or null
-	 */
-	function getOutcropMMElements(mmelements, id) {
-		for (var i = 0; i < mmelements.length; i++) {
-			if (mmelements[i].sampleID === id) {
-				return mmelements[i];
-			}
-		}
-		return null; // No match!
-	}
-
-	dataSource.getMmelements().success(function(data) {
-		// Requires antt.js
-		var mmelements = antt.xmlToMMElements(data);
-		$scope.mmElements = getOutcropMMElements(mmelements, param);
-	});
 });
 
 app.directive('clipboardText', [ '$document', function($document) {
