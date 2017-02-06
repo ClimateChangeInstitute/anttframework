@@ -352,8 +352,9 @@ public class DBImporter {
 	 * @throws IOException
 	 */
 	private void importImageFiles(File dataDir) throws IOException {
-		File imageFolder = new File(dataDir, "images");
-
+		final File imageFolder = new File(dataDir, "images");
+		final String imageDirPath = imageFolder.getAbsolutePath() + File.separator;
+		
 		if (!imageFolder.exists())
 			return;
 
@@ -367,12 +368,13 @@ public class DBImporter {
 
 		System.out.printf("Processing %d images (This may take a while).",
 				images.size());
+		
 		for (File f : images) {
 			BufferedImage fullSizeImage = ImageIO.read(f);
 			BufferedImage thumbImage = Images.scaleAndCrop(fullSizeImage,
 					Images.DEFAULT_THUMB_SIZE);
 
-			Image image = new Image(f.getName(), "",
+			Image image = new Image(f.getAbsolutePath().replace(imageDirPath, ""), "",
 					Images.asOutputStream(fullSizeImage).toByteArray(),
 					Images.asOutputStream(thumbImage).toByteArray(), null);
 
