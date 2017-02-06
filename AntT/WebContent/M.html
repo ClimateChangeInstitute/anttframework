@@ -335,7 +335,9 @@
 					<h4>References:</h4>
 					<div ng-repeat="ref in sample.refs">
 						<p>
-							<a ng-href="http://doi.org/{{ref.doi | encode}}" target="_blank">{{ref.doi}}</a> : {{ref.ref}} <a href="#"
+							<a ng-href="http://doi.org/{{ref.doi | encode}}" target="_blank">{{ref.doi}}</a> : {{ref.ref}} 
+							
+							<a ng-show="ref.bibtex" href="#"
 								onClick="return false;" data-clipboard-text="{{ref.bibtex}}">BibTeX<span
 								class="glyphicon glyphicon-copy"></span></a>
 						</p>
