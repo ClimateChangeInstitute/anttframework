@@ -13,6 +13,10 @@ app.filter('unsafe', function($sce) {
 	};
 });
 
+app.filter('encode', function() {
+	return window.encodeURIComponent;
+});
+
 app.factory('dataSource', [ '$http', function($http) {
 	var factory = [];
 
