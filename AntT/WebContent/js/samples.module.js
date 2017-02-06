@@ -57,16 +57,17 @@ app.setupSampleController = function($location, $scope, dataSource, dir) {
 			if (!Array.isArray(obj[key])) {
 				obj[key] = obj[key] ? [ obj[key] ] : [];
 			}
-		};
-		
+		}
+		;
+
 		// Samples must have arrays of images and references
 		ensureArray(sample, 'images');
 		ensureArray(sample, 'refs');
-		
+
 		$scope.sample = sample;
 	}).error(function(error) {
-        console.error('Unable to load file ' + param);
-    });
+		console.error('Unable to load file ' + param);
+	});
 
 	// Hack to make blueimp image gallery work properly with base 64 images
 	$scope.handleClick = function(event) {
@@ -82,7 +83,6 @@ app.setupSampleController = function($location, $scope, dataSource, dir) {
 		});
 		blueimp.Gallery(links, options);
 	};
-
 
 	/**
 	 * @param mmelements
@@ -108,35 +108,30 @@ app.setupSampleController = function($location, $scope, dataSource, dir) {
 };
 
 app.controller('biaSample', function($location, $scope, dataSource) {
-	app.setupSampleController($location, $scope, dataSource,
-			"generated/XMLSamples/BIA/");
+	app.setupSampleController($location, $scope, dataSource, "generated/XMLSamples/BIA/");
 });
 
 app.controller('iceCoreSample', function($location, $scope, dataSource) {
-	app.setupSampleController($location, $scope, dataSource,
-			"generated/XMLSamples/IceCore/");
+	app.setupSampleController($location, $scope, dataSource, "generated/XMLSamples/IceCore/");
 });
 
 app.controller('lakeSample', function($location, $scope, dataSource) {
-	app.setupSampleController($location, $scope, dataSource,
-			"generated/XMLSamples/Aquatic/Lake/");
+	app.setupSampleController($location, $scope, dataSource, "generated/XMLSamples/Aquatic/Lake/");
 });
 
 app.controller('marineSample', function($location, $scope, dataSource) {
-	app.setupSampleController($location, $scope, dataSource,
-			"generated/XMLSamples/Aquatic/Marine/");
+	app.setupSampleController($location, $scope, dataSource, "generated/XMLSamples/Aquatic/Marine/");
 });
 
 app.controller('outcropSample', function($location, $scope, dataSource) {
-	app.setupSampleController($location, $scope, dataSource,
-			"generated/XMLSamples/Outcrop/");
+	app.setupSampleController($location, $scope, dataSource, "generated/XMLSamples/Outcrop/");
 });
 
 app.directive('clipboardText', [ '$document', function($document) {
 	return {
 		restrict : 'A',
 		link : function($scope, $element, $attr) {
-			var clipboard = new Clipboard($element.context);
+			var clipboard = new Clipboard($element[0]);
 			clipboard.on('success', function(e) {
 				alert("The BibTeX has been copied to the clipboard.");
 			});

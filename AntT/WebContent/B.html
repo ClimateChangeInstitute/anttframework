@@ -69,7 +69,7 @@
 	<div class="container" ng-app="exampleApp" ng-cloak>
 		<div ng-controller="biaSample">
 
-			<div class="page-header">
+			<div class="page-header" ng-cloak>
 				<h1>Blue Ice Area Sample Data ({{sample.sampleID}})</h1>
 			</div>
 
@@ -350,13 +350,10 @@
 	<!-- Bootstrap core JavaScript
     ================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
-	<script src="index_files/jquery.js"></script>
-	<script>
-		window.jQuery
-				|| document
-						.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>');
-	</script>
+	<script src="./lib/jquery-3.1.1.min.js"></script>
+
 	<script src="index_files/bootstrap/js/bootstrap.js"></script>
+
 	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 	<script src="index_files/ie10-viewport-bug-workaround.js"></script>
 
