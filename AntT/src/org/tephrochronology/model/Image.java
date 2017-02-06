@@ -41,9 +41,11 @@ public class Image implements Serializable {
 	@Column(name = "comments")
 	private String comments;
 
+	// Marked as XMLTransient on getBytes method
 	@Column(name = "bytes")
-	private byte[] bytes; // Marked as XMLTransient on getBytes method
+	private byte[] bytes;
 
+	// Marked as XMLTransient on getThumbBtypes method
 	@Column(name = "thumbBytes")
 	private byte[] thumbBytes;
 
@@ -110,6 +112,7 @@ public class Image implements Serializable {
 		this.samplesUsedBy = samplesUsedBy;
 	}
 
+	@XmlTransient
 	public byte[] getThumbBytes() {
 		return thumbBytes;
 	}

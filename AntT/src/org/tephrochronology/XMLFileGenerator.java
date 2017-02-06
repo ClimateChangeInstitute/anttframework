@@ -57,7 +57,7 @@ public class XMLFileGenerator {
 	}
 
 	public <T extends Sample> void writeSampleXMLFiles(Path outputLocation,
-			Path imagesPath, Class<T> clazz)
+			Path imagesPath, Path imageThumbnailsPath, Class<T> clazz)
 			throws PropertyException, JAXBException, IOException, SAXException {
 
 		System.out.printf("Generating %s sample files.", clazz.getSimpleName());
@@ -79,12 +79,15 @@ public class XMLFileGenerator {
 
 			out.flush();
 			out.close();
-			
-			final File imagesFolder = imagesPath.toFile();
 
+			final File imagesFolder = imagesPath.toFile();
+			final File imageThumbnailsFolder = imageThumbnailsPath.toFile();
 			for (Image i : s.getImages()) {
 				FileUtils.writeByteArrayToFile(
 						new File(imagesFolder, i.getImageID()), i.getBytes());
+				FileUtils.writeByteArrayToFile(
+						new File(imageThumbnailsFolder, i.getImageID()),
+						i.getThumbBytes());
 			}
 		}
 		System.out.println();
