@@ -16,7 +16,7 @@ app.filter('unsafe', function($sce) {
 	};
 });
 
-app.filter('escape', function() {
+app.filter('encode', function() {
 	return window.encodeURIComponent;
 });
 
