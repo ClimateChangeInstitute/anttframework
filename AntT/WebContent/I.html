@@ -240,7 +240,7 @@
 					<div id="links">
 						<a ng-click="handleClick($event)"
 							ng-repeat="image in sample.images"
-							href="data:image/png;base64,{{image.bytes}}"
+							ng-href="generated/XMLSamples/images/{{image.imageID}}"
 							title="{{images.comments}}"> <img
 							ng-src="data:image/png;base64,{{image.thumbBytes}}"
 							alt="{{image.comments}}">
