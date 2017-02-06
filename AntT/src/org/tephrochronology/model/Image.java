@@ -14,6 +14,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlTransient;
 
 import org.eclipse.persistence.oxm.annotations.XmlInverseReference;
 
@@ -41,7 +42,7 @@ public class Image implements Serializable {
 	private String comments;
 
 	@Column(name = "bytes")
-	private byte[] bytes;
+	private byte[] bytes; // Marked as XMLTransient on getBytes method
 
 	@Column(name = "thumbBytes")
 	private byte[] thumbBytes;
@@ -92,6 +93,7 @@ public class Image implements Serializable {
 		this.comments = comments;
 	}
 
+	@XmlTransient
 	public byte[] getBytes() {
 		return bytes;
 	}

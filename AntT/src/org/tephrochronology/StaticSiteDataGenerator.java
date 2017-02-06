@@ -75,13 +75,15 @@ public class StaticSiteDataGenerator {
 		final Path AQUATIC_MARINE = appendChildAndCreateDir(XML_SAMPLES,
 				"/Aquatic/Marine");
 		final Path OUTCROP = appendChildAndCreateDir(XML_SAMPLES, "/Outcrop");
+		
+		final Path IMAGES_PATH = appendChildAndCreateDir(XML_SAMPLES, "/images");
 
 		XMLFileGenerator fileGenerator = new XMLFileGenerator(args[0], args[1]);
-		fileGenerator.writeSampleXMLFiles(SAMPLE_BIA, BIASample.class);
-		fileGenerator.writeSampleXMLFiles(ICE_CORE, IceCoreSample.class);
-		fileGenerator.writeSampleXMLFiles(AQUATIC_LAKE, LakeSample.class);
-		fileGenerator.writeSampleXMLFiles(AQUATIC_MARINE, MarineSample.class);
-		fileGenerator.writeSampleXMLFiles(OUTCROP, OutcropSample.class);
+		fileGenerator.writeSampleXMLFiles(SAMPLE_BIA, IMAGES_PATH, BIASample.class);
+		fileGenerator.writeSampleXMLFiles(ICE_CORE, IMAGES_PATH, IceCoreSample.class);
+		fileGenerator.writeSampleXMLFiles(AQUATIC_LAKE, IMAGES_PATH, LakeSample.class);
+		fileGenerator.writeSampleXMLFiles(AQUATIC_MARINE, IMAGES_PATH, MarineSample.class);
+		fileGenerator.writeSampleXMLFiles(OUTCROP, IMAGES_PATH, OutcropSample.class);
 
 		fileGenerator.writeAllSamplesXMLFile(GEN_DIR);
 

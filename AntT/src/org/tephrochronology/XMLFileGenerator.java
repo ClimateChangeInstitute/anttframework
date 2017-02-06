@@ -26,6 +26,8 @@ import javax.xml.bind.PropertyException;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 
+import org.apache.commons.io.FileUtils;
+import org.tephrochronology.model.Image;
 import org.tephrochronology.model.MMElement;
 import org.tephrochronology.model.MMElementInfo;
 import org.tephrochronology.model.MMElements;
@@ -55,7 +57,7 @@ public class XMLFileGenerator {
 	}
 
 	public <T extends Sample> void writeSampleXMLFiles(Path outputLocation,
-			Class<T> clazz)
+			Path imagesPath, Class<T> clazz)
 			throws PropertyException, JAXBException, IOException, SAXException {
 
 		System.out.printf("Generating %s sample files.", clazz.getSimpleName());
@@ -77,6 +79,13 @@ public class XMLFileGenerator {
 
 			out.flush();
 			out.close();
+			
+			final File imagesFolder = imagesPath.toFile();
+
+			for (Image i : s.getImages()) {
+				FileUtils.writeByteArrayToFile(
+						new File(imagesFolder, i.getImageID()), i.getBytes());
+			}
 		}
 		System.out.println();
 
