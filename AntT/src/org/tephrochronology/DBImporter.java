@@ -15,6 +15,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -353,8 +356,9 @@ public class DBImporter {
 	 */
 	private void importImageFiles(File dataDir) throws IOException {
 		final File imageFolder = new File(dataDir, "images");
-		final String imageDirPath = imageFolder.getAbsolutePath() + File.separator;
-		
+		final String imageDirPath = imageFolder.getAbsolutePath()
+				+ File.separator;
+
 		if (!imageFolder.exists())
 			return;
 
@@ -368,13 +372,14 @@ public class DBImporter {
 
 		System.out.printf("Processing %d images (This may take a while).",
 				images.size());
-		
+
 		for (File f : images) {
 			BufferedImage fullSizeImage = ImageIO.read(f);
 			BufferedImage thumbImage = Images.scaleAndCrop(fullSizeImage,
 					Images.DEFAULT_THUMB_SIZE);
 
-			Image image = new Image(f.getAbsolutePath().replace(imageDirPath, ""), "",
+			Image image = new Image(
+					f.getAbsolutePath().replace(imageDirPath, ""), "",
 					Images.asOutputStream(fullSizeImage).toByteArray(),
 					Images.asOutputStream(thumbImage).toByteArray(), null);
 
@@ -557,8 +562,25 @@ public class DBImporter {
 		if (!csvFile.exists())
 			return;
 
+		DatabaseMetaData md = conn.getMetaData();
+
+		ResultSet tmd = md.getColumns(null, null, table, null);
+
+		List<String> nullables = new ArrayList<>();
+		while (tmd.next()) {
+			if (tmd.getInt(11) == ResultSetMetaData.columnNullable)
+				nullables.add(tmd.getString(4));
+		}
+		// If there are Nullable columns in the database allow CSV files with
+		// empty strings ("") to be imported as NULL
+		String nullColumns = nullables.size() > 0
+				? ", FORCE_NULL (" + String.join(",", nullables) + ")" : "";
+
 		String pgCommand = String
-				.format("COPY %s FROM STDIN DELIMITER ',' CSV HEADER", table);
+				.format("COPY %s FROM STDIN WITH (DELIMITER ',', FORMAT CSV, HEADER"
+						+ nullColumns + ")", table);
+
+		System.out.println(pgCommand);
 
 		CopyManager copyManager = new CopyManager((BaseConnection) conn);
 
