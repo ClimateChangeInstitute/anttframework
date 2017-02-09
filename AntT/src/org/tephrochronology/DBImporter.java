@@ -10,6 +10,7 @@ import static org.tephrochronology.DBProperties.setupProperties;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -32,6 +33,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import org.apache.jasper.xmlparser.XMLChar;
 import org.postgresql.copy.CopyManager;
 import org.postgresql.core.BaseConnection;
 import org.tephrochronology.model.Image;
@@ -580,11 +582,11 @@ public class DBImporter {
 				.format("COPY %s FROM STDIN WITH (DELIMITER ',', FORMAT CSV, HEADER"
 						+ nullColumns + ")", table);
 
-		System.out.println(pgCommand);
-
 		CopyManager copyManager = new CopyManager((BaseConnection) conn);
 
 		FileReader fileReader = new FileReader(csvFile);
+
+		checkXML(csvFile);
 
 		System.out.println(pgCommand);
 
@@ -595,5 +597,40 @@ public class DBImporter {
 
 		fileReader.close();
 
+	}
+
+	/**
+	 * Make sure the XML file contains only valid characters.
+	 * 
+	 * @param csvFile
+	 *            (Not null)
+	 * @throws FileNotFoundException
+	 */
+	private void checkXML(File csvFile) throws FileNotFoundException {
+		try (Scanner scan = new Scanner(csvFile)) {
+			int lineNum = 0;
+			while (scan.hasNextLine()) {
+				String line = scan.nextLine();
+				lineNum++;
+				for (int i = 0; i < line.length(); i++) {
+					char c = line.charAt(i);
+
+					if (XMLChar.isInvalid(c)) {
+
+						String out = line.substring(Math.max(0, i - 15), i)
+								+ new String(Character.toChars(0xFFFD))
+								+ line.substring(Math.min(i + 1, line.length()),
+										Math.min(i + 15, line.length()));
+
+						System.err.printf(
+								"The file '%s' contains invalid XML characters.\n",
+								csvFile.getAbsolutePath());
+						System.err.printf("Error at (%d, %d): ... %s ...\n",
+								lineNum, i, out);
+						System.exit(0);
+					}
+				}
+			}
+		}
 	}
 }
