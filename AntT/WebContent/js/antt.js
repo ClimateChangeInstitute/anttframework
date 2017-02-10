@@ -386,8 +386,8 @@
 		for(var i=0; i < strArr.length; i++) {
 			var cur = strArr[i];
 			result += ',"' + cur + '",';
-			result += '"' + cur + ' std",';
-			result += '"' + cur + ' me"';
+			result += '"' + cur + ' 1 sd",';
+			result += '"' + cur + ' method err."';
 		}
 		
 		return result;
