@@ -9,18 +9,30 @@
 	 * @returns {MMElementData} Fully typed MMEelementData object
 	 */
 	function MMElementData(mme) {
-		this.me = parseFloat(mme.me);
-		this.std = parseFloat(mme.std);
+		this.me = MMElementData.toNumber(mme.me);
+		this.std = MMElementData.toNumber(mme.std);
 		this.unit = mme.unit;
-		this.value = parseFloat(mme.value);
+		this.value = MMElementData.toNumber(mme.value);
 		// chemistry information
 		this.symbol = mme.symbol.symbol;
 		this.name = mme.symbol.name;
 		this.format = mme.symbol.format;
 		this.atomicNumber = mme.symbol.atomicNumber;
-        this.molecularMass = parseFloat(mme.symbol.molecularMass);
+        this.molecularMass = MMElementData.toNumber(mme.symbol.molecularMass);
 	};
 	scope.MMElementData = MMElementData;
+
+	/**
+	 * @return {string} A possible number. If null or undefined, null is
+	 *         returned, otherwise a number will be returned or NaN.
+	 */
+	MMElementData.toNumber = function(text) {
+		var result = null;
+		if (text) {
+			result = parseFloat(text);
+		}
+		return result;
+	};
 	
 	/**
 	 * @return {string} A string formatted as 'SYMBOL (UNIT)' (Not null)
@@ -62,8 +74,9 @@
 	function MMElement(e) {
 		this.calculatedTotal = parseFloat(e.calculatedTotal);
 		this.comments = e.comments;
-		//var parts = e.dateMeasured.split('-');
-		this.dateMeasured = e.dateMeasured; //new Date(parts[0], parts[1], parts[2]);
+		// var parts = e.dateMeasured.split('-');
+		this.dateMeasured = e.dateMeasured; // new Date(parts[0], parts[1],
+											// parts[2]);
 		this.elementData = [];
 		var that = this;
 		if (e.elementData) {
