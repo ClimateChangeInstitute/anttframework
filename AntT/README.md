@@ -89,6 +89,12 @@ imported using the following command.
 cd anttframework/AntT/setup && ./importDB.sh
 ```
 
+When importing data into the database using the `importDB.sh` option,
+any CSV file in the `AntT/antt-data` directory will be processed.  The
+`importDB.sh` script will attempt to append the data in the directory
+by default.  If any of the data in the CSV files already exists in the
+database, then the import transaction will be aborted.
+
 Alternatively, the PostgreSQL database can be backed up using standard
 `pg_dump` options.
 
@@ -135,5 +141,5 @@ directions.
  -->
 <!--  LocalWords:  webapps AngularJS CSV cd anttframework antt py
  -->
-<!--  LocalWords:  linter
+<!--  LocalWords:  linter importDB
  -->
