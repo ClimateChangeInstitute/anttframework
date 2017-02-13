@@ -65,6 +65,7 @@ app.setupSampleController = function($location, $scope, dataSource, dir) {
 		ensureArray(sample, 'refs');
 
 		$scope.sample = sample;
+
 	}).error(function(error) {
 		console.error('Unable to load file ' + param);
 	});
@@ -104,6 +105,25 @@ app.setupSampleController = function($location, $scope, dataSource, dir) {
 		// Requires antt.js
 		var mmelements = antt.xmlToMMElements(data);
 		$scope.mmElements = getOutcropMMElements(mmelements, param);
+		
+		// These are the Elements that will presented in the primary section.
+		// They will appear in the order listed in this array.
+		var primaryElementOrder = [ "SiO2", "TiO2", "Al2O3", "TiO2", "FeO",
+				"MnO", "MgO", "CaO", "Na2O", "K2O", "P2O5", "Fe2O3", "Cr2O3" ];
+
+		$scope.primaryElementData = [];
+		$scope.secondaryElementData = [];
+
+		$.each($scope.mmElements.elementData, function(i, val) {
+			var i = primaryElementOrder.indexOf(val.symbol);
+			if (i >= 0) {
+				val.order = i;
+				$scope.primaryElementData.push(val);
+			} else {
+				$scope.secondaryElementData.push(val);
+			}
+		});
+		
 	});
 };
 
