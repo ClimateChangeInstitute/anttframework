@@ -142,6 +142,8 @@
 
 
 
+
+
 						
 						<p>
 							<strong>Elevation: </strong>{{sample.category.site.elevation}} M
@@ -233,13 +235,16 @@
 					<ol class="indicator"></ol>
 				</div>
 			</div>
-			<hr> <!-- ************** Start Chemistry section ************** -->
+			<hr>
+
+
+
+			<!-- ************** Start Chemistry section ************** -->
 			<div class="row">
 				<div class="col-sm-12">
-					<h3>Geochemical Data</h3>
+					<h3>Geochemistry</h3>
 				</div>
 			</div>
-			<hr>
 			<div class="row" ng-hide="mmElements.elementData == null">
 				<div class="col-md-12 table-responsive">
 					<table class="table table-hover table-condensed">
@@ -247,13 +252,38 @@
 							<tr>
 								<th></th>
 								<th>Value</th>
-								<th>&sigma;</th>
+								<th>&sigma; (1 st.d)</th>
 								<th>Unit</th>
 								<th>Method Error</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr ng-repeat="e in mmElements.elementData">
+							<tr
+								ng-repeat="e in primaryElementData | orderBy: 'unit' | orderBy: 'order'">
+								<td ng-bind-html="e.format | unsafe"></td>
+								<td ng-if="e.unit == '%'">{{e.value | number:2}}</td>
+								<td ng-if="e.unit != '%'">{{e.value | number:0}}</td>
+								<td>{{e.std | number:1}}</td>
+								<td>{{e.unit}}</td>
+								<td>{{e.me | number:1}}</td>
+							</tr>
+							<tr>
+								<td>Orig. Total</td>
+								<td>{{mmElements.originalTotal}}</td>
+								<td></td>
+								<td>%</td>
+								<td></td>
+							</tr>
+							<!-- The rest of the elements -->
+							<tr>
+								<th>Element</th>
+								<th>Value</th>
+								<th>&sigma; (1 st.d)</th>
+								<th>Unit</th>
+								<th>Method Error</th>
+							</tr>
+							<tr
+								ng-repeat="e in secondaryElementData | orderBy: '-molecularMass'">
 								<td ng-bind-html="e.format | unsafe"></td>
 								<td ng-if="e.unit == '%'">{{e.value | number:2}}</td>
 								<td ng-if="e.unit != '%'">{{e.value | number:0}}</td>
@@ -265,6 +295,10 @@
 					</table>
 				</div>
 			</div>
+
+
+
+
 			<hr>
 			<div class="row">
 				<div class="col-sm-6">
@@ -319,9 +353,8 @@
 					<h4>References:</h4>
 					<div ng-repeat="ref in sample.refs">
 						<p>
-							<a ng-href="http://doi.org/{{ref.doi | encode}}" target="_blank">{{ref.doi}}</a> : {{ref.ref}} 
-							
-							<a ng-show="ref.bibtex" href="#"
+							<a ng-href="http://doi.org/{{ref.doi | encode}}" target="_blank">{{ref.doi}}</a>
+							: {{ref.ref}} <a ng-show="ref.bibtex" href="#"
 								onClick="return false;" data-clipboard-text="{{ref.bibtex}}">BibTeX<span
 								class="glyphicon glyphicon-copy"></span></a>
 						</p>
