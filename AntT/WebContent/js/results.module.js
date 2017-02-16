@@ -6,6 +6,10 @@ app.factory('dataSource', [ '$http', function($http) {
 	factory.getData = function() {
 		return $http.get("generated/allSamples.xml");
 	};
+	
+	factory.getChemistryOrder = function() {
+		return $http.get("chemistries_order.txt");
+	};
 
 	return factory;
 } ]);
@@ -86,9 +90,12 @@ app.controller('results', function($scope, dataSource) {
 
 	// These are the Elements that will presented in the primary section.
 	// They will appear in the order listed in this array.
-	var primaryElementOrder = [ "SiO2", "TiO2", "Al2O3", "TiO2", "FeO", "MnO",
-			"MgO", "CaO", "Na2O", "K2O", "P2O5", "Fe2O3", "Cr2O3" ];
+//	var primaryElementOrder = [ "SiO2", "TiO2", "Al2O3", "TiO2", "FeO", "MnO",
+//			"MgO", "CaO", "Na2O", "K2O", "P2O5", "Fe2O3", "Cr2O3" ];
 
+	// Anything after this value will be below 'Orig. Total'
+	var divider = "H2O-";
+	
 	// If we decide not to use default behavior, let's use this alternative
 	// behavior
 	// $scope.delay = 0;
@@ -123,6 +130,7 @@ app.controller('results', function($scope, dataSource) {
 				e.primaryElementData = [];
 				e.secondaryElementData = [];
 
+				
 				$.each(e.elementData, function(i, val) {
 					var i = primaryElementOrder.indexOf(val.symbol);
 					if (i >= 0) {
