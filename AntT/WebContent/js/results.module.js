@@ -153,24 +153,25 @@ app.controller('results', function($scope, dataSource) {
 					mme : e
 				});
 				
-				searchRes.sort(function(a, b) {
-					return b.simVal - a.simVal;
-				});
-
-				searchQuery = "";
-
-				$.each(s, function(a, b) {
-					searchQuery += a + " = " + b + ",";
-				});
-
-				searchQuery = searchQuery.slice(0, -1);
-
-				allResults.push({
-					searchRes : searchRes,
-					searchQuery : searchQuery,
-					count : i
-				});
 				
+			});
+			
+			searchRes.sort(function(a, b) {
+				return b.simVal - a.simVal;
+			});
+
+			searchQuery = "";
+
+			$.each(s, function(a, b) {
+				searchQuery += a + " = " + b + ",";
+			});
+
+			searchQuery = searchQuery.slice(0, -1);
+
+			allResults.push({
+				searchRes : searchRes,
+				searchQuery : searchQuery,
+				count : i
 			});
 
 		});
