@@ -96,7 +96,7 @@ CREATE TABLE categories(
 
 CREATE TABLE bia_categories(
 	category_id TEXT PRIMARY KEY REFERENCES categories(category_id),
-	deep TEXT,
+	dip TEXT,
 	thickness_cm TEXT,
 	trend TEXT);
 

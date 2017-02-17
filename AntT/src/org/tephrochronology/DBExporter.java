@@ -148,7 +148,7 @@ public class DBExporter {
 				
 		copyTableToFile(dbName, 
   "(SELECT c.category_id, site_id, "
-	    + "deep, thickness_cm, trend "
+	    + "dip, thickness_cm, trend "
  + "FROM categories c, bia_categories b "
  + "WHERE c.category_id = b.category_id "
  + "ORDER BY c.category_id)",

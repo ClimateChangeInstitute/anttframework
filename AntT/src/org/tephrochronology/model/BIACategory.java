@@ -22,8 +22,8 @@ public class BIACategory extends Category {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@Column(name = "deep")
-	private String deep;
+	@Column(name = "dip")
+	private String dip;
 
 	/**
 	 * centimeters
@@ -41,24 +41,24 @@ public class BIACategory extends Category {
 	/**
 	 * @param categoryID
 	 * @param site
-	 * @param deep
+	 * @param dip
 	 * @param thickness
 	 * @param trend
 	 */
-	public BIACategory(String categoryID, Site site, String deep,
+	public BIACategory(String categoryID, Site site, String dip,
 			String thickness, String trend) {
 		super(categoryID, site);
-		this.deep = deep;
+		this.dip = dip;
 		this.thickness = thickness;
 		this.trend = trend;
 	}
 
-	public String getDeep() {
-		return deep;
+	public String getDip() {
+		return dip;
 	}
 
-	public void setDeep(String deep) {
-		this.deep = deep;
+	public void setDip(String dip) {
+		this.dip = dip;
 	}
 
 	public String getThickness() {

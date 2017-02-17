@@ -221,8 +221,8 @@ public class DBImporter {
 					conn);
 
 			loadCategoryData(dataDir, "bia_categories",
-					"deep TEXT,thickness_cm TEXT,trend TEXT", "B",
-					"category_id,deep,thickness_cm,trend", conn);
+					"dip TEXT,thickness_cm TEXT,trend TEXT", "B",
+					"category_id,dip,thickness_cm,trend", conn);
 
 			loadSampleData(dataDir, "bia_samples", "volcano_number INTEGER ",
 					"B", "sample_id, volcano_number ", conn);
