@@ -130,39 +130,47 @@ app.controller('results', function($scope, dataSource) {
 				e.primaryElementData = [];
 				e.secondaryElementData = [];
 
-				
-				$.each(e.elementData, function(i, val) {
-					var i = primaryElementOrder.indexOf(val.symbol);
-					if (i >= 0) {
-						val.order = i;
-						e.primaryElementData.push(val);
-					} else {
-						e.secondaryElementData.push(val);
-					}
-				});
+				dataSource.getChemistryOrder().success(function(data) {
+					var elementOrder = data.split('\n').filter(function(str){
+						return !str.startsWith("#") && str.length > 0;
+					});
+					
+					var dividerIndex = elementOrder.indexOf(divider);
+					$.each(e.elementData, function(i, val) {
+						var i = elementOrder.indexOf(val.symbol);
+						if (0 <= i && i <= dividerIndex) {
+							val.order = i;
+							e.primaryElementData.push(val);
+						} else {
+							e.secondaryElementData.push(val);
+						}
+					});
 
+				});
+				
 				searchRes.push({
 					simVal : simVal,
 					mme : e
 				});
-			});
+				
+				searchRes.sort(function(a, b) {
+					return b.simVal - a.simVal;
+				});
 
-			searchRes.sort(function(a, b) {
-				return b.simVal - a.simVal;
-			});
+				searchQuery = "";
 
-			searchQuery = "";
+				$.each(s, function(a, b) {
+					searchQuery += a + " = " + b + ",";
+				});
 
-			$.each(s, function(a, b) {
-				searchQuery += a + " = " + b + ",";
-			});
+				searchQuery = searchQuery.slice(0, -1);
 
-			searchQuery = searchQuery.slice(0, -1);
-
-			allResults.push({
-				searchRes : searchRes,
-				searchQuery : searchQuery,
-				count : i
+				allResults.push({
+					searchRes : searchRes,
+					searchQuery : searchQuery,
+					count : i
+				});
+				
 			});
 
 		});
