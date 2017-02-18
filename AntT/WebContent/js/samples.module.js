@@ -139,18 +139,10 @@ app.setupSampleController = function($location, $scope, dataSource, dir) {
                      } else {
                          e.secondaryElementData.push(val);
                      }
-//					var i = primaryElementOrder.indexOf(val.symbol);
-//					if (i >= 0) {
-//						val.order = i;
-//						e.primaryElementData.push(val);
-//					} else {
-//						e.secondaryElementData.push(val);
-//					}
 				});
 
 			});
 
-			console.log($scope.mmElements);
 		});
 
 	});
