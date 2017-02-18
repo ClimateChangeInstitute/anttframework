@@ -35,6 +35,16 @@ app.filter('makeID', function() {
     return makeID;
 });
 
+
+app.directive('tooltip', function() {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs) {
+            $(element).tooltip();
+        }
+    };
+});
+
 app.directive('tephraDownload', function() {
     return {
         restrict: 'A',
@@ -80,15 +90,6 @@ app.directive('tephraDownload', function() {
             }
 
             element.on('click', download);
-        }
-    };
-});
-
-app.directive('tooltip', function() {
-    return {
-        restrict: 'A',
-        link: function(scope, element, attrs) {
-            $(element).tooltip();
         }
     };
 });

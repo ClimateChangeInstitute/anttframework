@@ -35,6 +35,29 @@ app.factory('dataSource', [ '$http', function($http) {
 	return factory;
 } ]);
 
+
+app.directive('tooltip', function() {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs) {
+            $(element).tooltip();
+        }
+    };
+});
+
+
+app.directive('clipboardText', [ '$document', function($document) {
+	return {
+		restrict : 'A',
+		link : function($scope, $element, $attr) {
+			var clipboard = new Clipboard($element[0]);
+			clipboard.on('success', function(e) {
+				alert("The BibTeX has been copied to the clipboard.");
+			});
+		}
+	};
+} ]);
+
 /**
  * @param $location
  *            The URL
@@ -111,11 +134,6 @@ app.setupSampleController = function($location, $scope, dataSource, dir) {
 		var mmelements = antt.xmlToMMElements(data);
 		$scope.mmElements = getSampleMMElements(mmelements, param);
 
-		// These are the Elements that will presented in the primary section.
-		// They will appear in the order listed in this array.
-		// var primaryElementOrder = [ "SiO2", "TiO2", "Al2O3", "TiO2", "FeO",
-		// "MnO", "MgO", "CaO", "Na2O", "K2O", "P2O5", "Fe2O3", "Cr2O3" ];
-
 		// Anything after this value will be below 'Orig. Total'
 		var divider = "H2O-";
 
@@ -173,14 +191,3 @@ app.controller('outcropSample', function($location, $scope, dataSource) {
 			"generated/XMLSamples/Outcrop/");
 });
 
-app.directive('clipboardText', [ '$document', function($document) {
-	return {
-		restrict : 'A',
-		link : function($scope, $element, $attr) {
-			var clipboard = new Clipboard($element[0]);
-			clipboard.on('success', function(e) {
-				alert("The BibTeX has been copied to the clipboard.");
-			});
-		}
-	};
-} ]);
