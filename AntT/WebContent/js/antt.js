@@ -27,6 +27,7 @@
 		this.std = toNumber(mme.std);
 		this.unit = mme.unit;
 		this.value = toNumber(mme.value);
+		this.detectionLimit = toNumber(mme.detectionLimit);
 		// chemistry information
 		this.symbol = mme.symbol.symbol;
 		this.name = mme.symbol.name;

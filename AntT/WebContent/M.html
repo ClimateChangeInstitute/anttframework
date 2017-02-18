@@ -244,6 +244,7 @@
 						<h4>MM Element ID : {{mme.mmElementID}}</h4>
 					</div>
 				</div>
+
 				<div class="row" ng-hide="mme.elementData == null">
 					<div class="col-md-12 table-responsive">
 						<table class="table table-hover table-condensed">
@@ -254,6 +255,7 @@
 									<th>&sigma; (1 st.d)</th>
 									<th>Unit</th>
 									<th>Method Error</th>
+									<th>Detection Limit</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -265,6 +267,7 @@
 									<td>{{e.std | number:1}}</td>
 									<td>{{e.unit}}</td>
 									<td>{{e.me | number:1}}</td>
+									<td>{{e.detectionLimit | number:1}}</td>
 								</tr>
 								<tr>
 									<td>Orig. Total</td>
@@ -280,6 +283,7 @@
 									<th>&sigma; (1 st.d)</th>
 									<th>Unit</th>
 									<th>Method Error</th>
+									<th>Detection Limit</th>
 								</tr>
 								<tr
 									ng-repeat="e in mme.secondaryElementData | orderBy: '-molecularMass'">
@@ -289,11 +293,14 @@
 									<td>{{e.std | number:1}}</td>
 									<td>{{e.unit}}</td>
 									<td>{{e.me | number:1}}</td>
+									<td>{{e.detectionLimit | number:1}}</td>
 								</tr>
 							</tbody>
 						</table>
 					</div>
 				</div>
+				
+
 				<div class="row">
 					<div class="col-sm-6">
 						<h4>Data</h4>

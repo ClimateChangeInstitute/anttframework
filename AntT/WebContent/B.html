@@ -236,6 +236,7 @@
 									<th>&sigma; (1 st.d)</th>
 									<th>Unit</th>
 									<th>Method Error</th>
+									<th>Detection Limit</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -247,6 +248,7 @@
 									<td>{{e.std | number:1}}</td>
 									<td>{{e.unit}}</td>
 									<td>{{e.me | number:1}}</td>
+									<td>{{e.detectionLimit | number:1}}</td>
 								</tr>
 								<tr>
 									<td>Orig. Total</td>
@@ -262,6 +264,7 @@
 									<th>&sigma; (1 st.d)</th>
 									<th>Unit</th>
 									<th>Method Error</th>
+									<th>Detection Limit</th>
 								</tr>
 								<tr
 									ng-repeat="e in mme.secondaryElementData | orderBy: '-molecularMass'">
@@ -271,6 +274,7 @@
 									<td>{{e.std | number:1}}</td>
 									<td>{{e.unit}}</td>
 									<td>{{e.me | number:1}}</td>
+									<td>{{e.detectionLimit | number:1}}</td>
 								</tr>
 							</tbody>
 						</table>
