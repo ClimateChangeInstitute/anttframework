@@ -119,3 +119,7 @@ input[type=number] {
 [tooltip][data-toggle="collapse"]:hover {
 	cursor: pointer;
 }
+
+.slim {
+	margin: 0px;
+}
