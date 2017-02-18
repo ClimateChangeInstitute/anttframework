@@ -56,10 +56,10 @@ public class MMElement {
 	private int numberOfMeasurements;
 
 	@Column(name = "original_total")
-	private float originalTotal;
+	private Float originalTotal;
 
 	@Column(name = "calculated_total")
-	private float calculatedTotal;
+	private Float calculatedTotal;
 
 	@Column(name = "instrument_settings")
 	private String instrumentSettings;
@@ -83,8 +83,8 @@ public class MMElement {
 	 */
 	public MMElement(String mmElementID, Sample sample, String comments,
 			MethodType methodType, Instrument instrument, String dateMeasured,
-			String measuredBy, int numberOfMeasurements, float originalTotal,
-			float calculatedTotal, String instrumentSettings,
+			String measuredBy, int numberOfMeasurements, Float originalTotal,
+			Float calculatedTotal, String instrumentSettings,
 			List<MMElementData> elementData) {
 		super();
 		this.mmElementID = mmElementID;
@@ -168,19 +168,19 @@ public class MMElement {
 		this.numberOfMeasurements = numberOfMeasurements;
 	}
 
-	public float getOriginalTotal() {
+	public Float getOriginalTotal() {
 		return originalTotal;
 	}
 
-	public void setOriginalTotal(float originalTotal) {
+	public void setOriginalTotal(Float originalTotal) {
 		this.originalTotal = originalTotal;
 	}
 
-	public float getCalculatedTotal() {
+	public Float getCalculatedTotal() {
 		return calculatedTotal;
 	}
 
-	public void setCalculatedTotal(float calculatedTotal) {
+	public void setCalculatedTotal(Float calculatedTotal) {
 		this.calculatedTotal = calculatedTotal;
 	}
 

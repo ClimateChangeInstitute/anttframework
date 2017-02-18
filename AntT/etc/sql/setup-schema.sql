@@ -249,8 +249,8 @@ CREATE TABLE mm_elements(
 	date_measured TEXT,
 	measured_by TEXT,
 	number_of_measurements INTEGER NOT NULL,
-	original_total REAL NOT NULL,
-	calculated_total REAL NOT NULL,
+	original_total REAL,
+	calculated_total REAL,
 	instrument_settings TEXT);
 
 --  ***** Example elements *****

@@ -3,36 +3,38 @@
  */
 (function(scope) {
 
-	/**
-	 * @param mme
-	 *            {object} A JSON parsed allMMElements.xml MMElement entry value
-	 * @returns {MMElementData} Fully typed MMEelementData object
-	 */
-	function MMElementData(mme) {
-		this.me = MMElementData.toNumber(mme.me);
-		this.std = MMElementData.toNumber(mme.std);
-		this.unit = mme.unit;
-		this.value = MMElementData.toNumber(mme.value);
-		// chemistry information
-		this.symbol = mme.symbol.symbol;
-		this.name = mme.symbol.name;
-		this.format = mme.symbol.format;
-		this.atomicNumber = mme.symbol.atomicNumber;
-        this.molecularMass = MMElementData.toNumber(mme.symbol.molecularMass);
-	};
-	scope.MMElementData = MMElementData;
 
 	/**
 	 * @return {string} A possible number. If null or undefined, null is
 	 *         returned, otherwise a number will be returned or NaN.
 	 */
-	MMElementData.toNumber = function(text) {
+	var toNumber = function(text) {
 		var result = null;
 		if (text) {
 			result = parseFloat(text);
 		}
 		return result;
 	};
+
+	
+	/**
+	 * @param mme
+	 *            {object} A JSON parsed allMMElements.xml MMElement entry value
+	 * @returns {MMElementData} Fully typed MMEelementData object
+	 */
+	function MMElementData(mme) {
+		this.me = toNumber(mme.me);
+		this.std = toNumber(mme.std);
+		this.unit = mme.unit;
+		this.value = toNumber(mme.value);
+		// chemistry information
+		this.symbol = mme.symbol.symbol;
+		this.name = mme.symbol.name;
+		this.format = mme.symbol.format;
+		this.atomicNumber = mme.symbol.atomicNumber;
+        this.molecularMass = toNumber(mme.symbol.molecularMass);
+	};
+	scope.MMElementData = MMElementData;
 	
 	/**
 	 * @return {string} A string formatted as 'SYMBOL (UNIT)' (Not null)
@@ -72,7 +74,6 @@
 	 * @returns {MMEelement} A typed MMElement object
 	 */
 	function MMElement(e) {
-		this.calculatedTotal = parseFloat(e.calculatedTotal);
 		this.comments = e.comments;
 		// var parts = e.dateMeasured.split('-');
 		this.dateMeasured = e.dateMeasured; // new Date(parts[0], parts[1],
@@ -90,7 +91,10 @@
 		this.measuredBy = e.measuredBy;
 		this.methodType = e.methodType;
 		this.numberOfMeasurements = parseInt(e.numberOfMeasurements);
-		this.originalTotal = parseFloat(e.originalTotal);
+		
+		this.originalTotal = toNumber(e.originalTotal);
+		this.calculatedTotal = toNumber(e.calculatedTotal);
+		
 		this.sampleID = e.sampleID;
 		this.sampleType = e.sampleType;
 		this.sampleTypeLong = '';
