@@ -199,17 +199,20 @@
 															<div class="col-xs-1">
 																<span class="collapsed" data-parent="#accordion"
 																	data-toggle="collapse"
-																	data-target="#{{search.count}}-{{o.mme.sampleID | makeID}}"></span>
+																	data-target="#{{search.count}}-{{o.mme.sampleID | makeID}}"
+																	data-toggle="tooltip" data-placement="right" title="Preview" tooltip>&#8203;</span>
 															</div>
 															<div class="col-xs-3 simCoefficient">{{o.simVal |
 																number:2}}</div>
 															<div class="col-xs-3">
 																<a class="special"
-																	ng-href="{{o.mme.sampleType}}.html?id={{o.mme.sampleID | encode}}">{{o.mme.sampleID}}</a>
+																	ng-href="{{o.mme.sampleType}}.html?id={{o.mme.sampleID | encode}}"
+																	data-toggle="tooltip" data-placement="top" title="Go to complete record" tooltip>{{o.mme.sampleID}}</a>
 															</div>
 															<div class="col-xs-5">
 																<input type="checkbox" class="sample-select-box"
-																	id="s-{{search.count}}-{{o.mme.sampleID}}">
+																	id="s-{{search.count}}-{{o.mme.sampleID}}"
+																	data-toggle="tooltip" data-placement="top" title="Download subset of data" tooltip>
 																{{o.mme.mmElementID}}
 															</div>
 														</div>

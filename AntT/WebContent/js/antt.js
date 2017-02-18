@@ -672,6 +672,9 @@
 	$(document).ready(function(){
 		var id = getUrlParameter('id');
 		$('title').text(id); 
+		
+		// Enable static tool tips.  For AngularJS items, create a directive.
+		$('[data-toggle="tooltip"]').tooltip();
 	});
 	
 })(window.antt = window.antt || {});
