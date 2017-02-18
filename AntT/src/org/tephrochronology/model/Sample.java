@@ -72,9 +72,6 @@ public abstract class Sample implements Serializable {
 	@JoinColumn(name = "category_id")
 	private Category category;
 
-	@JoinColumn(name = "iid")
-	private Instrument instrument;
-
 	/**
 	 * A sample may have many references, and a reference may be used by many
 	 * samples.
@@ -107,7 +104,6 @@ public abstract class Sample implements Serializable {
 		this.collectionDate = collectionDate;
 		this.comments = comments;
 		this.category = category;
-		this.instrument = instrument;
 		this.refs = refs;
 		this.images = images;
 	}
@@ -158,14 +154,6 @@ public abstract class Sample implements Serializable {
 
 	public void setCategory(Category category) {
 		this.category = category;
-	}
-
-	public Instrument getInstrument() {
-		return instrument;
-	}
-
-	public void setInstrument(Instrument instrument) {
-		this.instrument = instrument;
 	}
 
 	public List<Ref> getRefs() {

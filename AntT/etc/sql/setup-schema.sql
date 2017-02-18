@@ -154,7 +154,6 @@ CREATE TABLE samples(
 	collection_date TEXT,
 	comments TEXT,
 	category_id TEXT REFERENCES categories(category_id) NOT NULL,
-	iid TEXT REFERENCES instruments(iid),
 	sample_type CHAR NOT NULL);
 
 -- A sample may have many refs, and a ref may be used by many samples.
