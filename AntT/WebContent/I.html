@@ -108,50 +108,6 @@
 					</div>
 				</div>
 				<div class="col-sm-4">
-					<h4>Instrument:</h4>
-					<hr>
-					<div>
-						<p>
-							<strong>Instrument ID: </strong>{{sample.instrument.id}}
-						</p>
-						<p>
-							<strong>Long Name: </strong>{{sample.instrument.longName}}
-						</p>
-						<p>
-							<strong>Lab ID: </strong>{{sample.instrument.labID}}
-						</p>
-						<p>
-							<strong>Comment: </strong>{{sample.instrument.comment}}
-						</p>
-					</div>
-				</div>
-				<div class="col-sm-4">
-					<h4>Site:</h4>
-					<hr>
-					<div>
-						<p>
-							<strong>Site ID: </strong>{{sample.category.site.siteID}}
-						</p>
-						<p>
-							<strong>Long Name: </strong>{{sample.category.site.longName}}
-						</p>
-						<p>
-							<strong>(Latitude,Longitude): </strong>({{sample.category.site.latitude}}N,{{sample.category.site.longitude}}E)
-
-
-
-						
-						<p>
-							<strong>Elevation: </strong>{{sample.category.site.elevation}} M
-						</p>
-						<p>
-							<strong>Comment: </strong>{{sample.category.site.comment}}
-						</p>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-sm-4">
 					<h4>Core Data:</h4>
 					<hr>
 					<div>
@@ -175,7 +131,28 @@
 						</p>
 					</div>
 				</div>
+				<div class="col-sm-4">
+					<h4>Site:</h4>
+					<hr>
+					<div>
+						<p>
+							<strong>Site ID: </strong>{{sample.category.site.siteID}}
+						</p>
+						<p>
+							<strong>Long Name: </strong>{{sample.category.site.longName}}
+						</p>
+						<p>
+							<strong>(Latitude,Longitude): </strong>({{sample.category.site.latitude}}N,{{sample.category.site.longitude}}E)
+						<p>
+							<strong>Elevation: </strong>{{sample.category.site.elevation}} M
+						</p>
+						<p>
+							<strong>Comment: </strong>{{sample.category.site.comment}}
+						</p>
+					</div>
+				</div>
 			</div>
+
 			<div class="panel-samples panel panel-default">
 				<div class="q panel-heading remove-color">
 					<div class="row">

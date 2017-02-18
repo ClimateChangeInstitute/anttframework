@@ -103,20 +103,23 @@
 					</div>
 				</div>
 				<div class="col-sm-4">
-					<h4>Instrument:</h4>
+					<h4>Core Data:</h4>
 					<hr>
 					<div>
 						<p>
-							<strong>Instrument ID: </strong>{{sample.instrument.id}}
+							<strong>Core ID: </strong>{{sample.category.categoryID}}
 						</p>
 						<p>
-							<strong>Long Name: </strong>{{sample.instrument.longName}}
+							<strong>Core Age: </strong>{{sample.category.age}}
 						</p>
 						<p>
-							<strong>Lab ID: </strong>{{sample.instrument.labID}}
+							<strong>Corer Type: </strong>{{sample.category.corerType.type}}
 						</p>
 						<p>
-							<strong>Comment: </strong>{{sample.instrument.comment}}
+							<strong>Core Length: </strong>{{sample.category.coreLength}}
+						</p>
+						<p>
+							<strong>Collection Date: </strong>{{sample.category.collectionDate}}
 						</p>
 					</div>
 				</div>
@@ -144,29 +147,6 @@
 				</div>
 			</div>
 
-			<div class="row">
-				<div class="col-sm-4">
-					<h4>Core Data:</h4>
-					<hr>
-					<div>
-						<p>
-							<strong>Core ID: </strong>{{sample.category.categoryID}}
-						</p>
-						<p>
-							<strong>Core Age: </strong>{{sample.category.age}}
-						</p>
-						<p>
-							<strong>Corer Type: </strong>{{sample.category.corerType.type}}
-						</p>
-						<p>
-							<strong>Core Length: </strong>{{sample.category.coreLength}}
-						</p>
-						<p>
-							<strong>Collection Date: </strong>{{sample.category.collectionDate}}
-						</p>
-					</div>
-				</div>
-			</div>
 			<div class="panel-samples panel panel-default">
 				<div class="q panel-heading remove-color">
 					<div class="row">
