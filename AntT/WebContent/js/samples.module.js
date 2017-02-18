@@ -28,6 +28,10 @@ app.factory('dataSource', [ '$http', function($http) {
 		return $http.get("generated/allMMElements.xml");
 	};
 
+	factory.getChemistryOrder = function() {
+		return $http.get("chemistries_order.txt");
+	};
+
 	return factory;
 } ]);
 
@@ -57,8 +61,7 @@ app.setupSampleController = function($location, $scope, dataSource, dir) {
 			if (!Array.isArray(obj[key])) {
 				obj[key] = obj[key] ? [ obj[key] ] : [];
 			}
-		}
-		;
+		};
 
 		// Samples must have arrays of images and references
 		ensureArray(sample, 'images');
@@ -90,61 +93,92 @@ app.setupSampleController = function($location, $scope, dataSource, dir) {
 	 *            {MMElement[]} List of MMElements (Not null)
 	 * @param id
 	 *            {string} The id to match (Not null)
-	 * @returns An element with matching sampleID to the given id or null
+	 * @returns {MMElement[]} Elements with matching sampleID to the given id or
+	 *          an empty array.
 	 */
-	function getOutcropMMElements(mmelements, id) {
+	function getSampleMMElements(mmelements, id) {
+		var result = [];
 		for (var i = 0; i < mmelements.length; i++) {
 			if (mmelements[i].sampleID === id) {
-				return mmelements[i];
+				result.push(mmelements[i]);
 			}
 		}
-		return null; // No match!
+		return result;
 	}
 
 	dataSource.getMmelements().success(function(data) {
 		// Requires antt.js
 		var mmelements = antt.xmlToMMElements(data);
-		$scope.mmElements = getOutcropMMElements(mmelements, param);
-		
+		$scope.mmElements = getSampleMMElements(mmelements, param);
+
 		// These are the Elements that will presented in the primary section.
 		// They will appear in the order listed in this array.
-		var primaryElementOrder = [ "SiO2", "TiO2", "Al2O3", "TiO2", "FeO",
-				"MnO", "MgO", "CaO", "Na2O", "K2O", "P2O5", "Fe2O3", "Cr2O3" ];
+		// var primaryElementOrder = [ "SiO2", "TiO2", "Al2O3", "TiO2", "FeO",
+		// "MnO", "MgO", "CaO", "Na2O", "K2O", "P2O5", "Fe2O3", "Cr2O3" ];
 
-		$scope.primaryElementData = [];
-		$scope.secondaryElementData = [];
+		// Anything after this value will be below 'Orig. Total'
+		var divider = "H2O-";
 
-		$.each($scope.mmElements.elementData, function(i, val) {
-			var i = primaryElementOrder.indexOf(val.symbol);
-			if (i >= 0) {
-				val.order = i;
-				$scope.primaryElementData.push(val);
-			} else {
-				$scope.secondaryElementData.push(val);
-			}
+		dataSource.getChemistryOrder().success(function(data) {
+			var elementOrder = data.split('\n').filter(function(str) {
+				return !str.startsWith("#") && str.length > 0;
+			});
+
+			var dividerIndex = elementOrder.indexOf(divider);
+
+			$.each($scope.mmElements, function(outerIndex, e) {
+
+				e.primaryElementData = [];
+				e.secondaryElementData = [];
+
+				$.each(e.elementData, function(innerIndex, val) {
+					 var i = elementOrder.indexOf(val.symbol);
+                     if (0 <= i && i <= dividerIndex) {
+                         val.order = i;
+                         e.primaryElementData.push(val);
+                     } else {
+                         e.secondaryElementData.push(val);
+                     }
+//					var i = primaryElementOrder.indexOf(val.symbol);
+//					if (i >= 0) {
+//						val.order = i;
+//						e.primaryElementData.push(val);
+//					} else {
+//						e.secondaryElementData.push(val);
+//					}
+				});
+
+			});
+
+			console.log($scope.mmElements);
 		});
-		
+
 	});
 };
 
 app.controller('biaSample', function($location, $scope, dataSource) {
-	app.setupSampleController($location, $scope, dataSource, "generated/XMLSamples/BIA/");
+	app.setupSampleController($location, $scope, dataSource,
+			"generated/XMLSamples/BIA/");
 });
 
 app.controller('iceCoreSample', function($location, $scope, dataSource) {
-	app.setupSampleController($location, $scope, dataSource, "generated/XMLSamples/IceCore/");
+	app.setupSampleController($location, $scope, dataSource,
+			"generated/XMLSamples/IceCore/");
 });
 
 app.controller('lakeSample', function($location, $scope, dataSource) {
-	app.setupSampleController($location, $scope, dataSource, "generated/XMLSamples/Aquatic/Lake/");
+	app.setupSampleController($location, $scope, dataSource,
+			"generated/XMLSamples/Aquatic/Lake/");
 });
 
 app.controller('marineSample', function($location, $scope, dataSource) {
-	app.setupSampleController($location, $scope, dataSource, "generated/XMLSamples/Aquatic/Marine/");
+	app.setupSampleController($location, $scope, dataSource,
+			"generated/XMLSamples/Aquatic/Marine/");
 });
 
 app.controller('outcropSample', function($location, $scope, dataSource) {
-	app.setupSampleController($location, $scope, dataSource, "generated/XMLSamples/Outcrop/");
+	app.setupSampleController($location, $scope, dataSource,
+			"generated/XMLSamples/Outcrop/");
 });
 
 app.directive('clipboardText', [ '$document', function($document) {
