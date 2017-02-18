@@ -107,3 +107,8 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 	display: inline-block;
 	vertical-align: middle;
 }
+
+/* Make sure that tool-tipped icons for accordion take up some space */
+[tooltip][data-toggle="collapse"] {
+	display: inline-block;
+}
