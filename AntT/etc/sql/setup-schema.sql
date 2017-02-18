@@ -275,6 +275,7 @@ CREATE TABLE mm_elements_data(
 	val REAL NOT NULL,
 	std REAL,
 	me REAL,
+	detection_limit REAL,
 	PRIMARY KEY(mm_element_id, symbol, unit));
 
 	

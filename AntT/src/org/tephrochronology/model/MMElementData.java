@@ -44,15 +44,21 @@ public class MMElementData {
 
 	@Column(name = "me")
 	protected Float me;
+	
+	@Column(name = "detection_limit")
+	protected Float detectionLimit;
 
 	/**
+	 * @param mmElement
+	 * @param element
 	 * @param value
 	 * @param std
 	 * @param me
 	 * @param unit
+	 * @param detectionLimit
 	 */
 	public MMElementData(MMElement mmElement, Chemistry element, Float value,
-			Float std, Float me, Unit unit) {
+			Float std, Float me, Unit unit, Float detectionLimit) {
 		super();
 		this.mmElement = mmElement;
 		this.symbol = element;
@@ -60,6 +66,7 @@ public class MMElementData {
 		this.std = std;
 		this.me = me;
 		this.unit = unit;
+		this.detectionLimit = detectionLimit;				
 	}
 
 	public MMElementData() {
@@ -111,6 +118,14 @@ public class MMElementData {
 
 	public void setUnit(Unit unit) {
 		this.unit = unit;
+	}
+
+	public Float getDetectionLimit() {
+		return detectionLimit;
+	}
+
+	public void setDetectionLimit(Float detectionLimit) {
+		this.detectionLimit = detectionLimit;
 	}
 
 }

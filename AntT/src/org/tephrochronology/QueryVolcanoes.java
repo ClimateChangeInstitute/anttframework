@@ -111,13 +111,16 @@ public class QueryVolcanoes {
 				"instrument settings", data);
 		Chemistry elem = new Chemistry("SiO2", "Silicon dioxide",
 				"SIO<sub>2</sub>", 60.08f, null);
-		data.add(new MMElementData(el, elem, 10f, 2f, 1f, new Unit("ppb")));
+		data.add(new MMElementData(el, elem, 10f, 2f, 1f, new Unit("ppb"),
+				null));
 		elem = new Chemistry("TiO2", "Titanium dioxide", "TiO<sub>2</sub>",
 				79.866f, null);
-		data.add(new MMElementData(el, elem, 20f, 4f, 2f, new Unit("ppb")));
+		data.add(
+				new MMElementData(el, elem, 20f, 4f, 2f, new Unit("ppb"), 10f));
 		elem = new Chemistry("SO2", "Sulfur dioxide", "SO<sub>2</sub>", 64.066f,
 				null);
-		data.add(new MMElementData(el, elem, 30f, 8f, 3f, new Unit("ppb")));
+		data.add(
+				new MMElementData(el, elem, 30f, 8f, 3f, new Unit("ppb"), 20f));
 
 		em.persist(el);
 	}

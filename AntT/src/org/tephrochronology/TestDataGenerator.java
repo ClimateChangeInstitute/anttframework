@@ -191,7 +191,7 @@ public class TestDataGenerator {
 						Chemistry elem = chemistries
 								.get(j % chemistries.size());
 						data.add(new MMElementData(el, elem, j * 10f, j * 2f,
-								j * 1f, new Unit("ppb")));
+								j * 1f, new Unit("ppb"), null));
 					});
 
 			double sum = data.stream().mapToDouble(MMElementData::getValue)
@@ -200,7 +200,7 @@ public class TestDataGenerator {
 			data.stream()
 					.forEach(e -> percents.add(new MMElementData(el,
 							e.getSymbol(), (float) (100 * e.getValue() / sum),
-							e.getStd(), e.getMe(), new Unit("%"))));
+							e.getStd(), e.getMe(), new Unit("%"), null)));
 
 			data.addAll(percents);
 

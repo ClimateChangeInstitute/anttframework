@@ -336,14 +336,14 @@ public class DBImporter {
 		String tmpTable = String.format("%s_tmp", tableName);
 
 		st.execute(String.format(
-				"CREATE TABLE %s(sample_id TEXT PRIMARY KEY,secondary_id TEXT,sampled_by TEXT,collection_date TEXT,comments TEXT,category_id TEXT,iid TEXT,",
+				"CREATE TABLE %s(sample_id TEXT PRIMARY KEY,secondary_id TEXT,sampled_by TEXT,collection_date TEXT,comments TEXT,category_id TEXT,",
 				tmpTable) + extraColumnsWithTypes + ")");
 
 		copyFileToTable(conn, tmpTable, new File(dataDir, tableName + ".csv"));
 
 		st.executeUpdate(String.format(
-				"INSERT INTO samples (sample_id, secondary_id, sampled_by, collection_date, comments, category_id, iid, sample_type) "
-						+ "SELECT sample_id, secondary_id, sampled_by, collection_date, comments, category_id, iid, '%s' AS sample_type FROM %s",
+				"INSERT INTO samples (sample_id, secondary_id, sampled_by, collection_date, comments, category_id, sample_type) "
+						+ "SELECT sample_id, secondary_id, sampled_by, collection_date, comments, category_id, '%s' AS sample_type FROM %s",
 				typeChar, tmpTable));
 
 		st.executeUpdate("INSERT INTO " + tableName + " (" + extraColumns + ") "
