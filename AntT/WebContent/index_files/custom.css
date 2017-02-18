@@ -112,3 +112,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 [tooltip][data-toggle="collapse"] {
 	display: inline-block;
 }
+
+[tooltip][data-toggle="collapse"]:hover {
+	cursor: pointer;
+}
