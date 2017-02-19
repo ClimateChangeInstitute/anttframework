@@ -607,10 +607,22 @@
 		
 		var result = [];
 
+		var symbols = mmelement.elementData.map(function(x){return x.symbol;});
+		
 		$.each(keys, function(i, k) {
 			$.each(mmelement.elementData, function(j, e) {
 				if (e.symbol === k && e.unit === '%') {
-					result.push(e.value);
+					
+                	/* **********************************************************
+					 * *** SPECIAL CASE FOR IRON Convert iron: if FeO only do
+					 * nothing; if Fe2O3 exists, convert Fe2O3 * 0.8998 and add it
+					 * to the other Fe0 to form the total
+					 */
+					if (e.symbol === 'FeO' && 0 <= symbols.indexOf('Fe2O3')){
+						result.push(e.value + (0.8998 * mmelement.elementData[symbols.indexOf('Fe2O3')].value));
+					} else {
+						result.push(e.value);
+					}
 				}
 			});
 		})
@@ -674,7 +686,7 @@
 		var id = getUrlParameter('id');
 		$('title').text(id); 
 		
-		// Enable static tool tips.  For AngularJS items, create a directive.
+		// Enable static tool tips. For AngularJS items, create a directive.
 		$('[data-toggle="tooltip"]').tooltip();
 	});
 	

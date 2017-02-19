@@ -116,6 +116,10 @@ app.controller('results', function($scope, dataSource) {
         app.allMMElements = allMMElements;
 
         var values = antt.getUrlParameters();
+        
+        /**
+         * {object[]} Looks like [{"sio2":"3","tio":"40"},{"sio2":"10","tio":"40","ko":"1"}]
+         */
         var searches = antt.getQueriedElements(values, 's');
 
         var allResults = [];
@@ -127,14 +131,22 @@ app.controller('results', function($scope, dataSource) {
                 return !str.startsWith("#") && str.length > 0;
             });
 
+            /**
+             * @param i {number} Index
+             * @param s {object} Looks like {"sio2":"3","tio":"40"}
+             */
             $.each(searches, function(i, s) {
 
                 var filtered = antt.filterMMElements(Object.keys(s), allMMElements, '%');
 
                 var searchRes = [];
 
+                /**
+                 * @param i {number} Index
+                 * @param e {MMElement} 
+                 */
                 $.each(filtered, function(i, e) {
-
+                	
                     var simVal = antt.statistics.similarityCoefficientListList($.map(s, function(
                         val, key) {
                         return val;
