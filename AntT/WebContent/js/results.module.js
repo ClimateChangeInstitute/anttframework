@@ -7,6 +7,12 @@ app.factory('dataSource', ['$http', function($http) {
         return $http.get("generated/allSamples.xml");
     };
 
+    factory.getAllMMElements = function() {
+        return $http.get("generated/allMMElements.xml").then(function(response) {
+            return antt.xmlToMMElements(response.data);
+        });
+    };
+
     factory.getChemistryOrder = function() {
         return $http.get("chemistries_order.txt");
     };
@@ -58,6 +64,7 @@ app.directive('tephraDownload', function() {
                 $.each($(this).parents(".panel").find("input.sample-select-box:checked"), function(
                     i, e) {
                     var id = $(e).attr("id").split('-')[2];
+                    console.log(id);
                     selectedIds.push(id);
                     simCoefficients.push($(e).parents(".panel-samples").find(".simCoefficient")[0].innerHTML);
                 });
@@ -106,17 +113,19 @@ app.controller('results', function($scope, dataSource) {
     // behavior
     // $scope.delay = 0;
     // $scope.minDuration = 500;
-    $scope.message = 'Loading samples. Please wait...';
+    $scope.message = 'Calculating similarity coefficients. Please wait...';
     // $scope.templateUrl = 'angular-busy.html';
     // $scope.backdrop = true;
     // $scope.promise = null;
 
-    $scope.promise = antt.loadMMElements('generated/allMMElements.xml', function(
-        allMMElements) {
+    $scope.promise = dataSource.getAllMMElements().then(function(allMMElements) {
         app.allMMElements = allMMElements;
+    }).then(dataSource.getChemistryOrder).then(function(response) {
+
+        var data = response.data;
 
         var values = antt.getUrlParameters();
-        
+
         /**
          * {object[]} Looks like [{"sio2":"3","tio":"40"},{"sio2":"10","tio":"40","ko":"1"}]
          */
@@ -126,90 +135,86 @@ app.controller('results', function($scope, dataSource) {
 
         var symbolFormat = {};
 
-        dataSource.getChemistryOrder().success(function(data) {
-            var elementOrder = data.split('\n').filter(function(str) {
-                return !str.startsWith("#") && str.length > 0;
-            });
+        var elementOrder = data.split('\n').filter(function(str) {
+            return !str.startsWith("#") && str.length > 0;
+        });
+
+        /**
+         * @param i {number} Index
+         * @param s {object} Looks like {"sio2":"3","tio":"40"}
+         */
+        $.each(searches, function(i, s) {
+
+            var filtered = antt.filterMMElements(Object.keys(s), app.allMMElements, '%');
+
+            var searchRes = [];
 
             /**
              * @param i {number} Index
-             * @param s {object} Looks like {"sio2":"3","tio":"40"}
+             * @param e {MMElement}
              */
-            $.each(searches, function(i, s) {
+            $.each(filtered, function(i, e) {
 
-                var filtered = antt.filterMMElements(Object.keys(s), allMMElements, '%');
+                var simVal = antt.statistics.similarityCoefficientListList($.map(s, function(
+                    val, key) {
+                    return val;
+                }), antt.valuesArray(Object.keys(s), e));
 
-                var searchRes = [];
+                e.primaryElementData = [];
+                e.secondaryElementData = [];
 
-                /**
-                 * @param i {number} Index
-                 * @param e {MMElement} 
-                 */
-                $.each(filtered, function(i, e) {
-                	
-                    var simVal = antt.statistics.similarityCoefficientListList($.map(s, function(
-                        val, key) {
-                        return val;
-                    }), antt.valuesArray(Object.keys(s), e));
-
-                    e.primaryElementData = [];
-                    e.secondaryElementData = [];
-
-                    var dividerIndex = elementOrder.indexOf(divider);
-                    $.each(e.elementData, function(i, val) {
-                        var i = elementOrder.indexOf(val.symbol);
-                        if (0 <= i && i <= dividerIndex) {
-                            val.order = i;
-                            e.primaryElementData.push(val);
-                        } else {
-                            e.secondaryElementData.push(val);
-                        }
-                        if (!symbolFormat[val.symbol])
-                            symbolFormat[val.symbol] = val.format;
-                    });
-
-                    searchRes.push({
-                        simVal: simVal,
-                        mme: e
-                    });
-
-
+                var dividerIndex = elementOrder.indexOf(divider);
+                $.each(e.elementData, function(i, val) {
+                    var i = elementOrder.indexOf(val.symbol);
+                    if (0 <= i && i <= dividerIndex) {
+                        val.order = i;
+                        e.primaryElementData.push(val);
+                    } else {
+                        e.secondaryElementData.push(val);
+                    }
+                    if (!symbolFormat[val.symbol])
+                        symbolFormat[val.symbol] = val.format;
                 });
 
-                searchRes.sort(function(a, b) {
-                    return b.simVal - a.simVal;
+                searchRes.push({
+                    simVal: simVal,
+                    mme: e
                 });
 
-                /**
-                 * @param {object} Search query object (Not null)
-                 * @return {string} A search query string of the form k1 = v1, ... , kn = vn
-                 */
-                function createSearchQueryString(searchObj) {
-                    searchQuery = "";
-
-                    // Process each key value pair
-                    $.each(searchObj, function(a, b) {
-                        searchQuery += symbolFormat[a] + " = " + b + ",";
-                    });
-                    searchQuery = searchQuery.slice(0, -1);
-
-                    return searchQuery;
-                };
-                allResults.push({
-                    searchRes: searchRes,
-                    searchQuery: createSearchQueryString(s),
-                    count: i
-                });
 
             });
 
-            // reverse array so most recent search is displayed first
-            allResults.reverse();
+            searchRes.sort(function(a, b) {
+                return b.simVal - a.simVal;
+            });
 
-            $scope.filtered = allResults;
+            /**
+             * @param {object} Search query object (Not null)
+             * @return {string} A search query string of the form k1 = v1, ... , kn = vn
+             */
+            function createSearchQueryString(searchObj) {
+                searchQuery = "";
+
+                // Process each key value pair
+                $.each(searchObj, function(a, b) {
+                    searchQuery += symbolFormat[a] + " = " + b + ",";
+                });
+                searchQuery = searchQuery.slice(0, -1);
+
+                return searchQuery;
+            };
+            allResults.push({
+                searchRes: searchRes,
+                searchQuery: createSearchQueryString(s),
+                count: i
+            });
+
         });
 
-        $scope.$apply();
+        // reverse array so most recent search is displayed first
+        allResults.reverse();
 
+        $scope.filtered = allResults;
     });
+
 });
