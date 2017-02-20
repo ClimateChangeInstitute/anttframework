@@ -31,9 +31,9 @@ public class MMElementInfo {
 
 	private int numberOfMeasurements;
 
-	private float originalTotal;
+	private Float originalTotal;
 
-	private float calculatedTotal;
+	private Float calculatedTotal;
 
 	private String instrumentSettings;
 
@@ -57,8 +57,8 @@ public class MMElementInfo {
 
 	public MMElementInfo(String mmElementID, String sampleID, String comments,
 			MethodType methodType, String iid, String dateMeasured,
-			String measuredBy, int numberOfMeasurements, float originalTotal,
-			float calculatedTotal, String instrumentSettings,
+			String measuredBy, int numberOfMeasurements, Float originalTotal,
+			Float calculatedTotal, String instrumentSettings,
 			List<MMElementData> elementData, String sampleType) {
 		super();
 		this.mmElementID = mmElementID;
@@ -151,19 +151,19 @@ public class MMElementInfo {
 		this.numberOfMeasurements = numberOfMeasurements;
 	}
 
-	public float getOriginalTotal() {
+	public Float getOriginalTotal() {
 		return originalTotal;
 	}
 
-	public void setOriginalTotal(float originalTotal) {
+	public void setOriginalTotal(Float originalTotal) {
 		this.originalTotal = originalTotal;
 	}
 
-	public float getCalculatedTotal() {
+	public Float getCalculatedTotal() {
 		return calculatedTotal;
 	}
 
-	public void setCalculatedTotal(float calculatedTotal) {
+	public void setCalculatedTotal(Float calculatedTotal) {
 		this.calculatedTotal = calculatedTotal;
 	}
 
