@@ -134,184 +134,196 @@
 				<hr>
 
 				<div cg-busy="{promise:promise,message:message}">
-					<div ng-hide="allResults[0].length == 0">
 
-						<div class="alert alert-info alert-dismissible" role="alert">
-							<button type="button" class="close" data-dismiss="alert"
-								aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
-							<strong>Heads up!</strong> Click on a sampleID below to see the
-							full information about the sample or click the black arrow to see
-							element data.
-						</div>
+					<div class="alert alert-info alert-dismissible" role="alert">
+						<button type="button" class="close" data-dismiss="alert"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<strong>Heads up!</strong> Click on a sampleID below to see the
+						full information about the sample or click the black arrow to see
+						element data.
+					</div>
 
-						<div ng-repeat="search in allResults | filter:searchText">
-							<div class="panel panel-default">
-								<div class="panel-body">
-									<div class="row">
-										<div class="col-sm-12">
-											<div class="pull-right">
-												<button type="button" class="btn btn-primary"
-													tephra-download>Download selected</button>
+					<div ng-repeat="search in allResults | filter:searchText">
+						<div class="panel panel-default">
+							<div class="panel-body">
+								<div class="row">
+									<div class="col-sm-12">
+										<div class="pull-right">
+											<button type="button" class="btn btn-primary" tephra-download>Download
+												selected</button>
+										</div>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="col-sm-12">
+										<h3>
+											Search for <span ng-bind-html="search.searchQuery | unsafe"></span>
+										</h3>
+									</div>
+								</div>
+								<hr>
+								<div class="row">
+									<div class="col-md-12" style="padding: 0px 30px;">
+										<div class="row">
+											<div class="col-xs-12 col-sm-1">&nbsp;</div>
+											<div class="col-xs-12 col-sm-3">
+												<strong>Similarity Coefficient</strong>
 											</div>
-										</div>
-									</div>
-
-									<div class="row">
-										<div class="col-sm-12">
-											<h3>Search for <span ng-bind-html="search.searchQuery | unsafe"></span></h3>
-										</div>
-									</div>
-									<hr>
-									<div class="row">
-										<div class="col-md-12" style="padding: 0px 30px;">
-											<div class="row">
-												<div class="col-xs-12 col-sm-1">
-												&nbsp;
-												</div>
-												<div class="col-xs-12 col-sm-3">
-													<strong>Similarity Coefficient</strong>
-												</div>
-												<div class="col-xs-12 col-sm-3">
-													<strong>Sample ID</strong>
-												</div>
-												<div class="col-xs-12 col-sm-3">
-													<strong>MM Element ID</strong>
-												</div>
-												<div class="col-xs-12 col-sm-2">
-													<strong>Download</strong>
-													<div class="do-inline checkbox">
-														<wbr><nobr>(<label><input id="s-{{search.count}}"
+											<div class="col-xs-12 col-sm-3">
+												<strong>Sample ID</strong>
+											</div>
+											<div class="col-xs-12 col-sm-3">
+												<strong>MM Element ID</strong>
+											</div>
+											<div class="col-xs-12 col-sm-2">
+												<strong>Download</strong>
+												<div class="do-inline checkbox">
+													<wbr>
+													<nobr>
+														(<label><input id="s-{{search.count}}"
 															onclick="checkToDownload(this)" type="checkbox" value="">
-															select all
-														</label>)</nobr>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-									<hr>
-									<div class="row">
-										<div class="col-md-12">
-											<div ng-repeat="o in search.searchRes">
-												<div class="panel-samples panel panel-default">
-													<div class="q panel-heading remove-color">
-														<div class="row">
-															<div class="col-xs-2 col-sm-1">
-																<span class="collapsed" data-parent="#accordion"
-																	data-toggle="collapse"
-																	data-target="#{{search.count}}-{{o.mme.mmElementID | makeID}}"
-																	data-toggle="tooltip" data-placement="top" title="Preview" tooltip></span>
-															</div>
-															<div class="col-xs-10 col-sm-3 simCoefficient">{{o.simVal |
-																number:2}}</div>
-															<div class="col-xs-12 col-sm-3">
-																<a class="special"
-																	ng-href="{{o.mme.sampleType}}.html?id={{o.mme.sampleID | encode}}"
-																	data-toggle="tooltip" data-placement="top" title="Go to complete record" tooltip>{{o.mme.sampleID}}</a>
-															</div>
-															<div class="col-xs-12 col-sm-3">
-																{{o.mme.mmElementID}}
-															</div>
-															<div class="col-xs-12 col-sm-2">
-																<div class="checkbox slim"><label><input type="checkbox" class="sample-select-box" ng-model="o.isDownload" data-toggle="tooltip" data-placement="top" title="Download subset of data" tooltip></label></div>
-															</div>
-														</div>
-													</div>
-													<div id="{{search.count}}-{{o.mme.mmElementID | makeID}}"
-														class="panel-body collapse">
-														<div class="row">
-															<div class="col-sm-9">
-																<p>
-																	<strong>Sample ID: </strong>{{o.mme.sampleID}}
-																</p>
-																<p>
-																	<strong>Sample Type: </strong>{{o.mme.mmElementID}}
-																</p>
-															</div>
-															<div class="col-sm-3">
-																<p>
-																	<strong>Collection Date: </strong>{{o.mme.dateMeasured}}
-																</p>
-																<p>
-																	<strong>Collected By: </strong>{{o.mme.measuredBy}}
-																</p>
-															</div>
-														</div>
-														<div class="row">
-															<div class="col-sm-12">
-																<h3>Geochemistry</h3>
-															</div>
-														</div>
-														<div class="row" ng-hide="o.mme.elementData == null">
-															<div class="col-md-12 table-responsive">
-																<table class="table table-hover table-condensed">
-																	<thead>
-																		<tr>
-																			<th></th>
-																			<th>Value</th>
-																			<th>&sigma; (1 st.d)</th>
-																			<th>Unit</th>
-																			<th>Method Error</th>
-																			<th>Detection Limit</th>
-																		</tr>
-																	</thead>
-																	<tbody>
-																		<tr
-																			ng-repeat="e in o.mme.primaryElementData | orderBy: 'unit' | orderBy: 'order'">
-																			<td ng-bind-html="e.format | unsafe"></td>
-																			<td ng-if="e.unit == '%'">{{e.value | number:2}}</td>
-																			<td ng-if="e.unit != '%'">{{e.value | number:0}}</td>
-																			<td>{{e.std | number:1}}</td>
-																			<td>{{e.unit}}</td>
-																			<td>{{e.me | number:1}}</td>
-																			<td>{{e.detectionLimit | number:1}}</td>
-																		</tr>
-																		<tr>
-																			<td>Orig. Total</td>
-																			<td>{{o.mme.originalTotal}}</td>
-																			<td></td>
-																			<td>%</td>
-																			<td></td>
-																			<td></td>
-																		</tr>
-																		<!-- The rest of the elements -->
-																		<tr>
-																			<th>Element</th>
-																			<th>Value</th>
-																			<th>&sigma; (1 st.d)</th>
-																			<th>Unit</th>
-																			<th>Method Error</th>
-																			<th>Detection Limit</th>
-																		</tr>
-																		<tr
-																			ng-repeat="e in o.mme.secondaryElementData | orderBy: '-molecularMass'">
-																			<td ng-bind-html="e.format | unsafe"></td>
-																			<td ng-if="e.unit == '%'">{{e.value | number:2}}</td>
-																			<td ng-if="e.unit != '%'">{{e.value | number:0}}</td>
-																			<td>{{e.std | number:1}}</td>
-																			<td>{{e.unit}}</td>
-																			<td>{{e.me | number:1}}</td>
-																			<td>{{e.detectionLimit | number:1}}</td>
-																		</tr>
-																	</tbody>
-																</table>
-															</div>
-														</div>
-													</div>
+															select all </label>)
+													</nobr>
 												</div>
 											</div>
 										</div>
 									</div>
 								</div>
+								<hr>
+								<div class="row">
+									<div class="col-md-12">
+										<div ng-repeat="o in search.searchRes">
+											<div class="panel-samples panel panel-default">
+												<div class="q panel-heading remove-color">
+													<div class="row">
+														<div class="col-xs-2 col-sm-1">
+															<span class="collapsed" data-parent="#accordion"
+																data-toggle="collapse"
+																data-target="#{{search.count}}-{{o.mme.mmElementID | makeID}}"
+																data-toggle="tooltip" data-placement="top"
+																title="Preview" tooltip></span>
+														</div>
+														<div class="col-xs-10 col-sm-3 simCoefficient">{{o.simVal
+															| number:2}}</div>
+														<div class="col-xs-12 col-sm-3">
+															<a class="special"
+																ng-href="{{o.mme.sampleType}}.html?id={{o.mme.sampleID | encode}}"
+																data-toggle="tooltip" data-placement="top"
+																title="Go to complete record" tooltip>{{o.mme.sampleID}}</a>
+														</div>
+														<div class="col-xs-12 col-sm-3">
+															{{o.mme.mmElementID}}</div>
+														<div class="col-xs-12 col-sm-2">
+															<div class="checkbox slim">
+																<label><input type="checkbox"
+																	class="sample-select-box" ng-model="o.isDownload"
+																	data-toggle="tooltip" data-placement="top"
+																	title="Download subset of data" tooltip></label>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div id="{{search.count}}-{{o.mme.mmElementID | makeID}}"
+													class="panel-body collapse">
+													<div class="row">
+														<div class="col-sm-9">
+															<p>
+																<strong>Sample ID: </strong>{{o.mme.sampleID}}
+															</p>
+															<p>
+																<strong>Sample Type: </strong>{{o.mme.mmElementID}}
+															</p>
+														</div>
+														<div class="col-sm-3">
+															<p>
+																<strong>Collection Date: </strong>{{o.mme.dateMeasured}}
+															</p>
+															<p>
+																<strong>Collected By: </strong>{{o.mme.measuredBy}}
+															</p>
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-sm-12">
+															<h3>Geochemistry</h3>
+														</div>
+													</div>
+													<div class="row" ng-hide="o.mme.elementData == null">
+														<div class="col-md-12 table-responsive">
+															<table class="table table-hover table-condensed">
+																<thead>
+																	<tr>
+																		<th></th>
+																		<th>Value</th>
+																		<th>&sigma; (1 st.d)</th>
+																		<th>Unit</th>
+																		<th>Method Error</th>
+																		<th>Detection Limit</th>
+																	</tr>
+																</thead>
+																<tbody>
+																	<tr
+																		ng-repeat="e in o.mme.primaryElementData | orderBy: 'unit' | orderBy: 'order'">
+																		<td ng-bind-html="e.format | unsafe"></td>
+																		<td ng-if="e.unit == '%'">{{e.value | number:2}}</td>
+																		<td ng-if="e.unit != '%'">{{e.value | number:0}}</td>
+																		<td>{{e.std | number:1}}</td>
+																		<td>{{e.unit}}</td>
+																		<td>{{e.me | number:1}}</td>
+																		<td>{{e.detectionLimit | number:1}}</td>
+																	</tr>
+																	<tr>
+																		<td>Orig. Total</td>
+																		<td>{{o.mme.originalTotal}}</td>
+																		<td></td>
+																		<td>%</td>
+																		<td></td>
+																		<td></td>
+																	</tr>
+																	<!-- The rest of the elements -->
+																	<tr>
+																		<th>Element</th>
+																		<th>Value</th>
+																		<th>&sigma; (1 st.d)</th>
+																		<th>Unit</th>
+																		<th>Method Error</th>
+																		<th>Detection Limit</th>
+																	</tr>
+																	<tr
+																		ng-repeat="e in o.mme.secondaryElementData | orderBy: '-molecularMass'">
+																		<td ng-bind-html="e.format | unsafe"></td>
+																		<td ng-if="e.unit == '%'">{{e.value | number:2}}</td>
+																		<td ng-if="e.unit != '%'">{{e.value | number:0}}</td>
+																		<td>{{e.std | number:1}}</td>
+																		<td>{{e.unit}}</td>
+																		<td>{{e.me | number:1}}</td>
+																		<td>{{e.detectionLimit | number:1}}</td>
+																	</tr>
+																</tbody>
+															</table>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div ng-hide="search.searchRes.length" class="row">
+											<div class="col-md-12 text-center">There were no
+												samples that matched all the specified chemistries in this
+												query.</div>
+										</div>
+
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
-					<div ng-show="allResults[0].length == 0" class="row">
-						<div class="col-md-12 text-center">There are no search
-							results to display.</div>
-					</div>
+				</div>
+				<div ng-hide="allResults.length" class="row">
+					<div class="col-md-12 text-center">There are no search
+						results.</div>
 				</div>
 			</div>
 		</div>
