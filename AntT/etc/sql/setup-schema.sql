@@ -260,7 +260,8 @@ CREATE TABLE chemistries(
 	name TEXT NOT NULL, -- Example, Helium
 	format TEXT NOT NULL, -- HTML formatted string
 	molecular_mass REAL,
-	atomic_number INTEGER -- Only for elements
+	atomic_number INTEGER, -- Only for elements
+	preferred_order INTEGER UNIQUE NOT NULL -- For displaying results
 );
 
 CREATE TABLE units(
