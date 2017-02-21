@@ -38,8 +38,11 @@ app.factory('dataSource', [
 			};
 
 			factory.getChemistryOrder = function() {
-				return $http.get("chemistries_order.txt").then(function(response) {
-					return response.data;
+				return $http.get("generated/allChemistries.xml").then(function(response) {
+					var x2js = new X2JS();
+					var json = x2js.xml_str2json(response.data);
+					// Already sorted by preferred order
+					return json.chemistries.chemistry;
 				});
 			};
 
@@ -138,16 +141,13 @@ app.setupSampleController = function($location, $scope, dataSource, dir) {
 
 	dataSource.getMmelements().then(function(mmelements) {
 		$scope.mmElements = getSampleMMElements(mmelements, param);
-	}).then(dataSource.getChemistryOrder).then(function(data) {
+	}).then(dataSource.getChemistryOrder).then(function(chemistries) {
 
 		// Anything after this value will be below 'Orig. Total'
-		var divider = "H2O-";
-
-		var elementOrder = data.split('\n').filter(function(str) {
-			return !str.startsWith("#") && str.length > 0;
-		});
-
-		var dividerIndex = elementOrder.indexOf(divider);
+		var divider = 'H2O-';
+		
+		var chemSymbols = chemistries.map(function(e) { return e.symbol });
+		var dividerIndex = chemSymbols.indexOf(divider);
 
 		$.each($scope.mmElements, function(outerIndex, e) {
 
@@ -155,7 +155,7 @@ app.setupSampleController = function($location, $scope, dataSource, dir) {
 			e.secondaryElementData = [];
 
 			$.each(e.elementData, function(innerIndex, val) {
-				var i = elementOrder.indexOf(val.symbol);
+				var i = chemSymbols.indexOf(val.symbol);
 				if (0 <= i && i <= dividerIndex) {
 					val.order = i;
 					e.primaryElementData.push(val);
