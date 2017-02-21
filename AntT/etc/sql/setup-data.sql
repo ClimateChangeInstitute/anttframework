@@ -2146,7 +2146,7 @@ INSERT INTO volcanoes (volcano_number, old_volcano_number, volcano_name, country
 -- Data for chemistries
 --
 
-INSERT INTO chemistries VALUES ('SiO2', 'Silicon Dioxide', 'SIO<sub>2</sub>', 60.0800018, NULL);
+INSERT INTO chemistries VALUES ('SiO2', 'Silicon Dioxide', 'SiO<sub>2</sub>', 60.0800018, NULL);
 INSERT INTO chemistries VALUES ('TiO2', 'Titanium Dioxide', 'TiO<sub>2</sub>', 79.8659973, NULL);
 INSERT INTO chemistries VALUES ('SO2', 'Sulfur Dioxide', 'SO<sub>2</sub>', 64.0660019, NULL);
 INSERT INTO chemistries VALUES ('Al2O3', 'Aluminium Oxide', 'Al<sub>2</sub>O<sub>3</sub>', 101.959999, NULL);
