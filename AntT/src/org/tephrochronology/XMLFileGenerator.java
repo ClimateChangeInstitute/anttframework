@@ -27,6 +27,7 @@ import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 
 import org.apache.commons.io.FileUtils;
+import org.tephrochronology.model.Chemistry;
 import org.tephrochronology.model.Image;
 import org.tephrochronology.model.MMElement;
 import org.tephrochronology.model.MMElementInfo;
@@ -187,6 +188,31 @@ public class XMLFileGenerator {
 				ALLMMELEMENTS_FILENAME.replace(".xml", ".xsd"),
 				new MMElements(elementInfos), MMElements.class);
 
+	}
+
+	public void writeAllChemistriesFile(Path gEN_DIR) {
+		
+		// TODO FINISH DEFINING
+		
+//		final String ALLCHEMISTRIES_FILENAME = "allChemistries.xml";
+//
+//		System.out.printf("Generating %s file.\n", ALLCHEMISTRIES_FILENAME);
+//
+//		TypedQuery<Chemistry> q = em.createNamedQuery(
+//				QUERY_MMElements_ORDER_BY_ID, Chemistry.class);
+//
+//		List<MMElement> queryResult = q.getResultList();
+//
+//		List<MMElementInfo> elementInfos = new ArrayList<>(queryResult.size());
+//
+//		queryResult.stream()
+//				.forEachOrdered(e -> elementInfos.add(new MMElementInfo(e)));
+//
+//		writeXMLAndXSDFiles(outputLocation, ALLCHEMISTRIES_FILENAME,
+//				ALLCHEMISTRIES_FILENAME.replace(".xml", ".xsd"),
+//				new MMElements(elementInfos), MMElements.class);
+
+		
 	}
 
 }

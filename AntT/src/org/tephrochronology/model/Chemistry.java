@@ -50,6 +50,9 @@ public class Chemistry implements Serializable, Comparable<Chemistry> {
 	 */
 	@Column(name = "atomic_number")
 	protected Integer atomicNumber;
+	
+	@Column(name = "preferred_order")
+	protected int preferredOrder;
 
 	/**
 	 * @param symbol
@@ -57,15 +60,17 @@ public class Chemistry implements Serializable, Comparable<Chemistry> {
 	 * @param format
 	 * @param molecularMass
 	 * @param atomicNumber
+	 * @param preferredOrder
 	 */
 	public Chemistry(String symbol, String name, String format,
-			Float molecularMass, Integer atomicNumber) {
+			Float molecularMass, Integer atomicNumber, int preferredOrder) {
 		super();
 		this.symbol = symbol;
 		this.name = name;
 		this.format = format;
 		this.molecularMass = molecularMass;
 		this.atomicNumber = atomicNumber;
+		this.preferredOrder = preferredOrder;
 	}
 
 	public Chemistry() {
@@ -130,6 +135,14 @@ public class Chemistry implements Serializable, Comparable<Chemistry> {
 
 	public void setAtomicNumber(Integer atomicNumber) {
 		this.atomicNumber = atomicNumber;
+	}
+
+	public int getPreferredOrder() {
+		return preferredOrder;
+	}
+
+	public void setPreferredOrder(int preferredOrder) {
+		this.preferredOrder = preferredOrder;
 	}
 
 }

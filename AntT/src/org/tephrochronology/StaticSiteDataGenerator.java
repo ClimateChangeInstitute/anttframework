@@ -96,6 +96,8 @@ public class StaticSiteDataGenerator {
 		fileGenerator.writeAllSamplesXMLFile(GEN_DIR);
 
 		fileGenerator.writeAllMMElementXMLFile(GEN_DIR);
+		
+		fileGenerator.writeAllChemistriesFile(GEN_DIR);
 
 		System.out.println("Done generating xml sample files.");
 	}
