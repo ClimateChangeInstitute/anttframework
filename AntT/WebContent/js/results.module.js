@@ -145,7 +145,7 @@ app.controller('results', function($scope, dataSource) {
          */
         $.each(searches, function(i, s) {
 
-            var filtered = antt.filterMMElements(Object.keys(s), $scope.allMMElements, '%');
+            var matchingMMElements = antt.filterMMElements(Object.keys(s), $scope.allMMElements, '%');
 
             var searchRes = [];
 
@@ -153,7 +153,7 @@ app.controller('results', function($scope, dataSource) {
              * @param i {number} Index
              * @param e {MMElement}
              */
-            $.each(filtered, function(i, e) {
+            $.each(matchingMMElements, function(i, e) {
 
                 var simVal = antt.statistics.similarityCoefficientListList($.map(s, function(
                     val, key) {
