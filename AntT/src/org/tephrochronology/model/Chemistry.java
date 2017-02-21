@@ -18,10 +18,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "chemistries")
 //@formatter:off
-@NamedQuery(name = Chemistry.QUERY_CHEMISTRIES_BY_MASS_DESC_AND_NAME, 
-			query = "SELECT e "
-				  + "FROM Chemistry e "
-				  + "ORDER BY e.molecularMass DESC, e.name")
+@NamedQuery(name = Chemistry.QUERY_CHEMISTRIES_BY_PREFERRED_ORDER, 
+			query = "SELECT e FROM Chemistry e ORDER BY e.preferredOrder")
 //@formatter:on
 public class Chemistry implements Serializable, Comparable<Chemistry> {
 
@@ -30,7 +28,7 @@ public class Chemistry implements Serializable, Comparable<Chemistry> {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public static final String QUERY_CHEMISTRIES_BY_MASS_DESC_AND_NAME = "org.tephrochronology.model.Chemistry.OrderByMolecularMassDescAndName";
+	public static final String QUERY_CHEMISTRIES_BY_PREFERRED_ORDER = "org.tephrochronology.model.Chemistry.OrderByMolecularMassDescAndName";
 
 	@Id
 	@Column(name = "symbol")

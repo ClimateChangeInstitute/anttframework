@@ -7,7 +7,7 @@ import static java.util.stream.IntStream.range;
 import static org.tephrochronology.DBProperties.DEFAULT_PASSWORD_FILE;
 import static org.tephrochronology.DBProperties.setupProperties;
 import static org.tephrochronology.Images.scaleAndCrop;
-import static org.tephrochronology.model.Chemistry.QUERY_CHEMISTRIES_BY_MASS_DESC_AND_NAME;
+import static org.tephrochronology.model.Chemistry.QUERY_CHEMISTRIES_BY_PREFERRED_ORDER;
 import static org.tephrochronology.model.Volcano.QUERY_VOLCANOES_BY_NUMBER;
 
 import java.awt.Color;
@@ -131,7 +131,7 @@ public class TestDataGenerator {
 					.getResultList();
 
 			chemistries = em
-					.createNamedQuery(QUERY_CHEMISTRIES_BY_MASS_DESC_AND_NAME,
+					.createNamedQuery(QUERY_CHEMISTRIES_BY_PREFERRED_ORDER,
 							Chemistry.class)
 					.getResultList();
 
