@@ -61,10 +61,10 @@ app.directive('tephraDownload', function() {
                 // Find out which sample IDs are selected for download
                 var selectedIds = [];
                 var simCoefficients = [];
+                
                 $.each($(this).parents(".panel").find("input.sample-select-box:checked"), function(
                     i, e) {
                     var id = $(e).attr("id").split('-')[2];
-                    console.log(id);
                     selectedIds.push(id);
                     simCoefficients.push($(e).parents(".panel-samples").find(".simCoefficient")[0].innerHTML);
                 });
@@ -76,7 +76,7 @@ app.directive('tephraDownload', function() {
 
                 // Go get the matching MMElements
                 var selectedMMElements = [];
-                $.each(app.allMMElements, function(i, e) {
+                $.each(scope.allMMElements, function(i, e) {
                     if (selectedIds.indexOf(e.sampleID) >= 0)
                         selectedMMElements.push(e);
                 });
@@ -119,7 +119,7 @@ app.controller('results', function($scope, dataSource) {
     // $scope.promise = null;
 
     $scope.promise = dataSource.getAllMMElements().then(function(allMMElements) {
-        app.allMMElements = allMMElements;
+        $scope.allMMElements = allMMElements;
     }).then(dataSource.getChemistryOrder).then(function(response) {
 
         var data = response.data;
@@ -145,7 +145,7 @@ app.controller('results', function($scope, dataSource) {
          */
         $.each(searches, function(i, s) {
 
-            var filtered = antt.filterMMElements(Object.keys(s), app.allMMElements, '%');
+            var filtered = antt.filterMMElements(Object.keys(s), $scope.allMMElements, '%');
 
             var searchRes = [];
 
