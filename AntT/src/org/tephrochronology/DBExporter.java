@@ -181,7 +181,7 @@ public class DBExporter {
 		
 // WRITE OUT SAMPLES !!!!!!!!!!		
 		copyTableToFile(dbName, 
-  "(SELECT s.sample_id, secondary_id, sampled_by, collection_date, comments, category_id, iid,"
+  "(SELECT s.sample_id, secondary_id, sampled_by, collection_date, comments, category_id,"
 	    + "volcano_number, topdepth_m,bottomdepth_m,topyear_bp,bottomyear_bp "
  + "FROM samples s, icecore_samples i "
  + "WHERE s.sample_id = i.sample_id "
@@ -189,7 +189,7 @@ public class DBExporter {
 				"icecore_samples.csv", dataDir);
 				
 		copyTableToFile(dbName, 
- "(SELECT s.sample_id, secondary_id, sampled_by, collection_date, comments, category_id, iid, "
+ "(SELECT s.sample_id, secondary_id, sampled_by, collection_date, comments, category_id, "
 	   + "volcano_number "
 + "FROM samples s, bia_samples b "
 + "WHERE s.sample_id = b.sample_id "
@@ -197,7 +197,7 @@ public class DBExporter {
 				"bia_samples.csv", dataDir);
 
 		copyTableToFile(dbName,
-  "(SELECT s.sample_id, secondary_id, sampled_by, collection_date, comments, category_id, iid,"
+  "(SELECT s.sample_id, secondary_id, sampled_by, collection_date, comments, category_id,"
 	    + "volcano_number,depth_m,thickness_cm "
  + "FROM samples s, lake_samples l "
  + "WHERE s.sample_id = l.sample_id	"
@@ -205,7 +205,7 @@ public class DBExporter {
 				"lake_samples.csv", dataDir);
 		
 		copyTableToFile(dbName,
- "(SELECT s.sample_id, secondary_id, sampled_by, collection_date, comments, category_id, iid,"
+ "(SELECT s.sample_id, secondary_id, sampled_by, collection_date, comments, category_id,"
       + " volcano_number,depth_m,thickness_cm "
 + "FROM samples s, marine_samples m "
 + "WHERE s.sample_id = m.sample_id "
@@ -213,7 +213,7 @@ public class DBExporter {
 				"marine_samples.csv", dataDir);
 		
 		copyTableToFile(dbName,
- "(SELECT s.sample_id, secondary_id, sampled_by, collection_date, comments, category_id, iid,"
+ "(SELECT s.sample_id, secondary_id, sampled_by, collection_date, comments, category_id,"
       + " volcano_number "
 + "FROM samples s, outcrop_samples o "
 + "WHERE s.sample_id = o.sample_id "
