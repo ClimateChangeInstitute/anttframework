@@ -15,7 +15,7 @@ app.filter('checkboxFilters', function () {
       var filtered = [];
 
       var sampleFilters = _.filter(filterTypes, function(ft) {
-      	return  _.any(ft.options, { 'IsIncluded': true });
+      	return  _.any(ft.options, { 'isIncluded': true });
       });
 
       _.each(samples, function(samp) {
@@ -30,7 +30,7 @@ app.filter('checkboxFilters', function () {
 
           if (!_.any(props, function(prop) { 
           	
-          	return _.any(filter.options, { 'value': prop.value, 'IsIncluded': true }); })) {
+          	return _.any(filter.options, { 'value': prop.value, 'isIncluded': true }); })) {
             includeSample = false;
           }
         });
