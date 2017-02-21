@@ -679,7 +679,25 @@
 	}
 	scope.builtUrl = builtUrl;
 
+    /**
+     * @param {object} Search query object (Not null)
+     * @param {chemistry[]} All known chemistries (Not null)
+     * @return {string} A search query string of the form k1 = v1, ... , kn = vn
+     */
+    var createSearchQueryString = function (searchObj, chemistries) {
+        searchQuery = "";
 
+        var chemSymbols = chemistries.map(function(e) { return e.symbol });
+        
+        // Process each key value pair
+        $.each(searchObj, function(a, b) {
+            searchQuery += chemistries[chemSymbols.indexOf(a)].format + " = " + b + ",";
+        });
+        searchQuery = searchQuery.slice(0, -1);
+
+        return searchQuery;
+    };
+	scope.createSearchQueryString = createSearchQueryString;
 
 	// Perform common page functionality
 	$(document).ready(function(){

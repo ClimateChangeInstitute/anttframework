@@ -190,24 +190,10 @@ app.controller('results', function($scope, dataSource) {
                 return b.simVal - a.simVal;
             });
 
-            /**
-             * @param {object} Search query object (Not null)
-             * @return {string} A search query string of the form k1 = v1, ... , kn = vn
-             */
-            function createSearchQueryString(searchObj) {
-                searchQuery = "";
 
-                // Process each key value pair
-                $.each(searchObj, function(a, b) {
-                    searchQuery += symbolFormat[a] + " = " + b + ",";
-                });
-                searchQuery = searchQuery.slice(0, -1);
-
-                return searchQuery;
-            };
             allResults.push({
                 searchRes: searchRes,
-                searchQuery: createSearchQueryString(s),
+                searchQuery: antt.createSearchQueryString(s,chemistries),
                 count: i
             });
 
