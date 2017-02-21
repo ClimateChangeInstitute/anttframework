@@ -17,34 +17,43 @@ app.filter('encode', function() {
 	return window.encodeURIComponent;
 });
 
-app.factory('dataSource', [ '$http', function($http) {
-	var factory = [];
+app.factory('dataSource', [
+		'$http',
+		function($http) {
+			var factory = [];
 
-	factory.getData = function(param) {
-		return $http.get(param);
-	};
+			factory.getData = function(param) {
+				return $http.get(param).then(function(response) {
+					var x2js = new X2JS();
+					var json = x2js.xml_str2json(response.data);
+					return json.sample;
+				});
+			};
 
-	factory.getMmelements = function() {
-		return $http.get("generated/allMMElements.xml");
-	};
+			factory.getMmelements = function() {
+				return $http.get("generated/allMMElements.xml").then(function(
+						response) {
+					return antt.xmlToMMElements(response.data);
+				});
+			};
 
-	factory.getChemistryOrder = function() {
-		return $http.get("chemistries_order.txt");
-	};
+			factory.getChemistryOrder = function() {
+				return $http.get("chemistries_order.txt").then(function(response) {
+					return response.data;
+				});
+			};
 
-	return factory;
-} ]);
-
+			return factory;
+		} ]);
 
 app.directive('tooltip', function() {
-    return {
-        restrict: 'A',
-        link: function(scope, element, attrs) {
-            $(element).tooltip();
-        }
-    };
+	return {
+		restrict : 'A',
+		link : function(scope, element, attrs) {
+			$(element).tooltip();
+		}
+	};
 });
-
 
 app.directive('clipboardText', [ '$document', function($document) {
 	return {
@@ -73,10 +82,7 @@ app.setupSampleController = function($location, $scope, dataSource, dir) {
 
 	var param = $location.search()['id'];
 
-	dataSource.getData(dir + param + ".xml").success(function(data) {
-		var x2js = new X2JS();
-		var json = x2js.xml_str2json(data);
-		var sample = json.sample;
+	dataSource.getData(dir + param + ".xml").then(function(sample) {
 
 		// Have to make sure that arrays are actually arrays for Angular to work
 		// properly!
@@ -84,7 +90,8 @@ app.setupSampleController = function($location, $scope, dataSource, dir) {
 			if (!Array.isArray(obj[key])) {
 				obj[key] = obj[key] ? [ obj[key] ] : [];
 			}
-		};
+		}
+		;
 
 		// Samples must have arrays of images and references
 		ensureArray(sample, 'images');
@@ -92,7 +99,7 @@ app.setupSampleController = function($location, $scope, dataSource, dir) {
 
 		$scope.sample = sample;
 
-	}).error(function(error) {
+	}).catch(function(error) {
 		console.error('Unable to load file ' + param);
 	});
 
@@ -129,65 +136,56 @@ app.setupSampleController = function($location, $scope, dataSource, dir) {
 		return result;
 	}
 
-	dataSource.getMmelements().success(function(data) {
-		// Requires antt.js
-		var mmelements = antt.xmlToMMElements(data);
+	dataSource.getMmelements().then(function(mmelements) {
 		$scope.mmElements = getSampleMMElements(mmelements, param);
+	}).then(dataSource.getChemistryOrder).then(function(data) {
 
 		// Anything after this value will be below 'Orig. Total'
 		var divider = "H2O-";
 
-		dataSource.getChemistryOrder().success(function(data) {
-			var elementOrder = data.split('\n').filter(function(str) {
-				return !str.startsWith("#") && str.length > 0;
-			});
+		var elementOrder = data.split('\n').filter(function(str) {
+			return !str.startsWith("#") && str.length > 0;
+		});
 
-			var dividerIndex = elementOrder.indexOf(divider);
+		var dividerIndex = elementOrder.indexOf(divider);
 
-			$.each($scope.mmElements, function(outerIndex, e) {
+		$.each($scope.mmElements, function(outerIndex, e) {
 
-				e.primaryElementData = [];
-				e.secondaryElementData = [];
+			e.primaryElementData = [];
+			e.secondaryElementData = [];
 
-				$.each(e.elementData, function(innerIndex, val) {
-					 var i = elementOrder.indexOf(val.symbol);
-                     if (0 <= i && i <= dividerIndex) {
-                         val.order = i;
-                         e.primaryElementData.push(val);
-                     } else {
-                         e.secondaryElementData.push(val);
-                     }
-				});
-
+			$.each(e.elementData, function(innerIndex, val) {
+				var i = elementOrder.indexOf(val.symbol);
+				if (0 <= i && i <= dividerIndex) {
+					val.order = i;
+					e.primaryElementData.push(val);
+				} else {
+					e.secondaryElementData.push(val);
+				}
 			});
 
 		});
 
 	});
+
 };
 
 app.controller('biaSample', function($location, $scope, dataSource) {
-	app.setupSampleController($location, $scope, dataSource,
-			"generated/XMLSamples/BIA/");
+	app.setupSampleController($location, $scope, dataSource, "generated/XMLSamples/BIA/");
 });
 
 app.controller('iceCoreSample', function($location, $scope, dataSource) {
-	app.setupSampleController($location, $scope, dataSource,
-			"generated/XMLSamples/IceCore/");
+	app.setupSampleController($location, $scope, dataSource, "generated/XMLSamples/IceCore/");
 });
 
 app.controller('lakeSample', function($location, $scope, dataSource) {
-	app.setupSampleController($location, $scope, dataSource,
-			"generated/XMLSamples/Aquatic/Lake/");
+	app.setupSampleController($location, $scope, dataSource, "generated/XMLSamples/Aquatic/Lake/");
 });
 
 app.controller('marineSample', function($location, $scope, dataSource) {
-	app.setupSampleController($location, $scope, dataSource,
-			"generated/XMLSamples/Aquatic/Marine/");
+	app.setupSampleController($location, $scope, dataSource, "generated/XMLSamples/Aquatic/Marine/");
 });
 
 app.controller('outcropSample', function($location, $scope, dataSource) {
-	app.setupSampleController($location, $scope, dataSource,
-			"generated/XMLSamples/Outcrop/");
+	app.setupSampleController($location, $scope, dataSource, "generated/XMLSamples/Outcrop/");
 });
-
