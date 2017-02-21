@@ -61,7 +61,7 @@ app.directive('tephraDownload', function() {
                 // Find out which sample IDs are selected for download
                 var selectedIds = [];
                 var simCoefficients = [];
-                
+                                
                 $.each($(this).parents(".panel").find("input.sample-select-box:checked"), function(
                     i, e) {
                     var id = $(e).attr("id").split('-')[2];
@@ -214,7 +214,7 @@ app.controller('results', function($scope, dataSource) {
         // reverse array so most recent search is displayed first
         allResults.reverse();
 
-        $scope.filtered = allResults;
+        $scope.allResults = allResults;
     });
 
 });

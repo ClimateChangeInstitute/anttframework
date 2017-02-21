@@ -134,7 +134,7 @@
 				<hr>
 
 				<div cg-busy="{promise:promise,message:message}">
-					<div ng-hide="filtered[0].length == 0">
+					<div ng-hide="allResults[0].length == 0">
 
 						<div class="alert alert-info alert-dismissible" role="alert">
 							<button type="button" class="close" data-dismiss="alert"
@@ -146,7 +146,7 @@
 							element data.
 						</div>
 
-						<div ng-repeat="search in filtered | filter:searchText">
+						<div ng-repeat="search in allResults | filter:searchText">
 							<div class="panel panel-default">
 								<div class="panel-body">
 									<div class="row">
@@ -215,7 +215,7 @@
 																{{o.mme.mmElementID}}
 															</div>
 															<div class="col-xs-12 col-sm-2">
-																<div class="checkbox slim"><label><input type="checkbox" class="sample-select-box" id="s-{{search.count}}-{{o.mme.sampleID}}" data-toggle="tooltip" data-placement="top" title="Download subset of data" tooltip></label></div>
+																<div class="checkbox slim"><label><input type="checkbox" class="sample-select-box" ng-model="o.isDownload" data-toggle="tooltip" data-placement="top" title="Download subset of data" tooltip></label></div>
 															</div>
 														</div>
 													</div>
@@ -308,7 +308,7 @@
 							</div>
 						</div>
 					</div>
-					<div ng-show="filtered[0].length == 0" class="row">
+					<div ng-show="allResults[0].length == 0" class="row">
 						<div class="col-md-12 text-center">There are no search
 							results to display.</div>
 					</div>
