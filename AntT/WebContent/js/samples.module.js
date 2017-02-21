@@ -22,7 +22,7 @@ app.factory('dataSource', [
 		function($http) {
 			var factory = [];
 
-			factory.getData = function(param) {
+			factory.getSampleData = function(param) {
 				return $http.get(param).then(function(response) {
 					var x2js = new X2JS();
 					var json = x2js.xml_str2json(response.data);
@@ -85,7 +85,7 @@ app.setupSampleController = function($location, $scope, dataSource, dir) {
 
 	var param = $location.search()['id'];
 
-	dataSource.getData(dir + param + ".xml").then(function(sample) {
+	dataSource.getSampleData(dir + param + ".xml").then(function(sample) {
 
 		// Have to make sure that arrays are actually arrays for Angular to work
 		// properly!
