@@ -428,12 +428,12 @@
 		var finalStr = '';
 		
 		// Example headers for download file
-		// "sample id", "long sample id", "original total", "SiO2", "SiO2 std",
+		// "sample id", "mm element id", "original total", "SiO2", "SiO2 std",
 		// "SiO2 me", etc.
 		
 		var headersOrder = createSaveHeaders(selectedMMElements, order);
 		
-		finalStr += '"sample id","long sample id","similarity coefficient","original total"'
+		finalStr += '"sample id","mm element id","similarity coefficient","original total"'
 				+ createRemainingHeaders(headersOrder);
 		finalStr += '\n';
 		

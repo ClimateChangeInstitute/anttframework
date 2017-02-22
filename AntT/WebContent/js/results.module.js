@@ -75,7 +75,7 @@ app.directive('tephraDownload', ['dataSource', function(dataSource) {
 				var selectedMMElements = [];
 				$.each(tephraSearch.searchRes, function(i, r) {
 					if (r.isDownloaded)
-						selectedMMElements.push(r);
+						selectedMMElements.push(r.mme);
 				});
 
 				if (selectedMMElements.length <= 0) {
@@ -84,10 +84,6 @@ app.directive('tephraDownload', ['dataSource', function(dataSource) {
 				}
 
 				dataSource.getChemistryOrder().then(function(chemistries) {
-					
-					console.log(selectedMMElements);
-					console.log(chemistries);
-
 					var now = new Date();
 
 					var dateString = now.getFullYear() + '-'
