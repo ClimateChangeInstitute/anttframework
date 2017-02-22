@@ -59,7 +59,7 @@ app.directive('tooltip', function() {
 	};
 });
 
-app.directive('tephraDownload', function() {
+app.directive('tephraDownload', ['dataSource', function(dataSource) {
 	return {
 		restrict : 'A',
 		scope : {
@@ -68,38 +68,25 @@ app.directive('tephraDownload', function() {
 		link : function(scope, element, attrs) {
 
 			function download(evt) {
-				// Find out which sample IDs are selected for download
-				var selectedIds = [];
-				var simCoefficients = [];
 
 				var tephraSearch = scope.tephraSearch;
-				console.log(tephraSearch);
-				console.log(tephraSearch.searchRes);
-				// console.log(scope.allResults);
-				// console.log(scope.allResults[attrs.tephraSearch]);
-
-				$.each($(this).parents(".panel").find(
-						"input.sample-select-box:checked"), function(i, e) {
-					var id = $(e).attr("id").split('-')[2];
-					selectedIds.push(id);
-					simCoefficients.push($(e).parents(".panel-samples").find(
-							".simCoefficient")[0].innerHTML);
+				
+				// Go get the matching MMElements
+				var selectedMMElements = [];
+				$.each(tephraSearch.searchRes, function(i, r) {
+					if (r.isDownloaded)
+						selectedMMElements.push(r);
 				});
 
-				if (selectedIds.length <= 0) {
+				if (selectedMMElements.length <= 0) {
 					alert("No sample results selected.");
 					return;
 				}
 
-				// Go get the matching MMElements
-				var selectedMMElements = [];
-				$.each(scope.allMMElements, function(i, e) {
-					if (selectedIds.indexOf(e.sampleID) >= 0)
-						selectedMMElements.push(e);
-				});
-
-				antt.loadChemistriesOrder("chemistries_order.txt", function(
-						order) {
+				dataSource.getChemistryOrder().then(function(chemistries) {
+					
+					console.log(selectedMMElements);
+					console.log(chemistries);
 
 					var now = new Date();
 
@@ -108,8 +95,7 @@ app.directive('tephraDownload', function() {
 							+ now.getHours() + '-' + now.getMinutes();
 
 					var downloadFileName = "anttSearch" + dateString + ".csv";
-					antt.saveSelectedData(downloadFileName, selectedMMElements,
-							simCoefficients, order);
+					antt.saveSelectedData(downloadFileName, selectedMMElements, chemistries);
 				});
 
 			}
@@ -118,7 +104,7 @@ app.directive('tephraDownload', function() {
 
 		}
 	};
-});
+}]);
 
 app.directive('tephraSelectall', function() {
 	return {
