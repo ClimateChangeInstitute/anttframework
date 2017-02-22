@@ -75,7 +75,7 @@ app.directive('tephraDownload', ['dataSource', function(dataSource) {
 				var selectedMMElements = [];
 				$.each(tephraSearch.searchRes, function(i, r) {
 					if (r.isDownloaded)
-						selectedMMElements.push(r.mme);
+						selectedMMElements.push(r);
 				});
 
 				if (selectedMMElements.length <= 0) {

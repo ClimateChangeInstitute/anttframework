@@ -347,7 +347,7 @@
 	 * specified order, with non percentage ordered secondarily, alphabetically.
 	 * 
 	 * @param mmElements
-	 *            {MMElement[]} Elements to create headers for (Not null)
+	 *            {object[]} Selected element results to create headers for (Not null)
 	 * @param chemistries
 	 *            {chemistries[]} Chemistries which have the order that headers
 	 *            should appear.  They should already be ordered. (Not null)
@@ -356,8 +356,8 @@
 	function createSaveHeaders(mmElements, chemistries) {
 		
 		var allHeaders = [];
-		$.each(mmElements, function(i, mme){
-			$.each(mme.elementData, function(j, d){
+		$.each(mmElements, function(i, r){
+			$.each(r.mme.elementData, function(j, d){
 				if (allHeaders.indexOf(d.symbolHeader()) < 0) {
 					allHeaders.push(d.symbolHeader());
 				}
@@ -418,7 +418,7 @@
 	 * @param downloadFileName
 	 *            {string} The file name (Not null)
 	 * @param selectedMMElements
-	 *            {MMElement[]} Chemistries to be saved. Must have simVal
+	 *            {object[]} object containing simVal and mme (Not null)
 	 *            property. (Not null)
 	 * @param chemistries
 	 *            {chemistry[]} The chemistries which have the order that the
@@ -437,17 +437,24 @@
 				+ createRemainingHeaders(headersOrder);
 		finalStr += '\n';
 		
-		$.each(selectedMMElements, function(i, mme) {
-			finalStr += (JSON.stringify(mme.sampleID) + ','
-					+ JSON.stringify(mme.mmElementID) + ','
-					+ mme.simVal + ',' + mme.originalTotal);
+		function ifNullEmpty(v) {
+			if(v)
+				return v;
+			else
+				return "";
+		}
+		
+		$.each(selectedMMElements, function(i, r) {
+			finalStr += (JSON.stringify(r.mme.sampleID) + ','
+					+ JSON.stringify(r.mme.mmElementID) + ','
+					+ r.simVal + ',' + ifNullEmpty(r.mme.originalTotal));
 			$.each(headersOrder, function(k, h) {
 				var hSplit = splitSymbolUnit(h);
-				var d = mme.elementData.find(function(e) {
+				var d = r.mme.elementData.find(function(e) {
 					return e.symbol == hSplit[1] && e.unit == hSplit[2];
 				});
 				if (d) {
-					finalStr += ','+d.value + ','+d.std+','+d.me;
+					finalStr += ','+ifNullEmpty(d.value) + ','+ifNullEmpty(d.std)+','+ifNullEmpty(d.me);
 				} else {
 					finalStr += ",,,";
 				}
