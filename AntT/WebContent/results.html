@@ -38,19 +38,6 @@
 
 <script src="index_files/bootstrap/js/bootstrap.js"></script>
 <script type="text/javascript">
-	function checkToDownload(e) {
-
-		if (e.checked) {
-			$('input:checkbox[id^="' + e.id + '-' + '"]').each(function(i, j) {
-				$(j).prop("checked", true);
-			});
-		} else {
-			$('input:checkbox[id^="' + e.id + '-' + '"]').each(function(i, j) {
-				$(j).prop("checked", false);
-			});
-		}
-	}
-
 	$(document).ready(function() {
 		if (decodeURIComponent(window.location.search.substring(1)) == "") {
 			$('#search-modal').modal('show');
@@ -151,7 +138,7 @@
 								<div class="row">
 									<div class="col-sm-12">
 										<div class="pull-right">
-											<button type="button" class="btn btn-primary" tephra-download>Download
+											<button type="button" class="btn btn-primary" tephra-search="search" tephra-download>Download
 												selected</button>
 										</div>
 									</div>
@@ -184,7 +171,7 @@
 													<wbr>
 													<nobr>
 														(<label><input id="s-{{search.count}}"
-															onclick="checkToDownload(this)" type="checkbox" value="">
+															type="checkbox" ng-model="search.downloadAll" tephra-search="search" tephra-selectall>
 															select all </label>)
 													</nobr>
 												</div>
@@ -219,7 +206,9 @@
 														<div class="col-xs-12 col-sm-2">
 															<div class="checkbox slim">
 																<label><input type="checkbox"
-																	class="sample-select-box" ng-model="o.isDownload"
+																	name="s-{{search.count}}"
+																	class="sample-select-box" 
+																	ng-model="o.isDownloaded" ng-checked="search.downloadAll"
 																	data-toggle="tooltip" data-placement="top"
 																	title="Download subset of data" tooltip></label>
 															</div>
