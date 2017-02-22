@@ -348,11 +348,12 @@
 	 * 
 	 * @param mmElements
 	 *            {MMElement[]} Elements to create headers for (Not null)
-	 * @param order
-	 *            {string[]} Order that headers should appear (Not null)
+	 * @param chemistries
+	 *            {chemistries[]} Chemistries which have the order that headers
+	 *            should appear.  They should already be ordered. (Not null)
 	 * @returns {string[]} The headers to create (Not null)
 	 */
-	function createSaveHeaders(mmElements, order) {
+	function createSaveHeaders(mmElements, chemistries) {
 		
 		var allHeaders = [];
 		$.each(mmElements, function(i, mme){
@@ -363,8 +364,10 @@
 			});
 		});
 		
+		var order = chemistries.map(function(c) {c.symbol;});
+		
 		// We now have all of the elements that exist in the given element set.
-		// Order them according to the order
+		// Order them according to the chemistries order
 		allHeaders.sort(function compare(a, b) {
 
 			var aParts = splitSymbolUnit(a);
@@ -415,16 +418,13 @@
 	 * @param downloadFileName
 	 *            {string} The file name (Not null)
 	 * @param selectedMMElements
-	 *            {MMElement[]} Chemistries to be saved (Not null)
-	 * @param simCoefficients
-	 *            {string[]} Similarity coefficients for the chemistries
-	 *            simCoefficiets[i] is the similarity coefficient for
-	 *            selectedMMElements[i] (Not null)
-	 * @param order
-	 *            {string[]} The order that the chemistries should be displayed
-	 *            (Not null)
+	 *            {MMElement[]} Chemistries to be saved. Must have simVal
+	 *            property. (Not null)
+	 * @param chemistries
+	 *            {chemistry[]} The chemistries which have the order that the
+	 *            chemistries should be displayed (Not null)
 	 */
-	var saveSelectedData = function(downloadFileName, selectedMMElements, simCoefficients, order) {
+	var saveSelectedData = function(downloadFileName, selectedMMElements, order) {
 		var finalStr = '';
 		
 		// Example headers for download file
@@ -440,7 +440,7 @@
 		$.each(selectedMMElements, function(i, mme) {
 			finalStr += (JSON.stringify(mme.sampleID) + ','
 					+ JSON.stringify(mme.mmElementID) + ','
-					+ simCoefficients[i] + ',' + mme.originalTotal);
+					+ mme.simVal + ',' + mme.originalTotal);
 			$.each(headersOrder, function(k, h) {
 				var hSplit = splitSymbolUnit(h);
 				var d = mme.elementData.find(function(e) {
@@ -613,10 +613,10 @@
 			$.each(mmelement.elementData, function(j, e) {
 				if (e.symbol === k && e.unit === '%') {
 					
-                	/* **********************************************************
+                	/***********************************************************
 					 * *** SPECIAL CASE FOR IRON Convert iron: if FeO only do
-					 * nothing; if Fe2O3 exists, convert Fe2O3 * 0.8998 and add it
-					 * to the other Fe0 to form the total
+					 * nothing; if Fe2O3 exists, convert Fe2O3 * 0.8998 and add
+					 * it to the other Fe0 to form the total
 					 */
 					if (e.symbol === 'FeO' && 0 <= symbols.indexOf('Fe2O3')){
 						result.push(e.value + (0.8998 * mmelement.elementData[symbols.indexOf('Fe2O3')].value));
@@ -680,10 +680,12 @@
 	scope.builtUrl = builtUrl;
 
     /**
-     * @param {object} Search query object (Not null)
-     * @param {chemistry[]} All known chemistries (Not null)
-     * @return {string} A search query string of the form k1 = v1, ... , kn = vn
-     */
+	 * @param {object}
+	 *            Search query object (Not null)
+	 * @param {chemistry[]}
+	 *            All known chemistries (Not null)
+	 * @return {string} A search query string of the form k1 = v1, ... , kn = vn
+	 */
     var createSearchQueryString = function (searchObj, chemistries) {
         searchQuery = "";
 
