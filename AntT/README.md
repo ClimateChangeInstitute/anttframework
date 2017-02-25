@@ -50,15 +50,21 @@ cd anttframework/AntT/setup && ./createDB.sh
 
 ### Building the source code
 
-Use the following script to compile the Java source code that
-generates the website.  At the same time, it will create a WAR file
-that contains the entire web site.  While the site is built as a
-deployable WAR file, there are no server dependencies that require the
-site to be served by on a Java Servlet Container.  The unpacked
-contents of the WAR file can be served by any web server, eg Apache.
+Use the following script to compile the Java source code.  You must
+run this command before executing commands listed below.
 
 ```bash
-cd anttframework/AntT/setup && ./buildClassesAndWarFile.sh
+cd anttframework/AntT/setup && ./buildClasses.sh
+```
+
+To build the WAR file, exute the command shown below. The WAR file
+contains the entire web site.  While the site is built as a deployable
+WAR file, there are no server dependencies that require the site to be
+served by on a Java Servlet Container.  The unpacked contents of the
+WAR file can be served by any web server, eg Apache.
+
+```bash
+cd anttframework/AntT/setup && ./buildWarFile.sh
 ```
 
 ### Populating the database with some **test data**
