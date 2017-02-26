@@ -241,7 +241,7 @@
 			<div ng-repeat="mme in mmElements">
 				<div class="row">
 					<div class="col-sm-12">
-						<h4>MM Element ID : {{mme.mmElementID}}</h4>
+						<h4 id="mme-{{mme.mmElementID | makeID | encode}}">MM Element ID : {{mme.mmElementID}}</h4>
 					</div>
 				</div>
 
