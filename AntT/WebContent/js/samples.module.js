@@ -17,6 +17,17 @@ app.filter('encode', function() {
 	return window.encodeURIComponent;
 });
 
+/**
+ * A filter to remove special characters in ID strings.
+ */
+function makeID(str) {
+	return str.replace(/\s|-|\./g, "_");
+}
+
+app.filter('makeID', function() {
+	return makeID;
+});
+
 app.factory('dataSource', [
 		'$http',
 		function($http) {
@@ -80,7 +91,7 @@ app.directive('clipboardText', [ '$document', function($document) {
  * @param dir
  *            The directory to load the data from
  */
-app.setupSampleController = function($location, $scope, dataSource, dir) {
+app.setupSampleController = function($location, $scope, dataSource, $anchorScroll, dir) {
 	$scope.AppController = [];
 
 	var param = $location.search()['id'];
@@ -166,26 +177,33 @@ app.setupSampleController = function($location, $scope, dataSource, dir) {
 
 		});
 
+		// Stupid hack to make the anchor links scroll into view
+		setTimeout(function(){
+			$anchorScroll();
+			// Offset by 60 so that the anchor isn't covered by the navbar
+			setTimeout(function(){scrollBy(0, -60);},0);
+		}, 0);
+		
 	});
 
 };
 
-app.controller('biaSample', function($location, $scope, dataSource) {
-	app.setupSampleController($location, $scope, dataSource, "generated/XMLSamples/BIA/");
-});
+app.controller('biaSample', ['$location', '$scope', 'dataSource','$anchorScroll', function($location, $scope, dataSource, $anchorScroll) {
+	app.setupSampleController($location, $scope, dataSource, $anchorScroll, "generated/XMLSamples/BIA/");
+}]);
 
-app.controller('iceCoreSample', function($location, $scope, dataSource) {
-	app.setupSampleController($location, $scope, dataSource, "generated/XMLSamples/IceCore/");
-});
+app.controller('iceCoreSample', ['$location', '$scope', 'dataSource','$anchorScroll', function($location, $scope, dataSource, $anchorScroll) {
+	app.setupSampleController($location, $scope, dataSource, $anchorScroll, "generated/XMLSamples/IceCore/");
+}]);
 
-app.controller('lakeSample', function($location, $scope, dataSource) {
-	app.setupSampleController($location, $scope, dataSource, "generated/XMLSamples/Aquatic/Lake/");
-});
+app.controller('lakeSample', ['$location', '$scope', 'dataSource','$anchorScroll', function($location, $scope, dataSource, $anchorScroll) {
+	app.setupSampleController($location, $scope, dataSource, $anchorScroll, "generated/XMLSamples/Aquatic/Lake/");
+}]);
 
-app.controller('marineSample', function($location, $scope, dataSource) {
-	app.setupSampleController($location, $scope, dataSource, "generated/XMLSamples/Aquatic/Marine/");
-});
+app.controller('marineSample', ['$location', '$scope', 'dataSource','$anchorScroll', function($location, $scope, dataSource, $anchorScroll) {
+	app.setupSampleController($location, $scope, dataSource, $anchorScroll, "generated/XMLSamples/Aquatic/Marine/");
+}]);
 
-app.controller('outcropSample', function($location, $scope, dataSource) {
-	app.setupSampleController($location, $scope, dataSource, "generated/XMLSamples/Outcrop/");
-});
+app.controller('outcropSample', ['$location', '$scope', 'dataSource','$anchorScroll', function($location, $scope, dataSource, $anchorScroll) {
+	app.setupSampleController($location, $scope, dataSource, $anchorScroll, "generated/XMLSamples/Outcrop/");
+}]);

@@ -202,7 +202,7 @@
 																title="Go to complete record" tooltip>{{o.mme.sampleID}}</a>
 														</div>
 														<div class="col-xs-12 col-sm-3">
-															<a ng-href="{{o.mme.sampleType}}.html?id={{o.mme.sampleID | encode}}#mme-{{o.mme.mmElementID}}">{{o.mme.mmElementID}}</a></div>
+															<a ng-href="{{o.mme.sampleType}}.html?id={{o.mme.sampleID | encode}}#mme-{{o.mme.mmElementID | makeID | encode}}">{{o.mme.mmElementID}}</a></div>
 														<div class="col-xs-12 col-sm-2">
 															<div class="checkbox slim">
 																<label><input type="checkbox"
