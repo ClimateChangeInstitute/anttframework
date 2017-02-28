@@ -39,8 +39,8 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 @NamedQuery(name = Sample.QUERY_GET_SAMPLE_INFO, query = 
 "SELECT NEW org.tephrochronology.model.SampleInfo(TYPE(s), "
 		+ "s.sampleID, s.secondaryID, s.sampledBy, s.comments, "
-		+ "s.collectionDate, c.categoryID) "
-+ "FROM Sample s LEFT JOIN s.category c "
+		+ "s.collectionDate, c.categoryID, site.latitude, site.longitude) "
++ "FROM Sample s, s.category c, c.site site "
 + "ORDER BY TYPE(s), s.sampleID, s.collectionDate")
 //@formatter:on
 public abstract class Sample implements Serializable {
@@ -102,6 +102,7 @@ public abstract class Sample implements Serializable {
 	 * @param collectionDate
 	 * @param comments
 	 * @param category
+	 *            (Not null)
 	 * @param instrument
 	 * @param refs
 	 * @param images
