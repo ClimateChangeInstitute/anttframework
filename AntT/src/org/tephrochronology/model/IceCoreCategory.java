@@ -3,6 +3,8 @@
  */
 package org.tephrochronology.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -52,11 +54,12 @@ public class IceCoreCategory extends Category {
 	 * @param coreDiameter
 	 * @param maxCoreDepth
 	 * @param coreAgeRange
+	 * @param samples
 	 */
 	public IceCoreCategory(String categoryID, Site site, String drilledBy,
 			String drillingDates, String coreDiameter, String maxCoreDepth,
-			String coreAgeRange) {
-		super(categoryID, site);
+			String coreAgeRange, List<Sample> samples) {
+		super(categoryID, site, samples);
 		this.drilledBy = drilledBy;
 		this.drillingDates = drillingDates;
 		this.coreDiameter = coreDiameter;

@@ -6,6 +6,8 @@ package org.tephrochronology.model;
 import static javax.persistence.DiscriminatorType.CHAR;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
@@ -14,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlSeeAlso;
 
@@ -42,18 +45,23 @@ public abstract class Category implements Serializable {
 
 	@JoinColumn(name = "site_id")
 	private Site site;
+	
+	@OneToMany(mappedBy="category")
+	private List<Sample> samples;
 
 	public Category() {
+		this.samples = new ArrayList<>();
 	}
 
 	/**
 	 * @param categoryID
 	 * @param site
 	 */
-	public Category(String categoryID, Site site) {
+	public Category(String categoryID, Site site, List<Sample> samples) {
 		super();
 		this.categoryID = categoryID;
 		this.site = site;
+		this.samples = samples;
 	}
 
 	public String getCategoryID() {
@@ -70,6 +78,14 @@ public abstract class Category implements Serializable {
 
 	public void setSite(Site site) {
 		this.site = site;
+	}
+
+	public List<Sample> getSamples() {
+		return samples;
+	}
+
+	public void setSamples(List<Sample> samples) {
+		this.samples = samples;
 	}
 
 }

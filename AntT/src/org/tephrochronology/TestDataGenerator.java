@@ -30,8 +30,8 @@ import org.tephrochronology.model.AquaticSample;
 import org.tephrochronology.model.Area;
 import org.tephrochronology.model.BIACategory;
 import org.tephrochronology.model.BIASample;
-import org.tephrochronology.model.CorerType;
 import org.tephrochronology.model.Chemistry;
+import org.tephrochronology.model.CorerType;
 import org.tephrochronology.model.GrainSize;
 import org.tephrochronology.model.IceCoreCategory;
 import org.tephrochronology.model.IceCoreSample;
@@ -238,7 +238,7 @@ public class TestDataGenerator {
 		for (int i = 0; i < 10; i++) {
 			OutcropCategory newCat = new OutcropCategory(
 					OutcropCategory.class.toString() + i,
-					sites.get(i % sites.size()));
+					sites.get(i % sites.size()), new ArrayList<>());
 			em.persist(newCat);
 			outcropCategories.add(newCat);
 		}
@@ -270,7 +270,7 @@ public class TestDataGenerator {
 					LakeSample.class.getSimpleName() + i,
 					sites.get(i % sites.size()),
 					coreTypes.get(i % coreTypes.size()), "age " + i, (float) i,
-					LocalDate.now().toString());
+					LocalDate.now().toString(), new ArrayList<>());
 			em.persist(newCat);
 			lakeCategories.add(newCat);
 		}
@@ -298,7 +298,7 @@ public class TestDataGenerator {
 					MarineSample.class.getSimpleName() + i,
 					sites.get(i % sites.size()),
 					coreTypes.get(i % coreTypes.size()), "age " + i, (float) i,
-					LocalDate.now().toString());
+					LocalDate.now().toString(), new ArrayList<>());
 			em.persist(newCat);
 			marineCategories.add(newCat);
 		}
@@ -327,7 +327,7 @@ public class TestDataGenerator {
 		for (int i = 0; i < 10; i++) {
 			BIACategory newCat = new BIACategory(c.getSimpleName() + i,
 					sites.get(i % sites.size()), "dip " + i, String.valueOf(i),
-					"trend " + i);
+					"trend " + i, new ArrayList<>());
 			em.persist(newCat);
 			biaCategories.add(newCat);
 		}
@@ -358,7 +358,7 @@ public class TestDataGenerator {
 			IceCoreCategory newCat = new IceCoreCategory(c.getSimpleName() + i,
 					sites.get(i % sites.size()), "drilled by " + i,
 					2010 + "-" + (2010 + i), i + " cm", i * 10 + " m",
-					1900 + "-" + i * 10);
+					1900 + "-" + i * 10, new ArrayList<>());
 			em.persist(newCat);
 			iceCoreCategories.add(newCat);
 		}

@@ -3,6 +3,8 @@
  */
 package org.tephrochronology.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -44,10 +46,11 @@ public class BIACategory extends Category {
 	 * @param dip
 	 * @param thickness
 	 * @param trend
+	 * @param samples
 	 */
 	public BIACategory(String categoryID, Site site, String dip,
-			String thickness, String trend) {
-		super(categoryID, site);
+			String thickness, String trend, List<Sample> samples) {
+		super(categoryID, site, samples);
 		this.dip = dip;
 		this.thickness = thickness;
 		this.trend = trend;

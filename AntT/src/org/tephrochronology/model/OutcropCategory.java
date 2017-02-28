@@ -3,6 +3,8 @@
  */
 package org.tephrochronology.model;
 
+import java.util.List;
+
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -30,9 +32,10 @@ public class OutcropCategory extends Category {
 	/**
 	 * @param categoryID
 	 * @param site
+	 * @param samples
 	 */
-	public OutcropCategory(String categoryID, Site site) {
-		super(categoryID, site);
+	public OutcropCategory(String categoryID, Site site, List<Sample> samples) {
+		super(categoryID, site, samples);
 	}
 
 }

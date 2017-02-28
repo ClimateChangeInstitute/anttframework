@@ -59,7 +59,20 @@ app.controller('allSamples', function($scope, dataSource) {
 	// $scope.backdrop = true;
 	// $scope.promise = null;
 
-	$scope.promise = dataSource.getData().then(function(samples) {
+	$scope.promise = dataSource.getData().then(function(allSamples) {
+		
+		console.log(allSamples);
+		
+		var samples = [];
+		$.each(allSamples, function(i,e) {
+			if (e.latitude <= -55) {
+				samples.push(e);
+			} else{
+				console.log("Ignoring " + e.sampleID);
+			}
+		})
+		
+		$(samples);
 		
 		$scope.dataSet = samples;
 

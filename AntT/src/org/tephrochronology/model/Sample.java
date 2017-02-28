@@ -68,7 +68,7 @@ public abstract class Sample implements Serializable {
 	@Column(name = "comments")
 	private String comments;
 
-	@JoinColumn(name = "category_id")
+	@JoinColumn(name = "category_id", nullable = false)
 	private Category category;
 
 	/**
