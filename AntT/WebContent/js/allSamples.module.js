@@ -61,12 +61,8 @@ app.controller('allSamples', function($scope, dataSource) {
 
 	$scope.promise = dataSource.getData().then(function(allSamples) {
 		
-		console.log(allSamples);
-		
 		// -90 <= antarctic region latitude <= -55
 		var samples = antt.filterSamplesByLatLon(allSamples, -90, -55, -180, 180);
-		
-		console.log(samples);
 		
 		$scope.dataSet = samples;
 
