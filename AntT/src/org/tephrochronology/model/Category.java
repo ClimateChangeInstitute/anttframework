@@ -45,11 +45,11 @@ public abstract class Category implements Serializable {
 	@Column(name = "category_id")
 	private String categoryID;
 
-	@JoinColumn(name = "site_id")
+	@JoinColumn(name = "site_id", nullable = false)
 	private Site site;
-	
-	@OneToMany(mappedBy="category")
-	@XmlInverseReference(mappedBy="category")
+
+	@OneToMany(mappedBy = "category")
+	@XmlInverseReference(mappedBy = "category")
 	private List<Sample> samples;
 
 	public Category() {
