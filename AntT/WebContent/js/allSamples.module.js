@@ -4,7 +4,12 @@ app.factory('dataSource', [ '$http', function($http) {
 	var factory = [];
 
 	factory.getData = function() {
-		return $http.get("generated/allSamples.xml");
+		return $http.get("generated/allSamples.xml").then(function(response) {
+			var x2js = new X2JS();
+			var json = x2js.xml_str2json(response.data);
+
+			return json.samples.sample;
+		});
 	};
 
 	return factory;
@@ -54,10 +59,8 @@ app.controller('allSamples', function($scope, dataSource) {
 	// $scope.backdrop = true;
 	// $scope.promise = null;
 
-	$scope.promise = dataSource.getData().success(function(data) {
-		var x2js = new X2JS();
-		var json = x2js.xml_str2json(data);
-		samples = json.samples.sample;
+	$scope.promise = dataSource.getData().then(function(samples) {
+		
 		$scope.dataSet = samples;
 
 		// create checkbox filters on the fly for dynamic data
