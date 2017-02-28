@@ -22,12 +22,16 @@ public class SampleInfo {
 
 	private String categoryID;
 
+	private float latitude;
+
+	private float longitude;
+
 	public SampleInfo() {
 	}
 
 	public SampleInfo(String sampleType, String sampleID, String longName,
 			String sampledBy, String comments, String collectionDate,
-			String categoryID) {
+			String categoryID, float latitude, float longitude) {
 		super();
 		this.sampleType = sampleType;
 		this.sampleID = sampleID;
@@ -36,6 +40,8 @@ public class SampleInfo {
 		this.comments = comments;
 		this.collectionDate = collectionDate;
 		this.categoryID = categoryID;
+		this.latitude = latitude;
+		this.longitude = longitude;
 	}
 
 	public String getSampleID() {
@@ -92,6 +98,22 @@ public class SampleInfo {
 
 	public void setSampleType(String sampleType) {
 		this.sampleType = sampleType;
+	}
+
+	public float getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(float latitude) {
+		this.latitude = latitude;
+	}
+
+	public float getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(float longitude) {
+		this.longitude = longitude;
 	}
 
 }
