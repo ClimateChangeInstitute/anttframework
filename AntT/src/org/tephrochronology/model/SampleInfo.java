@@ -20,14 +20,14 @@ public class SampleInfo {
 
 	private String comments;
 
-	private String siteID;
+	private String categoryID;
 
 	public SampleInfo() {
 	}
 
 	public SampleInfo(String sampleType, String sampleID, String longName,
 			String sampledBy, String comments, String collectionDate,
-			String siteID) {
+			String categoryID) {
 		super();
 		this.sampleType = sampleType;
 		this.sampleID = sampleID;
@@ -35,7 +35,7 @@ public class SampleInfo {
 		this.sampledBy = sampledBy;
 		this.comments = comments;
 		this.collectionDate = collectionDate;
-		this.siteID = siteID;
+		this.categoryID = categoryID;
 	}
 
 	public String getSampleID() {
@@ -78,12 +78,12 @@ public class SampleInfo {
 		this.comments = comments;
 	}
 
-	public String getSiteID() {
-		return siteID;
+	public String getCategoryID() {
+		return categoryID;
 	}
 
-	public void setSiteID(String siteID) {
-		this.siteID = siteID;
+	public void setCategoryID(String categoryID) {
+		this.categoryID = categoryID;
 	}
 
 	public String getSampleType() {

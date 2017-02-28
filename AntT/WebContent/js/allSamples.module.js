@@ -61,18 +61,18 @@ app.controller('allSamples', function($scope, dataSource) {
 
 	$scope.promise = dataSource.getData().then(function(allSamples) {
 		
-		console.log(allSamples);
-		
-		var samples = [];
-		$.each(allSamples, function(i,e) {
-			if (e.latitude <= -55) {
-				samples.push(e);
-			} else{
-				console.log("Ignoring " + e.sampleID);
-			}
-		})
-		
-		$(samples);
+//		console.log(allSamples);
+//		
+		var samples = allSamples;
+//		$.each(allSamples, function(i,e) {
+//			if (e.latitude <= -55) {
+//				samples.push(e);
+//			} else{
+//				console.log("Ignoring " + e.sampleID);
+//			}
+//		})
+//		
+//		console.log(samples);
 		
 		$scope.dataSet = samples;
 
