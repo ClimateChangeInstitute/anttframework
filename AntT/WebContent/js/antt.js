@@ -708,6 +708,25 @@
     };
 	scope.createSearchQueryString = createSearchQueryString;
 
+	/**
+	 * @param {SampleInfo[]} Java SampleInfo objects
+	 * @param {number} Smallest allowed value.  Using a value of less than -90 basically unbounded.
+	 * @param {number} Largest allowed value.  Using a value more than 90 basically unbounded.
+	 * @param {number} Smallest allowed value.  Using a value of less than -180 basically unbounded.
+	 * @param {number} Largest allowed value.  Using a value more than 180 basically unbounded.
+	 */
+	var filterSamplesByLatLon = function(allSamples, latMin, latMax, lonMin, lonMax) {
+		var samples = [];
+		$.each(allSamples, function(i,e) {
+			if ((latMin <= e.latitude && e.latitude <= latMax) &&
+				(lonMin <= e.longitude && e.longitude <= lonMax)) {
+				samples.push(e);
+			}
+		})
+		return samples;
+	}
+	scope.filterSamplesByLatLon = filterSamplesByLatLon;
+	
 	// Perform common page functionality
 	$(document).ready(function(){
 		var id = getUrlParameter('id');
