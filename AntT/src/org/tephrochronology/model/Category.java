@@ -20,6 +20,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlSeeAlso;
 
+import org.eclipse.persistence.oxm.annotations.XmlInverseReference;
+
 /**
  * Represents a collection of samples, for example, an ice core.
  * 
@@ -47,6 +49,7 @@ public abstract class Category implements Serializable {
 	private Site site;
 	
 	@OneToMany(mappedBy="category")
+	@XmlInverseReference(mappedBy="category")
 	private List<Sample> samples;
 
 	public Category() {
