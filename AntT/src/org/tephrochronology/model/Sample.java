@@ -93,6 +93,19 @@ public abstract class Sample implements Serializable {
 	public Sample() {
 	}
 
+	/**
+	 * This sample is added to the {@link Category}'s collection of samples.
+	 * 
+	 * @param sampleID
+	 * @param secondaryID
+	 * @param sampledBy
+	 * @param collectionDate
+	 * @param comments
+	 * @param category
+	 * @param instrument
+	 * @param refs
+	 * @param images
+	 */
 	public Sample(String sampleID, String secondaryID, String sampledBy,
 			String collectionDate, String comments, Category category,
 			Instrument instrument, List<Ref> refs, List<Image> images) {
@@ -103,6 +116,7 @@ public abstract class Sample implements Serializable {
 		this.collectionDate = collectionDate;
 		this.comments = comments;
 		this.category = category;
+		this.category.getSamples().add(this);
 		this.refs = refs;
 		this.images = images;
 	}
