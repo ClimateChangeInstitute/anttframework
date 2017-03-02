@@ -57,7 +57,7 @@ run this command before executing commands listed below.
 cd anttframework/AntT/setup && ./buildClasses.sh
 ```
 
-To build the WAR file, exute the command shown below. The WAR file
+To build the WAR file, execute the command shown below. The WAR file
 contains the entire web site.  While the site is built as a deployable
 WAR file, there are no server dependencies that require the site to be
 served by on a Java Servlet Container.  The unpacked contents of the
@@ -136,6 +136,13 @@ However, this assumes that the database has already been generated and
 populated with data.  If this has not occurred, follow the following
 directions.
 
+## WebContent Directory
+
+The contents of the WebContent directory is where all of the files
+used by the web server are located.  The XML file `methodology.xml`
+and `team.xml` can be modified with personal information, and they
+will be automatically loaded and populated on their corresponding
+pages.
 
 ## Other
 
@@ -145,7 +152,7 @@ directions.
 
 <!--  LocalWords:  mvn AntT WebContent CSS JDK PostgreSQL README md
  -->
-<!--  LocalWords:  webapps AngularJS CSV cd anttframework antt py
+<!--  LocalWords:  webapps AngularJS CSV cd anttframework antt py xml
  -->
 <!--  LocalWords:  linter importDB
  -->
