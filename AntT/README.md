@@ -143,7 +143,13 @@ found in the `WebContent` directory may be modified for content and
 style.  Content that is generated from data found in the PostgreSQL
 database are placed in the `WebContent/generated` directory.
 
+For each XML file placed in the `WebContent/generated` content directory, and XML
+Schema Definition file is also placed.  This allows the validation of
+the each XML file in the generated content directory.
 
+The `WebContent/generated/XMLSamples` directory contains the images
+and thumbnails that are used by samples.  These are stored in the
+`images` and `image_thumbnails` sub-directories.
 
 ## Other
 
