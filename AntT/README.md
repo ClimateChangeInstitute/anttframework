@@ -19,12 +19,6 @@ project. Maven version >=3.3.9 is required to build the project.
 The project requires that a PostgreSQL is installed.  PostgreSQL
 version >= 9.4 is required by the project.
 
-These sample layouts utilize HTML5, Bootstrap, and AngularJS. The
-files found in the `WebContent` directory may be modified for content
-and style.  Content that is generated from data found in the
-PostgreSQL database are placed in the `WebContent/generated`
-directory.
-
 
 ## Setup scripts
 
@@ -143,6 +137,13 @@ used by the web server are located.  The XML file `methodology.xml`
 and `team.xml` can be modified with personal information, and they
 will be automatically loaded and populated on their corresponding
 pages.
+
+Sample layouts utilize HTML5, Bootstrap, and AngularJS. The files
+found in the `WebContent` directory may be modified for content and
+style.  Content that is generated from data found in the PostgreSQL
+database are placed in the `WebContent/generated` directory.
+
+
 
 ## Other
 
