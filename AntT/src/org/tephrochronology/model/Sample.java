@@ -41,7 +41,7 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 		+ "s.sampleID, s.secondaryID, s.sampledBy, s.comments, "
 		+ "s.collectionDate, c.categoryID, site.latitude, site.longitude) "
 + "FROM Sample s, s.category c, c.site site "
-+ "ORDER BY TYPE(s), s.sampleID, s.collectionDate")
++ "ORDER BY TYPE(s), c.categoryID, s.sampleID, s.collectionDate")
 //@formatter:on
 public abstract class Sample implements Serializable {
 
