@@ -143,9 +143,10 @@ found in the `WebContent` directory may be modified for content and
 style.  Content that is generated from data found in the PostgreSQL
 database are placed in the `WebContent/generated` directory.
 
-For each XML file placed in the `WebContent/generated` content directory, and XML
-Schema Definition file is also placed.  This allows the validation of
-the each XML file in the generated content directory.
+Each generated XML file is placed in the `WebContent/generated`
+directory along with a corresponding XML Schema Definition (XSD) file.
+The XSD files may be used to validate each generated XML file in the
+`WebContent/generated` directory.
 
 The `WebContent/generated/XMLSamples` directory contains the images
 and thumbnails that are used by samples.  These are stored in the
@@ -161,5 +162,5 @@ and thumbnails that are used by samples.  These are stored in the
  -->
 <!--  LocalWords:  webapps AngularJS CSV cd anttframework antt py xml
  -->
-<!--  LocalWords:  linter importDB
+<!--  LocalWords:  linter importDB XSD
  -->
