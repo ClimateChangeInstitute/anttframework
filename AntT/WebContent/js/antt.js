@@ -347,10 +347,11 @@
 	 * specified order, with non percentage ordered secondarily, alphabetically.
 	 * 
 	 * @param mmElements
-	 *            {object[]} Selected element results to create headers for (Not null)
+	 *            {object[]} Selected element results to create headers for (Not
+	 *            null)
 	 * @param chemistries
 	 *            {chemistries[]} Chemistries which have the order that headers
-	 *            should appear.  They should already be ordered. (Not null)
+	 *            should appear. They should already be ordered. (Not null)
 	 * @returns {string[]} The headers to create (Not null)
 	 */
 	function createSaveHeaders(mmElements, chemistries) {
@@ -709,11 +710,20 @@
 	scope.createSearchQueryString = createSearchQueryString;
 
 	/**
-	 * @param {SampleInfo[]} Java SampleInfo objects
-	 * @param {number} Smallest allowed value.  Using a value of less than -90 basically unbounded.
-	 * @param {number} Largest allowed value.  Using a value more than 90 basically unbounded.
-	 * @param {number} Smallest allowed value.  Using a value of less than -180 basically unbounded.
-	 * @param {number} Largest allowed value.  Using a value more than 180 basically unbounded.
+	 * @param {SampleInfo[]}
+	 *            Java SampleInfo objects
+	 * @param {number}
+	 *            Smallest allowed value. Using a value of less than -90
+	 *            basically unbounded.
+	 * @param {number}
+	 *            Largest allowed value. Using a value more than 90 basically
+	 *            unbounded.
+	 * @param {number}
+	 *            Smallest allowed value. Using a value of less than -180
+	 *            basically unbounded.
+	 * @param {number}
+	 *            Largest allowed value. Using a value more than 180 basically
+	 *            unbounded.
 	 */
 	var filterSamplesByLatLon = function(allSamples, latMin, latMax, lonMin, lonMax) {
 		var samples = [];
@@ -726,6 +736,25 @@
 		return samples;
 	}
 	scope.filterSamplesByLatLon = filterSamplesByLatLon;
+	
+
+	/**
+	 * Check if the given object contains an array with a name matching the
+	 * given key. If the underlying object is not an array, it is added to one.
+	 * If the unerlying object does not exist, an empty array is created.
+	 * 
+	 * @param {object}
+	 *            To test if the given key is an array (Not null)
+	 * @param {string}
+	 *            The key for the "array" (Not null)
+	 * @return
+	 */
+	var ensureArray = function (obj, key) {
+		if (!Array.isArray(obj[key])) {
+			obj[key] = obj[key] ? [ obj[key] ] : [];
+		}
+	};
+	scope.ensureArray = ensureArray; 
 	
 	// Perform common page functionality
 	$(document).ready(function(){

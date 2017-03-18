@@ -100,16 +100,9 @@ app.setupSampleController = function($location, $scope, dataSource, $anchorScrol
 
 		// Have to make sure that arrays are actually arrays for Angular to work
 		// properly!
-		function ensureArray(obj, key) {
-			if (!Array.isArray(obj[key])) {
-				obj[key] = obj[key] ? [ obj[key] ] : [];
-			}
-		}
-		;
-
 		// Samples must have arrays of images and references
-		ensureArray(sample, 'images');
-		ensureArray(sample, 'refs');
+		antt.ensureArray(sample, 'images');
+		antt.ensureArray(sample, 'refs');
 
 		$scope.sample = sample;
 
