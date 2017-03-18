@@ -1,4 +1,4 @@
-var app = angular.module('exampleApp', ['cgBusy']);
+var app = angular.module('databaseApp', ['cgBusy']);
 
 app.factory('dataSource', [ '$http', function($http) {
 	var factory = [];
@@ -47,7 +47,7 @@ app.filter('checkboxFilters', function () {
     };
   });
 
-app.controller('allSamples', function($scope, dataSource) {
+app.controller('AllSamplesController', function($scope, dataSource) {
 
 	$scope.AppController = [];
 
