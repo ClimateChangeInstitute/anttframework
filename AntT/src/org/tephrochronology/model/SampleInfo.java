@@ -29,13 +29,13 @@ public class SampleInfo {
 	public SampleInfo() {
 	}
 
-	public SampleInfo(String sampleType, String sampleID, String longName,
+	public SampleInfo(String sampleType, String sampleID, String secondaryID,
 			String sampledBy, String comments, String collectionDate,
 			String categoryID, float latitude, float longitude) {
 		super();
 		this.sampleType = sampleType;
 		this.sampleID = sampleID;
-		this.secondaryID = longName;
+		this.secondaryID = secondaryID;
 		this.sampledBy = sampledBy;
 		this.comments = comments;
 		this.collectionDate = collectionDate;
