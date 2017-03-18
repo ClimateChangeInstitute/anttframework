@@ -11,6 +11,31 @@ app.factory('dataSource', [ '$http', function($http) {
 			return json.samples.sample;
 		});
 	};
+	
+	factory.getCategoryData = function() {
+		return $http.get("generated/allCategories.xml").then(function(response) {
+			var x2js = new X2JS();
+			var json = x2js.xml_str2json(response.data);
+			
+			var categories = json.categories.category;
+			
+			var finalResult = [];
+			$.each(categories, function (i, e){
+				// Make sure the samples are arrays
+				antt.ensureArray(e, 'sample');
+				
+				// -90 <= antarctic region latitude <= -55
+				e.sample = antt.filterSamplesByLatLon(e.sample, -90, -55, -180, 180);
+				
+				// We only care about categories that have samples in the specified range
+				if (e.sample.length > 0) {
+					finalResult.push(e);
+				}
+			});
+			
+			return finalResult;
+		});
+	};
 
 	return factory;
 } ]);
@@ -115,5 +140,9 @@ app.controller('AllSamplesController', function($scope, dataSource) {
 		  });
 		});
 		$scope.Filters = filters;
+	});
+	
+	dataSource.getCategoryData().then(function(allCategories){
+		console.log(allCategories);
 	});
 });
