@@ -16,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlSeeAlso;
@@ -34,12 +35,20 @@ import org.eclipse.persistence.oxm.annotations.XmlInverseReference;
 @DiscriminatorColumn(name = "category_type", discriminatorType = CHAR)
 @XmlSeeAlso({ BIACategory.class, IceCoreCategory.class, LakeCategory.class,
 		MarineCategory.class, OutcropCategory.class })
+//@formatter:off
+@NamedQuery(name = Category.QUERY_GET_CATEGORY_INFO, query = 
+"SELECT NEW org.tephrochronology.model.CategoryInfo(TYPE(c), c) "
++ "FROM Category c "
++ "ORDER BY TYPE(c), c.categoryID")
+//@formatter:on
 public abstract class Category implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+
+	public static final String QUERY_GET_CATEGORY_INFO = "org.tephrochronology.model.Category.getCategoryInfo";
 
 	@Id
 	@Column(name = "category_id")

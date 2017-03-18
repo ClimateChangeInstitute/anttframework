@@ -6,6 +6,8 @@ package org.tephrochronology.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlElement;
+
 /**
  * {@link Category} results that only include a small amount of sample
  * information.
@@ -19,6 +21,7 @@ public class CategoryInfo {
 
 	private String categoryID;
 
+	@XmlElement(name="sample")	
 	private List<SampleInfo> samples;
 
 	public CategoryInfo() {
@@ -32,7 +35,7 @@ public class CategoryInfo {
 		samples = new ArrayList<>();
 
 		for (Sample s : c.getSamples()) {
-			samples.add(new SampleInfo(c.getCategoryID(), s.getSampleID(),
+			samples.add(new SampleInfo(categoryType, s.getSampleID(),
 					s.getSecondaryID(), s.getSampledBy(), s.getComments(),
 					s.getCollectionDate(), c.getCategoryID(),
 					c.getSite().getLatitude(), c.getSite().getLongitude()));

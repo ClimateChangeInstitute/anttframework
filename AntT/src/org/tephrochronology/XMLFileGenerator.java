@@ -4,6 +4,7 @@
 package org.tephrochronology;
 
 import static org.tephrochronology.DBProperties.setupProperties;
+import static org.tephrochronology.model.Category.QUERY_GET_CATEGORY_INFO;
 import static org.tephrochronology.model.Chemistry.QUERY_CHEMISTRIES_BY_PREFERRED_ORDER;
 import static org.tephrochronology.model.MMElement.QUERY_MMElements_ORDER_BY_ID;
 import static org.tephrochronology.model.Sample.QUERY_GET_SAMPLE_INFO;
@@ -28,6 +29,8 @@ import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 
 import org.apache.commons.io.FileUtils;
+import org.tephrochronology.model.Categories;
+import org.tephrochronology.model.CategoryInfo;
 import org.tephrochronology.model.Chemistries;
 import org.tephrochronology.model.Chemistry;
 import org.tephrochronology.model.Image;
@@ -115,6 +118,24 @@ public class XMLFileGenerator {
 
 	}
 
+	public void writeAllCategoriesXMLFile(Path outputLocation)
+			throws PropertyException, JAXBException, SAXException, IOException {
+
+		final String ALLCATEGORIES_FILENAME = "allCategories.xml";
+
+		System.out.printf("Generating %s file.\n", ALLCATEGORIES_FILENAME);
+
+		TypedQuery<CategoryInfo> q = em.createNamedQuery(QUERY_GET_CATEGORY_INFO,
+				CategoryInfo.class);
+
+		List<CategoryInfo> samples = q.getResultList();
+
+		writeXMLAndXSDFiles(outputLocation, ALLCATEGORIES_FILENAME,
+				ALLCATEGORIES_FILENAME.replace(".xml", ".xsd"),
+				new Categories(samples), Categories.class);
+
+	}
+
 	/**
 	 * Write an XML file and XSD (if it does not exist) to the specified
 	 * locations.
@@ -194,7 +215,7 @@ public class XMLFileGenerator {
 
 	public void writeAllChemistriesFile(Path outputLocation)
 			throws JAXBException, IOException, SAXException {
-		
+
 		final String ALLCHEMISTRIES_FILENAME = "allChemistries.xml";
 
 		System.out.printf("Generating %s file.\n", ALLCHEMISTRIES_FILENAME);
@@ -203,16 +224,15 @@ public class XMLFileGenerator {
 				QUERY_CHEMISTRIES_BY_PREFERRED_ORDER, Chemistry.class);
 
 		List<Chemistry> queryResult = q.getResultList();
-		
+
 		List<Chemistry> chemistries = new ArrayList<>(queryResult.size());
-		
+
 		chemistries.addAll(queryResult);
 
 		writeXMLAndXSDFiles(outputLocation, ALLCHEMISTRIES_FILENAME,
 				ALLCHEMISTRIES_FILENAME.replace(".xml", ".xsd"),
 				new Chemistries(chemistries), Chemistries.class);
 
-		
 	}
 
 }

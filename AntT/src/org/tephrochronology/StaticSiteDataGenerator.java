@@ -94,6 +94,8 @@ public class StaticSiteDataGenerator {
 				IMAGE_THUMBNAILS_PATH, OutcropSample.class);
 
 		fileGenerator.writeAllSamplesXMLFile(GEN_DIR);
+		
+		fileGenerator.writeAllCategoriesXMLFile(GEN_DIR);
 
 		fileGenerator.writeAllMMElementXMLFile(GEN_DIR);
 		
