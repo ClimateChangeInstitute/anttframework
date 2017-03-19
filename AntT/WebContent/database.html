@@ -123,14 +123,17 @@
 						<div class="panel-samples panel panel-default">
 							<div class="q panel-heading remove-color">
 								<div class="row">
-									<div class="col-xs-2 col-sm-1">
+									<div class="col-xs-2">
 										<span class="collapsed" data-parent="#accordion"
 											data-toggle="collapse"
 											data-target="#{{c.categoryID | makeID}}"
 											data-toggle="tooltip" data-placement="top" title="Preview"
 											tooltip></span>
 									</div>
-									<div class="col-xs-10 col-sm-3 simCoefficient">{{c.categoryID}}
+									<div class="col-xs-8">
+									{{c.categoryID}}
+									</div>
+									<div class="col-xs-2" style="text-align: right;"><span class="badge">{{c.sample.length}}</span>
 									</div>
 								</div>
 							</div>
