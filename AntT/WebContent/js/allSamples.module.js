@@ -72,6 +72,18 @@ app.filter('checkboxFilters', function () {
     };
   });
 
+/**
+ * A filter to remove special characters in ID strings.
+ */
+function makeID(str) {
+	return str.replace(/\s|-|\./g, "_");
+}
+
+app.filter('makeID', function() {
+	return makeID;
+});
+
+
 app.controller('AllSamplesController', function($scope, dataSource) {
 
 	$scope.AppController = [];
@@ -144,5 +156,6 @@ app.controller('AllSamplesController', function($scope, dataSource) {
 	
 	dataSource.getCategoryData().then(function(allCategories){
 		console.log(allCategories);
+		$scope.allCategories = allCategories;
 	});
 });

@@ -118,6 +118,48 @@
 						information about it, or tick one or more of the checkboxes above
 						to display only those types of samples.
 					</div>
+
+					<div ng-repeat="c in allCategories">
+						<div class="panel-samples panel panel-default">
+							<div class="q panel-heading remove-color">
+								<div class="row">
+									<div class="col-xs-2 col-sm-1">
+										<span class="collapsed" data-parent="#accordion"
+											data-toggle="collapse"
+											data-target="#{{c.categoryID | makeID}}"
+											data-toggle="tooltip" data-placement="top" title="Preview"
+											tooltip></span>
+									</div>
+									<div class="col-xs-10 col-sm-3 simCoefficient">{{c.categoryID}}
+									</div>
+								</div>
+							</div>
+							<div id="{{c.categoryID | makeID}}" class="panel-body collapse col-md-12 table-responsive">
+								<!-- <div class="row" ng-hide="c.sample == null"> 
+									<div class="col-md-12 table-responsive"> -->
+										<table class="table table-hover table-condensed">
+											<thead>
+												<tr>
+													<th>Sample ID</th>
+													<th>Collection Date</th>
+													<th>Sampled By</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr ng-repeat="s in c.sample">
+													<td><a href="{{s.sampleType}}.html?id={{s.sampleID}}">{{s.sampleID}}</a></td>
+													<td>{{s.collectionDate}}</td>
+													<td>{{s.sampledBy}}</td>
+												</tr>
+											</tbody>
+										</table>
+								<!--	</div>
+								 </div> -->
+							</div>
+						</div>
+					</div>
+
+
 					<div
 						ng-repeat="sample in dataSet | filter:searchText | checkboxFilters:Filters:this">
 						<a class="special"
@@ -183,7 +225,7 @@
 	<script src='./lib/lodash.js'></script>
 
 	<script src="index_files/bootstrap/js/bootstrap.js"></script>
-	
+
 	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 	<script src="index_files/ie10-viewport-bug-workaround.js"></script>
 
