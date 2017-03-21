@@ -152,10 +152,11 @@ app.controller('AllSamplesController', function($scope, dataSource) {
 		  });
 		});
 		$scope.Filters = filters;
+	}).then(function() {
+		dataSource.getCategoryData().then(function(allCategories){
+			console.log(allCategories);
+			$scope.allCategories = allCategories;
+		});
 	});
 	
-	dataSource.getCategoryData().then(function(allCategories){
-		console.log(allCategories);
-		$scope.allCategories = allCategories;
-	});
 });

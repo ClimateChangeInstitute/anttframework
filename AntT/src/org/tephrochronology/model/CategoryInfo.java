@@ -20,6 +20,8 @@ public class CategoryInfo {
 	private String categoryType;
 
 	private String categoryID;
+	
+	private String siteID;
 
 	@XmlElement(name="sample")	
 	private List<SampleInfo> samples;
@@ -31,6 +33,7 @@ public class CategoryInfo {
 		super();
 		this.categoryType = categoryType;
 		this.categoryID = c.getCategoryID();
+		this.siteID = c.getSite().getSiteID();
 
 		samples = new ArrayList<>();
 
@@ -64,6 +67,14 @@ public class CategoryInfo {
 
 	public void setSamples(List<SampleInfo> samples) {
 		this.samples = samples;
+	}
+
+	public String getSiteID() {
+		return siteID;
+	}
+
+	public void setSiteID(String siteID) {
+		this.siteID = siteID;
 	}
 
 }
