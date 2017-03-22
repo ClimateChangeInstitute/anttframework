@@ -124,45 +124,41 @@
 							<div class="q panel-heading remove-color">
 								<div class="row">
 									<div class="col-xs-2">
-										<span data-parent="#accordion"
-											data-toggle="collapse"
+										<span data-parent="#accordion" data-toggle="collapse"
 											data-target="#{{c.categoryID | makeID}}"
 											data-toggle="tooltip" data-placement="top" title="Preview"
 											tooltip></span>
 									</div>
-									<div class="col-xs-8">
-									{{c.categoryID}} ({{c.siteID}})
-									</div>
-									<div class="col-xs-2" style="text-align: right;"><span class="badge">{{c.sample.length}}</span>
+									<div class="col-xs-5"><b>Category:</b>{{c.categoryID}}</div>
+									<div class="col-xs-3"><b>Site:</b>{{c.siteID}}</div>
+									<div class="col-xs-2" style="text-align: right;">
+										<span class="badge">{{c.sample.length}}</span>
 									</div>
 								</div>
 							</div>
-							<div id="{{c.categoryID | makeID}}" class="panel-body collapse in col-md-12 table-responsive">
-								<!-- <div class="row" ng-hide="c.sample == null"> 
-									<div class="col-md-12 table-responsive"> -->
-										<table class="table table-hover table-condensed">
-											<thead>
-												<tr>
-													<th>Sample ID</th>
-													<th>Collection Date</th>
-													<th>Sampled By</th>
-												</tr>
-											</thead>
-											<tbody>
-												<tr ng-repeat="s in c.sample">
-													<td><a href="{{s.sampleType}}.html?id={{s.sampleID}}">{{s.sampleID}}</a></td>
-													<td>{{s.collectionDate}}</td>
-													<td>{{s.sampledBy}}</td>
-												</tr>
-											</tbody>
-										</table>
-								<!--	</div>
-								 </div> -->
+							<div id="{{c.categoryID | makeID}}"
+								class="panel-body collapse in col-md-12 table-responsive">
+								<table class="table table-hover table-condensed">
+									<thead>
+										<tr>
+											<th>Sample ID</th>
+											<th>Collection Date</th>
+											<th>Sampled By</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="s in c.sample">
+											<td><a href="{{s.sampleType}}.html?id={{s.sampleID}}">{{s.sampleID}}</a></td>
+											<td>{{s.collectionDate}}</td>
+											<td>{{s.sampledBy}}</td>
+										</tr>
+									</tbody>
+								</table>
 							</div>
 						</div>
 					</div>
 
-<!-- 
+					<!-- 
 					<div
 						ng-repeat="sample in dataSet | filter:searchText | checkboxFilters:Filters:this">
 						<a class="special"
