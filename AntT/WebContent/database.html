@@ -124,7 +124,7 @@
 							<div class="q panel-heading remove-color">
 								<div class="row">
 									<div class="col-xs-2">
-										<span class="collapsed" data-parent="#accordion"
+										<span data-parent="#accordion"
 											data-toggle="collapse"
 											data-target="#{{c.categoryID | makeID}}"
 											data-toggle="tooltip" data-placement="top" title="Preview"
@@ -137,7 +137,7 @@
 									</div>
 								</div>
 							</div>
-							<div id="{{c.categoryID | makeID}}" class="panel-body collapse col-md-12 table-responsive">
+							<div id="{{c.categoryID | makeID}}" class="panel-body collapse in col-md-12 table-responsive">
 								<!-- <div class="row" ng-hide="c.sample == null"> 
 									<div class="col-md-12 table-responsive"> -->
 										<table class="table table-hover table-condensed">
@@ -162,7 +162,7 @@
 						</div>
 					</div>
 
-
+<!-- 
 					<div
 						ng-repeat="sample in dataSet | filter:searchText | checkboxFilters:Filters:this">
 						<a class="special"
@@ -194,6 +194,7 @@
 							</div>
 						</a>
 					</div>
+					 -->
 				</div>
 			</div>
 		</div>
