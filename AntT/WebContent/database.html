@@ -119,12 +119,14 @@
 						to display only those types of samples.
 					</div>
 
+
+
 					<div ng-repeat="c in allCategories">
 						<div class="panel-samples panel panel-default">
-							<div class="q panel-heading remove-color">
+							<div class="panel-heading remove-color">
 								<div class="row">
 									<div class="col-xs-2">
-										<span data-parent="#accordion" data-toggle="collapse"
+										<span class="collapse" data-parent="#accordion" data-toggle="collapse"
 											data-target="#{{c.categoryID | makeID}}"
 											data-toggle="tooltip" data-placement="top" title="Preview"
 											tooltip></span>
@@ -137,7 +139,9 @@
 								</div>
 							</div>
 							<div id="{{c.categoryID | makeID}}"
-								class="panel-body collapse in col-md-12 table-responsive">
+								class="panel-body collapse in">
+								<div class="row">
+										<div class="col-md-12 table-responsive">
 								<table class="table table-hover table-condensed">
 									<thead>
 										<tr>
@@ -154,6 +158,8 @@
 										</tr>
 									</tbody>
 								</table>
+								</div>
+								</div>
 							</div>
 						</div>
 					</div>
