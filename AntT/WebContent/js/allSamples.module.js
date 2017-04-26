@@ -1,5 +1,14 @@
 var app = angular.module('databaseApp', ['cgBusy']);
 
+app.directive('tooltip', function($parse) {
+	return {
+		restrict : 'A',
+		link : function(scope, element, attrs) {
+			$(element).tooltip();
+		}
+	};
+});
+
 app.factory('dataSource', [
     '$http',
     function($http) {

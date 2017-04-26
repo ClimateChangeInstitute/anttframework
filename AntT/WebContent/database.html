@@ -128,13 +128,13 @@
 									<div class="col-xs-2">
 										<span class="collapse" data-parent="#accordion" data-toggle="collapse"
 											data-target="#{{c.categoryID | makeID}}"
-											data-toggle="tooltip" data-placement="top" title="Preview"
+											data-toggle="tooltip" data-placement="top" title="Hide/Show"
 											tooltip></span>
 									</div>
 									<div class="col-xs-5"><b>Category:</b>{{c.categoryID}}</div>
 									<div class="col-xs-3"><b>Site:</b>{{c.siteID}}</div>
 									<div class="col-xs-2" style="text-align: right;">
-										<span class="badge">{{c.sample.length}}</span>
+										<span class="badge" title="#&nbsp;Samples" tooltip>{{c.sample.length}}</span>
 									</div>
 								</div>
 							</div>
