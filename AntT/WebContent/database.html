@@ -121,7 +121,7 @@
 
 
 
-					<div ng-repeat="c in allCategories">
+					<div ng-repeat="c in allCategories | filter:searchText | checkboxFilterCategories:Filters:this">
 						<div class="panel-samples panel panel-default">
 							<div class="panel-heading remove-color">
 								<div class="row">
