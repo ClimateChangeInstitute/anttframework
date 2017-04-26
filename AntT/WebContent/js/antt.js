@@ -118,18 +118,8 @@
 		
 		this.sampleID = e.sampleID;
 		this.sampleType = e.sampleType;
-		this.sampleTypeLong = toSampleTypeLong(sampleType);
+		this.sampleTypeLong = toSampleTypeLong(this.sampleType);
 
-//		if (this.sampleType == 'B')
-//			this.sampleTypeLong = "Blue Ice Area (BIA)";
-//		if (this.sampleType == 'I')
-//			this.sampleTypeLong = "Ice Core";
-//		if (this.sampleType == 'O')
-//			this.sampleTypeLong = "Outcrop";
-//		if (this.sampleType == 'L')
-//			this.sampleTypeLong = "Lake";
-//		if (this.sampleType == 'M')
-//			this.sampleTypeLong = "Marine";
 	};
 	scope.MMElement = MMElement;
 		
