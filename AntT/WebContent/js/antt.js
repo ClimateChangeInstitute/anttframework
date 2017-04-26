@@ -15,6 +15,26 @@
 		}
 		return result;
 	};
+	
+	/**
+	 * @param sampleType {string} single character sample type, eg 'I'
+	 * @return {string} The long form of the sample type, eg 'Ice Core'
+	 */
+	var toSampleTypeLong = function(sampleType) {
+	  	if (sampleType == 'B')
+	  		return "Blue Ice Area (BIA)";
+	  	else if (sampleType == 'I')
+	  		return "Ice Core";
+	  	else if (sampleType == 'O')
+	  		return "Outcrop";
+	  	else if (sampleType == 'L')
+	  		return "Lake";
+	  	else if (sampleType == 'M')
+	  		return "Marine";
+	  	else
+	  		return "UNKNOWN";
+	};
+	scope.toSampleTypeLong = toSampleTypeLong;
 
 	
 	/**
@@ -98,18 +118,18 @@
 		
 		this.sampleID = e.sampleID;
 		this.sampleType = e.sampleType;
-		this.sampleTypeLong = '';
+		this.sampleTypeLong = toSampleTypeLong(sampleType);
 
-		if (this.sampleType == 'B')
-			this.sampleTypeLong = "Blue Ice Area (BIA)";
-		if (this.sampleType == 'I')
-			this.sampleTypeLong = "Ice Core";
-		if (this.sampleType == 'O')
-			this.sampleTypeLong = "Outcrop";
-		if (this.sampleType == 'L')
-			this.sampleTypeLong = "Lake";
-		if (this.sampleType == 'M')
-			this.sampleTypeLong = "Marine";
+//		if (this.sampleType == 'B')
+//			this.sampleTypeLong = "Blue Ice Area (BIA)";
+//		if (this.sampleType == 'I')
+//			this.sampleTypeLong = "Ice Core";
+//		if (this.sampleType == 'O')
+//			this.sampleTypeLong = "Outcrop";
+//		if (this.sampleType == 'L')
+//			this.sampleTypeLong = "Lake";
+//		if (this.sampleType == 'M')
+//			this.sampleTypeLong = "Marine";
 	};
 	scope.MMElement = MMElement;
 		
