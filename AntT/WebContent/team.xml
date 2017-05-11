@@ -5,7 +5,7 @@
 	<member>
 		<name>Nelia W. Dunbar</name>
 		<url>http://geoinfo.nmt.edu/staff/dunbar</url>
-		<email>nelia@nmbg.nmt.edu</email>
+		<email>nelia[@]nmbg.nmt.edu</email>
 		<other>New Mexico Bureau of Geology and Mineral Resources 
 Earth and Environmental Science Department, New Mexico Tech.</other>
 		<image>
@@ -15,32 +15,54 @@ Earth and Environmental Science Department, New Mexico Tech.</other>
 		</image>
 	</member>
 	<member>
-		<name>Mark Royer</name>
-		<url>http://aturing.umcs.maine.edu/~mark.royer/</url>
-		<email>mroyer@cs.umaine.edu</email>
-		<other>The Department of Computer Science, University of Maine.</other>
+		<name>Nels Iverson</name>
+		<url>https://sites.google.com/site/nelsiverson/</url>
+		<email>niverson[@]nmt.edu</email>
+		<other>Department of Earth and Environmental Science, New Mexico Institute of Mining and Technology</other>
 		<image>
-			<url>./index_files/images/MR.jpg</url>
-			<title>member2</title>
-			<alt>Member2</alt>
+			<url>./index_files/images/NI.jpg</url>
+			<title>Member 3</title>
+			<alt>Member 3</alt>
 		</image>
 	</member>
 	<member>
-		<name>Member 3</name>
-		<url>http://somememberssite.com</url>
-		<email>member3@maine.edu</email>
-		<other>Some more text</other>
+		<name>Andrei V. Kurbatov</name>
+		<url>http://climatechange.umaine.edu/people/profile/andrei_kurbatov</url>
+		<email>kurbatov[@]maine.edu</email>
+		<other>Climate Change Institute, University of Maine</other>
 		<image>
 			<url>./index_files/images/team_member_375.png</url>
 			<title>Member 3</title>
 			<alt>Member 3</alt>
 		</image>
 	</member>
+		<member>
+		<name>Mark E. Royer</name>
+		<url>http://aturing.umcs.maine.edu/~mark.royer/</url>
+		<email>mroyer[@]cs.umaine.edu</email>
+		<other>Department of Computer Science, University of Maine.</other>
+		<image>
+			<url>./index_files/images/MR.jpg</url>
+			<title>member2</title>
+			<alt>Member2</alt>
+		</image>
+	</member>
+		<member>
+		<name>Willie Stevenson</name>
+		<url>https://williestevenson.me/</url>
+		<email>willie.stevenson [@] maine.edu</email>
+		<other>Department of Computer Science, University of Maine</other>
+		<image>
+			<url>./index_files/images/WS.jpg</url>
+			<title>Member 3 </title>
+			<alt>Member 3</alt>
+		</image>
+	</member>
 	<member>
-		<name>Member 3</name>
-		<url>http://somememberssite.com</url>
-		<email>member3@maine.edu</email>
-		<other>Some more text</other>
+		<name>Martin G. Yates</name>
+		<url>https://umaine.edu/earthclimate/people/martin-yates/</url>
+		<email>yates[@]maine.edu</email>
+		<other>School of Earth and Climate Sciences, University of Maine</other>
 		<image>
 			<url>./index_files/images/team_member_375.png</url>
 			<title>Member 3</title>
