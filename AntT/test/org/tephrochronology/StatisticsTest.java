@@ -41,7 +41,7 @@ public class StatisticsTest {
 
 	/**
 	 * Test method for
-	 * {@link org.tephrochronology.Statistics#similarityCoefficient(java.util.List, java.util.List, java.util.List, java.util.List)}.
+	 * {@link org.tephrochronology.Statistics#similarityCoefficient(List, List, List, List, double)}.
 	 */
 	@Test
 	public void testSimilarityCoefficientListOfDoubleListOfDoubleListOfDoubleListOfDouble() {
@@ -68,7 +68,7 @@ public class StatisticsTest {
 
 	/**
 	 * Test method for
-	 * {@link org.tephrochronology.Statistics#weightingCoefficient(double, double, double, double)}.
+	 * {@link org.tephrochronology.Statistics#weightingCoefficient(double, double, double, double, double)}.
 	 */
 	@Test
 	public void testWeightingCoefficient() {

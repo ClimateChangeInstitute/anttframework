@@ -42,7 +42,7 @@ public class Instrument implements Serializable {
 	/**
 	 * @param id
 	 * @param longName
-	 * @param labID
+	 * @param location
 	 * @param comment
 	 */
 	public Instrument(String id, String longName, String location,

@@ -13,7 +13,7 @@ import javax.persistence.Table;
 import org.eclipse.persistence.oxm.annotations.XmlInverseReference;
 
 /**
- * Used to populate the elemental data in {@link MMElement#elementData}.
+ * Used to populate the elemental data in {@link MMElement}.
  * 
  * @author Mark Royer
  *

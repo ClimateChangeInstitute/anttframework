@@ -24,7 +24,7 @@ public class Images {
 
 	/**
 	 * @param bi
-	 * @return
+	 * @return The provided image as an ouput stream
 	 * @throws IOException
 	 */
 	public static ByteArrayOutputStream asOutputStream(BufferedImage bi)
@@ -69,7 +69,7 @@ public class Images {
 	 * @param img
 	 * @param w
 	 * @param h
-	 * @return
+	 * @return An image scaled to the provided width and height
 	 */
 	public static BufferedImage scale(BufferedImage img, float w, float h) {
 		BufferedImage result = new BufferedImage(Math.round(w), Math.round(h),

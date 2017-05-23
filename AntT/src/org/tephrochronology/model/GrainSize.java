@@ -59,7 +59,6 @@ public class GrainSize implements Serializable {
 	/**
 	 * @param sample
 	 * @param instrument
-	 * @param comments
 	 * @param range
 	 * @param sampleDate
 	 * @param refs
