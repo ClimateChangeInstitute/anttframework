@@ -34,6 +34,7 @@ directory.
 [Dr. Christopher Gerbi](http://umaine.edu/earthclimate/faculty-staff/faculty-and-staff/christopher-gerbi)
 
 [PhD student Nels Iverson](https://sites.google.com/site/nelsiverson/)
+[MS student Laura Hartman](http://climatechange.umaine.edu/people/profile/laura_hartman)
 
 [MS student Donna Kalteyer](http://climatechange.umaine.edu/people/profile/donna_kalteyer)
 
