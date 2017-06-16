@@ -5,58 +5,35 @@
 	<!-- You may leave out the tags that you don't have information for or that 
 		you don't want to include. -->
 	<paper>
-		<title>Paper 1</title>
-		<description>Description of paper 1. Donec id elit non mi porta
-			gravida at eget metus. Fusce dapibus, tellus ac cursus commodo,
-			tortor mauris condimentum nibh, ut fermentum massa justo sit amet
-			risus.</description>
+		<title>Ice Core Sample Preparation</title>
+		<description>Last time updated June 16, 2017. Summary by Laura Hartman.</description>
 		<doc>
-			<url>./content/file.pdf</url>
+			<url>./content/IceCoreMountingTechnique06162017.pdf</url>
 		</doc>
 	</paper>
 	<paper>
-		<title>Paper 2</title>
+		<title>Iverson et al. 2016</title>
 		<description>Description of paper 2. Donec id elit non mi porta
 			gravida at eget metus. Fusce dapibus, tellus ac cursus commodo,
 			tortor mauris condimentum nibh, ut fermentum massa justo sit amet
 			risus.</description>
 		<doc>
-			<url>./content/file.pdf</url>
+			<url>http://www.sciencedirect.com/science/article/pii/S1871101416301467</url>
 		</doc>
 	</paper>
 	<paper>
-		<title>Paper 3</title>
+		<title>Dunbar et al., 2003</title>
 		<description>Description of paper 3. Donec id elit non mi porta
 			gravida at eget metus. Fusce dapibus, tellus ac cursus commodo,
 			tortor mauris condimentum nibh, ut fermentum massa justo sit amet
 			risus.</description>
 		<doc>
-			<url>./content/file.pdf</url>
+			<url>http://onlinelibrary.wiley.com/doi/10.1029/2002JB002056/full</url>
 		</doc>
 	</paper>
 	<paper>
 		<title>Paper 4</title>
 		<description>Description of paper 4. Donec id elit non mi porta
-			gravida at eget metus. Fusce dapibus, tellus ac cursus commodo,
-			tortor mauris condimentum nibh, ut fermentum massa justo sit amet
-			risus.</description>
-		<doc>
-			<url>./content/file.pdf</url>
-		</doc>
-	</paper>
-	<paper>
-		<title>Paper 5</title>
-		<description>Description of paper 5. Donec id elit non mi porta
-			gravida at eget metus. Fusce dapibus, tellus ac cursus commodo,
-			tortor mauris condimentum nibh, ut fermentum massa justo sit amet
-			risus.</description>
-		<doc>
-			<url>./content/file.pdf</url>
-		</doc>
-	</paper>
-	<paper>
-		<title>Paper 6</title>
-		<description>Description of paper 6. Donec id elit non mi porta
 			gravida at eget metus. Fusce dapibus, tellus ac cursus commodo,
 			tortor mauris condimentum nibh, ut fermentum massa justo sit amet
 			risus.</description>
