@@ -6,39 +6,35 @@
 		you don't want to include. -->
 	<paper>
 		<title>Ice Core Sample Preparation</title>
-		<description>Last time updated June 16, 2017. Summary by Laura Hartman.</description>
+		<description>Instructions of sample preparation technique to mount tephra 
+		particles extracted from ice cores. This technique was developed to ensure any size 
+		particle can be captured. Last update: June 16, 2017.</description>
 		<doc>
 			<url>./content/IceCoreMountingTechnique06162017.pdf</url>
 		</doc>
 	</paper>
 	<paper>
-		<title>Iverson et al. 2016</title>
-		<description>Description of paper 2. Donec id elit non mi porta
-			gravida at eget metus. Fusce dapibus, tellus ac cursus commodo,
-			tortor mauris condimentum nibh, ut fermentum massa justo sit amet
-			risus.</description>
+		<title>"Advancements and best practices for..." - Iverson et al.,2016</title>
+		<description>
+		Description of how to prepare and analyze fine-grained tephra
+		particles (less than 20um) extracted from ice cores. Several analytical methods 
+		described are: EMP-WDS, SEM-EDS, LA-ICP-MS, and SIMS.</description>
 		<doc>
 			<url>http://www.sciencedirect.com/science/article/pii/S1871101416301467</url>
 		</doc>
 	</paper>
 	<paper>
-		<title>Dunbar et al., 2003</title>
-		<description>Description of paper 3. Donec id elit non mi porta
-			gravida at eget metus. Fusce dapibus, tellus ac cursus commodo,
-			tortor mauris condimentum nibh, ut fermentum massa justo sit amet
-			risus.</description>
+		<title>"Tephra layers in the Siple Dome..." - Dunbar et al., 2003</title>
+		<description>First tephrochronological study of Siple Dome  (Antarctica) ice core.</description>
 		<doc>
 			<url>http://onlinelibrary.wiley.com/doi/10.1029/2002JB002056/full</url>
 		</doc>
 	</paper>
 	<paper>
-		<title>Paper 4</title>
-		<description>Description of paper 4. Donec id elit non mi porta
-			gravida at eget metus. Fusce dapibus, tellus ac cursus commodo,
-			tortor mauris condimentum nibh, ut fermentum massa justo sit amet
-			risus.</description>
+		<title>Borchardt et al., 1972</title>
+		<description>Borchardt, G., P. Aruscavage, and H. Millard (1972), Correlation of the Bishop ash, a Pleistocene marker bed, using instrumental neutron activation analysis, Journal of Sedimentary Petrology, 42(2), 301–306, doi:10.1306/74D72527-2B21-11D7-8648000102C1865D..</description>
 		<doc>
-			<url>./content/file.pdf</url>
+			<url>http://jsedres.geoscienceworld.org/content/42/2/301</url>
 		</doc>
 	</paper>
 </methodology>
