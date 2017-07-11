@@ -14,6 +14,15 @@
 		</doc>
 	</paper>
 	<paper>
+		<title>AntT system software design </title>
+		<description>
+		AnnT design and source code details are available on GitHub.
+		</description>
+		<doc>
+			<url>https://github.com/ClimateChangeInstitute/anttframework</url>
+		</doc>
+	</paper>
+	<paper>
 		<title>"Advancements and best practices for..." - Iverson et al.,2016</title>
 		<description>
 		Description of how to prepare and analyze fine-grained tephra
