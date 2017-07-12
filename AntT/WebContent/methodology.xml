@@ -16,7 +16,7 @@
 	<paper>
 		<title>AntT system software design </title>
 		<description>
-		AnnT design and source code details are available on GitHub.
+		AntT design and source code details are available on GitHub.
 		</description>
 		<doc>
 			<url>https://github.com/ClimateChangeInstitute/anttframework</url>
@@ -40,8 +40,8 @@
 		</doc>
 	</paper>
 	<paper>
-		<title>Borchardt et al., 1972</title>
-		<description>Borchardt, G., P. Aruscavage, and H. Millard (1972), Correlation of the Bishop ash, a Pleistocene marker bed, using instrumental neutron activation analysis, Journal of Sedimentary Petrology, 42(2), 301–306, doi:10.1306/74D72527-2B21-11D7-8648000102C1865D..</description>
+		<title>"Correlation of the Bishop Ash..." - Borchardt et al. 1997</title>
+		<description> Neutron activation data and statistical methods developed to correlate  Pleistocene-era volcanic ash bed in eastern California with the Bishop Tuff.</description>
 		<doc>
 			<url>http://jsedres.geoscienceworld.org/content/42/2/301</url>
 		</doc>
