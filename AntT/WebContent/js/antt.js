@@ -666,7 +666,7 @@
 
 	 	var urlParamCount = 0;
 
-	 	$("input[id^='element-'").each(function(i, e) {
+	 	$("input[id^='element-']").each(function(i, e) {
 	 		var $e = $(e);
 	 		var v = $e.val();
 
