@@ -63,7 +63,7 @@ app.filter('checkboxFilterCategories', function() {
         var sampleFilters = [];
 
         // If there are filter types, use them to filter
-        if (filterTypes) {
+        if (filterTypes && filterTypes.length > 0) {
             sampleFilters = _.filter(filterTypes[0].options, function(e) {
                 return e.isIncluded;
             });
@@ -156,10 +156,16 @@ app.controller('AllSamplesController', function($scope, dataSource) {
 
     $scope.promise = dataSource.getData().then(function(allSamples) {
 
+    	var allSamplesLength = allSamples.length;
+    	
         // -90 <= antarctic region latitude <=
         // -55
         var samples = antt.filterSamplesByLatLon(allSamples, -90, -55, -180, 180);
 
+        if (allSamplesLength > 0 && samples.length == 0) {
+        	alert(allSamplesLength + " samples were not in the antarctic region and were filtered out. This left no samples to display. Things may not work as expected.");
+        }
+        
         $scope.dataSet = samples;
 
         // create checkbox filters on the fly
@@ -217,7 +223,6 @@ app.controller('AllSamplesController', function($scope, dataSource) {
                             count: 1
                         });
                         filters.push(filter);
-
                     }
                 }
             });
