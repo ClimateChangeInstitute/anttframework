@@ -564,8 +564,10 @@ public class TestDataGenerator {
 		sites = new ArrayList<>();
 
 		range(0, n).forEach(i -> {
+			float lat = ((i * n) % 180) - 90;
+			float lon = ((i * n) % 360) - 180;
 			Site s = new Site(Site.class.getSimpleName() + i,
-					Site.class.getName() + i, (i * n) % 90, (i * n) % 180,
+					Site.class.getName() + i,  lat, lon,
 					i * n * 100f, "Comment " + i,
 					Lists.newArrayList(areas.get(i % areas.size())));
 			sites.add(s);
