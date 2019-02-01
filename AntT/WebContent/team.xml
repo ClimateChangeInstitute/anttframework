@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE team SYSTEM "team.dtd">
 <team>
-	<!-- This is an example xml template - it is a way to define your members -->
+	<!-- This is an example xml template - it is a way to define your members last time updated Feb 2019-->
 	<member>
 		<name>Nelia W. Dunbar</name>
 		<url>http://geoinfo.nmt.edu/staff/dunbar</url>
-		<email>nelia[@]nmbg.nmt.edu</email>
+		<email>nelia[@]nmt.edu</email>
 		<other>New Mexico Bureau of Geology and Mineral Resources 
-Earth and Environmental Science Department, New Mexico Tech.</other>
+New Mexico Institute of Mining   Technology</other>
 		<image>
 			<url>./index_files/images/NWD-2016.jpg</url>
 			<title>Dr. Nelia Dunbar</title>
@@ -16,7 +16,7 @@ Earth and Environmental Science Department, New Mexico Tech.</other>
 	</member>
 		<member>
 		<name>Laura Hartman</name>
-		<url>http://climatechange.umaine.edu/people/profile/laura_hartman</url>
+		<url>https://climatechange.umaine.edu/people/laura-hartman/</url>
 		<email>laura.hartman[@]maine.edu</email>
 		<other>Climate Change Institute, University of Maine</other>
 		<image>
@@ -38,7 +38,7 @@ Earth and Environmental Science Department, New Mexico Tech.</other>
 	</member>
 	<member>
 		<name>Andrei V. Kurbatov</name>
-		<url>http://climatechange.umaine.edu/people/profile/andrei_kurbatov</url>
+		<url>https://climatechange.umaine.edu/people/andrei-kurbatov/</url>
 		<email>akurbatov[@]maine.edu</email>
 		<other>Climate Change Institute, University of Maine</other>
 		<image>
@@ -49,7 +49,7 @@ Earth and Environmental Science Department, New Mexico Tech.</other>
 	</member>
 		<member>
 		<name>Mark E. Royer</name>
-		<url>http://aturing.umcs.maine.edu/~mark.royer/</url>
+		<url>https://markroyer.me/</url>
 		<email>mroyer[@]cs.umaine.edu</email>
 		<other>Department of Computer Science, University of Maine</other>
 		<image>
@@ -67,17 +67,6 @@ Earth and Environmental Science Department, New Mexico Tech.</other>
 			<url>./index_files/images/WS.jpg</url>
 			<title>Member 3 </title>
 			<alt>Member 3</alt>
-		</image>
-	</member>
-	<member>
-		<name>Sarah Wheatley</name>
-		<url>http://climatechange.umaine.edu/people/profile/sarah_wheatley</url>
-		<email>sarah.d.wheatley[@]maine.edu</email>
-		<other>Climate Change Institute, University of Maine</other>
-		<image>
-			<url>./index_files/images/SarahWheatley.jpg</url>
-			<title>member2</title>
-			<alt>Member2</alt>
 		</image>
 	</member>
 	<member>
