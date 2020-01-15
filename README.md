@@ -32,24 +32,27 @@ directory.
 
 [Dr. Christopher Gerbi](http://umaine.edu/earthclimate/faculty-staff/faculty-and-staff/christopher-gerbi)
 
-[PhD student Nels Iverson](https://sites.google.com/site/nelsiverson/)
+[Dr. Nels Iverson](https://geoinfo.nmt.edu/staff/detail.cfml?name=iverson)
+
 MS student Laura Hartman
 
 MS student Donna Kalteyer
 
 Undergraduate student Matt Koehler, Fall 2012, Spring 2013, and Summer 2013
 
+[Dr. Andrei Kurbatov](https://umaine.edu/earthclimate/people/andrei-kurbatov/)
+
 [PhD student Mark Royer, Spring 2016](https://markroyer.me/)
 
 Undergraduate student Robert Segerson, Fall 2012
 
-[Undergraduate student Tyler Sullivan, Summer 2013 and Fall 2013]()
+Undergraduate student Tyler Sullivan, Summer 2013 and Fall 2013]
 
-[Dr. William C. McIntosh](http://www.ees.nmt.edu/mcintosh/)
+Dr. William C. McIntosh
 
-[Undergraduate student Natasha McWalters, Fall 2015 and Spring 2016]()
+Undergraduate student Natasha McWalters, Fall 2015 and Spring 2016
 
-[Dr. Martin G. Yates](http://umaine.edu/earthclimate/faculty-staff/faculty-and-staff/martin-yates/)
+[Dr. Martin G. Yates](https://umaine.edu/earthclimate/people/martin-yates/)
 
 [Undergraduate student Willie Stevenson, Fall 2016](https://williestevenson.me/)
 
