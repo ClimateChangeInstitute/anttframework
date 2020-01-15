@@ -33,23 +33,21 @@ directory.
 [Dr. Christopher Gerbi](http://umaine.edu/earthclimate/faculty-staff/faculty-and-staff/christopher-gerbi)
 
 [PhD student Nels Iverson](https://sites.google.com/site/nelsiverson/)
-[MS student Laura Hartman](http://climatechange.umaine.edu/people/profile/laura_hartman)
+MS student Laura Hartman
 
-[MS student Donna Kalteyer](http://climatechange.umaine.edu/people/profile/donna_kalteyer)
+MS student Donna Kalteyer
 
-[Undergraduate student Matt Koehler, Fall 2012, Spring 2013, and Summer 2013](http://www.ess.washington.edu/dwp/people/profileG.php?name=koehler--matt)
+Undergraduate student Matt Koehler, Fall 2012, Spring 2013, and Summer 2013
 
-[PhD student Mark Royer, Spring 2016](http://aturing.umcs.maine.edu/~mark.royer)
+[PhD student Mark Royer, Spring 2016](https://markroyer.me/)
 
-[Undergraduate student Robert Segerson, Fall 2012]()
+Undergraduate student Robert Segerson, Fall 2012
 
 [Undergraduate student Tyler Sullivan, Summer 2013 and Fall 2013]()
 
 [Dr. William C. McIntosh](http://www.ees.nmt.edu/mcintosh/)
 
 [Undergraduate student Natasha McWalters, Fall 2015 and Spring 2016]()
-
-[MS student Sarah Wheatley, Summer 2015 - present](http://climatechange.umaine.edu/people/profile/sarah_wheatley)
 
 [Dr. Martin G. Yates](http://umaine.edu/earthclimate/faculty-staff/faculty-and-staff/martin-yates/)
 
