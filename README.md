@@ -1,8 +1,9 @@
 
 # Welcome To The Antarctic Tephra (AntT) Project!
 
-AntT is an **NSF** funded project:
-	[ANT-1142007](http://nsf.gov/awardsearch/showAward.do?AwardNumber=1142007)
+AntT database developmnt was funded by **NSF**:
+	[ANT-1142007](http://nsf.gov/awardsearch/showAward.do?AwardNumber=1142007
+	[ANT-1142069](http://nsf.gov/awardsearch/showAward.do?AwardNumber=1142069)
 
 ## Collaborative Research
 
@@ -10,8 +11,6 @@ The AntT framework is an Antarctic tephra database for
 interdisciplinary paleoclimate research.  This repository contains the
 source code for the framework.  The tephra data is hosted at the
 following URL: <http://www.tephrochronology.org/AntT/index.html>.
-
-An example test site is currently hosted at <https://lilac.umcs.maine.edu/AntT/>.
 
 ## Setup
 
