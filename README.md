@@ -1,8 +1,8 @@
 
 # Welcome To The Antarctic Tephra (AntT) Project!
 
-AntT database developmnt was funded by **NSF**:
-	[ANT-1142007](http://nsf.gov/awardsearch/showAward.do?AwardNumber=1142007)
+AntT database developmnt was funded by **NSF**: awards: 
+	[ANT-1142007](http://nsf.gov/awardsearch/showAward.do?AwardNumber=1142007) and
 	[ANT-1142069](http://nsf.gov/awardsearch/showAward.do?AwardNumber=1142069)
 
 ## Collaborative Research
