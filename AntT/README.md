@@ -44,6 +44,24 @@ cd anttframework/AntT/setup && ./createDB.sh
 
 ### Building the source code
 
+#### Using docker image
+
+If you don't have the exact versions of Maven 3.6.3 and Java 8 (there
+appear to be compatibility issues with Java >=11) installed, you can
+use docker to run the builds.  For example,
+
+```bash
+docker run --rm -it -v $(pwd):/maven -w /maven maven:3.6.3-jdk-8 mvn clean verify
+```
+
+will clean, build, test, and generate a war file.
+
+#### Maven 3.6.3 and Java 8 properly installed
+
+Assuming that you have Maven 3.6.3 and Java 8 installed, the following
+commands will work.
+
+
 Use the following script to compile the Java source code.  You must
 run this command before executing commands listed below.
 
